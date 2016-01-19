@@ -63,9 +63,16 @@ a {
 }
 
 .form-control {
-    border-radius: 0;
+  /*  border-radius: 0;
+*/}
+.generated-preview a {
+    display: block;
+    font-size: 28px;
+    text-align: center;
+    font-weight: 700;
+    clear: both;
+    overflow: hidden;
 }
-
 [class^='ion-'] {
     font-size: 1.2em;
 }

@@ -1,10 +1,50 @@
-@(user: models.User)(implicit messages: Messages)
+@(user: models.User, test:String = "", cells: List[String] = List(), argForm: Form[ArgFields])(implicit messages: Messages,request: RequestHeader)
+@import play.api.Play
+@import helper._
 
 @main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+</style>
+
     <div class="user col-md-6 col-md-offset-3">
         <div class="row">
             <hr class="col-md-12" />
             <h4 class="col-md-8">@Messages("welcome.signed.in")</h4>
+        
+
+
+<div class="anchor-generate">
+    Сгенерировать новый документ
+    Имя (32 знака лимит)  
+    Фамилия (32 знака лимит)
+    Отчество (32 знака лимит)
+ 
+  @form(routes.ApplicationController.fillByAnchor(), 'class -> "topRight argForm") {
+   @CSRF.formField
+      @inputText(argForm("arg1"), '_label -> "arg1", 'class -> "form-control")
+      @inputText(argForm("arg2"), '_label -> "arg2", 'class -> "form-control")
+      @inputText(argForm("arg3"), '_label -> "arg3", 'class -> "form-control")
+      @inputText(argForm("arg4"), '_label -> "arg4", 'class -> "form-control")
+      @inputText(argForm("arg5"), '_label -> "arg5", 'class -> "form-control")
+      @inputText(argForm("arg6"), '_label -> "arg6", 'class -> "form-control")
+      @inputText(argForm("arg7"), '_label -> "arg7", 'class -> "form-control")
+      @inputText(argForm("arg8"), '_label -> "arg8", 'class -> "form-control")
+      @inputText(argForm("arg9"), '_label -> "arg9", 'class -> "form-control")
+
+  <button class="button-default btn btn-success button-confirm button-activated">Генерировать</button>
+}    
+    
+</div>
+
+<div class="generated-preview">
+<h4>Результаты</h4>
+<img style="height: 20%;width: 100%;"src="/assets/@{user.email.getOrElse("None")}_page1.png"><a href="/assets/@{user.email.getOrElse("None")}.tif">TIFF</a></div>
+
             <div class="col-md-4 text-right">
                 <img src="@user.avatarURL.getOrElse(routes.Assets.at("images/silhouette.png"))" height="40px" />
             </div>
@@ -26,5 +66,20 @@
                 </div>
             </div>
         </div>
+        <div class="row data">
+            <div class="col-md-12">
+                <div class="row">
+    
+                    <p class="col-md-6"><strong>        
+<!--<div class="cells">
+    cells.map { cell =>
+        <p>cell.rowNum:cell.cellNum</p>
+        <p>cell.data</p>
+    }
+</div>--> 
+
+
+</strong></p></div></div></div>
+
     </div>
 }
