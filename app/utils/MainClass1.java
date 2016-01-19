@@ -75,8 +75,8 @@ public MainClass1(String[] args) {
   String canonicalPath = new java.io.File( "." ).getCanonicalPath();
 
 
-	File file = new File(canonicalPath + "\\1111501_5.01000_05.tif");
-	InputStream is = new FileInputStream(canonicalPath + "\\1111501_5.01000_05.tif");
+	File file = new File(canonicalPath + "/1111501_5.01000_05.tif");
+	InputStream is = new FileInputStream(canonicalPath + "/1111501_5.01000_05.tif");
 	ImageInputStream input = ImageIO.createImageInputStream(is);
 
 //try {
