@@ -59,10 +59,11 @@ protected void paintComponent(Graphics g) {
 }
 
 private static void create(String[] args) {
-        JFrame f = new JFrame();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(new MainClass1(args));
-        f.pack();
+        //JFrame f = new JFrame();
+        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //f.add(new MainClass1(args));
+        //f.pack();
+        new MainClass1(args);
         //f.setVisible(true);
 
 
