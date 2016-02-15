@@ -1,5 +1,4 @@
 @(title: String, user: Option[models.User] = None)(content: Html)(implicit messages: Messages)
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,56 +9,385 @@
         <title>@title</title>
         <link href="//fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,600" rel="stylesheet">
         <link href="//cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
-
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <!--
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">-->
+        <!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
         <link rel="stylesheet" href="@routes.Assets.at("styles/main.css")">
-            <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-            <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-            <![endif]-->
-            <style>.anchor-detail {
-    display: block;
-    clear: both;
-    margin-top: 41px;
-    margin-bottom: 52px;
-}</style>
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>.anchor-detail {
+        display: block;
+        clear: both;
+        margin-top: 41px;
+        margin-bottom: 52px;
+        }</style>
     </head>
     <body>
-        <header class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">@Messages("toggle.navigation")</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="@routes.ApplicationController.index">@title</a>
-                </div>
-                <nav class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="@routes.ApplicationController.index">@Messages("home")</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        @user.map { u =>
-                            <li><a href="@routes.ApplicationController.index">@u.fullName</a></li>
-                            <li><a href="@routes.ApplicationController.signOut">@Messages("sign.out")</a></li>
+
+   <main>
+
+    <div class="w-nav navbar2" data-animation="default" data-collapse="none"
+    data-contain="1" data-duration="400" data-ix="new-interaction">
+        <div class="w-container">
+            <a class="w-nav-brand" href="#">
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div></a>
+            <nav class="w-nav-menu w-clearfix navbar2-navmenu" role=
+            "navigation">
+                <a class="w-nav-link navbar2-navlink tel-link" href=
+                "tel:+74994043188" style="max-width: 940px;">+7 (499)
+                404-31-88</a><a class=
+                "w-nav-link navbar2-navlink tel-link callback" href=
+                "tel:+74994043188" style="max-width: 940px;"></a><a class=
+                "w-nav-link navbar2-navlink" href="#" style=
+                "max-width: 940px;">Онлайн-регистрация бизнеса</a><a class=
+                "w-nav-link navbar2-navlink" href="#" style=
+                "max-width: 940px;">Ведение бухгалтерии</a><a class=
+                "w-nav-link navbar2-navlink" style=
+                "max-width: 940px;">Банковские гарантии</a>
+            </nav>
+            <div class="w-nav-button">
+                <div class="w-icon-nav-menu"></div>
+            </div>
+        </div>
+        <div class="w-nav-overlay" data-wf-ignore=""></div>
+    </div>
+    <div class="w-nav navbar" data-animation="default" data-collapse="none"
+    data-contain="1" data-duration="400">
+        <div class="w-container">
+            <a class="w-nav-brand brand" href="#"><img height="20" src=
+            "http://uploads.webflow.com/5637501d17335e240c9c1dd0/56b8c39a2cc671876c1b1c90_logo.svg"></a>
+            <nav class="w-nav-menu navmenu" role="navigation">
+                <a class="w-nav-link navlink" href="#e-sign" style=
+                "max-width: 940px;">Главная</a><a class="w-nav-link navlink"
+                href="#how-to-get" style="max-width: 940px;">Все
+                услуги</a><a class="w-nav-link navlink" href="#" style=
+                "max-width: 940px;">Цены и условия</a><a class=
+                "w-nav-link navlink" href="#feedback" style=
+                "max-width: 940px;">Партнеры</a><a class="w-nav-link navlink"
+                href="#" style="max-width: 940px;">Контакты</a>
+            </nav>
+            <div class="w-nav-button">
+                <div class="w-icon-nav-menu"></div>
+            </div>
+        </div>
+        <div class="w-nav-overlay" data-wf-ignore=""></div>
+    </div>
+
+
+
+    <div class="w-section lc-main">
+        <div class="w-nav user-info-bar" data-animation="default"
+        data-collapse="medium" data-contain="1" data-duration="400">
+            <div class="w-container">
+                <nav class="w-nav-menu w-clearfix user-info-menu" role=
+                "navigation">
+ @user.map { u =>
+                    <a class="w-nav-link user-info-left-link" href="@routes.ApplicationController.index" style=
+                    "max-width: 940px;">ип @u.fullName</a><a class="w-nav-link user-info-left-link" href=
+                    "#" style="max-width: 940px;"><span class=
+                    "app-user-info-plus"> &nbsp;</span>Новое
+                    заявление</a>
+<a class="w-nav-link user-info-bar-right-link user-info-right-link-alt" href="@routes.ApplicationController.signOut" style="max-width: 940px;"><span class="app-user-info-logout"></span></a>
+
+<a class="w-nav-link user-info-bar-right-link" href="#" style="max-width: 940px;">@u.fullName</a>
                         }.getOrElse {
-                            <li><a href="@routes.ApplicationController.signIn">@Messages("sign.in")</a></li>
-                            <li><a href="@routes.ApplicationController.signUp">@Messages("sign.up")</a></li>
+<a class="w-nav-link user-info-left-link" href="@routes.ApplicationController.signIn" style=
+                    "max-width: 940px;">@Messages("sign.in")
+                    Юрьевич</a>
+<a class="w-nav-link user-info-left-link" href="@routes.ApplicationController.signUp" style="max-width: 940px;"><span class="app-user-info-plus"> &nbsp;</span>@Messages("sign.up")</a>
+<a class="w-nav-link user-info-bar-right-link user-info-right-link-alt" href="#" style="max-width: 940px;"><span class="app-user-info-logout"></span></a><a class=
+                    "w-nav-link user-info-bar-right-link" href="#" style=
+                    "max-width: 940px;">Евгений Тимофеев</a>                        
+
                         }
-                    </ul>
+
+                    
                 </nav>
+                <div class="w-nav-button">
+                    <div class="w-icon-nav-menu"></div>
+                </div>
             </div>
-        </header>
-        <main class="container">
-            <div class="starter-template row">
-                @content
+            <div class="w-nav-overlay" data-wf-ignore=""></div>
+        </div>
+        <div class="w-container">
+            <div class="w-row">
+                <div class="w-col w-col-3">
+                    <div class="round-check active-check"></div>
+                    <div class="label-check active-label-check">
+                        Подготовка<br>
+                        документов
+                    </div>
+                </div>
+                <div class="w-col w-col-3">
+                    <a class="w-inline-block big-link" href=
+                    "/payment/payment-duty">
+                    <div class="round-check"></div>
+                    <div class="label-check">
+                        ОПЛАТА<br>
+                        ГОСПОШЛИНЫ
+                    </div></a>
+                </div>
+                <div class="w-col w-col-3">
+                    <div class="round-check"></div>
+                    <div class="label-check">
+                        ВЫПУСК<br>
+                        ЭЛЕКТРОННОЙ ПОДПИСИ
+                    </div>
+                </div>
+                <div class="w-col w-col-3">
+                    <div class="round-check"></div>
+                    <div class="label-check">
+                        ОТПРАВКА<br>
+                        ДОКУМЕНТОВ
+                    </div>
+                </div>
             </div>
+            <div class="application-content">
+                <div class="w-clearfix application-header-box">
+                    <div class="w-clearfix application-header-icon">
+                        <div class="application-heading-icon">
+                            
+                        </div>
+                    </div>
+                    <div class="application-header">
+                        <h2 class="content-heading">Подготовка пакета
+                        документов</h2>
+                    </div>
+                </div>
+                <div class="application-body application-body-menu">
+                    <div class="w-nav application-nav" data-animation="default"
+                    data-collapse="medium" data-contain="1" data-duration=
+                    "400">
+                        <div class="w-container">
+                            <nav class="w-nav-menu application-nav-menu" role=
+                            "navigation">
+                                <a class=
+                                "w-nav-link application-nav-button application-nav-button-active w--current"
+                                href="/documents/passport-ip" style=
+                                "max-width: 940px;">Паспорт</a>
+                                <div class="application-nav-arrow">
+                                    
+                                </div><a class=
+                                "w-nav-link application-nav-button" href=
+                                "/documents/address-ip" style=
+                                "max-width: 940px;">Адрес регистрации</a>
+                                <div class="application-nav-arrow">
+                                    
+                                </div><a class=
+                                "w-nav-link application-nav-button" href=
+                                "/documents/okved" style=
+                                "max-width: 940px;">Виды деятельности</a>
+                                <div class="application-nav-arrow">
+                                    
+                                </div><a class=
+                                "w-nav-link application-nav-button" href=
+                                "/documents/taxes-ip" style=
+                                "max-width: 940px;">Налогообложение</a>
+                                <div class="application-nav-arrow">
+                                    
+                                </div><a class=
+                                "w-nav-link application-nav-button" href=
+                                "/documents/documents-ip" style=
+                                "max-width: 940px;">Документы</a>
+                            </nav>
+                            <div class="w-nav-button">
+                                <div class="w-icon-nav-menu"></div>
+                            </div>
+                        </div>
+                        <div class="w-nav-overlay" data-wf-ignore=""></div>
+                    </div>
+                </div>
+                <div class="application-body">
+                    <a class="quote" data-ix="stick-1" href="#"></a>
+                    <div class="sticky-quote">
+                        Тут везде ничего необычного:<br>
+                        — текст<br>
+                        — русский язык<br>
+                        — можно сделать, чтобы начиналось с заглавной<br>
+                        — поля с датой с селектором даты<br>
+                        — поле кем выдан все капсом<br>
+                        — поле к/п с маской _ _ - _ _<br>
+                        <br>
+                        Есть еще такая тема:<br>
+                        можно проверять паспорт на действительность (по нажатию
+                        кнопки или автоматически напр). Я еще не определился на
+                        сколько это нужно<br>
+                        <br>
+                        http://services.fms.gov.ru/info-service.htm?sid=2000 —
+                        тут ежедневно обновляемая база лежит, проверка по серии
+                        и номеру
+                    </div>
+                    <div class="w-form application-form">
+                        <form data-name="Email Form" id="email-form" name=
+                        "email-form">
+                            <input class="w-button application-submit-button"
+                            data-wait="Please wait..." type="submit" value=
+                            "Сохранить">
+                        </form>
+                        <div class="w-form-done">
+                            <p>Thank you! Your submission has been
+                            received!</p>
+                        </div>
+                        <div class="w-form-fail">
+                            <p>Oops! Something went wrong while submitting the
+                            form</p>
+                        </div>
+                    </div>
+                    <h3 class="application-subheading">Паспорт</h3>
+                    <p class="application-paragraph">
+                    Общероссийский&nbsp;классификатор&nbsp;видов экономической
+                    деятельности&nbsp;(сокращ.&nbsp;ОКВЭД)&nbsp;— документ,
+                    входящий в состав&nbsp;общероссийских классификаторов
+                    технико-экономической и социальной информации.</p>
+                </div>
+                <div class="application-body">
+                    <div class="w-form application-form">
+                        <form data-name="Email Form" id="email-form" name=
+                        "email-form">
+                            <label class="application-form-label" for=
+                            "name-4">Имя:</label><input class=
+                            "w-input application-form-field" data-name="Name 4"
+                            id="name-4" name="name-4" type="text">
+                            <div class="application-form-check">
+                                
+                            </div><label class="application-form-label" for=
+                            "name-5">Отчество:</label><input class=
+                            "w-input application-form-field" data-name="Name 5"
+                            id="name-5" name="name-5" type="text">
+                            <div class="application-form-check">
+                                
+                            </div><label class="application-form-label" for=
+                            "name-6">Фамилия:</label><input class=
+                            "w-input application-form-field" data-name="Name 6"
+                            id="name-6" name="name-6" type="text">
+                            <div class="application-form-check">
+                                
+                            </div><input class=
+                            "w-button application-submit-button" data-wait=
+                            "Please wait..." type="submit" value="Сохранить">
+                        </form>
+                        <div class="w-form-done">
+                            <p>Thank you! Your submission has been
+                            received!</p>
+                        </div>
+                        <div class="w-form-fail">
+                            <p>Oops! Something went wrong while submitting the
+                            form</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="application-body application-body-middle">
+                    <div class="w-nav application-nav" data-animation="default"
+                    data-collapse="medium" data-contain="1" data-duration=
+                    "400">
+                        <div class="w-container">
+                            <div class="w-nav-button">
+                                <div class="w-icon-nav-menu"></div>
+                            </div>
+                        </div>
+                        <div class="w-nav-overlay" data-wf-ignore=""></div>
+                    </div>
+                    <div class="w-form application-form">
+                        <form data-name="Email Form" id="email-form" name=
+                        "email-form">
+                            <label class="application-form-label" for=
+                            "email-4">Дата рождения:</label><input class=
+                            "w-input application-form-field" data-name=
+                            "Email 4" id="email-4" name="email-4" required=
+                            "required" type="email">
+                            <div class="application-form-check">
+                                
+                            </div><label class="application-form-label" for=
+                            "email-5">Место рождения:</label><input class=
+                            "w-input application-form-field" data-name=
+                            "Email 5" id="email-5" name="email-5" required=
+                            "required" type="email">
+                            <div class="application-form-check">
+                                
+                            </div><input class=
+                            "w-button application-submit-button" data-wait=
+                            "Please wait..." type="submit" value="Сохранить">
+                        </form>
+                        <div class="w-form-done">
+                            <p>Thank you! Your submission has been
+                            received!</p>
+                        </div>
+                        <div class="w-form-fail">
+                            <p>Oops! Something went wrong while submitting the
+                            form</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="application-body application-body-middle">
+                    <div class="w-nav application-nav" data-animation="default"
+                    data-collapse="medium" data-contain="1" data-duration=
+                    "400">
+                        <div class="w-container">
+                            <div class="w-nav-button">
+                                <div class="w-icon-nav-menu"></div>
+                            </div>
+                        </div>
+                        <div class="w-nav-overlay" data-wf-ignore=""></div>
+                    </div>
+                    <div class="w-form application-form">
+                        <form data-name="Email Form" id="email-form" name=
+                        "email-form">
+                            <label class="application-form-label" for=
+                            "email-6">Кем выдан:</label><input class=
+                            "w-input application-form-field application-form-field-long"
+                            data-name="Email 6" id="email-6" name="email-6"
+                            required="required" type="email">
+                            <div class="application-form-check">
+                                
+                            </div><label class="application-form-label" for=
+                            "email-7">Когда выдан:</label><input class=
+                            "w-input application-form-field" data-name=
+                            "Email 7" id="email-7" name="email-7" required=
+                            "required" type="email">
+                            <div class="application-form-check">
+                                
+                            </div><label class="application-form-label" for=
+                            "email-8">Код подразделения:</label><input class=
+                            "w-input application-form-field" data-name=
+                            "Email 8" id="email-8" name="email-8" required=
+                            "required" type="email">
+                            <div class="application-form-check">
+                                
+                            </div><input class=
+                            "w-button application-submit-button" data-wait=
+                            "Please wait..." type="submit" value="Сохранить">
+                        </form>
+                        <div class="w-form-done">
+                            <p>Thank you! Your submission has been
+                            received!</p>
+                        </div>
+                        <div class="w-form-fail">
+                            <p>Oops! Something went wrong while submitting the
+                            form</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="application-footer">
+                    <a class="w-button application-next-button" href=
+                    "#">Продолжить</a>
+                </div>
+            </div>
+        </div>          
+
+            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <script type="text/javascript" src="https://daks2k3a4ib2z.cloudfront.net/5637501d17335e240c9c1dd0/js/webflow.0b0c861d8.js"></script>
+            <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+            @content
+
+
+
         </main>
-<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+        <script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
     </body>
 </html>

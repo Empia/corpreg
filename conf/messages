@@ -25,8 +25,8 @@ password = Пароль
 sign.up = Регистрация
 sign.in = Вход
 sign.out = Выход
-sign.in.now = Войти сейчас
-sign.up.now = Войти Сейчас
+sign.in.now = Войти
+sign.up.now = Зарегистрируйтесь
 already.a.member = Уже зарегестрированы?
 not.a.member = Новый пользователь?
 
