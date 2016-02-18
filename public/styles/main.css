@@ -2648,3 +2648,15 @@ h4 {
 .disabled {
 	opacity: 0.3;
 }
+form-field-verybig {
+    display: block;
+    width: 600px;
+    margin-top: 21px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 10px;
+    padding-bottom: 9px;
+    float: left;
+    border-width: 2px;
+    border-color: #5c92cc;
+}

@@ -93,5 +93,23 @@
         </main>
         <script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
+
+<script>
+     $("#address").suggestions({
+        serviceUrl: "http://suggestions.dadata.ru/suggestions/api/4_1/rs",
+        token: "2aba8de760c817b3e11ac7726435d42a124d5f62",
+        type: "ADDRESS",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function(suggestion) {
+            console.log(suggestion);
+        }
+    });
+</script>
+
     </body>
 </html>
