@@ -30,7 +30,7 @@
     <body>
 
    <main>
-<div data-collapse="none" data-animation="default" data-duration="400" data-contain="1" class="w-nav navbar"><div class="w-container"><img src="/assets/images/56bb264d0758a4b421e9c995_Gett-vector.png" class="gett-logo" height="50"><a href="#" class="w-nav-brand brand"><img src="/assets/images/КЛЕРКСИ.svg" height="17"></a><nav role="navigation" class="w-nav-menu navmenu"><a style="max-width: 940px;" href="#e-sign" class="w-nav-link navlink nav-link-gett">Главная</a><a style="max-width: 940px;" href="#how-to-get" class="w-nav-link navlink nav-link-gett">Все услуги</a><a style="max-width: 940px;" href="#" class="w-nav-link navlink nav-link-gett">Цены и условия</a><a style="max-width: 940px;" href="#feedback" class="w-nav-link navlink nav-link-gett">Партнеры</a><a style="max-width: 940px;" href="#" class="w-nav-link navlink nav-link-gett">Контакты</a></nav><div class="w-nav-button"><div class="w-icon-nav-menu"></div></div></div><div class="w-nav-overlay" data-wf-ignore=""></div></div>
+<div data-collapse="none" data-animation="default" data-duration="400" data-contain="1" class="w-nav navbar"><div class="w-container"><img src="/assets/images/56bb264d0758a4b421e9c995_Gett-vector.png" class="gett-logo" height="50"><a href="/" class="w-nav-brand brand"><img src="/assets/images/КЛЕРКСИ.svg" height="17"></a><nav role="navigation" class="w-nav-menu navmenu"><a style="max-width: 940px;" href="#e-sign" class="w-nav-link navlink nav-link-gett">Главная</a><a style="max-width: 940px;" href="#how-to-get" class="w-nav-link navlink nav-link-gett">Все услуги</a><a style="max-width: 940px;" href="#" class="w-nav-link navlink nav-link-gett">Цены и условия</a><a style="max-width: 940px;" href="#feedback" class="w-nav-link navlink nav-link-gett">Партнеры</a><a style="max-width: 940px;" href="#" class="w-nav-link navlink nav-link-gett">Контакты</a></nav><div class="w-nav-button"><div class="w-icon-nav-menu"></div></div></div><div class="w-nav-overlay" data-wf-ignore=""></div></div>
 
     
 
@@ -45,12 +45,12 @@
  @user.map { u =>
                     <a class="w-nav-link user-info-left-link" href="@routes.ApplicationController.index" style=
                     "max-width: 940px;">ип @u.fullName</a><a class="w-nav-link user-info-left-link" href=
-                    "#" style="max-width: 940px;"><span class=
+                    "/gett-passport" style="max-width: 940px;"><span class=
                     "app-user-info-plus"> &nbsp;</span>Новое
                     заявление</a>
 <a class="w-nav-link user-info-bar-right-link user-info-right-link-alt" href="@routes.ApplicationController.signOut" style="max-width: 940px;"><span class="app-user-info-logout"></span></a>
 
-<a class="w-nav-link user-info-bar-right-link" href="#" style="max-width: 940px;">@u.fullName</a>
+<a class="w-nav-link user-info-bar-right-link" href="/" style="max-width: 940px;">@u.fullName</a>
                         }.getOrElse {
 <a class="w-nav-link user-info-left-link" href="@routes.ApplicationController.signIn" style=
                     "max-width: 940px;">@Messages("sign.in")</a>
@@ -81,8 +81,11 @@
 <![endif]-->
 <script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
 
+         <!--
             <script type="text/javascript" src="https://daks2k3a4ib2z.cloudfront.net/5637501d17335e240c9c1dd0/js/webflow.0b0c861d8.js"></script>
+            -->
             <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+
             @content
 
 
