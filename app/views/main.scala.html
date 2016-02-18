@@ -107,6 +107,17 @@
         /* Вызывается, когда пользователь выбирает одну из подсказок */
         onSelect: function(suggestion) {
             console.log(suggestion);
+
+
+            $('input#postalcode').val(suggestion.data.postal_code);
+            $('input#region').val(suggestion.data.region);
+            $('input#area').val(suggestion.data.city_district);
+            $('input#city').val(suggestion.data.city);
+            $('input#posel').val(suggestion.data.settlement);
+            $('input#street').val(suggestion.data.street);
+            $('input#home').val(suggestion.data.house);
+            $('input#corpus').val(suggestion.data.block);
+            $('input#appartment').val(suggestion.data.flat);
         }
     });
 </script>
