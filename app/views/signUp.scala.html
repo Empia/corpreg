@@ -9,22 +9,44 @@
             <strong>@Messages("error")</strong> @msg
         </div>
     }
-    <fieldset class="col-md-6 col-md-offset-3">
-        <legend>@Messages("sign.up.account")</legend>
-        @helper.form(action = routes.SignUpController.signUp()) {
+       <div class="w-container">
+            <div class="application-content">
+ 
+<div class="application-body application-body-address">
+    <div class="w-form application-form">
+@helper.form(action = routes.SignUpController.signUp(), 'id -> "email-form") {
             @helper.CSRF.formField
-            @b3.text(signInForm("firstName"), '_hiddenLabel -> Messages("first.name"), 'placeholder -> Messages("first.name"), 'class -> "form-control input-lg")
-            @b3.text(signInForm("lastName"), '_hiddenLabel -> Messages("last.name"), 'placeholder -> Messages("last.name"), 'class -> "form-control input-lg")
-            @b3.text(signInForm("email"), '_hiddenLabel -> Messages("email"), 'placeholder -> Messages("email"), 'class -> "form-control input-lg")
-            @b3.password(signInForm("password"), '_hiddenLabel -> Messages("password"), 'placeholder -> Messages("password"), 'class -> "form-control input-lg")
-            <div class="form-group">
-                <div>
-                    <button id="submit" type="submit" value="submit" class="btn btn-lg btn-primary btn-block">@Messages("sign.up")</button>
+
+
+      
+            <div class="w-row appplication-form-row">
+                <div class="w-col w-col-12">
+                        <label for="name-11" class="application-form-label application-form-label-address">Имя</label>
+                        @b3.text(signInForm("firstName"), 'id -> "name-11",'class -> "w-input application-form-field application-form-field-address")
+                </div>
+                <div class="w-col w-col-12">
+                        <label for="name-11" class="application-form-label application-form-label-address">Фамилия</label>
+                        @b3.text(signInForm("lastName"), 'id -> "name-11",'class -> "w-input application-form-field application-form-field-address")
+                </div> 
+              <div class="w-col w-col-12">
+                        <label for="name-11" class="application-form-label application-form-label-address">Email</label>
+                        @b3.text(signInForm("email"), 'id -> "name-11",'class -> "w-input application-form-field application-form-field-address")
+                </div>                
+                <div class="w-col w-col-12">
+                            <label for="name-12" class="application-form-label application-form-label-address">Пароль:</label>
+            @b3.password(signInForm("password"), 'id -> "name-12", 'class -> "w-input application-form-field application-form-field-address")
                 </div>
             </div>
-            <div class="sign-in-now">
-                <p>@Messages("already.a.member") <a href="@routes.ApplicationController.signIn">@Messages("sign.in.now")</a></p>
-            </div>
+
+            <div class="application-footer">
+                <button id="submit" type="submit" value="submit" class="w-button application-next-button ap plication-next-button-gett">Регистрация</button>
+
         }
-    </fieldset>
+                                            </div>
+                                        </div>
+
+            </div>
+
+        </div>
+
 }
