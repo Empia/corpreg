@@ -124,7 +124,8 @@ val ArgFieldsForm = Form(mapping("arg1" -> text,
 
 
 def passport = SecuredAction.async { implicit request => 
-  Future(Ok("ok"))
+
+  Future.successful(Ok(views.html.passport(request.identity )))
 }
 def address = SecuredAction.async { implicit request => 
   Future(Ok("ok"))
