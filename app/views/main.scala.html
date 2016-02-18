@@ -108,16 +108,26 @@
         onSelect: function(suggestion) {
             console.log(suggestion);
 
+            function decorate(first, last) {
+                if (first && last) {
+                    return first + ' ' + last;
+                } else if (first) {
+                    return first;
+                }
+                else if (last) {
+                    return last;
+                }
+            }
 
             $('input#postalcode').val(suggestion.data.postal_code);
-            $('input#region').val(suggestion.data.region);
+            $('input#region').val(decorate(suggestion.data.region_type, suggestion.data.region));
             $('input#area').val(suggestion.data.city_district);
-            $('input#city').val(suggestion.data.city);
-            $('input#posel').val(suggestion.data.settlement);
-            $('input#street').val(suggestion.data.street);
-            $('input#home').val(suggestion.data.house);
-            $('input#corpus').val(suggestion.data.block);
-            $('input#appartment').val(suggestion.data.flat);
+            $('input#city').val(decorate(suggestion.data.city_type, suggestion.data.city));
+            $('input#posel').val(decorate(suggestion.data.settlement_type, suggestion.data.settlement));
+            $('input#street').val(decorate(suggestion.data.street_type, suggestion.data.street));
+            $('input#home').val(decorate(suggestion.data.house_type, suggestion.data.house));
+            $('input#corpus').val(decorate(suggestion.data.block_type, suggestion.data.block));
+            $('input#appartment').val(decorate(suggestion.data.flat_type, suggestion.data.flat));
         }
     });
 </script>
