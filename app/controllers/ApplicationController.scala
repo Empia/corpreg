@@ -25,7 +25,7 @@ import play.api.i18n.MessagesApi
 import scala.concurrent.Future
 import info.folone.scala.poi._
 
-
+import scala.concurrent.ExecutionContext.Implicits.global
 case class RowCellView(rowNum: Int, cellNum: Int, data: String)
 
 
@@ -84,6 +84,7 @@ def writePdf() = {
 }
 }
 
+
 case class ArgFields(
                     arg1:String = "",
                     arg2:String = "",
@@ -120,6 +121,23 @@ val ArgFieldsForm = Form(mapping("arg1" -> text,
   "arg8" -> text,
   "arg9" -> text
 )(ArgFields.apply)(ArgFields.unapply))
+
+
+def passport = SecuredAction.async { implicit request => 
+  Future(Ok("ok"))
+}
+def address = SecuredAction.async { implicit request => 
+  Future(Ok("ok"))
+}
+def okved = SecuredAction.async { implicit request => 
+  Future(Ok("ok"))
+}
+def taxesIP = SecuredAction.async { implicit request => 
+  Future(Ok("ok"))
+}
+def documentsIP = SecuredAction.async { implicit request => 
+  Future(Ok("ok"))
+}
 
   /**
    * Handles the index action.

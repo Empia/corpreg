@@ -4,6 +4,12 @@
 
 # Home page
 GET         /                                controllers.ApplicationController.index
+GET /gett-passport controllers.ApplicationController.passport
+GET /gett-address controllers.ApplicationController.address
+GET /okved controllers.ApplicationController.okved
+GET /taxes-ip controllers.ApplicationController.taxesIP
+GET /documents-ip controllers.ApplicationController.documentsIP
+
 POST        /fill1                           controllers.ApplicationController.fillByAnchor()
 GET         /signIn                          controllers.ApplicationController.signIn
 GET         /signUp                          controllers.ApplicationController.signUp
