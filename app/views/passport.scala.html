@@ -189,6 +189,14 @@
                         <form data-name="Email Form" id="email-form" name=
                         "email-form">
                             <label class="application-form-label" for=
+                            "email-6">Номер:</label><input class=
+                            "w-input application-form-field application-form-field-long"
+                            data-name="Email 6" id="passport" name="email-6"
+                            required="required" type="email">
+                            <div class="application-form-check">
+                                
+                            </div>
+                            <label class="application-form-label" for=
                             "email-6">Кем выдан:</label><input class=
                             "w-input application-form-field application-form-field-long"
                             data-name="Email 6" id="email-6" name="email-6"
@@ -230,6 +238,7 @@
             </div>
         </div>          
 
-
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+ <script>$("#passport").inputmask({"mask": "aa999999"});</script>
 }         
 
