@@ -2303,13 +2303,15 @@ h4 {
 }
 @font-face {
   font-family: 'Material design iconic font';
-  src: url('https://daks2k3a4ib2z.cloudfront.net/5637501d17335e240c9c1dd0/563f54210908e65e7aa45eec_Material-Design-Iconic-Font.woff2') format('undefined'), url('https://daks2k3a4ib2z.cloudfront.net/5637501d17335e240c9c1dd0/563f5421afc78a970579295e_Material-Design-Iconic-Font.woff') format('woff');
+  src: url('/assets/fonts/563f54210908e65e7aa45eec_Material-Design-Iconic-Font.woff2') format('undefined'), 
+  url('/assets/fonts/563f5421afc78a970579295e_Material-Design-Iconic-Font.woff') 
+  format('woff');
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: 'Fon Aawesome';
-  src: url('https://daks2k3a4ib2z.cloudfront.net/5637501d17335e240c9c1dd0/564da3f159d460550eab1d7a_fontawesome-webfont.woff') format('woff');
+  src: url('/assets/fonts/564da3f159d460550eab1d7a_fontawesome-webfont.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
