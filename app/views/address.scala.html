@@ -1,1 +1,186 @@
-page2.scala.html
+@(user: models.User)(implicit messages: Messages,request: RequestHeader)
+@import play.api.Play
+@import helper._
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+</style>
+
+
+        <div class="w-container">
+            <div class="w-row">
+                <div class="w-col w-col-3">
+                    <div class="round-check active-check active-check-gett"></div>
+                    <div class="label-check active-label-check active-label-check-gett">
+                        Подготовка<br>
+                        документов
+                    </div>
+                </div>
+                <div class="w-col w-col-3">
+                    <a class="w-inline-block big-link" href=
+                    "/payment/payment-duty">
+                    <div class="round-check"></div>
+                    <div class="label-check">
+                        ОПЛАТА<br>
+                        ГОСПОШЛИНЫ
+                    </div></a>
+                </div>
+                <div class="w-col w-col-3">
+                    <div class="round-check"></div>
+                    <div class="label-check">
+                        ВЫПУСК<br>
+                        ЭЛЕКТРОННОЙ ПОДПИСИ
+                    </div>
+                </div>
+                <div class="w-col w-col-3">
+                    <div class="round-check"></div>
+                    <div class="label-check">
+                        ОТПРАВКА<br>
+                        ДОКУМЕНТОВ
+                    </div>
+                </div>
+            </div>
+            <div class="application-content">
+               <div class="w-clearfix application-header-box application-header-box-gett">
+    <div class="w-clearfix application-header-icon application-header-icon-gett">
+        <div class="application-heading-icon application-heading-icon-gett"></div>
+    </div>
+    <div class="application-header">
+        <h2 class="content-heading content-heading-gett">Подготовка пакета документов</h2>
+    </div>
+    <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+        <div class="w-container">
+            <nav role="navigation" class="w-nav-menu application-nav-menu">
+                <a style="max-width: 940px;" href="/gett-passport" class="w-nav-link application-nav-button application-nav-button-done application-nav-button-done-gett">Паспорт</a>
+                <div class="application-nav-arrow"></div>
+                <a style="max-width: 940px;" href="/gett-address" class="w-nav-link application-nav-button application-nav-button-active-gett w--current application-nav-button-active">Адрес регистрации</a>
+                <div class="application-nav-arrow"></div>
+                <a style="max-width: 940px;" href="/gett-okved" class="w-nav-link application-nav-button">Виды деятельности</a>
+                <div class="application-nav-arrow"></div>
+                <a style="max-width: 940px;" href="/gett-taxes-ip" class="w-nav-link application-nav-button">Налогообложение</a>
+                <div class="application-nav-arrow"></div>
+                <a style="max-width: 940px;" href="/gett-documents-ip" class="w-nav-link application-nav-button">Документы</a>
+            </nav>
+            <div class="w-nav-button">
+                <div class="w-icon-nav-menu"></div>
+            </div>
+        </div>
+        <div class="w-nav-overlay" data-wf-ignore=""></div>
+    </div>
+</div>
+
+    <div class="application-body application-body-upper">
+        <a href="#" data-ix="stick-1" class="quote"></a>
+        <div class="sticky-quote">Исхожу из того, что через dadata можно реализовать следующий механизм:
+            <br>
+                <br>— пользователь вводит в большое поле адрес как ему удобно
+                    <br>— программа распознает его по ФИАС и раскидывает по нужным нам ячейкам все адресные наименования
+                    </div>
+                    <div class="w-form application-form">
+                        <form id="email-form" name="email-form" data-name="Email Form">
+                            <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
+                            </form>
+                            <div class="w-form-done">
+                                <p>Thank you! Your submission has been received!</p>
+                            </div>
+                            <div class="w-form-fail">
+                                <p>Oops! Something went wrong while submitting the form</p>
+                            </div>
+                        </div>
+                        <h3 class="application-subheading application-subheading-gett">Адрес регистрации</h3>
+                        <p class="application-paragraph">Укажите адрес вашего постоянного места жительства (последний штамп в паспорте).</p>
+                        <p class="application-paragraph application-paragraph-2">По этому адресу вы будете зарегистрированы в качестве индивидуального предпринимателя.</p>
+                    </div>
+                    <div class="application-body application-body-middle">
+                        <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+                            <div class="w-container">
+                                <div class="w-nav-button">
+                                    <div class="w-icon-nav-menu"></div>
+                                </div>
+                            </div>
+                            <div class="w-nav-overlay" data-wf-ignore=""></div>
+                        </div>
+                        <div class="w-form application-form">
+                            <form id="email-form" name="email-form" data-name="Email Form" class="w-clearfix">
+                                <p class="application-paragraph">Введите адрес в свободной форме, система автоматически преобразует его в нужный формат.</p>
+                                <input id="email-4" name="email-4" data-name="Email 4" required="required" class="w-input application-form-field application-form-field-verybig application-form-field-verybig-gett" type="email">
+                                    <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
+                                    </form>
+                                    <div class="w-form-done">
+                                        <p>Thank you! Your submission has been received!</p>
+                                    </div>
+                                    <div class="w-form-fail">
+                                        <p>Oops! Something went wrong while submitting the form</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="application-body application-body-address">
+                                <div class="w-form application-form">
+                                    <form id="email-form" name="email-form" data-name="Email Form">
+                                        <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
+                                            <div class="w-row appplication-form-row">
+                                                <div class="w-col w-col-6">
+                                                    <label for="name-11" class="application-form-label application-form-label-address">Индекс</label>
+                                                    <input id="name-11" name="name-11" data-name="Name 11" class="w-input application-form-field application-form-field-address" type="text">
+                                                    </div>
+                                                    <div class="w-col w-col-6">
+                                                        <label for="name-12" class="application-form-label application-form-label-address">Регион:</label>
+                                                        <input id="name-12" name="name-12" data-name="Name 12" class="w-input application-form-field application-form-field-address" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-row appplication-form-row">
+                                                        <div class="w-col w-col-6">
+                                                            <label for="name-13" class="application-form-label application-form-label-address">Район:</label>
+                                                            <input id="name-13" name="name-13" data-name="Name 13" class="w-input application-form-field application-form-field-address" type="text">
+                                                            </div>
+                                                            <div class="w-col w-col-6">
+                                                                <label for="name-14" class="application-form-label application-form-label-address">Город:</label>
+                                                                <input id="name-14" name="name-14" data-name="Name 14" class="w-input application-form-field application-form-field-address" type="text">
+                                                                </div>
+                                                            </div>
+                                                            <div class="w-row appplication-form-row application-form-field-row-last">
+                                                                <div class="w-col w-col-6">
+                                                                    <label for="name-15" class="application-form-label application-form-label-address">Поселение:</label>
+                                                                    <input id="name-15" name="name-15" data-name="Name 15" class="w-input application-form-field application-form-field-address" type="text">
+                                                                    </div>
+                                                                    <div class="w-col w-col-6">
+                                                                        <label for="name-16" class="application-form-label application-form-label-address">Улица:</label>
+                                                                        <input id="name-16" name="name-16" data-name="Name 16" class="w-input application-form-field application-form-field-address" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="w-row">
+                                                                        <div class="w-col w-col-4">
+                                                                            <label for="name-17" class="application-form-label application-form-label-address">Дом:</label>
+                                                                            <input id="name-17" name="name-17" data-name="Name 17" class="w-input application-form-field application-form-field-address application-form-short" type="text">
+                                                                            </div>
+                                                                            <div class="w-col w-col-4">
+                                                                                <label for="name-18" class="application-form-label application-form-label-address">Корпус:</label>
+                                                                                <input id="name-18" name="name-18" data-name="Name 18" class="w-input application-form-field application-form-field-address application-form-short" type="text">
+                                                                                </div>
+                                                                                <div class="w-col w-col-4">
+                                                                                    <label for="name-19" class="application-form-label application-form-label-address">Квартира:</label>
+                                                                                    <input id="name-19" name="name-19" data-name="Name 19" class="w-input application-form-field application-form-field-address application-form-short" type="text">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                            <div class="w-form-done">
+                                                                                <p>Thank you! Your submission has been received!</p>
+                                                                            </div>
+                                                                            <div class="w-form-fail">
+                                                                                <p>Oops! Something went wrong while submitting the form</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="application-footer">
+                                                                        <a href="#" class="w-button application-next-button application-next-button-gett">Продолжить</a>
+                                                                    </div>
+                                                                </div>
+
+
+
+}

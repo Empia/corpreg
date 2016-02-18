@@ -128,16 +128,16 @@ def passport = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.passport(request.identity )))
 }
 def address = SecuredAction.async { implicit request => 
-  Future(Ok("ok"))
+  Future.successful(Ok(views.html.address(request.identity )))
 }
 def okved = SecuredAction.async { implicit request => 
-  Future(Ok("ok"))
+  Future.successful(Ok(views.html.okved(request.identity )))
 }
 def taxesIP = SecuredAction.async { implicit request => 
-  Future(Ok("ok"))
+  Future.successful(Ok(views.html.taxesIP(request.identity )))
 }
 def documentsIP = SecuredAction.async { implicit request => 
-  Future(Ok("ok"))
+  Future.successful(Ok(views.html.documentsIP(request.identity )))
 }
 
   /**
