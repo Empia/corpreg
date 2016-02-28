@@ -97,7 +97,24 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
 <![endif]-->
 <script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
+  <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
+<script src="https://raw.githubusercontent.com/RobinHerbots/jquery.inputmask/3.x/dist/inputmask/jquery.inputmask.js" type="text/javascript"></script>
+<script src="https://raw.githubusercontent.com/RobinHerbots/jquery.inputmask/3.x/dist/min/inputmask/inputmask.extensions.min.js" type="text/javascript"></script> 
+<script src="https://raw.githubusercontent.com/igorescobar/jQuery-Mask-Plugin/master/src/jquery.mask.js"></script>
+  <script>
+
+  $(document).ready(function(){
+     $("#email-7").mask('00.00.0000', {placeholder: "__.__.____"});
+
+$("#passport").mask("SS 999999", {'translation': {
+                                        A: {pattern: /[A-Za-z0-9]/}, 
+                                        S: {pattern: /[A-Za-z]/},  
+                                        Y: {pattern: /[0-9]/}
+                                      }, placeholder: "AA 00000"})
+
+})
+  </script>
 <script>
      $("#address").suggestions({
         serviceUrl: "http://suggestions.dadata.ru/suggestions/api/4_1/rs",
