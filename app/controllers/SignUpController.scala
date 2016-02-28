@@ -36,7 +36,6 @@ class SignUpController @Inject() (
   avatarService: AvatarService,
   passwordHasher: PasswordHasher)
   extends Silhouette[User, CookieAuthenticator] {
-
   /**
    * Registers a new user.
    *
@@ -53,9 +52,8 @@ class SignUpController @Inject() (
           case None =>
             val authInfo = passwordHasher.hash(data.password)
             val user = User(
-              userID = None,
-              providerID = loginInfo.providerID,
-              providerKey = loginInfo.providerKey,//loginInfo = loginInfo,
+              userID = UUID.randomUUID(),
+              loginInfo = loginInfo,
               firstName = Some(data.firstName),
               lastName = Some(data.lastName),
               fullName = Some(data.firstName + " " + data.lastName),

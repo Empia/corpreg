@@ -1,94 +1,20 @@
 package models.daos
 
 import java.util.UUID
-
 import com.mohiva.play.silhouette.api.LoginInfo
 import models.User
-import models.daos.UserDAOImpl._
-import slick.driver.H2Driver.api._
-import slick.driver.JdbcProfile
-
-import scala.collection.mutable
-import scala.concurrent.Future
-import models.tables._
-import play.api.Play
-import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfig}
-import play.api.libs.concurrent.Execution.Implicits._
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import slick.dbio.DBIOAction
 import javax.inject.Inject
+import play.api.db.slick.DatabaseConfigProvider
+import scala.concurrent.Future
 
 /**
- * Give access to the user object.
+ * Give access to the user object using Slick
  */
-class UserDAOImpl @Inject()(dbConfigProvider: DatabaseConfigProvider) extends UserDAO {//with HasDatabaseConfig[JdbcProfile] {
+class UserDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends UserDAO with DAOSlick {
 
-  private val users = TableQuery[Users]
-  private val dbRoles = TableQuery[Roles]
-  private val allQuery = users.sortBy(u => (u.lastName.asc, u.firstName.asc)).map(_.preview)
-  private val pwInfos = TableQuery[PasswordInfos]
-  val dbConfig = dbConfigProvider.get[JdbcProfile]
-  import dbConfig.driver.api._
-
-  val db = dbConfig.db
-  private def findBy(criterion: (Users => slick.lifted.Rep[Boolean])) = db.run(
-    for {
-      user <- users.filter(criterion).result.head
-      dbRoles <- dbRoles.filter(_.userID === user.userID).map(_.role).result
-    } yield Some(user.copy(roles = dbRoles.toSet))
-  ).recover { case e => None }
-  def find(userID: Option[Long] = Some(-1)):scala.concurrent.Future[Option[models.User]] = findBy(_.id === userID.get)
-  def find(loginInfo: LoginInfo): Future[Option[User]] =
-    findBy(u => u.providerID === loginInfo.providerID && u.providerKey === loginInfo.providerKey)
-
-  private def updateRolesQuery(userId: Option[Long], roles: Set[String]) = for {
-    d <- dbRoles.filter(_.userID === userId).delete
-    a <- dbRoles ++= roles.map(DBRole(None, userId.get, _))
-  } yield roles
-
-  def save(user: User): Future[User] = {
-    val existingUserFuture = user.userID match {
-      case None => Future.successful(None)
-      case Some(id) => find(Some(id))
-    }
-    existingUserFuture.flatMap {
-      case None => db.run(
-        for {
-          u <- (users returning users.map(_.id)
-            into ((user, id) => user.copy(userID = Some(id)))) += user
-          r <- updateRolesQuery(u.userID, user.roles)
-        } yield u
-      )
-      case Some(_) => db.run(
-        for {
-          updatedUser <- users.filter(_.id === user.userID).update(user)
-          upatedRoles <- updateRolesQuery(user.userID, user.roles)
-        } yield user
-      )
-    }
-  }
-
-  //def findByEmail(email: String) = findBy(_.email === email)
-
-
-
-
-  def count = db.run(users.length.result)
-  def all: Future[Seq[UserPreview]] =
-    db.run(allQuery.result)
-
-  def all(page: Int, pageSize: Int): Future[Seq[UserPreview]] =
-    db.run(allQuery.drop(page * pageSize).take(pageSize).result)
-
-  def delete(id: Option[Long]): Future[Unit] = {
-    val delQuery = for {
-      roleDelete <- dbRoles.filter(_.userID === id).delete
-      pwInfoDelete <- pwInfos.filter(_.userID === id).delete
-      userDelete <- users.filter(_.id === id).delete
-    } yield (roleDelete, pwInfoDelete, userDelete)
-    db.run(delQuery).map(_ => {})
-  }
-
-
-
+  import driver.api._
 
   /**
    * Finds a user by its login info.
@@ -96,9 +22,18 @@ class UserDAOImpl @Inject()(dbConfigProvider: DatabaseConfigProvider) extends Us
    * @param loginInfo The login info of the user to find.
    * @return The found user or None if no user for the given login info could be found.
    */
-  //def find(loginInfo: LoginInfo) = Future.successful(
-  //  users.find { case (id, user) => user.loginInfo == loginInfo }.map(_._2)
-  //)
+  def find(loginInfo: LoginInfo) = {
+    val userQuery = for {
+      dbLoginInfo <- loginInfoQuery(loginInfo)
+      dbUserLoginInfo <- slickUserLoginInfos.filter(_.loginInfoId === dbLoginInfo.id)
+      dbUser <- slickUsers.filter(_.id === dbUserLoginInfo.userID)
+    } yield dbUser
+    db.run(userQuery.result.headOption).map { dbUserOption =>
+      dbUserOption.map { user =>
+        User(UUID.fromString(user.userID), loginInfo, user.firstName, user.lastName, user.fullName, user.email, user.avatarURL)
+      }
+    }
+  }
 
   /**
    * Finds a user by its user ID.
@@ -106,7 +41,26 @@ class UserDAOImpl @Inject()(dbConfigProvider: DatabaseConfigProvider) extends Us
    * @param userID The ID of the user to find.
    * @return The found user or None if no user for the given ID could be found.
    */
-  //def find(userID: Option[Long]) = Future.successful(users.get(userID))
+  def find(userID: UUID) = {
+    val query = for {
+      dbUser <- slickUsers.filter(_.id === userID.toString)
+      dbUserLoginInfo <- slickUserLoginInfos.filter(_.userID === dbUser.id)
+      dbLoginInfo <- slickLoginInfos.filter(_.id === dbUserLoginInfo.loginInfoId)
+    } yield (dbUser, dbLoginInfo)
+    db.run(query.result.headOption).map { resultOption =>
+      resultOption.map {
+        case (user, loginInfo) =>
+          User(
+            UUID.fromString(user.userID),
+            LoginInfo(loginInfo.providerID, loginInfo.providerKey),
+            user.firstName,
+            user.lastName,
+            user.fullName,
+            user.email,
+            user.avatarURL)
+      }
+    }
+  }
 
   /**
    * Saves a user.
@@ -114,22 +68,29 @@ class UserDAOImpl @Inject()(dbConfigProvider: DatabaseConfigProvider) extends Us
    * @param user The user to save.
    * @return The saved user.
    */
-  //def find(loginInfo: LoginInfo): Future[Option[User]] = Future.successful(None)
-  //def find(userID: Option[Long]): Future[Option[User]] = Future.successful(None)
-
-  //def save(user: User) = {
-  //  UserDAOImpl.users += (user.userID -> user)
-  //  Future.successful(user)
-  //}
-}
-
-/**
- * The companion object.
- */
-object UserDAOImpl {
-
-  /**
-   * The list of users.
-   */
-  val users: mutable.HashMap[Option[Long], User] = mutable.HashMap()
+  def save(user: User) = {
+    val dbUser = DBUser(user.userID.toString, user.firstName, user.lastName, user.fullName, user.email, user.avatarURL)
+    val dbLoginInfo = DBLoginInfo(None, user.loginInfo.providerID, user.loginInfo.providerKey)
+    // We don't have the LoginInfo id so we try to get it first.
+    // If there is no LoginInfo yet for this user we retrieve the id on insertion.    
+    val loginInfoAction = {
+      val retrieveLoginInfo = slickLoginInfos.filter(
+        info => info.providerID === user.loginInfo.providerID &&
+        info.providerKey === user.loginInfo.providerKey).result.headOption
+      val insertLoginInfo = slickLoginInfos.returning(slickLoginInfos.map(_.id)).
+        into((info, id) => info.copy(id = Some(id))) += dbLoginInfo
+      for {
+        loginInfoOption <- retrieveLoginInfo
+        loginInfo <- loginInfoOption.map(DBIO.successful(_)).getOrElse(insertLoginInfo)
+      } yield loginInfo
+    }
+    // combine database actions to be run sequentially
+    val actions = (for {
+      _ <- slickUsers.insertOrUpdate(dbUser)
+      loginInfo <- loginInfoAction
+      _ <- slickUserLoginInfos += DBUserLoginInfo(dbUser.userID, loginInfo.id.get)
+    } yield ()).transactionally
+    // run actions and return user afterwards
+    db.run(actions).map(_ => user)
+  }
 }

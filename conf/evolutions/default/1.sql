@@ -1,55 +1,22 @@
 # --- !Ups
 
-/*
-  def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
-  def firstName = column[Option[String]]("FIRSTNAME")
-  def lastName = column[Option[String]]("LASTNAME")
-  def fullname = column[Option[String]]("FULLNAME")
-  def email = column[Option[String]]("EMAIL")
-  def avatarURL = column[Option[String]]("avatarURL")
-  def providerID = column[String]("PROVIDER_ID")
-  def providerKey = column[String]("PROVIDER_KEY")
-*/
-create table "users" ("ID" bigserial PRIMARY KEY ,
-  "FIRSTNAME" VARCHAR(100),
-  "LASTNAME" VARCHAR(100),
-  "FULLNAME" VARCHAR(100),  
-  "EMAIL" VARCHAR(250) UNIQUE,
-  "avatarURL" VARCHAR(250),  
-  "PROVIDER_ID" VARCHAR(250) NOT NULL,
-  "PROVIDER_KEY" VARCHAR(250) NOT NULL,
-  UNIQUE ("PROVIDER_ID","PROVIDER_KEY"));
+create table "user" ("userID" VARCHAR NOT NULL PRIMARY KEY,"firstName" VARCHAR,"lastName" VARCHAR,"fullName" VARCHAR,"email" VARCHAR,"avatarURL" VARCHAR);
+create table "logininfo" ("id" bigserial NOT NULL PRIMARY KEY,"providerID" VARCHAR NOT NULL,"providerKey" VARCHAR NOT NULL);
+create table "userlogininfo" ("userID" VARCHAR NOT NULL,"loginInfoId" BIGINT NOT NULL);
+create table "passwordinfo" ("hasher" VARCHAR NOT NULL,"password" VARCHAR NOT NULL,"salt" VARCHAR,"loginInfoId" BIGINT NOT NULL);
+create table "oauth1info" ("id" bigserial NOT NULL PRIMARY KEY,"token" VARCHAR NOT NULL,"secret" VARCHAR NOT NULL,"loginInfoId" BIGINT NOT NULL);
+create table "oauth2info" ("id" bigserial NOT NULL PRIMARY KEY,"accesstoken" VARCHAR NOT NULL,"tokentype" VARCHAR,"expiresin" INTEGER,"refreshtoken" VARCHAR,"logininfoid" BIGINT NOT NULL);
+create table "openidinfo" ("id" VARCHAR NOT NULL PRIMARY KEY,"logininfoid" BIGINT NOT NULL);
+create table "openidattributes" ("id" VARCHAR NOT NULL,"key" VARCHAR NOT NULL,"value" VARCHAR NOT NULL);
 
-create table "roles" (
-  "ID" bigserial PRIMARY KEY ,
-  "USER_ID" bigint REFERENCES "users",
-  "ROLE" VARCHAR(30),
-  UNIQUE ("ID","USER_ID","ROLE")
-);
-/*
-  def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
-  def userID = column[Long]("USER_ID")
-  def role = column[String]("ROLE")
-  def * = (id.?, userID, role) <>(DBRole.tupled, DBRole.unapply)
-
-  def id = column[Long]("ID",O.PrimaryKey,O.AutoInc)
-  def hasher = column[String]("HASHER")
-  def password = column[String]("PASSWORD")
-  def salt = column[Option[String]]("SALT")
-  def userID = column[Long]("USER_ID")
-  */
-create table "password_infos" (
-  "ID" bigserial PRIMARY KEY ,
-  "HASHER" VARCHAR NOT NULL ,
-  "PASSWORD" VARCHAR NOT NULL,
-  "SALT" VARCHAR,
-  "USER_ID" bigint REFERENCES "users"
-);
-
-create INDEX loginInfo_index ON "users" ("PROVIDER_ID","PROVIDER_KEY") ;
 
 # --- !Downs
-drop INDEX loginInfo_index;
-drop TABLE "password_infos";
-drop TABLE "roles";
-drop table "users";
+
+drop table "openidattributes";
+drop table "openidinfo";
+drop table "oauth2info";
+drop table "oauth1info";
+drop table "passwordinfo";
+drop table "userlogininfo";
+drop table "logininfo";
+drop table "user";

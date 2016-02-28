@@ -63,13 +63,12 @@ case class DBPasswordInfo(
                            password: String,
                            salt: Option[String],
                            userID: Long)
-class PasswordInfos(tag: Tag) extends Table[DBPasswordInfo](tag, "password_infos") {
-  def id = column[Long]("ID",O.PrimaryKey,O.AutoInc)
-  def hasher = column[String]("HASHER")
-  def password = column[String]("PASSWORD")
-  def salt = column[Option[String]]("SALT")
-  def userID = column[Long]("USER_ID")
-  def * = (hasher, password, salt, userID) <>((DBPasswordInfo.apply _).tupled, DBPasswordInfo.unapply)
+class PasswordInfos(tag: Tag) extends Table[DBPasswordInfo](tag, "passwordinfo") {
+    def hasher = column[String]("hasher")
+    def password = column[String]("password")
+    def salt = column[Option[String]]("salt")
+    def loginInfoId = column[Long]("loginInfoId") 
+  def * = (hasher, password, salt, loginInfoId) <>((DBPasswordInfo.apply _).tupled, DBPasswordInfo.unapply)
 }
 object DBPasswordInfo {
   def passwordInfo2db(userID: Long, pwInfo: PasswordInfo) = DBPasswordInfo(pwInfo.hasher,pwInfo.password,pwInfo.salt,userID)
@@ -77,3 +76,29 @@ object DBPasswordInfo {
   implicit def dbTableElement2PasswordInfo(pwInfo: PasswordInfos#TableElementType): PasswordInfo = new PasswordInfo(pwInfo.hasher,pwInfo.password,pwInfo.salt)
 }
 
+
+
+class LoginInfos(tag: Tag) extends Table[DBLoginInfo](tag, "logininfo") {
+  def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+  def providerID = column[String]("providerID")
+  def providerKey = column[String]("providerKey")
+  def * = (id.?, providerID, providerKey) <> (DBLoginInfo.tupled, DBLoginInfo.unapply)
+}
+
+case class DBUserLoginInfo (
+  userID: String,
+  loginInfoId: Long
+)
+
+case class DBLoginInfo (
+    id: Option[Long],
+    providerID: String,
+    providerKey: String
+)
+
+
+class UserLoginInfos(tag: Tag) extends Table[DBUserLoginInfo](tag, "userlogininfo") {
+  def userID = column[String]("userID")
+  def loginInfoId = column[Long]("loginInfoId")
+  def * = (userID, loginInfoId) <> (DBUserLoginInfo.tupled, DBUserLoginInfo.unapply)
+}
