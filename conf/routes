@@ -13,6 +13,9 @@ GET /gett-documents-ip controllers.ApplicationController.documentsIP
 POST        /fill1                           controllers.ApplicationController.fillByAnchor()
 GET         /signIn                          controllers.ApplicationController.signIn
 GET         /signUp                          controllers.ApplicationController.signUp
+
+GET         /smsSignUp                       controllers.ApplicationController.smsSignUp
+
 GET         /signOut                         controllers.ApplicationController.signOut
 GET         /authenticate/:provider          controllers.SocialAuthController.authenticate(provider)
 POST        /authenticate/credentials        controllers.CredentialsAuthController.authenticate
