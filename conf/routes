@@ -14,12 +14,12 @@ POST        /fill1                           controllers.ApplicationController.f
 GET         /signIn                          controllers.ApplicationController.signIn
 GET         /signUp                          controllers.ApplicationController.signUp
 
-GET         /smsSignUp                       controllers.ApplicationController.smsSignUp
 
 GET         /signOut                         controllers.ApplicationController.signOut
 GET         /authenticate/:provider          controllers.SocialAuthController.authenticate(provider)
 POST        /authenticate/credentials        controllers.CredentialsAuthController.authenticate
 POST        /signUp                          controllers.SignUpController.signUp
+POST         /smsSignUp                      controllers.SignUpController.smsSignUp
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                    controllers.Assets.at(path="/public", file)
