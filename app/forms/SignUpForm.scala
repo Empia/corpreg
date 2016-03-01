@@ -16,7 +16,7 @@ object SignUpForm {
       "firstName" -> nonEmptyText,
       "lastName" -> nonEmptyText,
       "email" -> text,
-      "password" -> default(number,"")
+      "password" -> default(text,"")
     )(Data.apply)(Data.unapply)
   )
 
