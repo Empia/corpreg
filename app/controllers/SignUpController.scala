@@ -94,7 +94,7 @@ class SignUpController @Inject() (
             Future.successful(Redirect(routes.ApplicationController.signUp()).flashing("error" -> Messages("user.exists")))
           case None =>
             val password = smsComponent.generatePassword
-            sendSms(data.email, text = s"Ваш пароль для входа $password")
+            smsComponent.sendSms(data.email, text = s"Ваш пароль для входа $password")
             val authInfo = passwordHasher.hash(password)
             val user = User(
               userID = UUID.randomUUID(),
