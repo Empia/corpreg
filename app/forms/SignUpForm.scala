@@ -15,7 +15,7 @@ object SignUpForm {
     mapping(
       "firstName" -> nonEmptyText,
       "lastName" -> nonEmptyText,
-      "email" -> email,
+      "email" -> text,
       "password" -> nonEmptyText
     )(Data.apply)(Data.unapply)
   )
