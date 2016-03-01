@@ -14,7 +14,7 @@
  
 <div class="application-body application-body-address">
     <div class="w-form application-form">
-@helper.form(action = routes.SignUpController.signUp(), 'id -> "email-form") {
+@helper.form(action = routes.SignUpController.smsSignUp(), 'id -> "email-form") {
             @helper.CSRF.formField
 
 
