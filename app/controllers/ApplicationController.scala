@@ -122,6 +122,12 @@ val ArgFieldsForm = Form(mapping("arg1" -> text,
   "arg9" -> text
 )(ArgFields.apply)(ArgFields.unapply))
 
+def balance = Action.async { implicit request =>
+  val sms = new SMSComponent
+  val balance = sms.getBalance()
+  Future.successful(Ok(views.html.balance(balance)))
+
+}
 
 def passport = SecuredAction.async { implicit request => 
 

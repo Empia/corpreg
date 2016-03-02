@@ -32,6 +32,30 @@ import play.api.libs.ws._
 
 class SMSComponent {//@Inject() (ws: WSClient) {
 	val ws = NingWSClient() 
+	val apiKey = "2737418e4610236d0c9f7dd373df59caa1cdacec"
+	def getBalance() = {
+		val login = "function31"
+
+		val timestamp = getTimestamp()
+		val signature = md5Hash(s"$login$timestamp$apiKey")
+
+		val url = s"https://lk.redsms.ru/get/balance.php?login=$login&timestamp=$timestamp&signature=$signature"
+
+
+		val futureResult: Future[String] = ws.url(url).get().map {
+		  response =>
+		    println(response.body)
+			println("signature: " + signature)
+			println("url: " + url)
+		    response.body
+		    //(response.json \ "person" \ "name").as[String]
+		}
+		Await.result(futureResult, 20 seconds)
+
+	}
+
+
+
 	def sendSms(to: String, text: String) = {
 		val login = "function31"
 
@@ -40,7 +64,8 @@ class SMSComponent {//@Inject() (ws: WSClient) {
 				phone = to, 
 				text = text, 
 				sender = "Clerksy",
-				timestamp = timestamp)
+				timestamp = timestamp, 
+				key = apiKey)
 
 		val url = s"https://lk.redsms.ru/get/send.php?login=function31&signature=$signature&phone=$to&text=$text&sender=Clerksy&timestamp=$timestamp"
 
@@ -70,24 +95,7 @@ def generateSignature(login: String,
 	sender: String,
 	timestamp: String, 
 	key: String = "2737418e4610236d0c9f7dd373df59caa1cdacec"):String = {
-	/*
-	  [login] => YourLogin
-      [phone] => 79263000603
-      [text] => Long text
-      [timestamp] => 1456782995
-login - Ваш логин
-signature - подпись
-phone - Один номер, или список номеров через запятую (не более 50 номеров в одном запросе)
-text - Текст СМС сообщения
-sender - Имя отправителя (одно из одобренных на вашем аккаунте)
-timestamp - Timestamp по UTC
 
-login
-phone
-sender
-text
-timestamp
-	 */
 	val payload = s"$login$phone$sender$text$timestamp$key"
 	// YourLogin79263000603Long text14567929882737418e4610236d0c9f7dd373df59caa1cdacec
 	// function3179090860451test|??????????|2737418e4610236d0c9f7dd373df59caa1cdacec
@@ -99,6 +107,7 @@ timestamp
 	//new String(generated)
 	md5Hash(payload)
 }
+
 def md5Hash(text: String): String = java.security.MessageDigest.getInstance("MD5").digest(text.getBytes()).map(0xFF & _).map { "%02x".format(_) }.foldLeft(""){_ + _}
 def md5Hash2(text: String) : String = java.security.MessageDigest.getInstance("MD5").digest(text.getBytes()).map(0xFF & _).map { "%02x".format(_) }.foldLeft(""){_ + _}
 def generatePassword:String = {

@@ -1,0 +1,26 @@
+@(balance: String)(implicit request: RequestHeader, messages: Messages)
+
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+
+@main("Баланс") {
+ 
+        <div class="w-container">
+            <div class="application-content">
+ 
+<div class="application-body application-body-address">
+    <div class="w-form application-form">
+
+    @balance
+
+                                            </div>
+                                        </div>
+
+            </div>
+
+        </div>
+
+
+
+    </fieldset>
+}
