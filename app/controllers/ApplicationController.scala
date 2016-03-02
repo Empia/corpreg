@@ -169,8 +169,11 @@ def documentsIP = SecuredAction.async { implicit request =>
 //    com.journaldev.di.test.MainClass1.main2(Array(
 //        "ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ", "ТЕСТ", email
 //      ))
-    Future.successful(Ok(views.html.home(request.identity, "", List(),ArgFieldsForm )))
-  }
+
+//    Future.successful(Ok(views.html.home(request.identity, "", List(),ArgFieldsForm )))
+  Redirect(routes.ApplicationController.passport) 
+
+}
 
   def fillByAnchor() = SecuredAction.async { implicit request =>
     //val test_result = Documents.documents.head.sheets.head
