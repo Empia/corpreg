@@ -1,0 +1,70 @@
+@(user: models.User)(implicit messages: Messages,request: RequestHeader)
+@import play.api.Play
+@import helper._
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+</style>
+
+<div class="w-container">
+            <div class="application-content">
+               <div class="w-clearfix application-header-box application-header-box-gett">
+    <div class="w-clearfix application-header-icon application-header-icon-gett">
+        <div class="application-heading-icon application-heading-icon-gett"></div>
+    </div>
+    <div class="application-header">
+        <h2 class="content-heading content-heading-gett">Подготовка пакета документов</h2>
+    </div>
+    <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+        <div class="w-container">
+
+<nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/gett-passport" class="w-nav-link application-nav-button application-nav-button-active-gett">Личные данные</a>
+    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/gett-esign" class="w-nav-link application-nav-button application-nav-button-active-gett application-nav-button-active">Электронная подпись</a>
+    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Регистрация в ФНС</a>
+    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Открытие счета</a>
+</nav>
+
+
+            <div class="w-nav-button">
+                <div class="w-icon-nav-menu"></div>
+            </div>
+        </div>
+        <div class="w-nav-overlay" data-wf-ignore=""></div>
+    </div>
+</div>
+              
+<div class="application-body application-body-upper">
+    <div class="w-form application-form">
+        <form id="email-form" name="email-form" data-name="Email Form">
+            <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
+        </form>
+        <div class="w-form-done">
+            <p>Thank you! Your submission has been received!</p>
+        </div>
+        <div class="w-form-fail">
+            <p>Oops! Something went wrong while submitting the form</p>
+        </div>
+    </div>
+    <h3 class="application-subheading application-subheading-gett">Выпуск электронной подписи</h3>
+    <p class="application-paragraph application-paragraph-gett-light">Для отправки документов в налоговую на регистрацию необходимо выпустить электронную подпись.
+        <br>Запрос на выпуск электронной подписи обычно обрабатывается 15-20 минут.
+        <br>Заявки обрабатываются в рабочее время (с 10 до 19 часов), в будние дни.</p><a href="#" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Выпустить электронную подпись</a>
+    
+    <div class="signature-done" style="display:none;"><span class="signature-done-check"></span>Электронная подпись готова</div>
+</div>	
+
+
+<!--
+<div class="application-footer"><a href="#" class="w-button application-next-button application-next-button-gett">Продолжить</a></div>
+-->
+            </div>
+        </div>          
+
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+}         
+

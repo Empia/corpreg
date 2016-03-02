@@ -32,7 +32,8 @@ class SignController @Inject() (
 
 def index = SecuredAction.async { implicit request => 
 
-  Future.successful(Ok(views.html.passport(request.identity )))
+  Future.successful(Ok(views.html.sign(request.identity )))
+
 }
 
 }
