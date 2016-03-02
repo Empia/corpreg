@@ -171,7 +171,7 @@ def documentsIP = SecuredAction.async { implicit request =>
 //      ))
 
 //    Future.successful(Ok(views.html.home(request.identity, "", List(),ArgFieldsForm )))
-  Redirect(routes.ApplicationController.passport) 
+  Future.successful(Redirect(routes.ApplicationController.passport)) 
 
 }
 
