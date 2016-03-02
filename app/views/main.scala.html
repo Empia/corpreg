@@ -44,10 +44,13 @@
                 "navigation">
  @user.map { u =>
                     <a class="w-nav-link user-info-left-link" href="@routes.ApplicationController.index" style=
-                    "max-width: 940px;">ип @u.fullName</a><a class="w-nav-link user-info-left-link" href=
+                    "max-width: 940px;">ИП @u.fullName</a>
+
+                    <!--<a class="w-nav-link user-info-left-link" href=
                     "/gett-passport" style="max-width: 940px;"><span class=
                     "app-user-info-plus"> &nbsp;</span>Новое
                     заявление</a>
+                    ->
 <a class="w-nav-link user-info-bar-right-link user-info-right-link-alt" href="@routes.ApplicationController.signOut" style="max-width: 940px;"><span class="app-user-info-logout"></span></a>
 
 <a class="w-nav-link user-info-bar-right-link" href="/" style="max-width: 940px;">@u.fullName</a>
