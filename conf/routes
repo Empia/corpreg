@@ -1,11 +1,10 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
+#controllers.ApplicationController.index
 
 # Home page
 GET         /                               controllers.ApplicationController.passport
-
- #controllers.ApplicationController.index
 GET /gett-passport controllers.ApplicationController.passport
 GET /gett-address controllers.ApplicationController.address
 GET /gett-okved controllers.ApplicationController.okved
