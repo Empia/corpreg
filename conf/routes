@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET         /                                controllers.ApplicationController.index
+GET         /                               controllers.ApplicationController.passport #controllers.ApplicationController.index
 GET /gett-passport controllers.ApplicationController.passport
 GET /gett-address controllers.ApplicationController.address
 GET /gett-okved controllers.ApplicationController.okved
