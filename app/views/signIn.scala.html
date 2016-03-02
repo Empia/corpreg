@@ -10,47 +10,116 @@
             <strong>@Messages("error")</strong> @msg
         </div>
     }
+<style>
+    .application-content.application-login {
+    margin-right: 100px;
+    margin-left: 100px;
+}
+.application-header-box.application-header-box-gett.application-header-box-gett-login {
+    padding-bottom: 0px;
+    border-bottom-style: none;
+}
+.application-body.application-body-login {
+    padding: 50px 100px 70px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-image: url("http://uploads.webflow.com/5637501d17335e240c9c1dd0/56d71390be84aafb6ca0b067_gett-login.png");
+    background-position: 80% 106%;
+    background-size: 225px;
+    background-repeat: no-repeat;
+}
+.application-next-button.application-next-button-gett.application-login-button {
+    margin-top: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-width: 2px;
+    border-color: #ececec;
+    color: #6f6f6f;
+    line-height: 16px;
+}
+.gett-login-form-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-family: Roboto, sans-serif;
+    color: #dbdbdb;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+}
+.gett-login-form-field {
+    width: 200px;
+    margin-bottom: 15px;
+    border: 2px solid #ffd374;
+    background-color: transparent;
+    box-shadow: none;
+    color: #343434;
+    font-size: 18px;
+}
+
+</style>
 
         <div class="w-container">
-            <div class="application-content">
- 
-<div class="application-body application-body-address">
-    <div class="w-form application-form">
+
+
+<div class="application-content application-login">
+    <div class="w-clearfix application-header-box application-header-box-gett application-header-box-gett-login">
+        <div class="w-clearfix application-header-icon application-header-icon-gett">
+            <div class="application-heading-icon application-heading-icon-gett"></div>
+        </div>
+        <div class="application-header">
+            <h2 class="content-heading content-heading-gett">Авторизация</h2>
+        </div>
+    </div>
+    <div class="application-body application-body-menu"></div>
+    <div class="application-body application-body-login">
+        <div class="w-form application-form">
+            <form id="email-form" name="email-form" data-name="Email Form">
+                <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
+            </form>
+            <div class="w-form-done">
+                <p>Thank you! Your submission has been received!</p>
+            </div>
+            <div class="w-form-fail">
+                <p>Oops! Something went wrong while submitting the form</p>
+            </div>
+        </div>
+        <div class="w-form application-form">
 @helper.form(action = routes.CredentialsAuthController.authenticate(), 'id -> "email-form") {
             @helper.CSRF.formField
-            
-            <div class="w-row appplication-form-row">
-                <div class="w-col w-col-12">
-                        <label for="name-11" class="application-form-label application-form-label-address">Номер телефона</label>
-                        @b3.text(signInForm("email"), 'id -> "name-11",'class -> "w-input application-form-field application-form-field-address")
-                </div>
-                <div class="w-col w-col-12">
-                            <label for="name-12" class="application-form-label application-form-label-address">Пароль:</label>
-            @b3.password(signInForm("password"), 'id -> "name-12", 'class -> "w-input application-form-field application-form-field-address")
-                </div>
-            </div>
 
-            <div class="application-footer">
-                <button id="submit" type="submit" value="submit" class="w-button application-next-button ap plication-next-button-gett">Вход</button>
+            <form id="email-form" name="email-form" data-name="Email Form">
+                <label for="name-30" class="gett-login-form-label">Ваш номер телефона (в формате 79261234562)</label>
 
-        }
-                                            </div>
-                                        </div>
+@b3.text(signInForm("email"), 'id -> "name-11",'class -> "w-input gett-login-form-field")                
+                <label for="name-31" class="gett-login-form-label">Пароль из смс</label>
 
-            </div>
+@b3.password(signInForm("password"), 'id -> "name-12", 'class -> "w-input gett-login-form-field")                
 
+               <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett application-login-button">Вход</button>
+}
         </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 
 
 
 
     <fieldset class="col-md-6 col-md-offset-3">
-        <legend>@Messages("sign.in.credentials")</legend>
         
-
+<!--
+        <legend>@Messages("sign.in.credentials")</legend>
         <div>
             <p class="not-a-member">@Messages("not.a.member") <a href="@routes.ApplicationController.signUp">@Messages("sign.up.now")</a></p>
         </div>
+-->
 <!--
         @if(socialProviders.providers.nonEmpty) {
             <div class="social-providers">
