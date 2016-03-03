@@ -67,13 +67,22 @@
             </div>-->
             <div class="dashboard-status">Регистрация ИП</div>
             <div class="dashboard-status dashboard-status-2">@filling.phone</div>
-            <a href="/filling/@filling.id.getOrElse(0)" class="w-button dashboard-status-button">Заполнить</a>
-            <a href="/filling/@filling.id.getOrElse(0)" class="w-button dashboard-status-button">Зарегистрировать</a>
+            <pre>
+registered: @filling.registered
+filled: @filling.filled
+filledCorrect: @filling.filledCorrect
+signRequested: @filling.signRequested
+signMarked: @filling.signMarked
+signCompleted: @filling.signCompleted                
+            </pre>
+            <a href="/filling/@filling.id.getOrElse(0)/fill" class="w-button dashboard-status-button">Заполнить</a>
+            <a href="/filling/@filling.id.getOrElse(0)/register" class="w-button dashboard-status-button">Зарегистрировать</a>
             <input type="text" name="smsCode" id="age" value="@filling.smsCode" placeholder="Смс Кодик">
-            <a href="/filling/@filling.id.getOrElse(0)" class="w-button dashboard-status-button">Закрыть заявку</a>
+            <a href="/filling/@filling.id.getOrElse(0)/close" class="w-button dashboard-status-button">Закрыть заявку</a>
+            <a href="/filling/@filling.id.getOrElse(0)/remove" class="w-button dashboard-status-button">Удалить заявку</a>            
         </div>
 
-        }
+}
         <!--
         <div class="w-clearfix application-block">
             <div class="dashboard-status dashboard-status-3">
