@@ -7,7 +7,7 @@ GET         /                                controllers.ApplicationController.i
 GET /gett-passport controllers.ApplicationController.passport
 GET /gett-esign controllers.SignController.index
 
-GET  /admin controllers.AdminController.index
+GET  /admin                controllers.AdminController.index
 GET  /filling/:id/remove   controllers.AdminController.removeFill(id: Long)
 GET  /filling/:id/close    controllers.AdminController.closeFill(id: Long)
 GET  /filling/:id/register controllers.AdminController.registerFill(id: Long)
