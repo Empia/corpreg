@@ -1,4 +1,8 @@
 package controllers
+
+import play.api.Play.current
+import play.api.libs.mailer._
+
 import play.api._
 import play.api.mvc._
 import play.twirl.api.Html
@@ -24,6 +28,12 @@ import play.api.i18n.MessagesApi
 import models._
 import models.daos._
 
+
+
+
+
+import java.io.File
+import org.apache.commons.mail.EmailAttachment
 
 
 
@@ -59,6 +69,7 @@ class AdminController @Inject() (
   fillsDAO:FillsDAO,
   fillAttributesDAO: FillAttributesDAO,
   socialProviderRegistry: SocialProviderRegistry,
+  mailerClient: MailerClient,
 
   userService: UserService,
   authInfoRepository: AuthInfoRepository,
@@ -162,4 +173,57 @@ def registered_user = SecuredAction.async { implicit request =>
     }
 
 
+
+def removeFill(id: Long) = SecuredAction.async { implicit request =>
+	  val fillingsF = fillsDAO.getAll	
+	  val fillings = await(fillingsF)
+	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+
+}
+def closeFill(id: Long) = SecuredAction.async { implicit request =>
+	  val fillingsF = fillsDAO.getAll	
+	  val fillings = await(fillingsF)
+	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+
+}
+def registerFill(id: Long) = SecuredAction.async { implicit request =>
+	  val fillingsF = fillsDAO.getAll	
+	  val fillings = await(fillingsF)
+	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+
+}
+def writeFill(id: Long) = SecuredAction.async { implicit request =>
+	  Future.successful(Ok(views.html.fillData(request.identity )))
+}
+def saveFill(id: Long) = SecuredAction.async { implicit request =>
+	  val fillingsF = fillsDAO.getAll	
+	  val fillings = await(fillingsF)
+	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+}
+
+def testMail = SecuredAction.async { implicit request =>
+	Mailer.sendEmail(mailerClient)
+  val fillingsF = fillsDAO.getAll	
+	  val fillings = await(fillingsF)
+	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+
+}
+
+}
+
+object Mailer {
+def sendEmail(mailerClient: MailerClient) {
+  val cid = "1234"
+  val email = Email(
+    "Кто тяжело работает тот?",
+    "Clersky FROM <mailbot@clerksy.ru>",
+    Seq("Stan TO <iamjacke@gmail.com>"),
+    // adds attachment
+    attachments = Seq(),
+    // sends text, HTML or both...
+    bodyText = Some("Кто тяжело работает тот?"),
+    bodyHtml = Some(s"""<html><body><p>An <b>Тяжело отдыхает</b> message with cid <img src="cid:$cid"></p></body></html>""")
+  )
+  mailerClient.send(email)
+}
 }

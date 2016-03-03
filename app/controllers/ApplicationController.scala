@@ -130,7 +130,6 @@ def balance = Action.async { implicit request =>
 }
 
 def passport = SecuredAction.async { implicit request => 
-
   Future.successful(Ok(views.html.passport(request.identity )))
 }
 def address = SecuredAction.async { implicit request => 

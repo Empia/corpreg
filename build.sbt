@@ -19,6 +19,8 @@ resolvers += "geotoolkit" at "http://maven.geotoolkit.org"
 resolvers += "thirdparty-releases" at "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases"
 
 
+resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
+
 
 unmanagedBase <<= baseDirectory { base => base / "lib" }
 
@@ -27,6 +29,14 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 libraryDependencies ++= Seq(
   "com.mohiva" %% "play-silhouette" % "3.0.0",
   "org.webjars" %% "webjars-play" % "2.4.0",
+
+
+
+
+"com.typesafe.play" %% "play-mailer" % "3.0.1",
+
+
+
   "net.codingwell" %% "scala-guice" % "4.0.0",
   "com.typesafe.play" %% "play-slick" % "1.1.0",
   "com.typesafe.play" %% "play-slick-evolutions" % "1.1.0",

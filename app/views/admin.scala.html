@@ -68,12 +68,12 @@
             <div class="dashboard-status">Регистрация ИП</div>
             <div class="dashboard-status dashboard-status-2">@filling.phone</div>
             <pre>
-registered: @filling.registered
-filled: @filling.filled
-filledCorrect: @filling.filledCorrect
-signRequested: @filling.signRequested
-signMarked: @filling.signMarked
-signCompleted: @filling.signCompleted                
+                registered: @filling.registered
+                filled: @filling.filled
+                filledCorrect: @filling.filledCorrect
+                signRequested: @filling.signRequested
+                signMarked: @filling.signMarked
+                signCompleted: @filling.signCompleted                
             </pre>
             <a href="/filling/@filling.id.getOrElse(0)/fill" class="w-button dashboard-status-button">Заполнить</a>
             <a href="/filling/@filling.id.getOrElse(0)/register" class="w-button dashboard-status-button">Зарегистрировать</a>
