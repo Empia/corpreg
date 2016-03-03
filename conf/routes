@@ -7,6 +7,10 @@ GET         /                                controllers.ApplicationController.i
 GET /gett-passport controllers.ApplicationController.passport
 GET /gett-esign controllers.SignController.index
 
+GET  /admin controllers.AdminController.index
+POST /fill controllers.AdminController.create_filling
+
+
 GET /balance controllers.ApplicationController.balance
 
 GET /gett-address controllers.ApplicationController.address

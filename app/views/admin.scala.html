@@ -1,0 +1,85 @@
+@(user: models.User,fillForm: Form[forms.FillForm.FillData],fillings:Seq[FillDTO])(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+@main(Messages("home.title"), Some(user)) {
+
+<div class="w-section lc-main">
+    <div class="w-container dashboard-upper-panel">
+        <div class="w-row">
+            <div class="w-col w-col-4 dasboard-column">
+                <div class="dashboard-newapplication">
+                    <div class="dashboard-service">Регистрация <span>водителя такси</span>
+                    </div>
+                    <a href="@routes.ApplicationController.passport" class="dashboard-newapplication-link">Начать</a>
+                </div>
+            </div>
+            <div class="w-col w-col-4 dasboard-column disabled">
+                <div class="dashboard-newapplication">
+                    <div class="dashboard-service">Регистрация в качестве 
+                        <span>индивидуального предпринимателя</span>
+                    </div>
+                    <a href="#" class="dashboard-newapplication-link">Начать</a>
+                </div>
+            </div>
+            <div class="w-col w-col-4 dasboard-column disabled">
+                <div class="dashboard-newapplication">
+                    <div class="dashboard-service">Регистрация в качестве 
+                        <span>индивидуального предпринимателя</span>
+                    </div>
+                    <a href="#" class="dashboard-newapplication-link">Начать</a>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="w-inline-block special-offers-link">
+            <div>Специальные предложения наших партнеров</div>
+        </a>
+    </div>
+    
+    <div class="w-container">
+        <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav dashboard-inwork-nav">
+            <div class="w-container">
+                <nav role="navigation" class="w-nav-menu dashboard-nav-menu">
+                    <a style="max-width: 940px;" href="#" class="w-nav-link dashboard-inwork-nav-button dashboard-nav-button-active">Все</a>
+                    <a style="max-width: 940px;" href="#" class="w-nav-link dashboard-inwork-nav-button">В работе</a>
+                    <a style="max-width: 940px;" href="#" class="w-nav-link dashboard-inwork-nav-button">Законченные</a>
+
+@helper.form(action = routes.AdminController.create_filling(), 'id -> "email-form") {
+            @helper.CSRF.formField                
+                <label for="name-30" class="gett-login-form-label">Номер телефона (в формате 79261234562)</label>                
+    @b3.text(fillForm("phone"), 'id -> "name-11",'class -> "w-input gett-login-form-field")                
+<button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett application-login-button">Добавить анкету</button>
+}
+                </nav>
+                <div class="w-nav-button">
+                    <div class="w-icon-nav-menu"></div>
+                </div>
+            </div>
+            <div class="w-nav-overlay" data-wf-ignore=""></div>
+        </div>
+        @fillings.map { filling =>
+        <div class="w-clearfix application-block">
+            <div class="dashboard-status dashboard-status-3">
+                <span class="dashboard-status-icon"></span>&nbsp;Документы в налоговой
+            </div>
+            <div class="dashboard-status">Регистрация ООО</div>
+            <div class="dashboard-status dashboard-status-2">@filling.phone</div>
+            <a href="/filling/@filling.id.getOrElse(0)" class="w-button dashboard-status-button">Подробнее</a>
+        </div>
+
+        }
+        <div class="w-clearfix application-block">
+            <div class="dashboard-status dashboard-status-3">
+                <span class="dashboard-status-icon"></span>&nbsp;Документы в налоговой
+            </div>
+            <div class="dashboard-status">Регистрация ООО</div>
+            <div class="dashboard-status dashboard-status-2">ООО "Клауд Микросистемс"</div>
+            <a href="#" class="w-button dashboard-status-button">Подробнее</a>
+        </div>
+    </div>
+</div>
+
+
+}

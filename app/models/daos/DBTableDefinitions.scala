@@ -3,11 +3,53 @@ package models.daos
 import com.mohiva.play.silhouette.api.LoginInfo
 import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
+import models._
 
 trait DBTableDefinitions {
   
   protected val driver: JdbcProfile
   import driver.api._
+
+
+
+
+
+
+class FillAttributes(tag: Tag) extends Table[FillAttributeDTO](tag, "fill_attributes") {
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def fill_id = column[Long]("fill_id")
+    def attribute = column[String]("attribute")
+    def value = column[String]("value")
+    def * = (id.?, fill_id, attribute, value) <> (FillAttributeDTO.tupled, FillAttributeDTO.unapply)
+}
+
+class Fills(tag: Tag) extends Table[FillDTO](tag, "fill") {
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def phone = column[String]("phone")
+    def registered = column[Boolean]("registered")
+    def filled = column[Boolean]("filled")
+    def filledCorrect = column[Boolean]("filledCorrect")
+    def signRequested = column[Boolean]("signRequested")
+    def signMarked = column[Boolean]("signMarked")
+    def smsCode = column[String]("smsCode")
+    def signCompleted = column[Boolean]("signCompleted")
+    def * = (id.?, phone, registered,
+      filled,
+      filledCorrect,
+      signRequested,
+      signMarked,
+      smsCode,
+      signCompleted) <> (FillDTO.tupled, FillDTO.unapply)
+}
+
+
+
+
+
+
+
+
+
 
   case class DBUser (
     userID: String,
@@ -135,6 +177,12 @@ trait DBTableDefinitions {
   val slickOpenIDInfos = TableQuery[OpenIDInfos]
   val slickOpenIDAttributes = TableQuery[OpenIDAttributes]
   
+
+
+  val fills = TableQuery[Fills]
+  val fill_attributes = TableQuery[FillAttributes]
+
+
   // queries used in multiple places
   def loginInfoQuery(loginInfo: LoginInfo) = 
     slickLoginInfos.filter(dbLoginInfo => dbLoginInfo.providerID === loginInfo.providerID && dbLoginInfo.providerKey === loginInfo.providerKey)

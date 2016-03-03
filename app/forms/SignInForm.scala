@@ -3,6 +3,16 @@ package forms
 import play.api.data.Form
 import play.api.data.Forms._
 
+
+object FillForm {
+  val form = Form(
+    mapping(
+      "phone" ->text)(FillData.apply)(FillData.unapply)
+  )
+  case class FillData(
+    phone:String
+  )
+}
 /**
  * The form which handles the submission of the credentials.
  */
