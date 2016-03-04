@@ -209,7 +209,8 @@ def fillAreCorrect(id: Long) = SecuredAction.async { implicit request =>
   val fillings = await(fillingsF)
   fillsDAO.correctFilling(id).map { r2 =>
 	  Redirect(routes.UserFillingController.index)
-  }	  
+  }
+  // ПОЧТА	  
 }
 
 
@@ -217,7 +218,9 @@ def fillAreCorrect(id: Long) = SecuredAction.async { implicit request =>
 def removeFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	
 	  val fillings = await(fillingsF)
-	  Future.successful(Redirect(routes.AdminController.index))
+  fillsDAO.correctFilling(id).map { r2 =>
+	Redirect(routes.AdminController.index)
+  }	  
 }
 def closeFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	

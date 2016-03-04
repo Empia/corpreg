@@ -49,7 +49,6 @@ def awaitAndPrint[T](a: Awaitable[T])(implicit ec: ExecutionContext) = println(a
 
 
 def index = SecuredAction.async { implicit request => 
-
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get

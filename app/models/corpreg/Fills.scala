@@ -28,6 +28,8 @@ case class FillDTO(id: Option[Long],
 
 trait FillsDAO {
   def create(fill:FillDTO): Future[Long] 
+  def delete(fillId:Long): Future[Int] 
+
   def getAll:Future[Seq[FillDTO]]
   def getByPhone(phone: String):Future[Option[FillDTO]]  
   def registerUser(fillId: Long):Future[Boolean] 
@@ -49,6 +51,11 @@ class FillsDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
     fills
 
 def getByPhone(phone: String):Future[Option[FillDTO]] = db.run(filterQueryByPhone(phone).result.headOption)
+
+def delete(fillId:Long): Future[Int] = {
+	db.run(filterQuery(fillId).delete)
+}
+
 
 def getAll = db.run(All().result)
 	// def createFilling
