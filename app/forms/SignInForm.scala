@@ -24,6 +24,7 @@ object PrimaryFillForm {
          "placeOfBorn" -> text,
          "passport" -> text,
          "passportIssuedDate" -> text,
+         "kodPodrazdelenia" -> text,
          "passportIssuedBy" -> text,
          "inn" -> text,
          "snils" -> text
@@ -37,6 +38,7 @@ object PrimaryFillForm {
       placeOfBorn:String,
       passport:String,
       passportIssuedDate:String,
+      kodPodrazdelenia: String,
       passportIssuedBy:String,
       inn:String,
       snils:String

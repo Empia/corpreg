@@ -27,8 +27,15 @@ case class FillDTO(id: Option[Long],
 	signCompleted:Boolean = false)
 
 trait FillsDAO {
-	def create(fill:FillDTO): Future[Long] 
-	def getAll:Future[Seq[FillDTO]]
+  def create(fill:FillDTO): Future[Long] 
+  def getAll:Future[Seq[FillDTO]]
+  def registerUser(fillId: Long):Future[Boolean] 
+  def correctFilling(fillId: Long):Future[Boolean] 
+  def signRequested(fillId: Long):Future[Boolean] 
+  def signMarketByCode(fillId: Long):Future[Boolean] 
+  def smsCode(fillId: Long, code: String):Future[Boolean] 
+  def signComplete(fillId: Long):Future[Boolean]
+
 }
 class FillsDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProvider) extends FillsDAO with DAOSlick {
 	import driver.api._
@@ -42,10 +49,101 @@ def getAll = db.run(All().result)
 def create(fill:FillDTO): Future[Long] = {
 	db.run(fills returning fills.map(_.id) += fill)
 }
-	// def fillFilling
 	// def registerUser
-	// def correctFilling
-	// def signRequested
-	// def signMarketByCode
-	// def signComplete
+  def registerUser(fillId: Long):Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+  	fillOpt match {
+  		case Some(fill) => {
+  			db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id, registered = true))
+  			).map { r =>
+	  			true
+  			}
+  		}
+  		case _ => {
+  			Future.successful(false)
+  		}
+  	}
+  }  
 }
+	// def correctFilling
+  def correctFilling(fillId: Long):Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+  	fillOpt match {
+  		case Some(fill) => {
+  			db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id, filledCorrect = true))
+  			).map { r =>
+	  			true
+  			}
+  		}
+  		case _ => {
+  			Future.successful(false)
+  		}
+  	}
+  }  
+ }
+	// def signRequested
+  def signRequested(fillId: Long):Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+  	fillOpt match {
+  		case Some(fill) => {
+  			db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id, signRequested = true))
+  			).map { r =>
+	  			true
+  			}
+  		}
+  		case _ => {
+  			Future.successful(false)
+  		}
+  	}
+  }  	
+ }
+	// def signMarketByCode
+  def signMarketByCode(fillId: Long):Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+  	fillOpt match {
+  		case Some(fill) => {
+  			db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id, signMarked = true))
+  			).map { r =>
+	  			true
+  			}
+  		}
+  		case _ => {
+  			Future.successful(false)
+  		}
+  	}
+  }
+}    	
+
+  def smsCode(fillId: Long, code: String):Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+  	fillOpt match {
+  		case Some(fill) => {
+  			db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id, smsCode = code))
+  			).map { r =>
+	  			true
+  			}
+  		}
+  		case _ => {
+  			Future.successful(false)
+  		}
+  	}
+  }
+}    	
+	// def signComplete
+  def signComplete(fillId: Long):Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+  	fillOpt match {
+  		case Some(fill) => {
+  			db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id, signCompleted = true))
+  			).map { r =>
+	  			true
+  			}
+  		}
+  		case _ => {
+  			    Future.successful(false)
+  		}
+  	}
+  }
+}    	
+}
+

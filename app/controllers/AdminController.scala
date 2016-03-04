@@ -194,9 +194,43 @@ def registerFill(id: Long) = SecuredAction.async { implicit request =>
 }
 
 
+private def retriveAttribute(c: Option[FillAttributeDTO]):String = {
+	c match {
+		case Some(attr) => attr.value
+		case _ => ""
+	}
+}
+private def retriveFromAttrSeq(attrs: Seq[FillAttributeDTO], attribute:String):String = {
+	retriveAttribute(attrs.find(attr => attr.attribute == attribute))
+}
+
+
+
 
 def writeFill(id: Long) = SecuredAction.async { implicit request =>
-	  Future.successful(Ok(views.html.fillData(request.identity, id, forms.PrimaryFillForm.form )))
+	val attrsF = fillAttributesDAO.findByFill(id)
+	attrsF.map { attrs =>
+
+
+
+val form = forms.PrimaryFillForm.form.fill(
+forms.PrimaryFillForm.PrimaryFillData(
+      lastName = retriveFromAttrSeq(attrs, attribute="lastName"),
+      firstname =  retriveFromAttrSeq(attrs, attribute="firstname"),
+      middleName =  retriveFromAttrSeq(attrs, attribute="middleName"),
+      dob =  retriveFromAttrSeq(attrs, attribute="dob"),
+      placeOfBorn =  retriveFromAttrSeq(attrs, attribute="placeOfBorn"),
+      passport =  retriveFromAttrSeq(attrs, attribute="passport"),
+      passportIssuedDate =  retriveFromAttrSeq(attrs, attribute="passportIssuedDate"),
+      kodPodrazdelenia = retriveFromAttrSeq(attrs, attribute="kodPodrazdelenia"),
+      passportIssuedBy =  retriveFromAttrSeq(attrs, attribute="passportIssuedBy"),
+      inn = retriveFromAttrSeq(attrs, attribute="inn"),
+      snils = retriveFromAttrSeq(attrs, attribute="snils")
+)
+)
+
+	  Ok(views.html.fillData(request.identity, id, form ))
+	}
 }
 
 
@@ -207,11 +241,81 @@ def saveFill(id: Long) = SecuredAction.async { implicit request =>
     forms.PrimaryFillForm.form.bindFromRequest.fold(
       form => {
       	println("error")
+      	println(form)
       	Future.successful(Ok(views.html.fillData(request.identity, id, forms.PrimaryFillForm.form )))
       },
       data => {
       	println(data)
-		  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+
+/*
+PrimaryFillData(
+      lastName:String,
+      firstname:String,
+      middleName:String,
+      dob:String,
+      placeOfBorn:String,
+      passport:String,
+      passportIssuedDate:String,
+      passportIssuedBy:String,
+      inn:String,
+      snils:String
+)*/
+val fillAttributes = List(    
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="lastName",
+	value=data.lastName),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="firstname",
+	value=data.firstname),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="middleName",
+	value=data.middleName),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="dob",
+	value=data.dob),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="placeOfBorn",
+	value=data.placeOfBorn),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="passport",
+	value=data.passport),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="passportIssuedDate",
+	value=data.passportIssuedDate),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="passportIssuedBy",
+	value=data.passportIssuedBy),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="kodPodrazdelenia",
+	value=data.kodPodrazdelenia),
+
+
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="inn",
+	value=data.inn),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="snils",
+	value=data.snils))
+
+
+
+Future.sequence(fillAttributes.map { attr =>
+	fillAttributesDAO.findOrCreate(id, attr)
+}).map { r =>
+   Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
+}
+
       })
 
 }

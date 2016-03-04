@@ -22,11 +22,46 @@ case class FillAttributeDTO(id: Option[Long],
 	value:String)
 
 trait FillAttributesDAO {
-
+	def findOrCreate(fillId: Long, fillAttr:FillAttributeDTO):Future[Boolean]
+	def findByFill(fillId: Long):Future[Seq[FillAttributeDTO]]
 }
+
 class FillAttributesDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProvider) 
   extends FillAttributesDAO 
     with DAOSlick {
 	    import driver.api._
+  private def filterQuery(id: Long): Query[FillAttributes, FillAttributeDTO, Seq] =
+    fill_attributes.filter(_.id === id) 
+ 
+  private def filterQueryByFillId(id: Long): Query[FillAttributes, FillAttributeDTO, Seq] =
+    fill_attributes.filter(_.fill_id === id) 
+
+  private def filterQueryByFillAndAttribute(fillId: Long, attribute: String): Query[FillAttributes, FillAttributeDTO, Seq] =
+    fill_attributes.filter(at => at.fill_id === fillId && at.attribute === attribute) 
+
+  private def All(): Query[FillAttributes, FillAttributeDTO, Seq] =
+    fill_attributes
+
+  def findByFill(fillId: Long):Future[Seq[FillAttributeDTO]] = {
+  	db.run(filterQueryByFillId(fillId).result)
+  }
+  def findOrCreate(fillId: Long, fillAttr:FillAttributeDTO):Future[Boolean] = {
+  db.run(filterQueryByFillAndAttribute(fillId, fillAttr.attribute).result.headOption).flatMap { fillAttrOpt =>
+  	fillAttrOpt match {
+  		case Some(attr) => {
+  			db.run(fill_attributes.filter(_.id === attr.id.get).update(fillAttr.copy(id = attr.id))
+  			).map { r =>
+	  			true
+  			}
+  		}
+  		case _ => {
+  			db.run(fill_attributes returning fill_attributes.map(_.id) += fillAttr).map { r =>
+  				true
+  			}
+  		}
+  	}
+  }  
+  	// .update(bpToUpdate)
+  }  
 
 }
