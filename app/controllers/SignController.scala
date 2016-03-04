@@ -74,8 +74,63 @@ def retriveSms = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
+ 	val attrs = await(fillAttributesDAO.findByFill(id))
+
+    val firstName = retriveFromAttrSeq(attrs, attribute="firstName")
+    val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
+ 	val inn = retriveFromAttrSeq(attrs, attribute="inn")
+    val snils = retriveFromAttrSeq(attrs, attribute="snils")
+
     Future(
-    	Ok(views.html.signReady(request.identity, true ))
+    	Ok(views.html.signReady(request.identity, false,  
+
+firstName,
+lastName,
+inn,
+snils
+    		))
+    )
+}
+def sendDocs = SecuredAction.async { implicit request => 
+	val phone = request.identity.email.getOrElse("")
+	val fill = await(fillsDAO.getByPhone(phone)).get
+	val id = fill.id.get
+ 	val attrs = await(fillAttributesDAO.findByFill(id))
+
+    val firstName = retriveFromAttrSeq(attrs, attribute="firstName")
+    val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
+ 	val inn = retriveFromAttrSeq(attrs, attribute="inn")
+    val snils = retriveFromAttrSeq(attrs, attribute="snils")
+
+    Future(
+    	Ok(views.html.signReady(request.identity, false,  
+
+firstName,
+lastName,
+inn,
+snils
+    		))
+    )
+}
+def sendSmsDocs = SecuredAction.async { implicit request => 
+	val phone = request.identity.email.getOrElse("")
+	val fill = await(fillsDAO.getByPhone(phone)).get
+	val id = fill.id.get
+ 	val attrs = await(fillAttributesDAO.findByFill(id))
+
+    val firstName = retriveFromAttrSeq(attrs, attribute="firstName")
+    val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
+ 	val inn = retriveFromAttrSeq(attrs, attribute="inn")
+    val snils = retriveFromAttrSeq(attrs, attribute="snils")
+
+    Future(
+    	    	Ok(views.html.signReady(request.identity, false,  
+
+firstName,
+lastName,
+inn,
+snils
+    		))
     )
 }
 def finalizing = SecuredAction.async { implicit request => 
@@ -87,6 +142,23 @@ def finalizing = SecuredAction.async { implicit request =>
     )
 }
 
+
+
+
+
+
+
+
+
+private def retriveAttribute(c: Option[FillAttributeDTO]):String = {
+	c match {
+		case Some(attr) => attr.value
+		case _ => ""
+	}
+}
+private def retriveFromAttrSeq(attrs: Seq[FillAttributeDTO], attribute:String):String = {
+	retriveAttribute(attrs.find(attr => attr.attribute == attribute))
+}
 
 
 

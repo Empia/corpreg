@@ -1,4 +1,4 @@
-@(user: models.User, signRequested: Boolean)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, signRequested: Boolean, firstName:String,lastName:String, inn:String,snils:String)(implicit messages: Messages,request: RequestHeader)
 @import play.api.Play
 @import helper._
 
@@ -79,10 +79,11 @@
     <div class="w-clearfix application-body application-body-upper">
         <div class="esignature">
             <div class="esignature-label">Электронная подпись</div>
-            <div class="esignature-text">Константинопольский
-                <br>Петр Васильевич</div>
-            <div class="esignature-text">ИНН 771856323458</div>
-            <div class="esignature-text">СНИЛС 123 123-432-29</div>
+            <div class="esignature-text">@lastName
+
+                <br>@firstName</div>
+            <div class="esignature-text">ИНН @inn</div>
+            <div class="esignature-text">СНИЛС @snils</div>
         </div>
         <h3 class="application-subheading application-subheading-gett">Подписание и отправка документов</h3>
         <p class="application-paragraph application-paragraph-gett-light">Теперь необходимо подписать пакет документов вашей электронной подписью и отправить документы на регистрацию в налоговую.</p>
