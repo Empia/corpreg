@@ -29,6 +29,7 @@ case class FillDTO(id: Option[Long],
 trait FillsDAO {
   def create(fill:FillDTO): Future[Long] 
   def getAll:Future[Seq[FillDTO]]
+  def getByPhone(phone: String):Future[Option[FillDTO]]  
   def registerUser(fillId: Long):Future[Boolean] 
   def areFilled(fillId: Long):Future[Boolean]   
   def correctFilling(fillId: Long):Future[Boolean] 
@@ -42,8 +43,12 @@ class FillsDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
 	import driver.api._
   private def filterQuery(id: Long): Query[Fills, FillDTO, Seq] =
     fills.filter(_.id === id) 
+  private def filterQueryByPhone(phone: String): Query[Fills, FillDTO, Seq] =
+    fills.filter(_.phone === phone)     
   private def All(): Query[Fills, FillDTO, Seq] =
     fills
+
+def getByPhone(phone: String):Future[Option[FillDTO]] = db.run(filterQueryByPhone(phone).result.headOption)
 
 def getAll = db.run(All().result)
 	// def createFilling

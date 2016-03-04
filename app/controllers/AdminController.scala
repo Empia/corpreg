@@ -148,7 +148,7 @@ def registerFill(id: Long) = SecuredAction.async { implicit request =>
               authenticator <- env.authenticatorService.create(loginInfo)
               r2 <- fillsDAO.registerUser(id)
               //value <- env.authenticatorService.init(authenticator)
-              //result <- env.authenticatorService.embed(value, Redirect(routes.ApplicationController.index()))
+              //result <- env.authenticatorService.embed(value, Redirect(routes.UserFillingController.index()))
             } yield {
               //env.eventBus.publish(SignUpEvent(user, request, request2Messages))
               //env.eventBus.publish(LoginEvent(user, request, request2Messages))
@@ -171,7 +171,7 @@ def signRequested(id: Long) = SecuredAction.async { implicit request =>
   val fillingsF = fillsDAO.getAll	
   val fillings = await(fillingsF)
   fillsDAO.signRequested(id).map { r2 =>
-	  Redirect(routes.ApplicationController.index)
+	  Redirect(routes.UserFillingController.index)
   }	  
 }
 
@@ -182,13 +182,13 @@ def smsCode(id: Long) = SecuredAction.async { implicit request =>
 	  form => {
 	  	println("error")
 	  	println(form)
-	  	Future.successful(Redirect(routes.ApplicationController.index))
+	  	Future.successful(Redirect(routes.UserFillingController.index))
 	  },
 	  data => {
 	  	println(data)  
 	  fillsDAO.smsCode(id, data.phone).flatMap { r2 =>
 		  fillsDAO.signMarketByCode(id).map { r2 =>
-			  Redirect(routes.ApplicationController.index)
+			  Redirect(routes.UserFillingController.index)
 		  }	 
 	  }	  
 	  })
@@ -200,7 +200,7 @@ def fillAreCorrect(id: Long) = SecuredAction.async { implicit request =>
   val fillingsF = fillsDAO.getAll	
   val fillings = await(fillingsF)
   fillsDAO.correctFilling(id).map { r2 =>
-	  Redirect(routes.ApplicationController.index)
+	  Redirect(routes.UserFillingController.index)
   }	  
 }
 

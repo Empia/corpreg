@@ -1,6 +1,9 @@
-@(user: models.User)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, fillId: Long, fillForm: Form[forms.PrimaryFillForm.PrimaryFillData])(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
 @import play.api.Play
 @import helper._
+
 
 @main(Messages("home.title"), Some(user)) {
 <style>
@@ -39,17 +42,6 @@
 </div>
               
 <div class="application-body application-body-upper">
-    <div class="w-form application-form">
-        <form id="email-form" name="email-form" data-name="Email Form">
-            <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
-        </form>
-        <div class="w-form-done">
-            <p>Thank you! Your submission has been received!</p>
-        </div>
-        <div class="w-form-fail">
-            <p>Oops! Something went wrong while submitting the form</p>
-        </div>
-    </div>
     <h3 class="application-subheading application-subheading-gett">Личные данные</h3>
     <p class="application-paragraph application-paragraph-gett-light">Все ваши данные уже внесены в систему.&nbsp;
         <br>Проверьте — все ли верно и переходите к следующему шагу. <br> Если в данных ошибка просьба сообщить по номеру +7 926 300-06-03</p>
@@ -57,88 +49,88 @@
 
 
 
+
+
+@helper.form(action = routes.AdminController.saveFill(fillId)) {
+            @helper.CSRF.formField     
 <div class="application-body">
     <div class="w-form application-form">
-        <form id="email-form" name="email-form" data-name="Email Form">
-            <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
+        <div id="email-form" name="email-form" data-name="Email Form">
             <div class="w-row">
                 <div class="w-col w-col-6">
                     <label for="name-4" class="application-form-label">Фамилия:</label>
-                    <input id="last-name" name="name-4" data-name="Name 4" class="w-input application-form-field application-form-field-gett" type="text">
+    @b3.text(fillForm("lastName"), 'id -> "last-name",'class -> "w-input application-form-field application-form-field-gett")                
                     <label for="name-5" class="application-form-label">Имя:</label>
-                    <input id="first-name" name="name-5" data-name="Name 5" class="w-input application-form-field application-form-field-gett" type="text">
+    @b3.text(fillForm("firstname"), 'id -> "first-name",'class -> "w-input application-form-field application-form-field-gett")                
                     <label for="name-6" class="application-form-label">Отчество:</label>
-                    <input id="middle-name" name="name-6" data-name="Name 6" class="w-input application-form-field application-form-field-gett" type="text">
+    @b3.text(fillForm("middleName"), 'id -> "middle-name",'class -> "w-input application-form-field application-form-field-gett")                
+
                 </div>
                 <div class="w-col w-col-6">
                     <label for="email-4" class="application-form-label">Дата рождения:</label>
-                    <input id="email-4" name="dob email-4" data-name="Email 4" required="required" class="w-input application-form-field application-form-field-gett" type="email">
+    @b3.text(fillForm("dob"), 'id -> "email-4",'class -> "w-input application-form-field application-form-field-gett")                            
                     <label for="email-5" class="application-form-label">Место рождения:</label>
-                    <input id="place-of-born" name="email-5" data-name="Email 5" required="required" class="w-input application-form-field application-form-field-gett" type="email">
+    @b3.text(fillForm("placeOfBorn"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")                            
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
 <div class="application-body">
     <div class="w-form application-form">
-        <form id="email-form" name="email-form" data-name="Email Form">
-            <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
-        </form>
-    </div>
-    <div class="w-form application-form">
-        <form id="email-form" name="email-form" data-name="Email Form">
+        <div id="email-form" name="email-form" data-name="Email Form">
 
-
-            <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
 
             <div class="w-row">
                 <div class="w-col w-col-6">
                     <label for="name-7" class="application-form-label">Серия и номер паспорта:</label>
-                    <input id="passport" name="name-7" data-name="Name 7" class="w-input application-form-field application-form-field-gett" type="text">
+    @b3.text(fillForm("passport"), 'id -> "passport",'class -> "w-input application-form-field application-form-field-gett")                               
                     <label for="name-8" class="application-form-label">Дата выдачи паспорта:</label>
-                    <input id="passport-issued-date" name="name-8" data-name="Name 8" class="w-input application-form-field application-form-field-gett" type="text">
+    @b3.text(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'class -> "w-input application-form-field application-form-field-gett")                               
                 </div>
                 <div class="w-col w-col-6">
                     <label for="email-11" class="application-form-label">Код подразделения:</label>
-                    <input id="kod-podrazdelenia" name="email-11" data-name="Email 11" required="required" class="w-input application-form-field application-form-field-gett" type="email">
+    @b3.text(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'class -> "w-input application-form-field application-form-field-gett")                               
                 </div>
             </div>
             <label for="email-13" class="application-form-label">Кем выдан паспорт:</label>
-            <input id="passport-issued-by" name="email-13" data-name="Email 13" required="required" class="w-input application-form-field application-form-field-long" type="email">
-        </form>
+    @b3.text(fillForm("passportIssuedBy"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")                       
+        </div>
     </div>
 </div>
 
 
 <div class="application-body">
     <div class="w-form application-form">
-        <form id="email-form" name="email-form" data-name="Email Form">
-            <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
+        <div id="email-form" name="email-form" data-name="Email Form">
             <div class="w-row">
                 <div class="w-col w-col-6">
                     <label for="name-9" class="application-form-label">ИНН:</label>
-                    <input id="inn" name="name-9" data-name="Name 9" class="w-input application-form-field application-form-field-gett" type="text">
+    @b3.text(fillForm("inn"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")                      
                 </div>
                 <div class="w-col w-col-6">
                     <label for="email-14" class="application-form-label">СНИЛС:</label>
-                    <input id="snils" name="email-14" data-name="Email 14" required="required" class="w-input application-form-field application-form-field-gett" type="email">
+    @b3.text(fillForm("snils"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")                      
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
-
-
-
                 <div class="application-footer">
-                    <a class="w-button application-next-button application-next-button-gett" href=
-                    "/gett-esign">Продолжить</a>
+                    <a href="#" class="w-button application-next-button application-next-button-gett">Все правильно</a>
+
                 </div>
             </div>
         </div>          
+
+}
+
+
+
+
+
 
  <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 }         

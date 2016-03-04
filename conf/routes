@@ -3,8 +3,10 @@
 # ~~~~
 
 # Home page
-GET         /                                controllers.ApplicationController.index
-GET /gett-passport controllers.ApplicationController.passport
+GET         /                                controllers.UserFillingController.index
+
+
+GET /gett-passport controllers.UserFillingController.passport
 GET /gett-esign controllers.SignController.index
 
 GET  /admin                controllers.AdminController.index

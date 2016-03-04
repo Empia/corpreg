@@ -129,9 +129,6 @@ def balance = Action.async { implicit request =>
 
 }
 
-def passport = SecuredAction.async { implicit request => 
-  Future.successful(Ok(views.html.passport(request.identity )))
-}
 def address = SecuredAction.async { implicit request => 
   Future.successful(Ok(views.html.address(request.identity )))
 }
@@ -176,7 +173,7 @@ def documentsIP = SecuredAction.async { implicit request =>
 //      ))
 
 //    Future.successful(Ok(views.html.home(request.identity, "", List(),ArgFieldsForm )))
-  Future.successful(Redirect(routes.ApplicationController.passport)) 
+  Future.successful(Redirect(routes.UserFillingController.passport)) 
 
 }
 
@@ -205,7 +202,7 @@ def documentsIP = SecuredAction.async { implicit request =>
   ArgFieldsForm.bindFromRequest.fold(
         formWithErrors => {
           println(formWithErrors)
-         Future.successful( Redirect(routes.ApplicationController.index) )
+         Future.successful( Redirect(routes.UserFillingController.index) )
 
          },
         entity => {
@@ -235,7 +232,7 @@ def documentsIP = SecuredAction.async { implicit request =>
    */
   def signIn = UserAwareAction.async { implicit request =>
     request.identity match {
-      case Some(user) => Future.successful(Redirect(routes.ApplicationController.index()))
+      case Some(user) => Future.successful(Redirect(routes.UserFillingController.index()))
       case None => Future.successful(Ok(views.html.signIn(SignInForm.form, socialProviderRegistry)))
     }
   }
@@ -247,7 +244,7 @@ def documentsIP = SecuredAction.async { implicit request =>
    */
   def signUp = UserAwareAction.async { implicit request =>
     request.identity match {
-      case Some(user) => Future.successful(Redirect(routes.ApplicationController.index()))
+      case Some(user) => Future.successful(Redirect(routes.UserFillingController.index()))
       case None => Future.successful(Ok(views.html.signUp(SignUpForm.form)))
     }
   }
@@ -258,7 +255,7 @@ def documentsIP = SecuredAction.async { implicit request =>
    * @return The result to display.
    */
   def signOut = SecuredAction.async { implicit request =>
-    val result = Redirect(routes.ApplicationController.index())
+    val result = Redirect(routes.UserFillingController.index())
     env.eventBus.publish(LogoutEvent(request.identity, request, request2Messages))
 
     env.authenticatorService.discard(request.authenticator, result)
