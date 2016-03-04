@@ -408,7 +408,7 @@ def sendFullEmail(mailerClient: MailerClient, phone:String, fullName:Option[Stri
   val email = Email(
     s"Пользователь ${fullName.getOrElse("Аноним")} -- $action",
     "Clersky FROM <mailbot@clerksy.ru>",
-    Seq("Stan TO <iamjacke@gmail.com>"),
+    Seq("Eugene TO <e.timofeev@clerksy.ru>"),
     // adds attachment
     attachments = Seq(),
     // sends text, HTML or both...
