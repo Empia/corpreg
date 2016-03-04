@@ -47,7 +47,7 @@ class UserFillingController @Inject() (
 def index = SecuredAction.async { implicit request =>
   // passport stage
 	val phone = request.identity.email.getOrElse("")
-	val fillOpt = await(fillsDAO.getByPhone(phone)) match {
+	await(fillsDAO.getByPhone(phone)) match {
 		case Some(fill) => {
 
 	val id = fill.id.get
@@ -76,7 +76,8 @@ def index = SecuredAction.async { implicit request =>
   }
 
   }		
-  case _ => Ok("Вас нету в системе. Свяжитесь с нами ")	}
+  case _ => Future(Ok("Вас нету в системе. Свяжитесь с нами "))
+}
 
 }
 
