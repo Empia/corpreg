@@ -30,6 +30,7 @@ trait FillsDAO {
   def create(fill:FillDTO): Future[Long] 
   def getAll:Future[Seq[FillDTO]]
   def registerUser(fillId: Long):Future[Boolean] 
+  def areFilled(fillId: Long):Future[Boolean]   
   def correctFilling(fillId: Long):Future[Boolean] 
   def signRequested(fillId: Long):Future[Boolean] 
   def signMarketByCode(fillId: Long):Future[Boolean] 
@@ -65,6 +66,22 @@ def create(fill:FillDTO): Future[Long] = {
   	}
   }  
 }
+	// def correctFilling
+  def areFilled(fillId: Long):Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+  	fillOpt match {
+  		case Some(fill) => {
+  			db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id, filled = true))
+  			).map { r =>
+	  			true
+  			}
+  		}
+  		case _ => {
+  			Future.successful(false)
+  		}
+  	}
+  }  
+ }
 	// def correctFilling
   def correctFilling(fillId: Long):Future[Boolean] = {
   db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>

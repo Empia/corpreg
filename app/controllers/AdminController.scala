@@ -312,8 +312,12 @@ FillAttributeDTO(id=None,
 
 Future.sequence(fillAttributes.map { attr =>
 	fillAttributesDAO.findOrCreate(id, attr)
-}).map { r =>
-   Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
+}).flatMap { r =>
+	fillsDAO.areFilled(id).map { r2 =>
+		println("are filled: "+r2)
+	   Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
+
+	}
 }
 
       })
