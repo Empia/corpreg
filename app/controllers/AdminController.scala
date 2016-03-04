@@ -130,7 +130,7 @@ def registerFill(id: Long) = SecuredAction.async { implicit request =>
           case None =>
             val password = smsComponent.generatePassword
             println("generated password: "+password)
-            //smsComponent.sendSms(current_fill.phone, text = s"Ваш пароль для входа $password")
+            smsComponent.sendSms(current_fill.phone, text = s"Ваш пароль для входа $password")
             val authInfo = passwordHasher.hash(password)
             val user = User(
               userID = UUID.randomUUID(),
