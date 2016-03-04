@@ -58,9 +58,8 @@ def index = SecuredAction.async { implicit request =>
 	smsCode: String = "",
 	signCompleted:Boolean = false)
  */	
-  println("current fill are "+fill.filled+" "+fill.filledCorrect+""+fill.signMarked)
   if (fill.filled && !fill.filledCorrect) {
-  Future.successful(Redirect(routes.UserFillingController.passport)) 
+      Future.successful(Redirect(routes.UserFillingController.passport)) 
   } else 
   if (fill.filled && fill.filledCorrect && !fill.signMarked) {
 	  Future.successful(Redirect(routes.SignController.index)) 

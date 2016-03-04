@@ -1,0 +1,78 @@
+@(user: models.User, signRequested: Boolean)(implicit messages: Messages,request: RequestHeader)
+@import play.api.Play
+@import helper._
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.application-body-send {
+    display: none;
+    padding: 40px 80px 30px;
+    border-bottom: 1px solid #e9e9e9;
+}
+</style>
+<div class="w-container">
+
+<div class="application-content">
+    <div class="w-clearfix application-header-box application-header-box-gett">
+        <div class="w-clearfix application-header-icon application-header-icon-gett">
+            <div class="application-heading-icon application-heading-icon-gett"></div>
+        </div>
+        <div class="application-header">
+            <h2 class="content-heading content-heading-gett">Регистрация индивидуального предпринимателя</h2>
+        </div>
+        <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+            <div class="w-container">
+<nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/gett-passport" class="w-nav-link application-nav-button application-nav-button-active-gett">Личные данные</a>
+    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/gett-esign" class="w-nav-link application-nav-button application-nav-button-active-gett">Электронная подпись</a>
+    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button application-nav-button-active-gett application-nav-button-active">Регистрация в ФНС</a>
+    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Открытие счета</a>
+</nav>
+
+                <div class="w-nav-button">
+                    <div class="w-icon-nav-menu"></div>
+                </div>
+            </div>
+            <div class="w-nav-overlay" data-wf-ignore=""></div>
+        </div>
+    </div>
+    <div class="application-body application-body-menu"></div>
+    <div class="w-clearfix application-body application-body-upper">
+        <div class="esignature">
+            <div class="esignature-label">Электронная подпись</div>
+            <div class="esignature-text">Константинопольский
+                <br>Петр Васильевич</div>
+            <div class="esignature-text">ИНН 771856323458</div>
+            <div class="esignature-text">СНИЛС 123 123-432-29</div>
+        </div>
+        <h3 class="application-subheading application-subheading-gett">Подписание и отправка документов</h3>
+        <p class="application-paragraph application-paragraph-gett-light">Теперь необходимо подписать пакет документов вашей электронной подписью и отправить документы на регистрацию в налоговую.</p>
+        <div><a href="#" data-ix="signature-sms" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Подписать документы</a>
+            <div style="display: inline-block;" class="signature-done"><span class="signature-done-check"></span>Подписано</div>
+        </div>
+        <div style="display: none;" class="w-form signature-form">
+            <form id="email-form-2" name="email-form-2" data-name="Email Form 2">
+                <input id="name" name="name" data-name="Name" class="w-input signature-form-field" type="text"><a href="#" data-ix="signature-done" class="w-button signature-submit-button">Подтвердить</a>
+                <div class="docs-signature-text">— введите код из смс</div>
+            </form>
+        </div>
+        <div style="display: block;" class="send-docs-block"><a href="#" data-ix="send-docs-done" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Отправить в налоговую</a>
+            <div style="display: inline-block;" class="send-docs-done"><span class="signature-done-check"></span>Отправлено в налоговую&nbsp;</div>
+        </div>
+    </div>
+    <div style="display: block;" class="application-body-send">
+        <p class="application-paragraph application-paragraph-gett-light">Сейчас документы находятся на регистрации в налоговом органе. Обычно это занимает 4 рабочих дня.</p>
+        <p class="application-paragraph application-paragraph-gett-light">После завершения регистрации вы получите документы в электронном виде, подписанные электронной подписью ФНС. Этого достаточно, чтобы открыть расчетный счет в банке и начать работать с Gett.</p>
+        <p class="application-paragraph application-paragraph-gett-light application-paragraph-more">Если вам понадобятся документы о регистрации в качестве ИП в бумажном виде, необходимо будет лично (или представителю с нотариальной доверенностью) обратиться в регистрирующий орган по месту постоянной регистрации. <span>Для получения более подробных инструкций, пишите на gett@@clerksy.ru</span>
+        </p>
+    </div>
+    <div class="w-clearfix application-footer"><a href="#" class="w-button application-next-button application-next-button-gett">Продолжить</a>
+    </div>
+</div>
+</div>
+
+}

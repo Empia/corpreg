@@ -136,7 +136,7 @@ def signRequested(fillId: Long):Future[Boolean] = {
   }
 }    	
 
-  def smsCode(fillId: Long, code: String):Future[Boolean] = {
+def smsCode(fillId: Long, code: String):Future[Boolean] = {
   db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
   	fillOpt match {
   		case Some(fill) => {

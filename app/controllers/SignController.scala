@@ -75,7 +75,7 @@ def retriveSms = SecuredAction.async { implicit request =>
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
     Future(
-    	Ok(views.html.sign(request.identity, true ))
+    	Ok(views.html.signReady(request.identity, true ))
     )
 }
 def finalizing = SecuredAction.async { implicit request => 

@@ -175,6 +175,14 @@ def signRequested(id: Long) = SecuredAction.async { implicit request =>
   }	  
 }
 
+def signReady(id: Long) = SecuredAction.async { implicit request => 
+  val fillingsF = fillsDAO.getAll	
+  val fillings = await(fillingsF)
+  fillsDAO.signMarketByCode(id).map { r2 =>
+	  Redirect(routes.AdminController.index)
+  }	  
+}
+
 def smsCode(id: Long) = SecuredAction.async { implicit request => 
   val fillingsF = fillsDAO.getAll	
   val fillings = await(fillingsF)
