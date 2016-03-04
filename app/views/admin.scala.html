@@ -4,6 +4,8 @@
 @import play.api.Play
 @import helper._
 
+@boolDecorator(a: Boolean) = {@if(a) {<b style="color: green;">+</b>} else {<b style="color: red;">-</b>}}
+
 @main(Messages("home.title"), Some(user)) {
 
 <div class="w-section lc-main">
@@ -68,12 +70,12 @@
             <div class="dashboard-status">Регистрация ИП</div>
             <div class="dashboard-status dashboard-status-2">@filling.phone</div>
             <pre>
-                Заполнен: @filling.filled
-                Зарегистрирован: @filling.registered
-                Заполнение проверено: @filling.filledCorrect
-                Затребовал подпись: @filling.signRequested
-                Документы подписаны: @filling.signMarked
-                Заявка закрыта: @filling.signCompleted                
+                Заполнен: @boolDecorator(filling.filled)
+                Зарегистрирован: @boolDecorator(filling.registered)
+                Заполнение проверено: @boolDecorator(filling.filledCorrect)
+                Затребовал подпись: @boolDecorator(filling.signRequested)
+                Документы подписаны: @boolDecorator(filling.signMarked)
+                Заявка закрыта: @boolDecorator(filling.signCompleted)                
             </pre>
             <a href="/filling/@filling.id.getOrElse(0)/fill" class="w-button dashboard-status-button">Заполнить</a>
             <a href="/filling/@filling.id.getOrElse(0)/register" class="w-button dashboard-status-button">Зарегистрировать</a>
