@@ -218,7 +218,7 @@ def fillAreCorrect(id: Long) = SecuredAction.async { implicit request =>
 def removeFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	
 	  val fillings = await(fillingsF)
-  fillsDAO.correctFilling(id).map { r2 =>
+  fillsDAO.delete(id).map { r2 =>
 	Redirect(routes.AdminController.index)
   }	  
 }
