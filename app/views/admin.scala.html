@@ -7,7 +7,13 @@
 @boolDecorator(a: Boolean) = {@if(a) {<b style="color: green;">+</b>} else {<b style="color: red;">-</b>}}
 
 @main(Messages("home.title"), Some(user)) {
-
+<style>
+    pre {
+    display: inline-block;
+    float: right;
+    margin-top: -47px;
+}
+</style>
 <div class="w-section lc-main">
     <div class="w-container dashboard-upper-panel">
         <div class="w-row">

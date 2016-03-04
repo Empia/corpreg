@@ -160,16 +160,48 @@ def registered_user = SecuredAction.async { implicit request =>
 
 
 
-def isFillAreCorrect = SecuredAction.async { implicit request => 
+def isFillAreCorrect(id: Long) = SecuredAction.async { implicit request => 
   val fillingsF = fillsDAO.getAll	
   val fillings = await(fillingsF)
   Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
 }
 
-def fillAreCorrect = SecuredAction.async { implicit request => 
+
+def signRequested(id: Long) = SecuredAction.async { implicit request => 
   val fillingsF = fillsDAO.getAll	
   val fillings = await(fillingsF)
-  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+  fillsDAO.signRequested(id).map { r2 =>
+	  Redirect(routes.ApplicationController.index)
+  }	  
+}
+
+def smsCode(id: Long) = SecuredAction.async { implicit request => 
+  val fillingsF = fillsDAO.getAll	
+  val fillings = await(fillingsF)
+	forms.FillForm.form.bindFromRequest.fold(
+	  form => {
+	  	println("error")
+	  	println(form)
+	  	Future.successful(Redirect(routes.ApplicationController.index))
+	  },
+	  data => {
+	  	println(data)  
+	  fillsDAO.smsCode(id, data.phone).flatMap { r2 =>
+		  fillsDAO.signMarketByCode(id).map { r2 =>
+			  Redirect(routes.ApplicationController.index)
+		  }	 
+	  }	  
+	  })
+}
+
+
+
+def fillAreCorrect(id: Long) = SecuredAction.async { implicit request => 
+  val fillingsF = fillsDAO.getAll	
+  val fillings = await(fillingsF)
+  fillsDAO.correctFilling(id).map { r2 =>
+	  Redirect(routes.ApplicationController.index)
+  }	  
 }
 
 
@@ -178,20 +210,37 @@ def removeFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	
 	  val fillings = await(fillingsF)
 	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
-
 }
 def closeFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	
 	  val fillings = await(fillingsF)
-	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
-
+  	fillsDAO.signComplete(id).map { r2 =>
+	  Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
+	}	  
 }
 def registerFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	
 	  val fillings = await(fillingsF)
-	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
-
+  	fillsDAO.registerUser(id).map { r2 =>
+	  Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 private def retriveAttribute(c: Option[FillAttributeDTO]):String = {
@@ -203,8 +252,6 @@ private def retriveAttribute(c: Option[FillAttributeDTO]):String = {
 private def retriveFromAttrSeq(attrs: Seq[FillAttributeDTO], attribute:String):String = {
 	retriveAttribute(attrs.find(attr => attr.attribute == attribute))
 }
-
-
 
 
 def writeFill(id: Long) = SecuredAction.async { implicit request =>
