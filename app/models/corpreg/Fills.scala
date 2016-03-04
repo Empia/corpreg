@@ -71,8 +71,8 @@ def create(fill:FillDTO): Future[Long] = {
   	}
   }  
 }
-	// def correctFilling
-  def areFilled(fillId: Long):Future[Boolean] = {
+
+def areFilled(fillId: Long):Future[Boolean] = {
   db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
   	fillOpt match {
   		case Some(fill) => {
@@ -87,8 +87,8 @@ def create(fill:FillDTO): Future[Long] = {
   	}
   }  
  }
-	// def correctFilling
-  def correctFilling(fillId: Long):Future[Boolean] = {
+
+def correctFilling(fillId: Long):Future[Boolean] = {
   db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
   	fillOpt match {
   		case Some(fill) => {
@@ -103,8 +103,8 @@ def create(fill:FillDTO): Future[Long] = {
   	}
   }  
  }
-	// def signRequested
-  def signRequested(fillId: Long):Future[Boolean] = {
+
+def signRequested(fillId: Long):Future[Boolean] = {
   db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
   	fillOpt match {
   		case Some(fill) => {

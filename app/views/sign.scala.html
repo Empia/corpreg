@@ -1,4 +1,4 @@
-@(user: models.User)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, signRequested: Boolean)(implicit messages: Messages,request: RequestHeader)
 @import play.api.Play
 @import helper._
 
@@ -53,8 +53,13 @@
     <h3 class="application-subheading application-subheading-gett">Выпуск электронной подписи</h3>
     <p class="application-paragraph application-paragraph-gett-light">Для отправки документов в налоговую на регистрацию необходимо выпустить электронную подпись.
         <br>Запрос на выпуск электронной подписи обычно обрабатывается 15-20 минут.
-        <br>Заявки обрабатываются в рабочее время (с 10 до 19 часов), в будние дни.</p><a href="#" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Выпустить электронную подпись</a>
-    
+        <br>Заявки обрабатываются в рабочее время (с 10 до 19 часов), в будние дни.</p>
+
+@if(signRequested) {
+    <a href="#" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Подпись выпускается</a>
+} else {
+        <a href="/make-sign" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Выпустить электронную подпись</a>
+}    
     <div class="signature-done" style="display:none;"><span class="signature-done-check"></span>Электронная подпись готова</div>
 </div>	
 
