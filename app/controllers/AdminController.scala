@@ -152,7 +152,7 @@ def registerFill(id: Long) = SecuredAction.async { implicit request =>
             } yield {
               //env.eventBus.publish(SignUpEvent(user, request, request2Messages))
               //env.eventBus.publish(LoginEvent(user, request, request2Messages))
-			  Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
+			  Redirect(routes.AdminController.index)
             }
         }
 
