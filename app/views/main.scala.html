@@ -119,8 +119,8 @@
 
 
 $("#passport").mask("SS 999999", {'translation': {
-                                        A: {pattern: /[A-Za-z0-9]/}, 
-                                        S: {pattern: /[A-Za-z]/},  
+                                        A: {pattern: /[\wА-Яа-я]/}, 
+                                        S: {pattern: /[А-Я]/},  
                                         Y: {pattern: /[0-9]/}
                                       }, placeholder: "AA 00000"})
 

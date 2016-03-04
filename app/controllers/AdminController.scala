@@ -160,17 +160,17 @@ def registered_user = SecuredAction.async { implicit request =>
 
 
 
-    def isFillAreCorrect = SecuredAction.async { implicit request => 
-	  val fillingsF = fillsDAO.getAll	
-	  val fillings = await(fillingsF)
-	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
-    }
+def isFillAreCorrect = SecuredAction.async { implicit request => 
+  val fillingsF = fillsDAO.getAll	
+  val fillings = await(fillingsF)
+  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+}
 
-    def fillAreCorrect = SecuredAction.async { implicit request => 
-	  val fillingsF = fillsDAO.getAll	
-	  val fillings = await(fillingsF)
-	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
-    }
+def fillAreCorrect = SecuredAction.async { implicit request => 
+  val fillingsF = fillsDAO.getAll	
+  val fillings = await(fillingsF)
+  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+}
 
 
 
@@ -192,13 +192,28 @@ def registerFill(id: Long) = SecuredAction.async { implicit request =>
 	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
 
 }
+
+
+
 def writeFill(id: Long) = SecuredAction.async { implicit request =>
-	  Future.successful(Ok(views.html.fillData(request.identity )))
+	  Future.successful(Ok(views.html.fillData(request.identity, id, forms.PrimaryFillForm.form )))
 }
+
+
+
 def saveFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	
 	  val fillings = await(fillingsF)
-	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+    forms.PrimaryFillForm.form.bindFromRequest.fold(
+      form => {
+      	println("error")
+      	Future.successful(Ok(views.html.fillData(request.identity, id, forms.PrimaryFillForm.form )))
+      },
+      data => {
+      	println(data)
+		  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+      })
+
 }
 
 def testMail = SecuredAction.async { implicit request =>
