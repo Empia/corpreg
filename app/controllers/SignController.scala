@@ -80,65 +80,60 @@ def retriveSms = SecuredAction.async { implicit request =>
     val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
  	val inn = retriveFromAttrSeq(attrs, attribute="inn")
     val snils = retriveFromAttrSeq(attrs, attribute="snils")
+    val smsCode = fill.smsCode
+    var smsCodeRequestGranted = false
+    val codeSigned = smsCode match {
+    	case "0000" => true
+    	case _ => false
+    }
+    if (smsCode != "" && smsCode != "0000") {
+    	smsCodeRequestGranted = true
+    }
 
     Future(
-    	Ok(views.html.signReady(request.identity, false,  
-
-firstName,
-lastName,
-inn,
-snils
+    	Ok(views.html.signReady(request.identity, codeSigned,  
+				firstName,
+				lastName,
+				inn,
+				snils,
+				forms.FillForm.form,
+				smsCodeRequestGranted
     		))
     )
 }
-def sendDocs = SecuredAction.async { implicit request => 
+
+def sendDocs() = SecuredAction.async { implicit request => 
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
- 	val attrs = await(fillAttributesDAO.findByFill(id))
-
-    val firstName = retriveFromAttrSeq(attrs, attribute="firstName")
-    val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
- 	val inn = retriveFromAttrSeq(attrs, attribute="inn")
-    val snils = retriveFromAttrSeq(attrs, attribute="snils")
-
-    Future(
-    	Ok(views.html.signReady(request.identity, false,  
-
-firstName,
-lastName,
-inn,
-snils
-    		))
-    )
+	fillsDAO.smsCode(id, "0000").map { r =>	
+	    	Redirect(routes.SignController.retriveSms)			    
+	}
 }
-def sendSmsDocs = SecuredAction.async { implicit request => 
+
+def sendSms() = SecuredAction.async { implicit request => 
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
- 	val attrs = await(fillAttributesDAO.findByFill(id))
 
-    val firstName = retriveFromAttrSeq(attrs, attribute="firstName")
-    val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
- 	val inn = retriveFromAttrSeq(attrs, attribute="inn")
-    val snils = retriveFromAttrSeq(attrs, attribute="snils")
-
-    Future(
-    	    	Ok(views.html.signReady(request.identity, false,  
-
-firstName,
-lastName,
-inn,
-snils
-    		))
-    )
+	forms.FillForm.form.bindFromRequest.fold(
+	  form => {
+	  	println("error")
+	  	println(form)
+	  	Future.successful(Redirect(routes.UserFillingController.index)	)
+	  },
+	  data => {
+	  		fillsDAO.smsCode(id, data.phone).map { r =>	
+		    	Redirect(routes.UserFillingController.index)			    
+			}
+	  })
 }
 def finalizing = SecuredAction.async { implicit request => 
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
     Future(
-    	Ok(views.html.sign(request.identity, true ))
+    	Ok(views.html.finalizing(request.identity ))
     )
 }
 

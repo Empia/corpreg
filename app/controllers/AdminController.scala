@@ -217,13 +217,13 @@ def fillAreCorrect(id: Long) = SecuredAction.async { implicit request =>
 def removeFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	
 	  val fillings = await(fillingsF)
-	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+	  Future.successful(Redirect(routes.AdminController.index))
 }
 def closeFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	
 	  val fillings = await(fillingsF)
   	fillsDAO.signComplete(id).map { r2 =>
-	  Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
+	  Redirect(routes.AdminController.index)
 	}	  
 }
 

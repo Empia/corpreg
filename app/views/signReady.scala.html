@@ -1,6 +1,10 @@
-@(user: models.User, signRequested: Boolean, firstName:String,lastName:String, inn:String,snils:String)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, smsCodeRequest: Boolean, firstName:String,lastName:String, inn:String,snils:String, smsForm: Form[forms.FillForm.FillData],smsCodeRequestGranted:Boolean=false)(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
 @import play.api.Play
 @import helper._
+
+
 
 @main(Messages("home.title"), Some(user)) {
 <style>
@@ -87,23 +91,36 @@
         </div>
         <h3 class="application-subheading application-subheading-gett">Подписание и отправка документов</h3>
         <p class="application-paragraph application-paragraph-gett-light">Теперь необходимо подписать пакет документов вашей электронной подписью и отправить документы на регистрацию в налоговую.</p>
-        <div><a href="#" data-ix="signature-sms" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Подписать и отправить в налоговую</a>
-            <div style="display: inline-block;" class="signature-done"><span class="signature-done-check"></span>Подписано и отправлено в налоговую</div>
+        <div>
+        @if(!smsCodeRequest && !smsCodeRequestGranted) {
+        <a href="/filling/sendDocs" data-ix="signature-sms" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Подписать и отправить в налоговую</a>
+}
+            <div style="display: none;" class="signature-done"><span class="signature-done-check"></span>Подписано и отправлено в налоговую</div>
         </div>
+        @if(smsCodeRequest) {
+
         <div style="" class="w-form signature-form">
-            <form id="email-form-2" name="email-form-2" data-name="Email Form 2">
-                <input id="name" name="name" data-name="Name" class="w-input signature-form-field" type="text"><a href="#" data-ix="signature-done" class="w-button signature-submit-button">Подтвердить</a>
+@helper.form(action = routes.SignController.sendSms()) {
+            @helper.CSRF.formField     
+
+				@b3.text(smsForm("phone"), 'id -> "last-name",'class -> "w-input signature-form-field")                                
+				<button id="submit" type="submit" value="submit" data-ix="signature-done" class="w-button signature-submit-button">Подтвердить</button>
                 <div class="docs-signature-text">— введите код из смс</div>
-            </form>
         </div>
+}
+
+        }
     </div>
+    @if(smsCodeRequestGranted) {
+
     <div style="display: block;" class="application-body-send">
         <p class="application-paragraph application-paragraph-gett-light">Сейчас документы находятся на регистрации в налоговом органе. Обычно это занимает 4 рабочих дня.</p>
         <p class="application-paragraph application-paragraph-gett-light">После завершения регистрации вы получите документы в электронном виде, подписанные электронной подписью ФНС. Этого достаточно, чтобы открыть расчетный счет в банке и начать работать с Gett.</p>
         <p class="application-paragraph application-paragraph-gett-light application-paragraph-more">Если вам понадобятся документы о регистрации в качестве ИП в бумажном виде, необходимо будет лично (или представителю с нотариальной доверенностью) обратиться в регистрирующий орган по месту постоянной регистрации. <span>Для получения более подробных инструкций, пишите на gett@@clerksy.ru</span>
         </p>
     </div>
-    <div class="w-clearfix application-footer"><a href="#" class="w-button application-next-button application-next-button-gett">Продолжить</a>
+    }
+    <div class="w-clearfix application-footer">
     </div>
 </div>
 </div>

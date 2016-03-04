@@ -1,0 +1,106 @@
+@(user: models.User)(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.application-body-send {
+    padding: 40px 80px 30px;
+    border-bottom: 1px solid #e9e9e9;
+}
+.signature-form {
+    margin-top: 10px;
+    font-size: 16px;
+}
+.signature-form-field {
+    display: inline-block;
+    width: 81px;
+    height: 36px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border: 2px solid #fcb824;
+    font-family: Roboto, sans-serif;
+    color: #555;
+    font-size: 14px;
+    line-height: 18px;
+}
+.signature-submit-button {
+    display: inline-block;
+    height: 36px;
+    border: 1px none #fad991;
+    border-radius: 3px;
+    background-color: #fad991;
+    font-family: Roboto, sans-serif;
+    color: #555;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.docs-signature-text {
+    display: inline-block;
+    margin-left: 10px;
+    font-family: Roboto, sans-serif;
+    color: #d8d8d8;
+}
+</style>
+<div class="w-container">
+    <div class="application-content">
+        <div class="w-clearfix application-header-box application-header-box-gett">
+            <div class="w-clearfix application-header-icon application-header-icon-gett">
+                <div class="application-heading-icon application-heading-icon-gett"></div>
+            </div>
+            <div class="application-header">
+                <h2 class="content-heading content-heading-gett">Регистрация индивидуального предпринимателя</h2>
+            </div>
+            <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+                <div class="w-container">
+                    <nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/gett/gett-passport" class="w-nav-link application-nav-button application-nav-button-done application-nav-button-done-gett">Личные данные</a>
+                        <div class="application-nav-arrow application-arrow-done"></div><a style="max-width: 940px;" href="/documents/taxes-ip" class="w-nav-link application-nav-button application-nav-button-done application-nav-button-done-gett">Электронная подпись</a>
+                        <div class="application-nav-arrow application-arrow-done"></div><a style="max-width: 940px;" href="/documents/documents-ip" class="w-nav-link application-nav-button application-nav-button-done application-nav-button-done-gett">Регистрация в ФНС</a>
+                        <div class="application-nav-arrow application-arrow-done"></div><a style="max-width: 940px;" href="/documents/documents-ip" class="w-nav-link application-nav-button application-nav-button-active application-nav-button-active-gett">Открытие счета</a>
+                    </nav>
+                    <div class="w-nav-button">
+                        <div class="w-icon-nav-menu"></div>
+                    </div>
+                </div>
+                <div class="w-nav-overlay" data-wf-ignore=""></div>
+            </div>
+        </div>
+        <div class="application-body application-body-menu"></div>
+        <div class="application-body application-body-upper application-body-upper-tochka">
+            <div class="w-form application-form">
+                <form id="email-form" name="email-form" data-name="Email Form">
+                    <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
+                </form>
+                <div class="w-form-done">
+                    <p>Thank you! Your submission has been received!</p>
+                </div>
+                <div class="w-form-fail">
+                    <p>Oops! Something went wrong while submitting the form</p>
+                </div>
+            </div><img src="http://uploads.webflow.com/5637501d17335e240c9c1dd0/56d182c1898556d1598b9836_logo-tochka.png" class="logo-tochka" height="65">
+            <h3 class="application-subheading application-subheading-gett">Открытие расчетного счета</h3>
+            <p class="application-paragraph application-paragraph-gett-light">Поздравляем! Теперь вы — индивидуальный предприниматель.
+                <br>Самое время открыть расчетный счет в банке и начать принимать платежи.</p>
+            <p class="application-paragraph application-paragraph-gett-light">Банк Точка (Финансовая группа "Открытие") подготовил для партнеров Gett специальный тариф и персональные условия обслуживания.</p>
+            <div class="w-clearfix faq-block"><a href="#" data-ix="faq-1" class="faq-bank">Зачем мне еще один счет в банке, у меня уже есть банковский счет/карта?</a>
+                <div class="faq-text-block-1">Для проведения взаиморасчетов между юридическими лицами и индивидуальными предпринимателями нужно открывать специальный расчетный счет в банке. Деньги, полученные в качестве дохода от предпринимательской деятельности нельзя перечислить на ваш счет физического лица или банковскую карту.</div><a href="#" data-ix="faq-2" class="faq-bank">Почему нужно открывать счет в Банке Точка?</a>
+                <div class="faq-text-block-2">Точка — это современный банк для предпринимателей: удобное приложение для смартфона и интернет-банк, круглосуточная служба поддержки и 23-х часовой операционный день, бесплатная Mastercard к вашему счету и мгновенные переводы. Кроме того, у Точки налажено быстрое взаимодействие с Gett — вы получите свои деньги сразу, как только они будут отправлены.</div><a href="#" data-ix="faq-3" class="faq-bank">Что нужно для того, чтобы открыть расчетный счет?</a>
+                <div class="faq-text-block-3">Все необходимы данные мы перешлем в Точку сами. Вам перезвонит менеджер банка и вы договоритесь с ним о встрече для подписания договора. Не забудьте взять паспорт и свидетельство ИНН.</div>
+            </div><a href="#" class="w-button button-send-gett">Открыть счет в Точке</a>
+        </div>
+    </div>
+</div>
+
+}

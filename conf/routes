@@ -12,12 +12,16 @@ GET /gett-esign controllers.SignController.index
 GET /make-sign controllers.SignController.requestSign
 
 GET /gett-lite-send         controllers.SignController.retriveSms
+GET  /filling/sendDocs      controllers.SignController.sendDocs()
+POST /filling/sendDocs      controllers.SignController.sendSms()
 GET /gett-lite-registration controllers.SignController.finalizing
 
 GET  /admin                 controllers.AdminController.index
 GET  /filling/:id/remove    controllers.AdminController.removeFill(id: Long)
 GET  /filling/:id/close     controllers.AdminController.closeFill(id: Long)
 GET  /filling/:id/signReady controllers.AdminController.signReady(id:Long)
+
+
 GET  /filling/:id/register  controllers.AdminController.registerFill(id: Long)
 
 
