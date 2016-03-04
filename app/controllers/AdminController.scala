@@ -95,7 +95,6 @@ def index = SecuredAction.async { implicit request =>
 }
 
 def create_filling() = SecuredAction.async { implicit request => 
-
     forms.FillForm.form.bindFromRequest.fold(
       form => { 
   		  val fillingsF = fillsDAO.getAll	
@@ -110,52 +109,53 @@ def create_filling() = SecuredAction.async { implicit request =>
 		  }			  
       }
     )
-	  	
 }
 
-def registered_user = SecuredAction.async { implicit request => 
+
+val smsComponent = new SMSComponent
+
+def registerFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll	
 	  val fillings = await(fillingsF)
+	  val current_fill = fillings.find(fill => fill.id.get == id).get
+      val attrs = await(fillAttributesDAO.findByFill(id))
 
-/* def smsSignUp = Action.async { implicit request =>
-    SignUpForm.form.bindFromRequest.fold(
-      form => Future.successful(BadRequest(views.html.signUp(form))),
-      data => {
-        val loginInfo = LoginInfo(CredentialsProvider.ID, data.email)
+	  val firstName = retriveFromAttrSeq(attrs, attribute="firstname")
+	  val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
+
+        val loginInfo = LoginInfo(CredentialsProvider.ID, current_fill.phone)
         userService.retrieve(loginInfo).flatMap {
           case Some(user) =>
             Future.successful(Redirect(routes.ApplicationController.signUp()).flashing("error" -> Messages("user.exists")))
           case None =>
             val password = smsComponent.generatePassword
-            smsComponent.sendSms(data.email, text = s"Ваш пароль для входа $password")
+            println("generated password: "+password)
+            //smsComponent.sendSms(current_fill.phone, text = s"Ваш пароль для входа $password")
             val authInfo = passwordHasher.hash(password)
             val user = User(
               userID = UUID.randomUUID(),
               loginInfo = loginInfo,
-              firstName = Some(data.firstName),
-              lastName = Some(data.lastName),
-              fullName = Some(data.firstName + " " + data.lastName),
-              email = Some(data.email),
+              firstName = Some(firstName),
+              lastName = Some(lastName),
+              fullName = Some(firstName + " " + lastName),
+              email = Some(current_fill.phone),
               avatarURL = None
             )
             for {
-              avatar <- avatarService.retrieveURL(data.email)
+              avatar <- avatarService.retrieveURL(current_fill.phone)
               user <- userService.save(user.copy(avatarURL = avatar))
               authInfo <- authInfoRepository.add(loginInfo, authInfo)
               authenticator <- env.authenticatorService.create(loginInfo)
-              value <- env.authenticatorService.init(authenticator)
-              result <- env.authenticatorService.embed(value, Redirect(routes.ApplicationController.index()))
+              r2 <- fillsDAO.registerUser(id)
+              //value <- env.authenticatorService.init(authenticator)
+              //result <- env.authenticatorService.embed(value, Redirect(routes.ApplicationController.index()))
             } yield {
-              env.eventBus.publish(SignUpEvent(user, request, request2Messages))
-              env.eventBus.publish(LoginEvent(user, request, request2Messages))
-              result
+              //env.eventBus.publish(SignUpEvent(user, request, request2Messages))
+              //env.eventBus.publish(LoginEvent(user, request, request2Messages))
+			  Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
             }
         }
-      }
-    )
-  }
- */
-	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+
 }
 
 
@@ -217,13 +217,6 @@ def closeFill(id: Long) = SecuredAction.async { implicit request =>
   	fillsDAO.signComplete(id).map { r2 =>
 	  Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
 	}	  
-}
-def registerFill(id: Long) = SecuredAction.async { implicit request =>
-	  val fillingsF = fillsDAO.getAll	
-	  val fillings = await(fillingsF)
-  	fillsDAO.registerUser(id).map { r2 =>
-	  Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
-	}
 }
 
 
@@ -289,7 +282,7 @@ def saveFill(id: Long) = SecuredAction.async { implicit request =>
       form => {
       	println("error")
       	println(form)
-      	Future.successful(Ok(views.html.fillData(request.identity, id, forms.PrimaryFillForm.form )))
+      	Future.successful(Redirect(routes.AdminController.index))
       },
       data => {
       	println(data)
@@ -357,15 +350,18 @@ FillAttributeDTO(id=None,
 
 
 
-Future.sequence(fillAttributes.map { attr =>
+val attrF = Future.sequence(fillAttributes.map { attr =>
 	fillAttributesDAO.findOrCreate(id, attr)
-}).flatMap { r =>
-	fillsDAO.areFilled(id).map { r2 =>
-		println("are filled: "+r2)
-	   Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
+})
+
+	for {
+              attr <- attrF
+              r2 <- fillsDAO.areFilled(id)
+            } yield {
+	   Redirect(routes.AdminController.index)
 
 	}
-}
+
 
       })
 

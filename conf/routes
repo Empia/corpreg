@@ -11,8 +11,12 @@ GET  /admin                controllers.AdminController.index
 GET  /filling/:id/remove   controllers.AdminController.removeFill(id: Long)
 GET  /filling/:id/close    controllers.AdminController.closeFill(id: Long)
 GET  /filling/:id/register controllers.AdminController.registerFill(id: Long)
+
+
 GET  /filling/:id/fill     controllers.AdminController.writeFill(id: Long)
 POST /filling/:id/fill     controllers.AdminController.saveFill(id: Long)
+
+
 
 GET  /filling/test_mail    controllers.AdminController.testMail
 
