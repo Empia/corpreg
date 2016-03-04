@@ -403,4 +403,18 @@ def sendEmail(mailerClient: MailerClient) {
   )
   mailerClient.send(email)
 }
+def sendFullEmail(mailerClient: MailerClient, phone:String, fullName:Option[String], action:String) {
+  val cid = "1234"
+  val email = Email(
+    s"Пользователь ${fullName.getOrElse("Аноним")} -- $action",
+    "Clersky FROM <mailbot@clerksy.ru>",
+    Seq("Stan TO <iamjacke@gmail.com>"),
+    // adds attachment
+    attachments = Seq(),
+    // sends text, HTML or both...
+    bodyText = Some(s"Пользователь ${fullName.getOrElse("Аноним")} $phone сделал $action")//,
+    //bodyHtml = Some(s"""<html><body><p>ТОТ <b>Тяжело отдыхает</b> message with cid <img src="cid:$cid"></p></body></html>""")
+  )
+  mailerClient.send(email)
+}
 }

@@ -35,11 +35,18 @@ import info.folone.scala.poi._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
+import play.api.Play.current
+import play.api.libs.mailer._
+import java.io.File
+import org.apache.commons.mail.EmailAttachment
+
 
 class SignController @Inject() (
   val messagesApi: MessagesApi,
   fillsDAO:FillsDAO,
   fillAttributesDAO: FillAttributesDAO,    
+  mailerClient: MailerClient,
+
   val env: Environment[User, CookieAuthenticator],
   socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[User, CookieAuthenticator] {	
@@ -54,6 +61,11 @@ def index = SecuredAction.async { implicit request =>
 	val id = fill.id.get
 	val signRequested = fill.signRequested
   fillsDAO.correctFilling(id).map { r2 =>
+  	// Mail
+  	if (!fill.filledCorrect){
+	Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName, 
+		action = "Подтвердил правильность анкетных данных")
+	}  	
 	  Ok(views.html.sign(request.identity, signRequested ))
 //	  Redirect(routes.UserFillingController.index)
   }	  
@@ -64,6 +76,11 @@ def requestSign = SecuredAction.async { implicit request =>
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
   fillsDAO.signRequested(id).map { r2 =>
+  	if (!fill.signRequested){
+	Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName, 
+		action = "Запросил выпуск электронной подписи")
+	}  
+
 	  Ok(views.html.sign(request.identity, true ))
 //	  Redirect(routes.UserFillingController.index)
   }	  
@@ -106,6 +123,10 @@ def sendDocs() = SecuredAction.async { implicit request =>
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
 	fillsDAO.smsCode(id, "0000").map { r =>	
+	  	if (fill.smsCode != "0000"){
+			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName, 
+			action = "Решил подписать и отправить документы в налоговую")
+		}  	
 	    	Redirect(routes.SignController.retriveSms)			    
 	}
 }
@@ -123,6 +144,11 @@ def sendSms() = SecuredAction.async { implicit request =>
 	  },
 	  data => {
 	  		fillsDAO.smsCode(id, data.phone).map { r =>	
+	  	if (fill.smsCode == "0000"){
+			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName, 
+			action = s"Получил кодик и решил передать его на подписание. Сам кодик $data.phone")
+		}  	
+
 		    	Redirect(routes.UserFillingController.index)			    
 			}
 	  })
