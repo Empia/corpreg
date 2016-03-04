@@ -46,9 +46,33 @@ class UserFillingController @Inject() (
 
 def index = SecuredAction.async { implicit request =>
   // passport stage
+	val phone = request.identity.email.getOrElse("")
+	val fill = await(fillsDAO.getByPhone(phone)).get
+	val id = fill.id.get
+	val signRequested = fill.signRequested  
+/*
+	filled:Boolean = false,
+	filledCorrect: Boolean = false,
+	signRequested: Boolean = false,
+	signMarked:Boolean = false,
+	smsCode: String = "",
+	signCompleted:Boolean = false)
+ */	
+  println("current fill are "+fill.filled+" "+fill.filledCorrect+""+fill.signMarked)
+  if (fill.filled && !fill.filledCorrect) {
   Future.successful(Redirect(routes.UserFillingController.passport)) 
-  // sign stage
-  // sign sms stage
+  } else 
+  if (fill.filled && fill.filledCorrect && !fill.signMarked) {
+	  Future.successful(Redirect(routes.SignController.index)) 
+  } else 
+  if (fill.filled && fill.filledCorrect && fill.signMarked && !fill.signCompleted) {
+  	Future.successful(Redirect(routes.SignController.retriveSms))
+  } else 
+  if (fill.filled && fill.filledCorrect && fill.signMarked && fill.signCompleted) {
+  	Future.successful(Redirect(routes.SignController.finalizing))
+  } else {
+	  Future.successful(Redirect(routes.UserFillingController.passport)) 
+  }
 }
 
 def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)

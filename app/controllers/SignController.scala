@@ -61,16 +61,32 @@ def index = SecuredAction.async { implicit request =>
 }
 
 def requestSign = SecuredAction.async { implicit request => 
-
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
-
   fillsDAO.signRequested(id).map { r2 =>
 	  Ok(views.html.sign(request.identity, true ))
 //	  Redirect(routes.UserFillingController.index)
   }	  
 }
+
+def retriveSms = SecuredAction.async { implicit request => 
+	val phone = request.identity.email.getOrElse("")
+	val fill = await(fillsDAO.getByPhone(phone)).get
+	val id = fill.id.get
+    Future(
+    	Ok(views.html.sign(request.identity, true ))
+    )
+}
+def finalizing = SecuredAction.async { implicit request => 
+	val phone = request.identity.email.getOrElse("")
+	val fill = await(fillsDAO.getByPhone(phone)).get
+	val id = fill.id.get
+    Future(
+    	Ok(views.html.sign(request.identity, true ))
+    )
+}
+
 
 
 

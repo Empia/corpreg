@@ -11,6 +11,9 @@ GET /gett-esign controllers.SignController.index
 
 GET /make-sign controllers.SignController.requestSign
 
+GET /gett-lite-send         controllers.SignController.retriveSms
+GET /gett-lite-registration controllers.SignController.finalizing
+
 GET  /admin                controllers.AdminController.index
 GET  /filling/:id/remove   controllers.AdminController.removeFill(id: Long)
 GET  /filling/:id/close    controllers.AdminController.closeFill(id: Long)
