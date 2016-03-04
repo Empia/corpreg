@@ -47,7 +47,9 @@ class UserFillingController @Inject() (
 def index = SecuredAction.async { implicit request =>
   // passport stage
 	val phone = request.identity.email.getOrElse("")
-	val fill = await(fillsDAO.getByPhone(phone)).get
+	val fillOpt = await(fillsDAO.getByPhone(phone)) match {
+		case Some(fill) => {
+
 	val id = fill.id.get
 	val signRequested = fill.signRequested  
 /*
@@ -72,6 +74,10 @@ def index = SecuredAction.async { implicit request =>
   } else {
 	  Future.successful(Redirect(routes.UserFillingController.passport)) 
   }
+
+  }		
+  case _ => Ok("Вас нету в системе. Свяжитесь с нами ")	}
+
 }
 
 def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
