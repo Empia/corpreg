@@ -10,9 +10,44 @@
     margin-right: 10px;
 }
 .application-body-send {
-    display: none;
     padding: 40px 80px 30px;
     border-bottom: 1px solid #e9e9e9;
+}
+.signature-form {
+    margin-top: 10px;
+    font-size: 16px;
+}
+.signature-form-field {
+    display: inline-block;
+    width: 81px;
+    height: 36px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border: 2px solid #fcb824;
+    font-family: Roboto, sans-serif;
+    color: #555;
+    font-size: 14px;
+    line-height: 18px;
+}
+.signature-submit-button {
+    display: inline-block;
+    height: 36px;
+    border: 1px none #fad991;
+    border-radius: 3px;
+    background-color: #fad991;
+    font-family: Roboto, sans-serif;
+    color: #555;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.docs-signature-text {
+    display: inline-block;
+    margin-left: 10px;
+    font-family: Roboto, sans-serif;
+    color: #d8d8d8;
 }
 </style>
 <div class="w-container">
@@ -51,17 +86,14 @@
         </div>
         <h3 class="application-subheading application-subheading-gett">Подписание и отправка документов</h3>
         <p class="application-paragraph application-paragraph-gett-light">Теперь необходимо подписать пакет документов вашей электронной подписью и отправить документы на регистрацию в налоговую.</p>
-        <div><a href="#" data-ix="signature-sms" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Подписать документы</a>
-            <div style="display: inline-block;" class="signature-done"><span class="signature-done-check"></span>Подписано</div>
+        <div><a href="#" data-ix="signature-sms" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Подписать и отправить в налоговую</a>
+            <div style="display: inline-block;" class="signature-done"><span class="signature-done-check"></span>Подписано и отправлено в налоговую</div>
         </div>
-        <div style="display: none;" class="w-form signature-form">
+        <div style="" class="w-form signature-form">
             <form id="email-form-2" name="email-form-2" data-name="Email Form 2">
                 <input id="name" name="name" data-name="Name" class="w-input signature-form-field" type="text"><a href="#" data-ix="signature-done" class="w-button signature-submit-button">Подтвердить</a>
                 <div class="docs-signature-text">— введите код из смс</div>
             </form>
-        </div>
-        <div style="display: block;" class="send-docs-block"><a href="#" data-ix="send-docs-done" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Отправить в налоговую</a>
-            <div style="display: inline-block;" class="send-docs-done"><span class="signature-done-check"></span>Отправлено в налоговую&nbsp;</div>
         </div>
     </div>
     <div style="display: block;" class="application-body-send">
