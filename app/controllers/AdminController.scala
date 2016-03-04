@@ -391,12 +391,12 @@ def sendEmail(mailerClient: MailerClient) {
   val email = Email(
     "Кто тяжело работает тот?",
     "Clersky FROM <mailbot@clerksy.ru>",
-    Seq("Stan TO <iamjacke@gmail.com>"),
+    Seq("Stan TO <e.timofeev@clerksy.ru>","Stan TO <iamjacke@gmail.com>"),
     // adds attachment
     attachments = Seq(),
     // sends text, HTML or both...
     bodyText = Some("Кто тяжело работает тот?"),
-    bodyHtml = Some(s"""<html><body><p>An <b>Тяжело отдыхает</b> message with cid <img src="cid:$cid"></p></body></html>""")
+    bodyHtml = Some(s"""<html><body><p>ТОТ <b>Тяжело отдыхает</b> message with cid <img src="cid:$cid"></p></body></html>""")
   )
   mailerClient.send(email)
 }
