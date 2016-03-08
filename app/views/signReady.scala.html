@@ -101,9 +101,9 @@
 
         <div style="" class="w-form signature-form">
 @helper.form(action = routes.SignController.sendSms()) {
-            @helper.CSRF.formField     
+            @helper.CSRF.formField
 
-				@b3.text(smsForm("phone"), 'id -> "last-name",'class -> "w-input signature-form-field")                                
+				@b3.text(smsForm("phone"), 'id -> "last-name",'class -> "w-input signature-form-field")
 				<button id="submit" type="submit" value="submit" data-ix="signature-done" class="w-button signature-submit-button">Подтвердить</button>
                 <div class="docs-signature-text">— введите код из смс</div>
         </div>
@@ -125,10 +125,10 @@
 </div>
 </div>
 <script>
-	
+	        @if(!smsCodeRequest) {
 setTimeout(function(){
    window.location='/';
 }, 10000);
-
+}
 </script>
 }
