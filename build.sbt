@@ -40,7 +40,7 @@ libraryDependencies ++= Seq(
   "net.codingwell" %% "scala-guice" % "4.0.0",
   "com.typesafe.play" %% "play-slick" % "1.1.0",
   "com.typesafe.play" %% "play-slick-evolutions" % "1.1.0",
-  "com.h2database" % "h2" % "1.4.187",    
+  "com.h2database" % "h2" % "1.4.187",
   "net.ceedubs" %% "ficus" % "1.1.2",
 
   "com.adrianhurt" %% "play-bootstrap3" % "0.4.4-P24",
@@ -72,6 +72,8 @@ libraryDependencies += "com.twelvemonkeys.imageio" % "imageio-tiff" % "3.2.1" % 
 
 libraryDependencies += "com.github.dragon66" % "icafe" % "1.1-SNAPSHOT" % "compile"
 
+
+libraryDependencies += "com.sandinh" %% "scala-soap" % "1.5.0"
 
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)

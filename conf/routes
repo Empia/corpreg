@@ -37,6 +37,11 @@ POST /fill controllers.AdminController.create_filling
 
 GET /balance controllers.ApplicationController.balance
 
+
+GET /wsdltest        controllers.WSDLTestController.index
+GET /wsdlsave/:phone controllers.WSDLTestController.saveDoc(phone:String)
+
+
 GET /gett-address controllers.ApplicationController.address
 GET /gett-okved controllers.ApplicationController.okved
 GET /gett-taxes-ip controllers.ApplicationController.taxesIP
