@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<regRequest version="3.1" dateTime="08.03.2016 11:29:13" id="0f6ecc4dfb9d46608934bd7f130fa39f">
+<type>1</type>
+<abnType>1</abnType>
+<officeGuid>40FA0D16-3B54-4004-B9D3-3997C4C0CC91</officeGuid>
+<category>1</category>
+<inn>9999936973</inn>
+<kpp>999901001</kpp>
+<rnsPfr stPfr="1">099-999-111111</rnsPfr>
+<storageType>1</storageType>
+<fullName>Общество с ограниченной ответственностью "Тест"</fullName>
+<phone>89000000000</phone>
+<mobilePhone>89000000000</mobilePhone>
+<shortName>ООО "Тест from clersky"</shortName>
+<postalAddress>248000,40,,Калуга,,,,,</postalAddress>
+<locationAddress>248000,40,,Калуга,,,,,</locationAddress>
+<eMail>test@astralnalog.ru</eMail>
+<rnsFss>4000000000</rnsFss>
+<kpFss>4000</kpFss>
+<verifyKpp>0</verifyKpp>
+<ogrn>1111111111111</ogrn>
+<members><member>
+<firstName>Иван</firstName>
+<lastName>Иванов</lastName>
+<patronymic>Иванович</patronymic>
+<passportType>01</passportType>
+<passportSerial>1111</passportSerial>
+<passportNumber>111111</passportNumber>
+<passportDate>11.11.2011</passportDate>
+<passportComment>111-111 ОТДЕЛЕНИЕМ №3 ОТДЕЛА ПАСПОРТНО-ВИЗОВОЙ СЛУЖБЫ УВД ГОРОДА</passportComment>
+<signer>1</signer>
+<encrypt>1</encrypt>
+<certTemplate>3</certTemplate>
+<post>НаименованиеДолжности</post>
+<orgUnit>НазваниеПодразделения</orgUnit>
+<snils>000-000-000 00</snils>
+<mobilePhone>89000000000</mobilePhone>
+<eMail>test@astralnalog.ru</eMail>
+<signQualification>1</signQualification>
+</member></members>
+<plugins>
+<plugin guid="46472FBA-069F-4D41-9E49-736DF914CCD1"></plugin>
+</plugins>
+</regRequest>

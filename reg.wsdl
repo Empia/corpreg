@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://regservice.keydisk.ru/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://regservice.keydisk.ru/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://regservice.keydisk.ru/">
+      <s:element name="SendPacket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="packet" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPacketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPacketResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveUpdatedPacket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="packetId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="updateDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveUpdatedPacketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReceiveUpdatedPacketResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceivePacket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="packetId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceivePacketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReceivePacketResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetThumbPrintForRecipient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="protocol" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetThumbPrintForRecipientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetThumbPrintForRecipientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCertificateForRecipient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="protocol" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCertificateForRecipientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCertificateForRecipientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCertRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="packId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="certRequest" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCertRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCertRequestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMobile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mobile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMobileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendMobileResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Test">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="file" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoutePfrList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetRoutePfrListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRoutePfrListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWorkflowProductUidList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="workflowGuidsString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWorkflowProductUidListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWorkflowProductUidListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFnsCodes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="regionCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFnsCodesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFnsCodesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="packetId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveResponseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReceiveResponseResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBgRequestList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="kpp" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBgRequestListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBgRequestListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHtmlFromCertificate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cert" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="template" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHtmlFromCertificateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHtmlFromCertificateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SignMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SignMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SignMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EncryptMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="certificates" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EncryptMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EncryptMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecryptMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="encryptedMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecryptMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DecryptMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionKey">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionKeyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSessionKeyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendPacketSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPacket" />
+  </wsdl:message>
+  <wsdl:message name="SendPacketSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPacketResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveUpdatedPacketSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveUpdatedPacket" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveUpdatedPacketSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveUpdatedPacketResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceivePacketSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceivePacket" />
+  </wsdl:message>
+  <wsdl:message name="ReceivePacketSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceivePacketResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetThumbPrintForRecipientSoapIn">
+    <wsdl:part name="parameters" element="tns:GetThumbPrintForRecipient" />
+  </wsdl:message>
+  <wsdl:message name="GetThumbPrintForRecipientSoapOut">
+    <wsdl:part name="parameters" element="tns:GetThumbPrintForRecipientResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCertificateForRecipientSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCertificateForRecipient" />
+  </wsdl:message>
+  <wsdl:message name="GetCertificateForRecipientSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCertificateForRecipientResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCertRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCertRequest" />
+  </wsdl:message>
+  <wsdl:message name="SendCertRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCertRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMobileSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMobile" />
+  </wsdl:message>
+  <wsdl:message name="SendMobileSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMobileResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapIn">
+    <wsdl:part name="parameters" element="tns:Test" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapOut">
+    <wsdl:part name="parameters" element="tns:TestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRoutePfrListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRoutePfrList" />
+  </wsdl:message>
+  <wsdl:message name="GetRoutePfrListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRoutePfrListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductList" />
+  </wsdl:message>
+  <wsdl:message name="GetProductListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkflowProductUidListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWorkflowProductUidList" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkflowProductUidListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWorkflowProductUidListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFnsCodesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFnsCodes" />
+  </wsdl:message>
+  <wsdl:message name="GetFnsCodesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFnsCodesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveResponseSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveResponseSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveResponseResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBgRequestListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBgRequestList" />
+  </wsdl:message>
+  <wsdl:message name="GetBgRequestListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBgRequestListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHtmlFromCertificateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHtmlFromCertificate" />
+  </wsdl:message>
+  <wsdl:message name="GetHtmlFromCertificateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHtmlFromCertificateResponse" />
+  </wsdl:message>
+  <wsdl:message name="SignMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:SignMessage" />
+  </wsdl:message>
+  <wsdl:message name="SignMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:SignMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="EncryptMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:EncryptMessage" />
+  </wsdl:message>
+  <wsdl:message name="EncryptMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:EncryptMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="DecryptMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:DecryptMessage" />
+  </wsdl:message>
+  <wsdl:message name="DecryptMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:DecryptMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionKeySoapIn">
+    <wsdl:part name="parameters" element="tns:GetSessionKey" />
+  </wsdl:message>
+  <wsdl:message name="GetSessionKeySoapOut">
+    <wsdl:part name="parameters" element="tns:GetSessionKeyResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RegServiceSoap">
+    <wsdl:operation name="SendPacket">
+      <wsdl:input message="tns:SendPacketSoapIn" />
+      <wsdl:output message="tns:SendPacketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveUpdatedPacket">
+      <wsdl:input message="tns:ReceiveUpdatedPacketSoapIn" />
+      <wsdl:output message="tns:ReceiveUpdatedPacketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceivePacket">
+      <wsdl:input message="tns:ReceivePacketSoapIn" />
+      <wsdl:output message="tns:ReceivePacketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetThumbPrintForRecipient">
+      <wsdl:input message="tns:GetThumbPrintForRecipientSoapIn" />
+      <wsdl:output message="tns:GetThumbPrintForRecipientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCertificateForRecipient">
+      <wsdl:input message="tns:GetCertificateForRecipientSoapIn" />
+      <wsdl:output message="tns:GetCertificateForRecipientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCertRequest">
+      <wsdl:input message="tns:SendCertRequestSoapIn" />
+      <wsdl:output message="tns:SendCertRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMobile">
+      <wsdl:input message="tns:SendMobileSoapIn" />
+      <wsdl:output message="tns:SendMobileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <wsdl:input message="tns:TestSoapIn" />
+      <wsdl:output message="tns:TestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRoutePfrList">
+      <wsdl:input message="tns:GetRoutePfrListSoapIn" />
+      <wsdl:output message="tns:GetRoutePfrListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductList">
+      <wsdl:input message="tns:GetProductListSoapIn" />
+      <wsdl:output message="tns:GetProductListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkflowProductUidList">
+      <wsdl:input message="tns:GetWorkflowProductUidListSoapIn" />
+      <wsdl:output message="tns:GetWorkflowProductUidListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFnsCodes">
+      <wsdl:input message="tns:GetFnsCodesSoapIn" />
+      <wsdl:output message="tns:GetFnsCodesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveResponse">
+      <wsdl:input message="tns:ReceiveResponseSoapIn" />
+      <wsdl:output message="tns:ReceiveResponseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBgRequestList">
+      <wsdl:input message="tns:GetBgRequestListSoapIn" />
+      <wsdl:output message="tns:GetBgRequestListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHtmlFromCertificate">
+      <wsdl:input message="tns:GetHtmlFromCertificateSoapIn" />
+      <wsdl:output message="tns:GetHtmlFromCertificateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SignMessage">
+      <wsdl:input message="tns:SignMessageSoapIn" />
+      <wsdl:output message="tns:SignMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EncryptMessage">
+      <wsdl:input message="tns:EncryptMessageSoapIn" />
+      <wsdl:output message="tns:EncryptMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptMessage">
+      <wsdl:input message="tns:DecryptMessageSoapIn" />
+      <wsdl:output message="tns:DecryptMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionKey">
+      <wsdl:input message="tns:GetSessionKeySoapIn" />
+      <wsdl:output message="tns:GetSessionKeySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RegServiceSoap" type="tns:RegServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendPacket">
+      <soap:operation soapAction="http://regservice.keydisk.ru/SendPacket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveUpdatedPacket">
+      <soap:operation soapAction="http://regservice.keydisk.ru/ReceiveUpdatedPacket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceivePacket">
+      <soap:operation soapAction="http://regservice.keydisk.ru/ReceivePacket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetThumbPrintForRecipient">
+      <soap:operation soapAction="http://regservice.keydisk.ru/GetThumbPrintForRecipient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCertificateForRecipient">
+      <soap:operation soapAction="http://regservice.keydisk.ru/GetCertificateForRecipient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCertRequest">
+      <soap:operation soapAction="http://regservice.keydisk.ru/SendCertRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMobile">
+      <soap:operation soapAction="http://regservice.keydisk.ru/SendMobile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap:operation soapAction="http://regservice.keydisk.ru/Test" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoutePfrList">
+      <soap:operation soapAction="http://regservice.keydisk.ru/GetRoutePfrList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductList">
+      <soap:operation soapAction="http://regservice.keydisk.ru/GetProductList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkflowProductUidList">
+      <soap:operation soapAction="http://regservice.keydisk.ru/GetWorkflowProductUidList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFnsCodes">
+      <soap:operation soapAction="http://regservice.keydisk.ru/GetFnsCodes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveResponse">
+      <soap:operation soapAction="http://regservice.keydisk.ru/ReceiveResponse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBgRequestList">
+      <soap:operation soapAction="http://regservice.keydisk.ru/GetBgRequestList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHtmlFromCertificate">
+      <soap:operation soapAction="http://regservice.keydisk.ru/GetHtmlFromCertificate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SignMessage">
+      <soap:operation soapAction="http://regservice.keydisk.ru/SignMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptMessage">
+      <soap:operation soapAction="http://regservice.keydisk.ru/EncryptMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptMessage">
+      <soap:operation soapAction="http://regservice.keydisk.ru/DecryptMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionKey">
+      <soap:operation soapAction="http://regservice.keydisk.ru/GetSessionKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RegServiceSoap12" type="tns:RegServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendPacket">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/SendPacket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveUpdatedPacket">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/ReceiveUpdatedPacket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceivePacket">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/ReceivePacket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetThumbPrintForRecipient">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/GetThumbPrintForRecipient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCertificateForRecipient">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/GetCertificateForRecipient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCertRequest">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/SendCertRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMobile">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/SendMobile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/Test" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoutePfrList">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/GetRoutePfrList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductList">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/GetProductList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkflowProductUidList">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/GetWorkflowProductUidList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFnsCodes">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/GetFnsCodes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveResponse">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/ReceiveResponse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBgRequestList">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/GetBgRequestList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHtmlFromCertificate">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/GetHtmlFromCertificate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SignMessage">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/SignMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptMessage">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/EncryptMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptMessage">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/DecryptMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionKey">
+      <soap12:operation soapAction="http://regservice.keydisk.ru/GetSessionKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RegService">
+    <wsdl:port name="RegServiceSoap" binding="tns:RegServiceSoap">
+      <soap:address location="http://regservice.keydisk.ru/regservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RegServiceSoap12" binding="tns:RegServiceSoap12">
+      <soap12:address location="http://regservice.keydisk.ru/regservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
