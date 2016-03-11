@@ -27,7 +27,10 @@ object PrimaryFillForm {
          "kodPodrazdelenia" -> text,
          "passportIssuedBy" -> text,
          "inn" -> text,
-         "snils" -> text
+         "snils" -> text,
+         "eMail" -> text,
+         "postalAddress" -> text,
+         "locationAddress" -> text
 )(PrimaryFillData.apply)(PrimaryFillData.unapply)
   )
   case class PrimaryFillData(
@@ -41,7 +44,10 @@ object PrimaryFillForm {
       kodPodrazdelenia: String,
       passportIssuedBy:String,
       inn:String,
-      snils:String
+      snils:String,
+      eMail:String,
+      postalAddress:String,
+      locationAddress:String
   )
 }
 

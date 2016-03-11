@@ -34,7 +34,7 @@
         <div class="w-nav-overlay" data-wf-ignore=""></div>
     </div>
 </div>
-              
+
 <div class="application-body application-body-upper">
     <h3 class="application-subheading application-subheading-gett">Личные данные</h3>
     <p class="application-paragraph application-paragraph-gett-light">Ввод данный администратором
@@ -43,25 +43,25 @@
 
 
 @helper.form(action = routes.AdminController.saveFill(fillId)) {
-            @helper.CSRF.formField     
+            @helper.CSRF.formField
 <div class="application-body">
     <div class="w-form application-form">
         <div id="email-form" name="email-form" data-name="Email Form">
             <div class="w-row">
                 <div class="w-col w-col-6">
                     <label for="name-4" class="application-form-label">Фамилия:</label>
-    @b3.text(fillForm("lastName"), 'id -> "last-name",'class -> "w-input application-form-field application-form-field-gett")                
+    @b3.text(fillForm("lastName"), 'id -> "last-name",'class -> "w-input application-form-field application-form-field-gett")
                     <label for="name-5" class="application-form-label">Имя:</label>
-    @b3.text(fillForm("firstname"), 'id -> "first-name",'class -> "w-input application-form-field application-form-field-gett")                
+    @b3.text(fillForm("firstname"), 'id -> "first-name",'class -> "w-input application-form-field application-form-field-gett")
                     <label for="name-6" class="application-form-label">Отчество:</label>
-    @b3.text(fillForm("middleName"), 'id -> "middle-name",'class -> "w-input application-form-field application-form-field-gett")                
+    @b3.text(fillForm("middleName"), 'id -> "middle-name",'class -> "w-input application-form-field application-form-field-gett")
 
                 </div>
                 <div class="w-col w-col-6">
                     <label for="email-4" class="application-form-label">Дата рождения:</label>
-    @b3.text(fillForm("dob"), 'id -> "email-4",'class -> "w-input application-form-field application-form-field-gett")                            
+    @b3.text(fillForm("dob"), 'id -> "email-4",'class -> "w-input application-form-field application-form-field-gett")
                     <label for="email-5" class="application-form-label">Место рождения:</label>
-    @b3.text(fillForm("placeOfBorn"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")                            
+    @b3.text(fillForm("placeOfBorn"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")
                 </div>
             </div>
         </div>
@@ -76,17 +76,17 @@
             <div class="w-row">
                 <div class="w-col w-col-6">
                     <label for="name-7" class="application-form-label">Серия и номер паспорта:</label>
-    @b3.text(fillForm("passport"), 'id -> "passport",'class -> "w-input application-form-field application-form-field-gett")                               
+    @b3.text(fillForm("passport"), 'id -> "passport",'class -> "w-input application-form-field application-form-field-gett")
                     <label for="name-8" class="application-form-label">Дата выдачи паспорта:</label>
-    @b3.text(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'class -> "w-input application-form-field application-form-field-gett")                               
+    @b3.text(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'class -> "w-input application-form-field application-form-field-gett")
                 </div>
                 <div class="w-col w-col-6">
                     <label for="email-11" class="application-form-label">Код подразделения:</label>
-    @b3.text(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'class -> "w-input application-form-field application-form-field-gett")                               
+    @b3.text(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'class -> "w-input application-form-field application-form-field-gett")
                 </div>
             </div>
             <label for="email-13" class="application-form-label">Кем выдан паспорт:</label>
-    @b3.text(fillForm("passportIssuedBy"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")                       
+    @b3.text(fillForm("passportIssuedBy"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")
         </div>
     </div>
 </div>
@@ -98,11 +98,33 @@
             <div class="w-row">
                 <div class="w-col w-col-6">
                     <label for="name-9" class="application-form-label">ИНН:</label>
-    @b3.text(fillForm("inn"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")                      
+    @b3.text(fillForm("inn"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")
                 </div>
                 <div class="w-col w-col-6">
                     <label for="email-14" class="application-form-label">СНИЛС:</label>
-    @b3.text(fillForm("snils"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")                      
+    @b3.text(fillForm("snils"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="application-body">
+    <div class="w-form application-form">
+        <div id="email-form" name="email-form" data-name="Email Form">
+            <div class="w-row">
+                <div class="w-col w-col-6">
+                    <label for="name-9" class="application-form-label">eMail:</label>
+    @b3.text(fillForm("eMail"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+                <div class="w-col w-col-6">
+                    <label for="email-14" class="application-form-label">postalAddress:</label>
+    @b3.text(fillForm("postalAddress"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+                <div class="w-col w-col-6">
+                    <label for="email-14" class="application-form-label">locationAddress:</label>
+    @b3.text(fillForm("locationAddress"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
                 </div>
             </div>
         </div>
@@ -114,10 +136,9 @@
 
                 </div>
             </div>
-        </div>          
+        </div>
 
-}        
+}
 
  <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-}         
-
+}

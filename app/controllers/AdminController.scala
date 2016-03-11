@@ -76,7 +76,7 @@ class AdminController @Inject() (
   avatarService: AvatarService,
   passwordHasher: PasswordHasher)
 
-  extends Silhouette[User, CookieAuthenticator] {	
+  extends Silhouette[User, CookieAuthenticator] {
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
@@ -88,25 +88,25 @@ import scala.util.Try
   def awaitAndPrint[T](a: Awaitable[T])(implicit ec: ExecutionContext) = println(await(a))
 
 
-def index = SecuredAction.async { implicit request => 
-	  val fillingsF = fillsDAO.getAll	
+def index = SecuredAction.async { implicit request =>
+	  val fillingsF = fillsDAO.getAll
 	  val fillings = await(fillingsF)
 	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
 }
 
-def create_filling() = SecuredAction.async { implicit request => 
+def create_filling() = SecuredAction.async { implicit request =>
     forms.FillForm.form.bindFromRequest.fold(
-      form => { 
-  		  val fillingsF = fillsDAO.getAll	
+      form => {
+  		  val fillingsF = fillsDAO.getAll
 		  val fillings = await(fillingsF)
       	Future.successful(BadRequest(views.html.admin(request.identity, forms.FillForm.form, fillings ) ))
       },
       data => {
 		  fillsDAO.create(FillDTO(id = None, phone = data.phone)).map { r =>
-		  		  val fillingsF = fillsDAO.getAll	
+		  		  val fillingsF = fillsDAO.getAll
 				  val fillings = await(fillingsF)
 				  Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
-		  }			  
+		  }
       }
     )
 }
@@ -115,7 +115,7 @@ def create_filling() = SecuredAction.async { implicit request =>
 val smsComponent = new SMSComponent
 
 def registerFill(id: Long) = SecuredAction.async { implicit request =>
-	  val fillingsF = fillsDAO.getAll	
+	  val fillingsF = fillsDAO.getAll
 	  val fillings = await(fillingsF)
 	  val current_fill = fillings.find(fill => fill.id.get == id).get
       val attrs = await(fillAttributesDAO.findByFill(id))
@@ -160,31 +160,31 @@ def registerFill(id: Long) = SecuredAction.async { implicit request =>
 
 
 
-def isFillAreCorrect(id: Long) = SecuredAction.async { implicit request => 
-  val fillingsF = fillsDAO.getAll	
+def isFillAreCorrect(id: Long) = SecuredAction.async { implicit request =>
+  val fillingsF = fillsDAO.getAll
   val fillings = await(fillingsF)
   Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
 }
 
 
-def signRequested(id: Long) = SecuredAction.async { implicit request => 
-  val fillingsF = fillsDAO.getAll	
+def signRequested(id: Long) = SecuredAction.async { implicit request =>
+  val fillingsF = fillsDAO.getAll
   val fillings = await(fillingsF)
   fillsDAO.signRequested(id).map { r2 =>
 	  Redirect(routes.UserFillingController.index)
-  }	  
+  }
 }
 
-def signReady(id: Long) = SecuredAction.async { implicit request => 
-  val fillingsF = fillsDAO.getAll	
+def signReady(id: Long) = SecuredAction.async { implicit request =>
+  val fillingsF = fillsDAO.getAll
   val fillings = await(fillingsF)
   fillsDAO.signMarketByCode(id).map { r2 =>
 	  Redirect(routes.AdminController.index)
-  }	  
+  }
 }
 
-def smsCode(id: Long) = SecuredAction.async { implicit request => 
-  val fillingsF = fillsDAO.getAll	
+def smsCode(id: Long) = SecuredAction.async { implicit request =>
+  val fillingsF = fillsDAO.getAll
   val fillings = await(fillingsF)
 	forms.FillForm.form.bindFromRequest.fold(
 	  form => {
@@ -193,41 +193,41 @@ def smsCode(id: Long) = SecuredAction.async { implicit request =>
 	  	Future.successful(Redirect(routes.UserFillingController.index))
 	  },
 	  data => {
-	  	println(data)  
+	  	println(data)
 	  fillsDAO.smsCode(id, data.phone).flatMap { r2 =>
 		  fillsDAO.signMarketByCode(id).map { r2 =>
 			  Redirect(routes.UserFillingController.index)
-		  }	 
-	  }	  
+		  }
+	  }
 	  })
 }
 
 
 
-def fillAreCorrect(id: Long) = SecuredAction.async { implicit request => 
-  val fillingsF = fillsDAO.getAll	
+def fillAreCorrect(id: Long) = SecuredAction.async { implicit request =>
+  val fillingsF = fillsDAO.getAll
   val fillings = await(fillingsF)
   fillsDAO.correctFilling(id).map { r2 =>
 	  Redirect(routes.UserFillingController.index)
   }
-  // ПОЧТА	  
+  // ПОЧТА
 }
 
 
 
 def removeFill(id: Long) = SecuredAction.async { implicit request =>
-	  val fillingsF = fillsDAO.getAll	
+	  val fillingsF = fillsDAO.getAll
 	  val fillings = await(fillingsF)
   fillsDAO.delete(id).map { r2 =>
 	Redirect(routes.AdminController.index)
-  }	  
+  }
 }
 def closeFill(id: Long) = SecuredAction.async { implicit request =>
-	  val fillingsF = fillsDAO.getAll	
+	  val fillingsF = fillsDAO.getAll
 	  val fillings = await(fillingsF)
   	fillsDAO.signComplete(id).map { r2 =>
 	  Redirect(routes.AdminController.index)
-	}	  
+	}
 }
 
 
@@ -276,7 +276,10 @@ forms.PrimaryFillForm.PrimaryFillData(
       kodPodrazdelenia = retriveFromAttrSeq(attrs, attribute="kodPodrazdelenia"),
       passportIssuedBy =  retriveFromAttrSeq(attrs, attribute="passportIssuedBy"),
       inn = retriveFromAttrSeq(attrs, attribute="inn"),
-      snils = retriveFromAttrSeq(attrs, attribute="snils")
+      snils = retriveFromAttrSeq(attrs, attribute="snils"),
+      eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
+      postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
+      locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress")
 )
 )
 
@@ -287,7 +290,7 @@ forms.PrimaryFillForm.PrimaryFillData(
 
 
 def saveFill(id: Long) = SecuredAction.async { implicit request =>
-	  val fillingsF = fillsDAO.getAll	
+	  val fillingsF = fillsDAO.getAll
 	  val fillings = await(fillingsF)
     forms.PrimaryFillForm.form.bindFromRequest.fold(
       form => {
@@ -311,7 +314,7 @@ PrimaryFillData(
       inn:String,
       snils:String
 )*/
-val fillAttributes = List(    
+val fillAttributes = List(
 FillAttributeDTO(id=None,
 	fill_id=id,
 	attribute="lastName",
@@ -357,9 +360,20 @@ FillAttributeDTO(id=None,
 FillAttributeDTO(id=None,
 	fill_id=id,
 	attribute="snils",
-	value=data.snils))
+	value=data.snils),
 
-
+  FillAttributeDTO(id=None,
+  	fill_id=id,
+  	attribute="postalAddress",
+  	value=data.postalAddress),
+    FillAttributeDTO(id=None,
+    	fill_id=id,
+    	attribute="eMail",
+    	value=data.eMail),
+      FillAttributeDTO(id=None,
+      	fill_id=id,
+      	attribute="locationAddress",
+      	value=data.locationAddress))
 
 val attrF = Future.sequence(fillAttributes.map { attr =>
 	fillAttributesDAO.findOrCreate(id, attr)
@@ -380,7 +394,7 @@ val attrF = Future.sequence(fillAttributes.map { attr =>
 
 def testMail = SecuredAction.async { implicit request =>
 	Mailer.sendEmail(mailerClient)
-  val fillingsF = fillsDAO.getAll	
+  val fillingsF = fillsDAO.getAll
 	  val fillings = await(fillingsF)
 	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
 

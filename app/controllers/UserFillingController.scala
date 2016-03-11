@@ -38,7 +38,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class UserFillingController @Inject() (
   val messagesApi: MessagesApi,
   fillsDAO:FillsDAO,
-  fillAttributesDAO: FillAttributesDAO,  
+  fillAttributesDAO: FillAttributesDAO,
   val env: Environment[User, CookieAuthenticator],
   socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[User, CookieAuthenticator] {
@@ -51,7 +51,7 @@ def index = SecuredAction.async { implicit request =>
 		case Some(fill) => {
 
 	val id = fill.id.get
-	val signRequested = fill.signRequested  
+	val signRequested = fill.signRequested
 /*
 	filled:Boolean = false,
 	filledCorrect: Boolean = false,
@@ -59,23 +59,23 @@ def index = SecuredAction.async { implicit request =>
 	signMarked:Boolean = false,
 	smsCode: String = "",
 	signCompleted:Boolean = false)
- */	
+ */
   if (fill.filled && !fill.filledCorrect) {
-      Future.successful(Redirect(routes.UserFillingController.passport)) 
-  } else 
+      Future.successful(Redirect(routes.UserFillingController.passport))
+  } else
   if (fill.filled && fill.filledCorrect && !fill.signMarked) {
-	  Future.successful(Redirect(routes.SignController.index)) 
-  } else 
+	  Future.successful(Redirect(routes.SignController.index))
+  } else
   if (fill.filled && fill.filledCorrect && fill.signMarked && !fill.signCompleted) {
   	Future.successful(Redirect(routes.SignController.retriveSms))
-  } else 
+  } else
   if (fill.filled && fill.filledCorrect && fill.signMarked && fill.signCompleted && (fill.smsCode != "0000")) {
   	Future.successful(Redirect(routes.SignController.finalizing))
   } else {
-	  Future.successful(Redirect(routes.UserFillingController.passport)) 
+	  Future.successful(Redirect(routes.UserFillingController.passport))
   }
 
-  }		
+  }
   case _ => Future(Ok("Вас нету в системе. Свяжитесь с нами "))
 }
 
@@ -85,7 +85,7 @@ def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, D
 def awaitAndPrint[T](a: Awaitable[T])(implicit ec: ExecutionContext) = println(await(a))
 
 
-def passport = SecuredAction.async { implicit request => 
+def passport = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
@@ -107,22 +107,27 @@ forms.PrimaryFillForm.PrimaryFillData(
       kodPodrazdelenia = retriveFromAttrSeq(attrs, attribute="kodPodrazdelenia"),
       passportIssuedBy =  retriveFromAttrSeq(attrs, attribute="passportIssuedBy"),
       inn = retriveFromAttrSeq(attrs, attribute="inn"),
-      snils = retriveFromAttrSeq(attrs, attribute="snils")))
+      snils = retriveFromAttrSeq(attrs, attribute="snils"),
+      eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
+      postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
+      locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress")
+
+    ))
 
 	Ok(views.html.passport(request.identity,id, form ))
 }
 
 }
-def address = SecuredAction.async { implicit request => 
+def address = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.address(request.identity )))
 }
-def okved = SecuredAction.async { implicit request => 
+def okved = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.okved(request.identity )))
 }
-def taxesIP = SecuredAction.async { implicit request => 
+def taxesIP = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.taxesIP(request.identity )))
 }
-def documentsIP = SecuredAction.async { implicit request => 
+def documentsIP = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.documentsIP(request.identity )))
 }
 
