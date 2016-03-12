@@ -38,11 +38,18 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.concurrent.{ExecutionContext, Awaitable, Await, Future}
 import scala.util.Try
+import javax.inject.Inject
+import scala.concurrent.Future
+
+import play.api.mvc._
+import play.api.libs.ws._
+
 
 class WSDLTestController @Inject() (
   val messagesApi: MessagesApi,
   val env: Environment[User, CookieAuthenticator],
   fillsDAO:FillsDAO,
+  ws: WSClient,
   fillAttributesDAO: FillAttributesDAO,
   socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[User, CookieAuthenticator] {
@@ -54,6 +61,21 @@ def index = Action.async { implicit request =>
    Ok(r)
 }
 }
+
+def index2 = Action.async { implicit request =>
+  clersky.WSDLTest.test3(ws, "40fa0d16-3b54-4004-b9d3-3997c4c0cc91").map { r =>
+   Ok(r)
+  }
+}
+
+def index3 = Action.async { implicit request =>
+  clersky.WSDLTest.test4(ws, "40fa0d16-3b54-4004-b9d3-3997c4c0cc91", "cccc").map { r =>
+   Ok(r)
+  }
+}
+
+
+
 def uuid = java.util.UUID.randomUUID.toString
 
   def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)

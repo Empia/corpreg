@@ -91,7 +91,12 @@ import scala.util.Try
 def index = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll
 	  val fillings = await(fillingsF)
-	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings )))
+    val attrsByFillId:Map[Long,Seq[FillAttributeDTO]] = fillings.map { fill =>
+      fill.id.get -> await(fillAttributesDAO.findByFill(fill.id.get))
+    }.toMap
+
+	  Future.successful(Ok(views.html.admin(request.identity, forms.FillForm.form, fillings,
+    attrsByFillId )))
 }
 
 def create_filling() = SecuredAction.async { implicit request =>
@@ -118,7 +123,7 @@ def registerFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll
 	  val fillings = await(fillingsF)
 	  val current_fill = fillings.find(fill => fill.id.get == id).get
-      val attrs = await(fillAttributesDAO.findByFill(id))
+    val attrs = await(fillAttributesDAO.findByFill(id))
 
 	  val firstName = retriveFromAttrSeq(attrs, attribute="firstname")
 	  val lastName = retriveFromAttrSeq(attrs, attribute="lastName")

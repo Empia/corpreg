@@ -38,7 +38,12 @@ POST /fill controllers.AdminController.create_filling
 GET /balance controllers.ApplicationController.balance
 
 
-GET /wsdltest        controllers.WSDLTestController.index
+GET /wsdltest         controllers.WSDLTestController.index
+GET /wsdltest2        controllers.WSDLTestController.index2
+GET /wsdltest3        controllers.WSDLTestController.index3
+
+
+
 GET /wsdlsave/:phone controllers.WSDLTestController.saveDoc(phone:String)
 
 

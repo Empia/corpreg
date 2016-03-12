@@ -73,7 +73,7 @@ libraryDependencies += "com.twelvemonkeys.imageio" % "imageio-tiff" % "3.2.1" % 
 libraryDependencies += "com.github.dragon66" % "icafe" % "1.1-SNAPSHOT" % "compile"
 
 
-libraryDependencies += "com.sandinh" %% "scala-soap" % "1.5.0"
+//libraryDependencies += "com.sandinh" %% "scala-soap" % "1.5.0"
 
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)

@@ -54,9 +54,10 @@ object GetPassword {
 
   implicit object ParamXmlW extends XmlWriter[Param] {
     def write(t: Param, base: NodeSeq): NodeSeq =
-        <GetPassword xmlns="https://iotchet.ru/namespases">
-  <GUID>{ t.file }</GUID>
-</GetPassword>
+    <GetPassword>
+      <GUID>{ t.file }</GUID>
+    </GetPassword>
+
  }
 
 
@@ -64,16 +65,17 @@ object GetPassword {
   implicit object ResultXmlR extends XmlReader[Result] {
     def read(x: NodeSeq): Option[Result] = {
       println(x)
-      for {
-        r <- Xml.fromXml[String](x \ "SendPacketResponse")
-        //rate <- Xml.fromXml[String](r \ "result")
-      } yield Result(r)
+      //for {
+      //  r <- Xml.fromXml[String](x \ "SendPacketResponse")
+      //  //rate <- Xml.fromXml[String](r \ "result")
+      //} yield
+      Some(Result(x.toString))
     }
   }
 
 
 
-  object WS12 extends SoapWS12[Param, Result]("https://iotchet.ru/api/autorization?wsdl")
+  object WS12 extends SoapWS12[Param, Result]("http://iotchet.ru/api/autorization")
 }
 
 
@@ -333,9 +335,58 @@ def test2():Future[String] = {
      //test(WS11).map(println)
      test(WS12)//.map(println)
 }
-   //}.pendingUntilFixed("webservicex.net/CurrencyConvertor return -1 so this test is failed!")
 
-  // "callable GetCurrencyByCountry" >> new WithApplication {
+import javax.inject.Inject
+import scala.concurrent.Future
+
+import play.api.mvc._
+import play.api.libs.ws._
+
+
+
+
+// getPassword
+def test3(ws: WSClient, guid:String):Future[String] = {
+     val data = s"""
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="tns">
+  <SOAP-ENV:Body>
+    <ns1:GetPassword>
+      <ns1:GUID>$guid</ns1:GUID>
+    </ns1:GetPassword>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+"""
+     ws.url("http://iotchet.ru/api/autorization").withHeaders("Content-Type" -> "text-xml",
+     "SOAPAction"->"urn:GetPassword")
+     .post(data).map { r =>
+       println(r)
+       println(r.body)
+       r.body.toString
+     }
+}
+
+
+def test4(ws: WSClient, guid:String, smsPass:String):Future[String] = {
+     val data = s"""
+     <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="tns">
+       <SOAP-ENV:Body>
+         <ns1:GetSessionkeyBySMS>
+           <ns1:GUID>$guid</ns1:GUID>
+           <ns1:Password>$smsPass</ns1:Password>
+         </ns1:GetSessionkeyBySMS>
+       </SOAP-ENV:Body>
+     </SOAP-ENV:Envelope>
+"""
+     ws.url("http://iotchet.ru/api/autorization").withHeaders("Content-Type" -> "text-xml",
+     "SOAPAction"->"urn:GetSessionkeyBySMS")
+     .post(data).map { r =>
+       println(r)
+       println(r.body)
+       r.body.toString
+     }
+}
+
+
 def test() {
      import GetCurrencyByCountry._
      def test(ws: WS[Param, Result]) = ws.call(Param("vietnam"))
