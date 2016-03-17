@@ -147,7 +147,7 @@
                 </div>
             </div>
             <label for="email-13" class="application-form-label">Кем выдан паспорт:</label>
-    @b3.text(fillForm("passportIssuedBy"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")
+    @b3.text(fillForm("passportIssuedBy"), 'id -> "passportIssuedBy",'class -> "w-input application-form-field application-form-field-gett")
         </div>
     </div>
 </div>
@@ -237,6 +237,43 @@
 <script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
 <script>
 $( document ).ready(function() {
+
+var checkPassportBase = function() {
+
+var data;
+
+if ($('#passport-issued-date').val()) {
+  data = {
+'code': $('#kod-podrazdelenia').val(),
+'date': $('#passport-issued-date').val(),
+}
+} else {
+
+  data = {
+'code': $('#kod-podrazdelenia').val()
+}
+}
+
+
+  $.ajax({ url: 'https://www.tinkoff.ru/api/v1/get_passport_authority_name/',
+  data: data,
+success: function(d) {
+console.log(d);
+console.log(d.payload[0]);
+  $('#passportIssuedBy').val(d.payload[0]);
+}
+});
+
+}
+
+  $('#kod-podrazdelenia').on('input', function() {
+    checkPassportBase();
+});
+$('#passport-issued-date').on('input', function() {
+  checkPassportBase();
+});
+
+
      $("#address").suggestions({
         serviceUrl: "http://suggestions.dadata.ru/suggestions/api/4_1/rs",
         token: "2aba8de760c817b3e11ac7726435d42a124d5f62",
@@ -277,7 +314,6 @@ $( document ).ready(function() {
                 $('input#fnstitle').val(d.name);
               }
             });
-
 
 
 
