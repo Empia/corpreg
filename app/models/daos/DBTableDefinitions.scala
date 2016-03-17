@@ -29,13 +29,81 @@ case class FNSCodeDTO (
                       y:Option[String],
                       i:Option[String] )
 
+case class FNSCode2DTO (
+                      id:String,
+                      reg:Option[String],
+                      id2:Option[String],
+                      id3:Option[String],
+                      id4:Option[String],
+                      id5:Option[String],
+                      id6:Option[String],
+                      title:Option[String],
+                      id7:Option[String],
+                      date1:Option[String],
+                      date2:Option[String],
+                      date3:Option[String],
+                      worktime:Option[String],
+                      c:Option[String],
+                      d:Option[String],
+                      e:Option[String],
+                      f:Option[String],
+                      h:Option[String],
+                      t:Option[String],
+                      y:Option[String],
+                      i:Option[String] )
+
 trait DBTableDefinitions {
 
   protected val driver: JdbcProfile
   import driver.api._
 
 
+  class FNSCodes2(tag: Tag) extends Table[FNSCode2DTO](tag, "codes6") {
+    def id = column[String]("id")
+    def reg = column[Option[String]]("reg")
+    def id2 = column[Option[String]]("id2")
+    def id3 = column[Option[String]]("id3")
+    def id4 = column[Option[String]]("id4")
+    def id5 = column[Option[String]]("id5")
+    def id6 = column[Option[String]]("id6")
+    def title = column[Option[String]]("title")
+    def id7 = column[Option[String]]("id7")
+    def date1 = column[Option[String]]("date1")
+    def date2 = column[Option[String]]("date2")
+    def date3 = column[Option[String]]("date3")
+    def worktime = column[Option[String]]("worktime")
+    def c = column[Option[String]]("c")
+    def d = column[Option[String]]("d")
+    def e = column[Option[String]]("e")
+    def f = column[Option[String]]("f")
+    def h = column[Option[String]]("h")
+    def t = column[Option[String]]("t")
+    def y = column[Option[String]]("y")
+    def i = column[Option[String]]("i")
 
+    def * = (
+  id,
+  reg,
+  id2,
+  id3,
+  id4,
+  id5,
+  id6,
+  title,
+  id7,
+  date1,
+  date2,
+  date3,
+  worktime,
+  c,
+  d,
+  e,
+  f,
+  h,
+  t,
+  y,
+  i) <> (FNSCode2DTO.tupled, FNSCode2DTO.unapply)
+  }
 
 class FNSCodes(tag: Tag) extends Table[FNSCodeDTO](tag, "codes5") {
   def id = column[String]("id")
@@ -254,6 +322,7 @@ class Fills(tag: Tag) extends Table[FillDTO](tag, "fill") {
 
 
   val codes5 = TableQuery[FNSCodes]
+  val codes6 = TableQuery[FNSCodes2]
 
   // queries used in multiple places
   def loginInfoQuery(loginInfo: LoginInfo) =

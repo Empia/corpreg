@@ -51,6 +51,7 @@ class FNSCodesController @Inject() (
   fillsDAO:FillsDAO,
   ws: WSClient,
   codes: FNSCodeDAO,
+  codes2: FNSCode2DAO,
   fillAttributesDAO: FillAttributesDAO,
   socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[User, CookieAuthenticator] {
@@ -60,17 +61,20 @@ def index(glob: String) = Action.async { implicit request =>
   import play.api.libs.json.{JsNull,Json,JsString,JsValue}
 
 
-    codes.getByGlobal(glob).map { seq =>
-      val opt = seq.find(s => s.id6.isDefined)
+    codes2.getByGlobal(glob).flatMap { seq =>
+      val opt = seq.find(s => s.c.isDefined)
         opt match {
           case Some(fns) => {
-            val json: JsValue = Json.obj(
-              "name" -> fns.title.getOrElse[String](""),
-              "code" -> fns.id2.getOrElse[String]("")
-            )
-            Ok(json)
+            codes.getByGlobal2(fns.c.getOrElse[String]("")).map { c2 =>
+              val fns = c2.last
+              val json: JsValue = Json.obj(
+                "name" -> fns.title.getOrElse[String](""),
+                "code" -> fns.id6.getOrElse[String]("")
+              )
+              Ok(json)
+            }
           }
-          case _ => Ok("Not found")
+          case _ => Future.successful( Ok("Not found") )
         }
     }
 
