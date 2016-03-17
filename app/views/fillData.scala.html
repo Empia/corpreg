@@ -11,6 +11,52 @@
     width: 20%;
     margin-right: 10px;
 }
+.application-body.application-body-address {
+    padding-top: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    border-bottom-style: solid;
+    border-bottom-color: #e9e9e9;
+    text-align: left;
+}
+.application-form-field.application-form-field-verybig {
+    display: inline-block;
+    width: 633px;
+    margin: 0px auto 30px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    float: none;
+    border: 2px solid #e7e7e7;
+    background-color: #fff;
+}
+.application-form-field.application-form-field-address.aaplication-form-field-address-amall {
+    width: 100px;
+}
+
+.application-form-field.application-form-field-verybig.application-form-field-verybig-gett {
+  display: block;
+  border-color: #fcb824;
+}
+
+.application-form-field.application-form-field-address {
+  width: 300px;
+  margin-bottom: 15px;
+  border: 1px none #eee;
+  background-color: #f8f8f8;
+}
+
+.application-form-field.application-form-field-address.application-form-short {
+  width: 200px;
+}
+
+.application-form-field.application-form-field-address.aaplication-form-field-address-amall {
+  width: 100px;
+}
+.application-form-field.application-form-field-reg {
+    width: 433px;
+    border-style: none;
+    background-color: #f8f8f8;
+}
 </style>
 
 <div class="w-container">
@@ -20,26 +66,21 @@
         <div class="application-heading-icon application-heading-icon-gett"></div>
     </div>
     <div class="application-header">
-        <h2 class="content-heading content-heading-gett">Подготовка пакета документов</h2>
+        <h2 class="content-heading content-heading-gett">Регистрация нового пользователя</h2>
     </div>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
-        <div class="w-container">
-
-
-
-            <div class="w-nav-button">
-                <div class="w-icon-nav-menu"></div>
-            </div>
-        </div>
-        <div class="w-nav-overlay" data-wf-ignore=""></div>
-    </div>
+                <div class="w-container">
+                  <nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="../documents/passport-ip.html" class="w-nav-link application-nav-button application-nav-button-active">Внесение данных</a>
+                    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Загрузка документов</a>
+                    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="../documents/documents-ip.html" class="w-nav-link application-nav-button">Отправка в налоговую</a>
+                  </nav>
+                  <div class="w-nav-button">
+                    <div class="w-icon-nav-menu"></div>
+                  </div>
+                </div>
+              <div class="w-nav-overlay" data-wf-ignore=""></div></div>
 </div>
 
-<div class="application-body application-body-upper">
-    <h3 class="application-subheading application-subheading-gett">Личные данные</h3>
-    <p class="application-paragraph application-paragraph-gett-light">Ввод данный администратором
-        <br></p>
-</div>
 
 
 @helper.form(action = routes.AdminController.saveFill(fillId)) {
@@ -62,8 +103,28 @@
     @b3.text(fillForm("dob"), 'id -> "email-4",'class -> "w-input application-form-field application-form-field-gett")
                     <label for="email-5" class="application-form-label">Место рождения:</label>
     @b3.text(fillForm("placeOfBorn"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")
+
+    <label for="email-5" class="application-form-label">Email:</label>
+
+    @b3.text(fillForm("eMail"), 'id -> "email",'class -> "w-input application-form-field application-form-field-gett")
+
                 </div>
             </div>
+
+
+            <div id="email-form" name="email-form" data-name="Email Form">
+                <div class="w-row">
+                    <div class="w-col w-col-6">
+                        <label for="name-9" class="application-form-label">ИНН:</label>
+        @b3.text(fillForm("inn"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")
+                    </div>
+                    <div class="w-col w-col-6">
+                        <label for="email-14" class="application-form-label">СНИЛС:</label>
+        @b3.text(fillForm("snils"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -92,44 +153,75 @@
 </div>
 
 
-<div class="application-body">
+
+
+
+
+<div class="application-body application-body-address">
+    <h3 class="application-subheading">Адрес регистрации</h3>
     <div class="w-form application-form">
-        <div id="email-form" name="email-form" data-name="Email Form">
-            <div class="w-row">
-                <div class="w-col w-col-6">
-                    <label for="name-9" class="application-form-label">ИНН:</label>
-    @b3.text(fillForm("inn"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")
+        <form id="email-form" name="email-form" data-name="Email Form">
+          @b3.text(fillForm("address"), 'id -> "address",'class -> "w-input application-form-field application-form-field-verybig")
+            <div class="w-row appplication-form-row">
+                <div class="w-col w-col-2">
+                    <label for="name-38" class="application-form-label application-form-label-address">Индекс</label>
+                    @b3.text(fillForm("postalAddress"), 'id -> "postalcode",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
                 </div>
-                <div class="w-col w-col-6">
-                    <label for="email-14" class="application-form-label">СНИЛС:</label>
-    @b3.text(fillForm("snils"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
+                <div class="w-col w-col-3">
+                    <label for="subject" class="application-form-label application-form-label-address">Субъект:</label>
+                    <input id="subject" name="name-39" data-name="Name 39" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
+                </div>
+                <div class="w-col w-col-7">
+                    <label for="area" class="application-form-label application-form-label-address">Район:</label>
+                    <input id="area" name="name-40" data-name="Name 40" class="w-input application-form-field application-form-field-address" type="text">
                 </div>
             </div>
+            <div class="w-row appplication-form-row">
+                <div class="w-col w-col-5">
+                    <label for="city" class="application-form-label application-form-label-address">Город:</label>
+                    <input id="city" name="name-41" data-name="Name 41" class="w-input application-form-field application-form-field-address" type="text">
+                </div>
+                <div class="w-col w-col-7">
+                    <label for="settlement" class="application-form-label application-form-label-address">Населенный пункт:</label>
+                    <input id="settlement" name="name-42" data-name="Name 42" class="w-input application-form-field application-form-field-address" type="text">
+                </div>
+            </div>
+            <div class="w-row">
+                <div class="w-col w-col-5">
+                    <label for="street" class="application-form-label application-form-label-address">Улица:</label>
+                    <input id="street" name="name-43" data-name="Name 43" class="w-input application-form-field application-form-field-address" type="text">
+                </div>
+                <div class="w-col w-col-2">
+                    <label for="house" class="application-form-label application-form-label-address">Дом:</label>
+                    <input id="house" name="name-44" data-name="Name 44" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
+                </div>
+                <div class="w-col w-col-2">
+                    <label for="corpus" class="application-form-label application-form-label-address">Корпус:</label>
+                    <input id="corpus" name="name-45" data-name="Name 45" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="flat" class="application-form-label application-form-label-address">Квартира:</label>
+                    <input id="flat" name="name-46" data-name="Name 46" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="w-row appplication-form-row application-form-row-alt">
+        <div class="w-col w-col-2">
+            <label for="ifns" class="application-form-label application-form-label-address">Код ИФНС</label>
+            <input id="ifns" name="name-47" data-name="Name 47" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
+        </div>
+        <div class="w-col w-col-2">
+            <label for="fnsreg" class="application-form-label application-form-label-address">Код рег. органа</label>
+            <input id="fnsreg" name="name-48" data-name="Name 48" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
+        </div>
+        <div class="w-col w-col-8">
+            <label for="fnstitle" class="application-form-label application-form-label-address">Наименование регистрирующего органа</label>
+            <input id="fnstitle" name="name-49" data-name="Name 49" class="w-input application-form-field application-form-field-reg" type="text">
         </div>
     </div>
 </div>
 
-
-<div class="application-body">
-    <div class="w-form application-form">
-        <div id="email-form" name="email-form" data-name="Email Form">
-            <div class="w-row">
-                <div class="w-col w-col-6">
-                    <label for="name-9" class="application-form-label">eMail:</label>
-    @b3.text(fillForm("eMail"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")
-                </div>
-                <div class="w-col w-col-6">
-                    <label for="email-14" class="application-form-label">postalAddress:</label>
-    @b3.text(fillForm("postalAddress"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
-                </div>
-                <div class="w-col w-col-6">
-                    <label for="email-14" class="application-form-label">locationAddress:</label>
-    @b3.text(fillForm("locationAddress"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
                 <div class="application-footer">
                     <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">Сохранить данные</button>
@@ -141,4 +233,67 @@
 }
 
  <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
+<script>
+$( document ).ready(function() {
+     $("#address").suggestions({
+        serviceUrl: "http://suggestions.dadata.ru/suggestions/api/4_1/rs",
+        token: "2aba8de760c817b3e11ac7726435d42a124d5f62",
+        type: "ADDRESS",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function(suggestion) {
+            console.log(suggestion);
+            function decorate(first, last) {
+                if (first && last) {
+                    return first + ' ' + last;
+                } else if (first) {
+                    return first;
+                }
+                else if (last) {
+                    return last;
+                }
+            }
+            $('input#ifns').val(suggestion.data.tax_office);
+            $('input#postalcode').val(suggestion.data.postal_code);
+            $('input#subject').val(suggestion.data.kladr_id.slice(0,2));
+            $('input#region').val(decorate(suggestion.data.region_type, suggestion.data.region));
+            $('input#area').val(suggestion.data.city_district);
+            $('input#city').val(decorate(suggestion.data.city_type, suggestion.data.city));
+            $('input#settlement').val(decorate(suggestion.data.settlement_type, suggestion.data.settlement));
+            $('input#street').val(decorate(suggestion.data.street_type, suggestion.data.street));
+            $('input#house').val(decorate(suggestion.data.house_type, suggestion.data.house));
+            $('input#corpus').val(decorate(suggestion.data.block_type, suggestion.data.block));
+            $('input#appartment').val(decorate(suggestion.data.flat_type, suggestion.data.flat));
+
+
+            $.ajax({
+              url: '/fns/'+suggestion.data.tax_office,
+              dataType: 'json',
+              success: function(d) {
+                console.log(d);
+                $('input#fnsreg').val(d.code);
+                $('input#fnstitle').val(d.name);
+              }
+            });
+
+
+
+
+//  GET /fns/:global
+
+
+        }
+    });
+
+});
+</script>
+
+
+<script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
+
+
+
+
 }

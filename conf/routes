@@ -11,6 +11,8 @@ GET /gett-esign controllers.SignController.index
 
 GET /make-sign controllers.SignController.requestSign
 
+GET /fns/:global controllers.FNSCodesController.index(global: String)
+
 GET /gett-lite-send         controllers.SignController.retriveSms
 GET  /filling/sendDocs      controllers.SignController.sendDocs()
 POST /filling/sendDocs      controllers.SignController.sendSms()
