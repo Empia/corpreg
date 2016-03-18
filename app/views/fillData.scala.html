@@ -243,9 +243,10 @@ var checkPassportBase = function() {
 var data;
 
 if ($('#passport-issued-date').val()) {
+  var date = $('#passport-issued-date').val().split('.')
   data = {
 'code': $('#kod-podrazdelenia').val(),
-'date': $('#passport-issued-date').val(),
+'date': date[0]+"-"+date[1]+"-"+date[2],
 }
 } else {
 
