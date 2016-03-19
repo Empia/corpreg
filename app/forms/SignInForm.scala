@@ -30,7 +30,8 @@ object PrimaryFillForm {
          "snils" -> text,
          "eMail" -> text,
          "postalAddress" -> text,
-         "locationAddress" -> text
+         "locationAddress" -> text,
+         "fnsreg" -> text
 )(PrimaryFillData.apply)(PrimaryFillData.unapply)
   )
   case class PrimaryFillData(
@@ -47,7 +48,8 @@ object PrimaryFillForm {
       snils:String,
       eMail:String,
       postalAddress:String,
-      locationAddress:String
+      locationAddress:String,
+      fnsreg:String
   )
 }
 

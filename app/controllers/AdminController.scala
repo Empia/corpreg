@@ -284,6 +284,7 @@ forms.PrimaryFillForm.PrimaryFillData(
       eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
       postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
       locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress")
+      fnsreg= retriveFromAttrSeq(attrs, attribute="fnsreg")
 )
 )
 
@@ -377,7 +378,14 @@ FillAttributeDTO(id=None,
       FillAttributeDTO(id=None,
       	fill_id=id,
       	attribute="locationAddress",
-      	value=data.locationAddress))
+      	value=data.locationAddress),
+        FillAttributeDTO(id=None,
+        	fill_id=id,
+        	attribute="fnsreg",
+        	value=data.fnsreg)
+
+
+      )
 
 val attrF = Future.sequence(fillAttributes.map { attr =>
 	fillAttributesDAO.findOrCreate(id, attr)
