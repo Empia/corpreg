@@ -29,6 +29,10 @@ GET  /filling/:id/register  controllers.AdminController.registerFill(id: Long)
 
 GET  /filling/:id/fill     controllers.AdminController.writeFill(id: Long)
 POST /filling/:id/fill     controllers.AdminController.saveFill(id: Long)
+GET   /filling/:id/fillFiles     controllers.AdminController.writeFillFiles(id: Long)
+POST  /filling/:id/fillFiles     controllers.AdminController.saveFillFiles(id: Long)
+GET   /filling/:id/fillFNS       controllers.AdminController.writeFillFNS(id: Long)
+POST  /filling/:id/fillFNS       controllers.AdminController.saveFillFNS(id: Long)
 
 
 

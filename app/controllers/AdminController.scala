@@ -397,6 +397,65 @@ val attrF = Future.sequence(fillAttributes.map { attr =>
 
 }
 
+
+
+
+
+
+def writeFillFiles(id: Long) = SecuredAction.async { implicit request =>
+  val attrsF = fillAttributesDAO.findByFill(id)
+	attrsF.map { attrs =>
+
+val form = forms.PrimaryFillForm.form.fill(
+forms.PrimaryFillForm.PrimaryFillData(
+      lastName = retriveFromAttrSeq(attrs, attribute="lastName"),
+      firstname =  retriveFromAttrSeq(attrs, attribute="firstname"),
+      middleName =  retriveFromAttrSeq(attrs, attribute="middleName"),
+      dob =  retriveFromAttrSeq(attrs, attribute="dob"),
+      placeOfBorn =  retriveFromAttrSeq(attrs, attribute="placeOfBorn"),
+      passport =  retriveFromAttrSeq(attrs, attribute="passport"),
+      passportIssuedDate =  retriveFromAttrSeq(attrs, attribute="passportIssuedDate"),
+      kodPodrazdelenia = retriveFromAttrSeq(attrs, attribute="kodPodrazdelenia"),
+      passportIssuedBy =  retriveFromAttrSeq(attrs, attribute="passportIssuedBy"),
+      inn = retriveFromAttrSeq(attrs, attribute="inn"),
+      snils = retriveFromAttrSeq(attrs, attribute="snils"),
+      eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
+      postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
+      locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress")
+)
+)
+
+	  Ok(views.html.fillFiles(request.identity, id, form ))
+}
+
+}
+def saveFillFiles(id: Long) = SecuredAction.async { implicit request =>
+  Future.successful(Ok("good"))
+
+}
+def writeFillFNS(id: Long) = SecuredAction.async { implicit request =>
+  Future.successful(Ok("good"))
+
+}
+def saveFillFNS(id: Long) = SecuredAction.async { implicit request =>
+  Future.successful(Ok("good"))
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def testMail = SecuredAction.async { implicit request =>
 	Mailer.sendEmail(mailerClient)
   val fillingsF = fillsDAO.getAll
