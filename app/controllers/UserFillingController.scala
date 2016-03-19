@@ -110,7 +110,7 @@ forms.PrimaryFillForm.PrimaryFillData(
       snils = retriveFromAttrSeq(attrs, attribute="snils"),
       eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
       postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
-      locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress")
+      locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
       fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg")
     ))
 
