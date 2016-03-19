@@ -171,7 +171,7 @@
               <div class="w-row upload-row">
                   <div class="w-col w-col-8">
                       <div class="w-embed upload-file-field">
-                          <input name="P21001" id="fileToUpload" type="file">
+                          <input name="P21001" id="drop-zone" type="file">
                       </div>
                   </div>
                   <div class="w-col w-col-4">
@@ -181,7 +181,7 @@
               <div class="w-row upload-row">
                   <div class="w-col w-col-8">
                       <div class="w-embed upload-file-field">
-                          <input name="USN" id="fileToUpload" type="file">
+                          <input name="USN" id="drop-zone" type="file">
                       </div>
                   </div>
                   <div class="w-col w-col-4">
@@ -191,7 +191,7 @@
               <div class="w-row upload-row">
                   <div class="w-col w-col-8">
                       <div class="w-embed upload-file-field">
-                          <input name="PASSPORT" id="fileToUpload" type="file">
+                          <input name="PASSPORT" id="drop-zone" type="file">
                       </div>
                   </div>
                   <div class="w-col w-col-4">
@@ -201,7 +201,7 @@
               <div class="w-row upload-row">
                   <div class="w-col w-col-8">
                       <div class="w-embed upload-file-field">
-                          <input name="POSHLINA" id="fileToUpload" type="file">
+                          <input name="POSHLINA" id="drop-zone" type="file">
                       </div>
                   </div>
                   <div class="w-col w-col-4">
@@ -228,8 +228,119 @@
 <script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
 <script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
 
+<style>
+.upload-file-field {
+  background: none;
+}
+#drop-zone {
+    width: 305px;
+    height: 58px;
+    position: relative;
+    left: 79%;
+    top: -28px;
+    margin-left: -150px;
+    border: 2px dashed rgba(0,0,0,.3);
+    border-radius: 20px;
+    font-family: Arial;
+    text-align: center;
+    position: relative;
+    line-height: 51px;
+    font-size: 13px;
+    color: rgba(0,0,0,.3);
+}
+    #drop-zone input {
+        /*Important*/
+        position: absolute;
+        /*Important*/
+        cursor: pointer;
+        left: 0px;
+        top: 0px;
+        /*Important This is only comment out for demonstration purpeses.
+        opacity:0; */
+    }
+
+    /*Important*/
+    #drop-zone.mouse-over {
+        border: 2px dashed rgba(0,0,0,.5);
+        color: rgba(0,0,0,.5);
+    }
 
 
+/*If you dont want the button*/
+#clickHere {
+    position: absolute;
+    cursor: pointer;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: 20px;
+    line-height: 26px;
+    color: white;
+    font-size: 12px;
+    width: 100px;
+    height: 26px;
+    border-radius: 4px;
+    background-color: #3b85c3;
+
+}
+
+    #clickHere:hover {
+        background-color: #4499DD;
+
+    }
+</style>
+<script>
+$(function () {
+    var dropZoneId = "drop-zone";
+    var buttonId = "clickHere";
+    var mouseOverClass = "mouse-over";
+
+    var dropZone = $("#" + dropZoneId);
+    var ooleft = dropZone.offset().left;
+    var ooright = dropZone.outerWidth() + ooleft;
+    var ootop = dropZone.offset().top;
+    var oobottom = dropZone.outerHeight() + ootop;
+    var inputFile = dropZone.find("input");
+    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.addClass(mouseOverClass);
+        var x = e.pageX;
+        var y = e.pageY;
+
+        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+            inputFile.offset({ top: y - 15, left: x - 100 });
+        } else {
+            inputFile.offset({ top: -400, left: -400 });
+        }
+
+    }, true);
+
+    if (buttonId != "") {
+        var clickZone = $("#" + buttonId);
+
+        var oleft = clickZone.offset().left;
+        var oright = clickZone.outerWidth() + oleft;
+        var otop = clickZone.offset().top;
+        var obottom = clickZone.outerHeight() + otop;
+
+        $("#" + buttonId).mousemove(function (e) {
+            var x = e.pageX;
+            var y = e.pageY;
+            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+                inputFile.offset({ top: y - 15, left: x - 160 });
+            } else {
+                inputFile.offset({ top: -400, left: -400 });
+            }
+        });
+    }
+
+    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+        $("#" + dropZoneId).removeClass(mouseOverClass);
+    }, true);
+
+})
+</script>
 <script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
 
 
