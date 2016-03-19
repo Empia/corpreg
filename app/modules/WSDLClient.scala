@@ -192,6 +192,8 @@ object GetPassword {
 
 
  object WSDLTest {
+   //val path = play.Play.application().path().getAbsolutePath()
+
 
  val timeOut = 2.minutes
 
@@ -286,7 +288,7 @@ val fileName = s"${fileId}.bin"
 
 
 
-    val path = play.Play.application().path().getAbsolutePath()
+  val path = play.Play.application().path().getAbsolutePath()
 
   scala.xml.XML.save(s"${path}/doc_$phone.xml", doc, "UTF-8",xmlDecl = true)
 

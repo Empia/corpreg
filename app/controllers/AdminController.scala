@@ -58,8 +58,7 @@ import play.api.mvc.Action
 import scala.concurrent.Future
 
 
-
-
+case class FileValue(fileId: String, filePath: String)
 
 import scala.concurrent.Future
 
@@ -401,45 +400,63 @@ val attrF = Future.sequence(fillAttributes.map { attr =>
 
 
 
+val files = List("P21001",
+                "USN",
+                "PASSPORT",
+                "POSHLINA")
 
 def writeFillFiles(id: Long) = SecuredAction.async { implicit request =>
+  val fillingsF = fillsDAO.getAll
+  val fillings = await(fillingsF)
+  val current_fill = fillings.find(fill => fill.id.get == id).get
+  val phone = current_fill.phone
+
   val attrsF = fillAttributesDAO.findByFill(id)
 	attrsF.map { attrs =>
+    val filesCn:List[FileValue] = files.map { fileId =>
+      FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
+    }
 
-val form = forms.PrimaryFillForm.form.fill(
-forms.PrimaryFillForm.PrimaryFillData(
-      lastName = retriveFromAttrSeq(attrs, attribute="lastName"),
-      firstname =  retriveFromAttrSeq(attrs, attribute="firstname"),
-      middleName =  retriveFromAttrSeq(attrs, attribute="middleName"),
-      dob =  retriveFromAttrSeq(attrs, attribute="dob"),
-      placeOfBorn =  retriveFromAttrSeq(attrs, attribute="placeOfBorn"),
-      passport =  retriveFromAttrSeq(attrs, attribute="passport"),
-      passportIssuedDate =  retriveFromAttrSeq(attrs, attribute="passportIssuedDate"),
-      kodPodrazdelenia = retriveFromAttrSeq(attrs, attribute="kodPodrazdelenia"),
-      passportIssuedBy =  retriveFromAttrSeq(attrs, attribute="passportIssuedBy"),
-      inn = retriveFromAttrSeq(attrs, attribute="inn"),
-      snils = retriveFromAttrSeq(attrs, attribute="snils"),
-      eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
-      postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
-      locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress")
-)
-)
-
-	  Ok(views.html.fillFiles(request.identity, id, form ))
+	  Ok(views.html.fillFiles(request.identity, id, phone, filesCn ))
 }
 
 }
-def saveFillFiles(id: Long) = SecuredAction.async { implicit request =>
-  Future.successful(Ok("good"))
+//import play.api.Play.current
 
+//Play.application.path
+val path = "" //Play.current().path().getAbsolutePath()
+import sys.process._
+
+def saveFillFiles(id: Long) = SecuredAction.async(parse.multipartFormData) { implicit request =>
+  val fillingsF = fillsDAO.getAll
+  val fillings = await(fillingsF)
+  val current_fill = fillings.find(fill => fill.id.get == id).get
+  val phone = current_fill.phone
+
+  files.map { fileId =>
+    request.body.file(fileId).map { fileAbst =>
+        import java.io.File
+        val filename = fileAbst.filename
+        val contentType = fileAbst.contentType
+        println(fileAbst)
+        val attr = FillAttributeDTO(id=None,
+        	fill_id=id,
+        	attribute=s"$fileId",
+        	value=filename)
+        	fillAttributesDAO.findOrCreate(id, attr)
+          Seq(s"mkdir", "-p", s"./public/files/doc_$phone").lineStream
+          Seq(s"mkdir", "-p", s"./public/files/doc_$phone/$fileId").lineStream
+        fileAbst.ref.moveTo(new File(s"./public/files/doc_$phone/$fileId/$filename"))
+      }
+  }
+  Future.successful( Redirect(routes.AdminController.writeFillFiles(id)) )
 }
+
 def writeFillFNS(id: Long) = SecuredAction.async { implicit request =>
   Future.successful(Ok("good"))
-
 }
 def saveFillFNS(id: Long) = SecuredAction.async { implicit request =>
   Future.successful(Ok("good"))
-
 }
 
 

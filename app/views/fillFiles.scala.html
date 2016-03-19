@@ -1,4 +1,4 @@
-@(user: models.User, fillId: Long, fillForm: Form[forms.PrimaryFillForm.PrimaryFillData])(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, fillId: Long, phone: String, fileCn: List[FileValue])(implicit messages: Messages,request: RequestHeader)
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play
@@ -127,9 +127,9 @@
             <div class="w-nav-overlay" data-wf-ignore=""></div></div>
             <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
               <div class="w-container">
-                <nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="../documents/passport-ip.html" class="w-nav-link application-nav-button application-nav-button-done">Внесение данных</a>
-                  <div class="application-nav-arrow application-arrow-done"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button application-nav-button-active">Загрузка документов</a>
-                  <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="../documents/documents-ip.html" class="w-nav-link application-nav-button">Отправка в налоговую</a>
+                <nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/filling/@fillId/fill" class="w-nav-link application-nav-button application-nav-button-done">Внесение данных</a>
+                  <div class="application-nav-arrow application-arrow-done"></div><a style="max-width: 940px;" href="/filling/@fillId/fillFiles" class="w-nav-link application-nav-button application-nav-button-active">Загрузка документов</a>
+                  <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/filling/@fillId/fillFNS" class="w-nav-link application-nav-button">Отправка в налоговую</a>
                 </nav>
                 <div class="w-nav-button">
                   <div class="w-icon-nav-menu"></div>
@@ -138,16 +138,40 @@
             <div class="w-nav-overlay" data-wf-ignore=""></div></div>
           </div>
 
+
+
+@helper.form(action = routes.AdminController.saveFillFiles(fillId), 'enctype -> "multipart/form-data") {
+  @helper.CSRF.formField
+
   <div class="application-body application-body-upload">
       <h3 class="application-subheading">Загрузка документов</h3>
       <div class="w-row">
-          <div class="w-col w-col-4 w-clearfix upload-column-one"><a href="#" class="file-upload-button file-upload-button-pressed">Заявление&nbsp;Р21001</a><a href="#" class="file-upload-button file-upload-button-pressed">Заявление УСН</a><a href="#" class="file-upload-button file-upload-button-pressed">Паспорт</a><a href="#" class="file-upload-button file-upload-button-pressed">Госпошлина</a><a href="#" class="file-upload-button">Заявление Р11001</a><a href="#" class="file-upload-button">Устав</a><a href="#" class="file-upload-button">Решение</a><a href="#" class="file-upload-button">Протокол</a><a href="#" class="file-upload-button">Юридический адрес</a><a href="#" class="file-upload-button">Другой документ</a>
+          <div class="w-col w-col-4 w-clearfix upload-column-one">
+            @fileCn.map { file =>
+              @if(file.filePath != "") {
+<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">@file.fileId - @file.filePath</a>
+              }
+            }
+            <!--
+
+            <a href="#" class="file-upload-button file-upload-button-pressed">Заявление&nbsp;Р21001</a>
+            <a href="#" class="file-upload-button file-upload-button-pressed">Заявление УСН</a>
+            <a href="#" class="file-upload-button file-upload-button-pressed">Паспорт</a>
+            <a href="#" class="file-upload-button file-upload-button-pressed">Госпошлина</a>
+
+            <a href="#" class="file-upload-button">Заявление Р11001</a>
+            <a href="#" class="file-upload-button">Устав</a>
+            <a href="#" class="file-upload-button">Решение</a>
+            <a href="#" class="file-upload-button">Протокол</a>
+            <a href="#" class="file-upload-button">Юридический адрес</a>
+            <a href="#" class="file-upload-button">Другой документ</a>
+          -->
           </div>
           <div class="w-col w-col-8 upload-column-two">
               <div class="w-row upload-row">
                   <div class="w-col w-col-8">
                       <div class="w-embed upload-file-field">
-                          <input name="fileToUpload" id="fileToUpload" type="file">
+                          <input name="P21001" id="fileToUpload" type="file">
                       </div>
                   </div>
                   <div class="w-col w-col-4">
@@ -157,7 +181,7 @@
               <div class="w-row upload-row">
                   <div class="w-col w-col-8">
                       <div class="w-embed upload-file-field">
-                          <input name="fileToUpload" id="fileToUpload" type="file">
+                          <input name="USN" id="fileToUpload" type="file">
                       </div>
                   </div>
                   <div class="w-col w-col-4">
@@ -167,7 +191,7 @@
               <div class="w-row upload-row">
                   <div class="w-col w-col-8">
                       <div class="w-embed upload-file-field">
-                          <input name="fileToUpload" id="fileToUpload" type="file">
+                          <input name="PASSPORT" id="fileToUpload" type="file">
                       </div>
                   </div>
                   <div class="w-col w-col-4">
@@ -177,7 +201,7 @@
               <div class="w-row upload-row">
                   <div class="w-col w-col-8">
                       <div class="w-embed upload-file-field">
-                          <input name="fileToUpload" id="fileToUpload" type="file">
+                          <input name="POSHLINA" id="fileToUpload" type="file">
                       </div>
                   </div>
                   <div class="w-col w-col-4">
@@ -196,7 +220,7 @@
 
                 </div>
 </div>
-
+}
 
 
 

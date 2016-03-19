@@ -268,7 +268,9 @@ console.log(d.payload[0]);
 }
 
   $('#kod-podrazdelenia').on('input', function() {
+    if ($('#passport-issued-date').val()) {
     checkPassportBase();
+    }
 });
 $('#passport-issued-date').on('input', function() {
   checkPassportBase();
