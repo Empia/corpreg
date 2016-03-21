@@ -261,7 +261,7 @@ if ($('#passport-issued-date').val()) {
 success: function(d) {
 console.log(d);
 console.log(d.payload[0]);
-  $('#passportIssuedBy').val(d.payload[0]);
+  $('#passportIssuedBy').val(d.payload[1]);
 }
 });
 
