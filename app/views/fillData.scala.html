@@ -57,6 +57,51 @@
     border-style: none;
     background-color: #f8f8f8;
 }
+.passport-status {
+    display: inline-block;
+    width: 183px;
+    margin-top: -5px;
+    margin-bottom: 15px;
+    font-family: Roboto, sans-serif;
+    color: #6bbd6e;
+    font-size: 14px;
+}
+
+.passport-status-icon {
+    margin-right: 4px;
+    margin-bottom: 5px;
+    float: left;
+    font-family: 'Fon Aawesome', sans-serif;
+    color: #6bbd6e;
+}
+.passport-status.passport-status-no {
+    width: 187px;
+    color: #ec675d;
+}
+.passport-status-icon.passport-satus-icon-false {
+    margin-bottom: 25px;
+    color: #ec675d;
+}
+.passport-fms-name-div {
+    margin-bottom: 2px;
+}
+.passport-fms-name {
+    display: inline;
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    border-style: none none dashed;
+    border-width: 1px;
+    border-color: #dfdfdf;
+    border-radius: 3px;
+    background-color: transparent;
+    font-family: Roboto, sans-serif;
+    color: #d6d6d6;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+
 </style>
 
 <div class="w-container">
@@ -129,26 +174,43 @@
     </div>
 </div>
 
+
 <div class="application-body">
+    <h3 class="application-subheading">Паспорт</h3>
     <div class="w-form application-form">
-        <div id="email-form" name="email-form" data-name="Email Form">
-
-
             <div class="w-row">
-                <div class="w-col w-col-6">
+                <div class="w-col w-col-4">
                     <label for="name-7" class="application-form-label">Серия и номер паспорта:</label>
-    @b3.text(fillForm("passport"), 'id -> "passport",'class -> "w-input application-form-field application-form-field-gett")
-                    <label for="name-8" class="application-form-label">Дата выдачи паспорта:</label>
-    @b3.text(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'class -> "w-input application-form-field application-form-field-gett")
+                    @b3.text(fillForm("passport"), 'id -> "passport",'class -> "w-input application-form-field application-form-field-gett")
                 </div>
-                <div class="w-col w-col-6">
-                    <label for="email-11" class="application-form-label">Код подразделения:</label>
-    @b3.text(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'class -> "w-input application-form-field application-form-field-gett")
+                <div class="w-col w-col-3">
+                    <label for="name-58" class="application-form-label">Дата выдачи паспорта:</label>
+                        @b3.text(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+                <div class="w-col w-col-5">
+                    <label for="name-56" class="application-form-label">Код подразделения:</label>
+                    @b3.text(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'class -> "w-input application-form-field application-form-field-gett")
                 </div>
             </div>
-            <label for="email-13" class="application-form-label">Кем выдан паспорт:</label>
-    @b3.text(fillForm("passportIssuedBy"), 'id -> "passportIssuedBy",'class -> "w-input application-form-field application-form-field-gett")
-        </div>
+            <div class="w-row">
+                <div class="w-col w-col-4">
+                    <div class="w-clearfix passport-status"><span class="passport-status-icon"></span> Паспорт действителен
+                        <br>(проверен по базе ФМС)</div>
+                    <div class="w-clearfix passport-status passport-status-no"><span class="passport-status-icon passport-satus-icon-false"></span>Паспорт недействителен
+                        <br>(возможно, истек срок действия)</div>
+                </div>
+                <div class="w-col w-col-8">
+                    <label for="field-2" class="application-form-label">Кем выдан паспорт:</label>
+                    <div class="passport-fms-name-div"><a href="#" id="mus1" class="passport-fms-name"></a>
+                    </div>
+                    <div class="passport-fms-name-div"><a href="#" id="mus2" class="passport-fms-name"></a>
+                    </div>
+                    <div class="passport-fms-name-div"><a href="#" class="passport-fms-name">Ввести самостоятельно</a>
+                    </div>
+
+                    @b3.text(fillForm("passportIssuedBy"), 'id -> "passportIssuedBy",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+            </div>
     </div>
 </div>
 
@@ -261,11 +323,27 @@ if ($('#passport-issued-date').val()) {
 success: function(d) {
 console.log(d);
 console.log(d.payload[0]);
-  $('#passportIssuedBy').val(d.payload[1]);
+  $('#mus1').text(d.payload[0]);
+  $('#mus2').text(d.payload[1]);
+  //$('#passportIssuedBy').val(d.payload[1]);
 }
 });
 
 }
+
+$('a#mus1').on('click', function(ev) {
+  ev.preventDefault;
+
+$('#passportIssuedBy').val($('#mus1').text());
+ ev.preventDefault();
+});
+$('a#mus2').on('click', function(ev) {
+  ev.preventDefault;
+
+$('#passportIssuedBy').val($('#mus2').text());
+ ev.preventDefault();
+});
+
 
   $('#kod-podrazdelenia').on('input', function() {
     if ($('#passport-issued-date').val()) {
