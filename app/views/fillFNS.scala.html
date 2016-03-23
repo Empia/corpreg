@@ -1,0 +1,264 @@
+@(user: models.User, fillId: Long)(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.application-body.application-body-address {
+    padding-top: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    border-bottom-style: solid;
+    border-bottom-color: #e9e9e9;
+    text-align: left;
+}
+.application-form-field.application-form-field-verybig {
+    display: inline-block;
+    width: 633px;
+    margin: 0px auto 30px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    float: none;
+    border: 2px solid #e7e7e7;
+    background-color: #fff;
+}
+.application-form-field.application-form-field-address.aaplication-form-field-address-amall {
+    width: 100px;
+}
+
+.application-form-field.application-form-field-verybig.application-form-field-verybig-gett {
+  display: block;
+  border-color: #fcb824;
+}
+
+.application-form-field.application-form-field-address {
+  width: 300px;
+  margin-bottom: 15px;
+  border: 1px none #eee;
+  background-color: #f8f8f8;
+}
+
+.application-form-field.application-form-field-address.application-form-short {
+  width: 200px;
+}
+
+.application-form-field.application-form-field-address.aaplication-form-field-address-amall {
+  width: 100px;
+}
+.application-form-field.application-form-field-reg {
+    width: 433px;
+    border-style: none;
+    background-color: #f8f8f8;
+}
+
+.file-upload-button {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px 8px 5px 9px;
+  float: left;
+  clear: left;
+  border: 1px solid #5c92cc;
+  border-radius: 3px;
+  font-family: Roboto, sans-serif;
+  color: #5c92cc;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.file-upload-button.file-upload-button-pressed {
+  border-color: transparent;
+  background-color: #5c92cc;
+  color: #fff;
+}
+
+.next-button-icon {
+  overflow: visible;
+  font-family: 'Fon Aawesome', sans-serif;
+  color: #e9e9e9;
+  font-size: 16px;
+}
+
+.upload-column-one {
+  margin-top: 10px;
+  padding: 30px;
+  border-radius: 3px;
+  background-color: #f8f8f8;
+}
+
+.upload-column-two {
+  margin-top: 10px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+}
+
+
+</style>
+
+
+<div class="w-container">
+  <div class="application-header-box">
+            <div class="w-clearfix application-header-icon application-header-icon-gett">
+              <div class="application-heading-icon"></div>
+            </div>
+            <div class="application-header">
+              <h2 class="content-heading content-heading-gett">Регистрация нового пользователя</h2>
+            </div>
+            <div data-collapse="none" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+              <div class="w-container">
+                <nav role="navigation" class="w-nav-menu application-nav-menu application-nav-menu-mobile"><a style="max-width: 940px;" href="../gett/gett-passport.html" class="w-nav-link application-nav-button application-nav-button-active application-nav-button-active-gett">Личные данные</a>
+                  <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/filling/@fillId/fill" class="w-nav-link application-nav-button">ЭЦП</a>
+                  <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/filling/@fillId/fillFiles" class="w-nav-link application-nav-button">Регистрация</a>
+                  <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/filling/@fillId/fillFNS" class="w-nav-link application-nav-button">Открытие счета</a>
+                </nav>
+                <div class="w-nav-button">
+                  <div class="w-icon-nav-menu"></div>
+                </div>
+              </div>
+            <div class="w-nav-overlay" data-wf-ignore=""></div></div>
+            <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+              <div class="w-container">
+                <nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/filling/@fillId/fill" class="w-nav-link application-nav-button application-nav-button-done">Внесение данных</a>
+                  <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/filling/@fillId/fillFiles" class="w-nav-link application-nav-button application-nav-button-done">Загрузка документов</a>
+                  <div class="application-nav-arrow application-arrow-done"></div><a style="max-width: 940px;" href="/filling/@fillId/fillFNS" class="w-nav-link application-nav-button application-nav-button-active">Отправка в налоговую</a>
+                </nav>
+                <div class="w-nav-button">
+                  <div class="w-icon-nav-menu"></div>
+                </div>
+              </div>
+            <div class="w-nav-overlay" data-wf-ignore=""></div></div>
+          </div>
+
+
+
+            <div class="application-body application-body-upload">
+                <h3 class="application-subheading">Отправка документов в налоговую</h3>
+                <div class="w-row">
+                    <div class="w-col">
+                        <div class="w-row upload-row">
+                            <div class="w-col w-col-4">
+                                <div class="upload-file-label">Запрос на создание ЭЦП</div>
+                                <div class="w-col w-col-4 w-clearfix upload-column-one">
+                    </div>
+                            </div>
+                        </div>
+                        <div class="w-row upload-row">
+                            <div class="w-col w-col-4">
+                            </div>
+                        </div>
+                        <div class="w-row upload-row">
+                            <div class="w-col w-col-4">
+                                <div class="upload-file-label">Запрос на отправку смс с паролем</div>
+                                <div class="w-col w-col-4 w-clearfix upload-column-one">
+                    </div>
+                            </div>
+                        </div>
+                        <div class="w-row upload-row">
+                            <div class="w-col w-col-4">
+                                <div class="upload-file-label">Потдверждение смс пароля</div>
+                                <div class="w-col w-col-4 w-clearfix upload-column-one">
+                    </div>
+                            </div>
+                        </div>
+                        <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">Отправить документы</button>
+
+                        <div class="w-row upload-row">
+
+                            <div class="w-col w-col-4">
+                                <div class="upload-file-label">Результат отправки документов для налоговой</div>
+
+                                <div class="w-col w-col-4 w-clearfix upload-column-one">
+                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+</div>
+
+
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
+
+<style>
+.upload-file-field {
+  background: none;
+}
+#drop-zone {
+    width: 305px;
+    height: 58px;
+    position: relative;
+    left: 79%;
+    top: -28px;
+    margin-left: -150px;
+    border: 2px dashed rgba(0,0,0,.3);
+    border-radius: 20px;
+    font-family: Arial;
+    text-align: center;
+    position: relative;
+    line-height: 51px;
+    font-size: 13px;
+    color: rgba(0,0,0,.3);
+}
+    #drop-zone input {
+        /*Important*/
+        position: absolute;
+        /*Important*/
+        cursor: pointer;
+        left: 0px;
+        top: 0px;
+        /*Important This is only comment out for demonstration purpeses.
+        opacity:0; */
+    }
+
+    /*Important*/
+    #drop-zone.mouse-over {
+        border: 2px dashed rgba(0,0,0,.5);
+        color: rgba(0,0,0,.5);
+    }
+
+
+/*If you dont want the button*/
+#clickHere {
+    position: absolute;
+    cursor: pointer;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: 20px;
+    line-height: 26px;
+    color: white;
+    font-size: 12px;
+    width: 100px;
+    height: 26px;
+    border-radius: 4px;
+    background-color: #3b85c3;
+
+}
+
+    #clickHere:hover {
+        background-color: #4499DD;
+
+    }
+</style>
+
+
+}

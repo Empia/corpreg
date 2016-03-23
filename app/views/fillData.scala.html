@@ -194,9 +194,9 @@
             </div>
             <div class="w-row">
                 <div class="w-col w-col-4">
-                    <div class="w-clearfix passport-status" style="display:none;"><span class="passport-status-icon"></span> Паспорт действителен
+                    <div class="w-clearfix passport-status" id="goodpassport" style="display:none;"><span class="passport-status-icon"></span> Паспорт действителен
                         <br>(проверен по базе ФМС)</div>
-                    <div class="w-clearfix passport-status passport-status-no" style="display:none;"><span class="passport-status-icon passport-satus-icon-false"></span>Паспорт недействителен
+                    <div class="w-clearfix passport-status passport-status-no" id="badpassport" style="display:none;"><span class="passport-status-icon passport-satus-icon-false"></span>Паспорт недействителен
                         <br>(возможно, истек срок действия)</div>
                 </div>
                 <div class="w-col w-col-8">
@@ -353,6 +353,49 @@ $('#passportIssuedBy').val($('#mus2').text());
 $('#passport-issued-date').on('input', function() {
   checkPassportBase();
 });
+
+
+$('#passport').on('input', function() {
+
+
+  $.ajax({
+    url: 'https://dadata.ru/api/v2/clean/passport',
+    dataType: 'json',
+     method: 'POST',
+
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Token ' + ' 2aba8de760c817b3e11ac7726435d42a124d5f62',
+//      'X-Secret': 'e476af320a42344145fbda8fd72a08ce0af18ca1'
+     },
+     data: '[ "'+ $('#passport').val() +'" ]',
+
+    success: function(d) {
+
+      if (d.data.qc == 0) {
+        $('#badpassport').hide();
+        $('#goodpassport').show();
+      } else {
+        $('#goodpassport').hide();
+       $('#badpassport').show();
+      }
+
+    }
+  });
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
 
 
      $("#address").suggestions({

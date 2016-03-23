@@ -461,10 +461,20 @@ def saveFillFiles(id: Long) = SecuredAction.async(parse.multipartFormData) { imp
 }
 
 def writeFillFNS(id: Long) = SecuredAction.async { implicit request =>
-  Future.successful(Ok("good"))
+  val fillingsF = fillsDAO.getAll
+  val fillings = await(fillingsF)
+  val current_fill = fillings.find(fill => fill.id.get == id).get
+  val phone = current_fill.phone
+
+  Future.successful(Ok(views.html.fillFNS(request.identity, id )) )
 }
 def saveFillFNS(id: Long) = SecuredAction.async { implicit request =>
-  Future.successful(Ok("good"))
+  val fillingsF = fillsDAO.getAll
+  val fillings = await(fillingsF)
+  val current_fill = fillings.find(fill => fill.id.get == id).get
+  val phone = current_fill.phone
+
+  Future.successful(Ok(views.html.fillFNS(request.identity, id )) )
 }
 
 
