@@ -313,8 +313,8 @@ $('#passport-issued-date').on('input', function() {
               dataType: 'json',
               success: function(d) {
                 console.log(d);
-                $('input#fnsreg').val(d.code);
-                $('input#fnstitle').val(d.name);
+                $('input#fnsreg').val(d.sprofDetails.ifnsCode);
+                $('input#fnstitle').val(d.sprofDetails.sproName);
               }
             });
 
