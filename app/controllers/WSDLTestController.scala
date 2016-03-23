@@ -78,30 +78,30 @@ def index3 = Action.async { implicit request =>
 
 def uuid = java.util.UUID.randomUUID.toString
 
-  def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
-  def awaitAndPrint[T](a: Awaitable[T])(implicit ec: ExecutionContext) = println(await(a))
-  private def retriveAttribute(c: Option[FillAttributeDTO]):String = {
-  	c match {
-  		case Some(attr) => attr.value
-  		case _ => ""
-  	}
-  }
-  private def retriveFromAttrSeq(attrs: Seq[FillAttributeDTO], attribute:String):String = {
-  	retriveAttribute(attrs.find(attr => attr.attribute == attribute))
-  }
+def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
+def awaitAndPrint[T](a: Awaitable[T])(implicit ec: ExecutionContext) = println(await(a))
+private def retriveAttribute(c: Option[FillAttributeDTO]):String = {
+	c match {
+		case Some(attr) => attr.value
+		case _ => ""
+	}
+}
+private def retriveFromAttrSeq(attrs: Seq[FillAttributeDTO], attribute:String):String = {
+	retriveAttribute(attrs.find(attr => attr.attribute == attribute))
+}
 
 
 def saveDoc(phone:String) = Action.async { implicit request =>
   val abnGuid = uuid
-    val fill = await(fillsDAO.getByPhone(phone)).get
-    val id = fill.id.get
-    val attrs = await(fillAttributesDAO.findByFill(id))
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+  val attrs = await(fillAttributesDAO.findByFill(id))
 
-val attr = FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="abnGuid",
-  	value=abnGuid)
-    fillAttributesDAO.findOrCreate(id, attr)
+  val attr = FillAttributeDTO(id=None,
+    	fill_id=id,
+    	attribute="abnGuid",
+    	value=abnGuid)
+      fillAttributesDAO.findOrCreate(id, attr)
 
   val firstName = retriveFromAttrSeq(attrs, attribute="firstName")
   val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
