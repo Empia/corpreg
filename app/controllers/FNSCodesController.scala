@@ -78,5 +78,23 @@ def index(glob: String) = Action.async { implicit request =>
         }
     }
 
+
+ws.url("https://service.nalog.ru/addrno-proc.json").post(Map(
+  //"objectAddr" -> Seq("value"),
+  //"objectAddr_zip" -> Seq("634061"),
+  //"objectAddr_ifns" -> Seq("7017"),
+  //"objectAddr_okatom" -> Seq("69401000000"),
+  "ifns" -> Seq(glob),
+  //"oktmmf" -> Seq("69701000"),
+  "lk" -> Seq("false"),
+  "c" -> Seq("next"),
+  "step" -> Seq("1")
+
+)).map {
+  response =>
+    Ok(response.body.toString)
+}
+
+
 }
 }
