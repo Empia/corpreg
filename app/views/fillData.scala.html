@@ -100,8 +100,77 @@
     font-size: 12px;
     text-decoration: none;
 }
-
-
+.form-gender-swithcer {
+    display: inline-block;
+    margin-top: 5px;
+    border: 1px none #c9c9c9;
+    border-radius: 3px;
+    box-shadow: none;
+}
+.gender-button {
+    display: inline-block;
+    width: 35px;
+    height: 29px;
+    margin-top: 0px;
+    padding-top: 6px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border: 1px solid #e6eff8;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: #e6eff8;
+    box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, .1);
+    font-family: Roboto, sans-serif;
+    color: #afc7e0;
+    font-size: 10px;
+    line-height: 15px;
+}
+.gender-button.gender-button-female {
+    width: 34px;
+    border-style: solid solid solid none;
+    border-color: #e9e9e9;
+    border-radius: 0px 3px 3px 0px;
+    background-color: transparent;
+    box-shadow: none;
+    color: #dbd9d8;
+}
+.application-form-field.application-form-field-short {
+    width: 140px;
+    background-image: none;
+    background-size: auto;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+.application-form-label {
+    margin-bottom: 5px;
+    font-family: Roboto, sans-serif;
+    color: #ccc;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+}
+.application-form-field.application-form-field-short {
+    width: 140px;
+    background-image: none;
+    background-size: auto;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+.application-form-field {
+    display: inline-block;
+    width: auto;
+    margin-bottom: 15px;
+    padding-right: 12px;
+    padding-left: 12px;
+    border: 1px solid #e6e6e6;
+    border-radius: 1px;
+    background-color: #fdfdfd;
+    font-family: Roboto, sans-serif;
+    color: black;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+}
 </style>
 
 <div class="w-container">
@@ -130,49 +199,87 @@
 
 @helper.form(action = routes.AdminController.saveFill(fillId)) {
             @helper.CSRF.formField
-<div class="application-body">
+
+
+
+
+
+
+<div class="application-body application-body-upper">
+    <h3 class="application-subheading">Личные данные</h3>
     <div class="w-form application-form">
-        <div id="email-form" name="email-form" data-name="Email Form">
             <div class="w-row">
-                <div class="w-col w-col-6">
+                <div class="w-col w-col-4">
                     <label for="name-4" class="application-form-label">Фамилия:</label>
-    @b3.text(fillForm("lastName"), 'id -> "last-name",'class -> "w-input application-form-field application-form-field-gett")
-                    <label for="name-5" class="application-form-label">Имя:</label>
-    @b3.text(fillForm("firstname"), 'id -> "first-name",'class -> "w-input application-form-field application-form-field-gett")
-                    <label for="name-6" class="application-form-label">Отчество:</label>
-    @b3.text(fillForm("middleName"), 'id -> "middle-name",'class -> "w-input application-form-field application-form-field-gett")
-
+                    @b3.text(fillForm("lastName"), 'id -> "last-name",'class -> "w-input application-form-field")
                 </div>
-                <div class="w-col w-col-6">
+                <div class="w-col w-col-3">
                     <label for="email-4" class="application-form-label">Дата рождения:</label>
-    @b3.text(fillForm("dob"), 'id -> "email-4",'class -> "w-input application-form-field application-form-field-gett")
-                    <label for="email-5" class="application-form-label">Место рождения:</label>
-    @b3.text(fillForm("placeOfBorn"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")
-
-    <label for="email-5" class="application-form-label">Email:</label>
-
-    @b3.text(fillForm("eMail"), 'id -> "email",'class -> "w-input application-form-field application-form-field-gett")
-
+                    @b3.text(fillForm("dob"), 'id -> "email-4",'class -> "w-input application-form-field application-form-field-short")
                 </div>
-            </div>
-
-
-            <div id="email-form" name="email-form" data-name="Email Form">
-                <div class="w-row">
-                    <div class="w-col w-col-6">
-                        <label for="name-9" class="application-form-label">ИНН:</label>
-        @b3.text(fillForm("inn"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")
-                    </div>
-                    <div class="w-col w-col-6">
-                        <label for="email-14" class="application-form-label">СНИЛС:</label>
-        @b3.text(fillForm("snils"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
+                <div class="w-col w-col-2">
+                    <label for="email-4" class="application-form-label">Пол:</label>
+                    <div class="form-gender-swithcer"><a href="#" class="w-button gender-button">МУЖ</a><a href="#" class="w-button gender-button gender-button-female">ЖЕН</a>
                     </div>
                 </div>
+                <div class="w-col w-col-3">
+                    <label for="name-9" class="application-form-label">ИНН:</label>
+                    @b3.text(fillForm("inn"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
             </div>
+            <div class="w-row">
+                <div class="w-col w-col-4">
+                    <label for="name-52" class="application-form-label">Имя:</label>
+                    @b3.text(fillForm("firstname"), 'id -> "first-name",'class -> "w-input application-form-field")
+                </div>
+                <div class="w-col w-col-5">
+                    <label for="email-19" class="application-form-label">Место рождения:</label>
+                    @b3.text(fillForm("placeOfBorn"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="email-20" class="application-form-label">СНИЛС:</label>
+                    @b3.text(fillForm("snils"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+            </div>
+            <div class="w-row">
+                <div class="w-col w-col-4">
+                    <label for="name-53" class="application-form-label">Отчество:</label>
+                    @b3.text(fillForm("middleName"), 'id -> "middle-name",'class -> "w-input application-form-field")
+                </div>
+                <div class="w-col w-col-5">
+                  <label for="email-19" class="application-form-label">Email:</label>
+                  @b3.text(fillForm("eMail"), 'id -> "email",'class -> "w-input application-form-field application-form-field-gett")
 
-        </div>
+                </div>
+                <div class="w-col w-col-3"></div>
+            </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <div class="application-body">
