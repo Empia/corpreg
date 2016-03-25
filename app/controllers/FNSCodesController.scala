@@ -79,7 +79,7 @@ def index(glob: String) = Action.async { implicit request =>
     }
 
 
-ws.url("https://service.nalog.ru/addrno-proc.json").post(Map(
+ws.url("https://service.nalog.ru/addrno-proc.json").withHeaders("headerKey" -> "headerValue").post(Map(
   //"objectAddr" -> Seq("value"),
   //"objectAddr_zip" -> Seq("634061"),
   //"objectAddr_ifns" -> Seq("7017"),
@@ -94,7 +94,22 @@ ws.url("https://service.nalog.ru/addrno-proc.json").post(Map(
   response =>
     Ok(response.body.toString)
 }
-
-
 }
+
+def passport(num: String) = Action.async { implicit request =>
+  import play.api.libs.json.{JsNull,Json,JsString,JsValue}
+
+
+  ws.url("https://dadata.ru/api/v2/clean/passport").withHeaders(
+    "headerKey" -> "headerValue",
+    "Authorization" -> "Token 2aba8de760c817b3e11ac7726435d42a124d5f62",
+    "X-Secret" -> "5fe3c7bcbe3363365af9657e800674680bde36c4"
+  ).post(s"""["${num}"]"""
+
+  ).map {
+    response =>
+      Ok(response.body.toString)
+  }
+}
+
 }

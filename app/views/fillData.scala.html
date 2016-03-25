@@ -359,20 +359,13 @@ $('#passport').on('input', function() {
 
 
   $.ajax({
-    url: 'https://dadata.ru/api/v2/clean/passport',
+    url: '/passport/'+$('#passport').val(),
     dataType: 'json',
-     method: 'POST',
+     method: 'GET',
 
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Token ' + ' 2aba8de760c817b3e11ac7726435d42a124d5f62',
-//      'X-Secret': 'e476af320a42344145fbda8fd72a08ce0af18ca1'
-     },
-     data: '[ "'+ $('#passport').val() +'" ]',
-
+    headers: {     },
     success: function(d) {
-
-      if (d.data.qc == 0) {
+      if (d[0].qc == 0) {
         $('#badpassport').hide();
         $('#goodpassport').show();
       } else {
