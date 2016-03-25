@@ -524,9 +524,9 @@ $('#passport').on('input', function() {
             $('input#city').val(decorate(suggestion.data.city_type, suggestion.data.city));
             $('input#settlement').val(decorate(suggestion.data.settlement_type, suggestion.data.settlement));
             $('input#street').val(decorate(suggestion.data.street_type, suggestion.data.street));
-            $('input#house').val(decorate(suggestion.data.house_type, suggestion.data.house));
-            $('input#corpus').val(decorate(suggestion.data.block_type, suggestion.data.block));
-            $('input#flat').val(decorate(suggestion.data.flat_type, suggestion.data.flat));
+            $('input#house').val(suggestion.data.house);
+            $('input#corpus').val(suggestion.data.block);
+            $('input#flat').val(suggestion.data.flat);
 
 
             $.ajax({
