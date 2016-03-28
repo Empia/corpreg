@@ -171,6 +171,31 @@
     line-height: 25px;
     font-weight: 400;
 }
+.application-subheading {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-left: 0px;
+    font-family: Roboto, sans-serif;
+    color: #727272;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 400;
+    text-align: left;
+}
+.application-form-field.application-form-field-short {
+    width: 140px;
+    background-image: none;
+    background-size: auto;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+#passport-issued-date, #kod-podrazdelenia {
+    width: 140px;
+}
+#passportIssuedBy {
+  width: 400px;
+  height: 70px;
+}
 </style>
 
 <div class="w-container">
@@ -280,46 +305,46 @@
 
 
 
-
-
 <div class="application-body">
-    <h3 class="application-subheading">Паспорт</h3>
-    <div class="w-form application-form">
-            <div class="w-row">
-                <div class="w-col w-col-4">
-                    <label for="name-7" class="application-form-label">Серия и номер паспорта:</label>
-                    @b3.text(fillForm("passport"), 'id -> "passport",'class -> "w-input application-form-field application-form-field-gett")
-                </div>
-                <div class="w-col w-col-3">
-                    <label for="name-58" class="application-form-label">Дата выдачи паспорта:</label>
-                        @b3.text(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'class -> "w-input application-form-field application-form-field-gett")
-                </div>
-                <div class="w-col w-col-5">
-                    <label for="name-56" class="application-form-label">Код подразделения:</label>
-                    @b3.text(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'class -> "w-input application-form-field application-form-field-gett")
-                </div>
+  <h3 class="application-subheading">Паспорт</h3>
+  <div class="w-form application-form">
+        <div class="w-row">
+            <div class="w-col w-col-4">
+                <label for="name-7" class="application-form-label">Серия и номер паспорта:</label>
+                @b3.text(fillForm("passport"), 'id -> "passport",'class -> "w-input application-form-field")
             </div>
-            <div class="w-row">
-                <div class="w-col w-col-4">
-                    <div class="w-clearfix passport-status" id="goodpassport" style="display:none;"><span class="passport-status-icon"></span> Паспорт действителен
-                        <br>(проверен по базе ФМС)</div>
-                    <div class="w-clearfix passport-status passport-status-no" id="badpassport" style="display:none;"><span class="passport-status-icon passport-satus-icon-false"></span>Паспорт недействителен
-                        <br>(возможно, истек срок действия)</div>
-                </div>
-                <div class="w-col w-col-8">
-                    <label for="field-2" class="application-form-label">Кем выдан паспорт:</label>
-                    <div class="passport-fms-name-div"><a href="#" id="mus1" class="passport-fms-name"></a>
-                    </div>
-                    <div class="passport-fms-name-div"><a href="#" id="mus2" class="passport-fms-name"></a>
-                    </div>
-                    <div class="passport-fms-name-div"><a href="#" class="passport-fms-name">Ввести самостоятельно</a>
-                    </div>
-
-                    @b3.text(fillForm("passportIssuedBy"), 'id -> "passportIssuedBy",'class -> "w-input application-form-field application-form-field-gett")
-                </div>
+            <div class="w-col w-col-3">
+                <label for="name-58" class="application-form-label">Дата выдачи паспорта:</label>
+                @b3.text(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'class -> "w-input application-form-field")
             </div>
+            <div class="w-col w-col-5">
+                <label for="name-56" class="application-form-label">Код подразделения:</label>
+                @b3.text(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'class -> "w-input application-form-field")
+            </div>
+        </div>
+        <div class="w-row">
+          <div class="w-col w-col-4">
+              <div class="w-clearfix passport-status" id="goodpassport" style="display:none;"><span class="passport-status-icon"></span> Паспорт действителен
+                  <br>(проверен по базе ФМС)</div>
+              <div class="w-clearfix passport-status passport-status-no" id="badpassport" style="display:none;"><span class="passport-status-icon passport-satus-icon-false"></span>Паспорт недействителен
+                  <br>(возможно, истек срок действия)</div>
+          </div>
+            <div class="w-col w-col-8">
+                <label for="field-2" class="application-form-label">Кем выдан паспорт:</label>
+                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name">ОТДЕЛЕНИЕМ УФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ В КАМЕНСКОМ РАЙОНЕ</a>
+                </div>
+                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name">ОУФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ В КАМЕНСКОМ РАЙОНЕ</a>
+                </div>
+                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name">Ввести самостоятельно</a>
+                </div>
+                @b3.textarea(fillForm("passportIssuedBy"), 'id -> "passportIssuedBy",'class -> "w-input application-form-field application-form-field-huge")
+            </div>
+        </div>
     </div>
 </div>
+
+
+
 
 
 
@@ -520,7 +545,7 @@ $('#passport').on('input', function() {
             $('input#postalcode').val(suggestion.data.postal_code);
             $('input#subject').val(suggestion.data.kladr_id.slice(0,2));
             $('input#region').val(decorate(suggestion.data.region_type, suggestion.data.region));
-            $('input#area').val(suggestion.data.area_type_full);
+            $('input#area').val(suggestion.data.area);
             $('input#city').val(decorate(suggestion.data.city_type, suggestion.data.city));
             $('input#settlement').val(decorate(suggestion.data.settlement_type, suggestion.data.settlement));
             $('input#street').val(decorate(suggestion.data.street_type, suggestion.data.street));
