@@ -8,6 +8,7 @@ GET         /                                controllers.UserFillingController.i
 
 GET /gett-passport controllers.UserFillingController.passport
 GET /gett-esign controllers.SignController.index
+GET /states controllers.SignController.states
 
 GET /make-sign controllers.SignController.requestSign
 

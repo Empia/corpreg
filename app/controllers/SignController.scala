@@ -39,23 +39,38 @@ import play.api.Play.current
 import play.api.libs.mailer._
 import java.io.File
 import org.apache.commons.mail.EmailAttachment
-
+import play.api.libs.json._
 
 class SignController @Inject() (
   val messagesApi: MessagesApi,
   fillsDAO:FillsDAO,
-  fillAttributesDAO: FillAttributesDAO,    
+  fillAttributesDAO: FillAttributesDAO,
   mailerClient: MailerClient,
 
   val env: Environment[User, CookieAuthenticator],
   socialProviderRegistry: SocialProviderRegistry)
-  extends Silhouette[User, CookieAuthenticator] {	
+  extends Silhouette[User, CookieAuthenticator] {
 
 def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
 def awaitAndPrint[T](a: Awaitable[T])(implicit ec: ExecutionContext) = println(await(a))
 
 
-def index = SecuredAction.async { implicit request => 
+implicit val fillDTOWrites = Json.writes[models.FillDTO]
+implicit val fillDTOFormat = Json.format[models.FillDTO]
+
+
+def states = SecuredAction.async { implicit request =>
+  val phone = request.identity.email.getOrElse("")
+	val fill = await(fillsDAO.getByPhone(phone)).get
+	val id = fill.id.get
+  Future.successful(Ok(
+    Json.toJson(fill))
+  )
+
+}
+
+
+def index = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
@@ -63,30 +78,30 @@ def index = SecuredAction.async { implicit request =>
   fillsDAO.correctFilling(id).map { r2 =>
   	// Mail
   	if (!fill.filledCorrect){
-	Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName, 
+	Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
 		action = "Подтвердил правильность анкетных данных")
-	}  	
+	}
 	  Ok(views.html.sign(request.identity, signRequested ))
 //	  Redirect(routes.UserFillingController.index)
-  }	  
+  }
 }
 
-def requestSign = SecuredAction.async { implicit request => 
+def requestSign = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
   fillsDAO.signRequested(id).map { r2 =>
   	if (!fill.signRequested){
-	Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName, 
+	Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
 		action = "Запросил выпуск электронной подписи")
-	}  
+	}
 
 	  Ok(views.html.sign(request.identity, true ))
 //	  Redirect(routes.UserFillingController.index)
-  }	  
+  }
 }
 
-def retriveSms = SecuredAction.async { implicit request => 
+def retriveSms = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
@@ -107,7 +122,7 @@ def retriveSms = SecuredAction.async { implicit request =>
     }
 
     Future(
-    	Ok(views.html.signReady(request.identity, codeSigned,  
+    	Ok(views.html.signReady(request.identity, codeSigned,
 				firstName,
 				lastName,
 				inn,
@@ -118,20 +133,20 @@ def retriveSms = SecuredAction.async { implicit request =>
     )
 }
 
-def sendDocs() = SecuredAction.async { implicit request => 
+def sendDocs() = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
-	fillsDAO.smsCode(id, "0000").map { r =>	
+	fillsDAO.smsCode(id, "0000").map { r =>
 	  	if (fill.smsCode != "0000"){
-			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName, 
+			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
 			action = "Решил подписать и отправить документы в налоговую")
-		}  	
-	    	Redirect(routes.SignController.retriveSms)			    
+		}
+	    	Redirect(routes.SignController.retriveSms)
 	}
 }
 
-def sendSms() = SecuredAction.async { implicit request => 
+def sendSms() = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get
@@ -143,17 +158,17 @@ def sendSms() = SecuredAction.async { implicit request =>
 	  	Future.successful(Redirect(routes.UserFillingController.index)	)
 	  },
 	  data => {
-	  		fillsDAO.smsCode(id, data.phone).map { r =>	
+	  		fillsDAO.smsCode(id, data.phone).map { r =>
 	  	if (fill.smsCode == "0000"){
-			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName, 
+			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
 			action = s"Получил кодик и решил передать его на подписание. Сам кодик $data.phone")
-		}  	
+		}
 
-		    	Redirect(routes.UserFillingController.index)			    
+		    	Redirect(routes.UserFillingController.index)
 			}
 	  })
 }
-def finalizing = SecuredAction.async { implicit request => 
+def finalizing = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
 	val fill = await(fillsDAO.getByPhone(phone)).get
 	val id = fill.id.get

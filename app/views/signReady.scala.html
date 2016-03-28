@@ -125,9 +125,13 @@
 </div>
 </div>
 <script>
-	        @if(!smsCodeRequest) {
+        @if(!smsCodeRequest) {
 setTimeout(function(){
-   window.location='/';
+  $.ajax('/states').then(function(data){console.log(data);
+    if (data.smsCodeRequest) {
+      window.location='/';
+    }
+    return data})
 }, 10000);
 }
 </script>
