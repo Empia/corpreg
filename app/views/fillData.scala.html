@@ -331,9 +331,9 @@
           </div>
             <div class="w-col w-col-8">
                 <label for="field-2" class="application-form-label">Кем выдан паспорт:</label>
-                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name">ОТДЕЛЕНИЕМ УФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ В КАМЕНСКОМ РАЙОНЕ</a>
+                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name" id="mus1"></a>
                 </div>
-                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name">ОУФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ В КАМЕНСКОМ РАЙОНЕ</a>
+                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name" id="mus2"></a>
                 </div>
                 <div class="passport-fms-name-div"><a href="#" class="passport-fms-name">Ввести самостоятельно</a>
                 </div>
@@ -455,7 +455,7 @@ if ($('#passport-issued-date').val()) {
 success: function(d) {
 console.log(d);
 console.log(d.payload[0]);
-  $('#mus1').text(d.payload[0]);
+  $('#mus1').text(d.payload[0].replace(/"/g,""));
   $('#mus2').text(d.payload[1]);
   //$('#passportIssuedBy').val(d.payload[1]);
 }
