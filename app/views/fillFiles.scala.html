@@ -195,7 +195,12 @@
 
             @fileCn.map { file =>
               @if(file.filePath != "") {
-<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">@file.fileId - @file.filePath</a>
+<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
+  @if(file.fileId == "P21001") {Заявление Р21001}
+  @if(file.fileId == "USN") {Заявление на УСН}
+  @if(file.fileId == "PASSPORT") {Паспорт}
+  @if(file.fileId == "POSHLINA") {Пошлина}
+</a>
               }
             }
             <!--
