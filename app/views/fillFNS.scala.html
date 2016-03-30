@@ -100,8 +100,111 @@
   padding-bottom: 30px;
   padding-left: 30px;
 }
+.send-docs-category {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-family: Roboto, sans-serif;
+    color: #343434;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+}
+.send-docs-file-link {
+    float: left;
+    border-bottom: 1px solid #9cc6f3;
+    font-family: Roboto, sans-serif;
+    color: #5c92cc;
+    line-height: 16px;
+    text-decoration: none;
+}
+.send-docs-sms-code {
+    margin-top: 15px;
+    text-align: left;
+}
+.send-docs-code-field {
+    display: inline-block;
+    width: 80px;
+    margin-bottom: 0px;
+    border: 1px solid #e0e0e0;
+    font-family: Roboto, sans-serif;
+    color: #343434;
+    line-height: 20px;
+}
+.send-docs-code-button {
+    margin-left: 10px;
+    border: 1px none transparent;
+    border-radius: 3px;
+    background-color: #b1d3f7;
+    font-family: Roboto, sans-serif;
+    color: #fff;
+}
+.send-docs-block-sending {
+    margin-top: 15px;
+    text-align: left;
+}
+.send-docs-send-button {
+    display: inline-block;
+    padding: 7px 11px;
+    border: 1px solid #a5a5a5;
+    border-radius: 3px;
+    background-color: #f7f7f7;
+    font-family: Roboto, sans-serif;
+    color: #343434;
+    font-size: 14px;
+    text-decoration: none;
+}
+.sen-docs-status {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 7px 11px;
+    border: 1px solid #a5a5a5;
+    border-radius: 3px;
+    background-color: #c3fcc5;
+    font-family: Roboto, sans-serif;
+    color: #343434;
+    font-size: 14px;
+}
+.sen-docs-status.send-docs-status-failure {
+    display: inline-block;
+    width: auto;
+    background-color: #fcd1ce;
+}
+.send-docs-cotact-support {
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+}
+.send-docs-contact-support-link {
+    border-bottom: 1px solid #9ec5f0;
+    color: #5c92cc;
+    text-decoration: none;
+}
 
+.send-docs-info {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border: 1px none #e4e4e4;
+    border-radius: 3px;
+    background-color: transparent;
+    box-shadow: none;
+    text-align: left;
+}
 
+.send-docs-block-sending {
+    margin-top: 15px;
+    text-align: left;
+}
+.send-docs-send-button {
+    display: inline-block;
+    padding: 7px 11px;
+    border: 1px solid #a5a5a5;
+    border-radius: 3px;
+    background-color: #f7f7f7;
+    font-family: Roboto, sans-serif;
+    color: #343434;
+    font-size: 14px;
+    text-decoration: none;
+}
 </style>
 
 
@@ -138,52 +241,154 @@
             <div class="w-nav-overlay" data-wf-ignore=""></div></div>
           </div>
 
-
-
-            <div class="application-body application-body-upload">
-                <h3 class="application-subheading">Отправка документов в налоговую</h3>
-                <div class="w-row">
-                    <div class="w-col">
-                        <div class="w-row upload-row">
-                            <div class="w-col w-col-4">
-                                <div class="upload-file-label">Запрос на создание ЭЦП</div>
-                                <div class="w-col w-col-4 w-clearfix upload-column-one">
-                    </div>
-                            </div>
-                        </div>
-                        <div class="w-row upload-row">
-                            <div class="w-col w-col-4">
-                            </div>
-                        </div>
-                        <div class="w-row upload-row">
-                            <div class="w-col w-col-4">
-                                <div class="upload-file-label">Запрос на отправку смс с паролем</div>
-                                <div class="w-col w-col-4 w-clearfix upload-column-one">
-                    </div>
-                            </div>
-                        </div>
-                        <div class="w-row upload-row">
-                            <div class="w-col w-col-4">
-                                <div class="upload-file-label">Потдверждение смс пароля</div>
-                                <div class="w-col w-col-4 w-clearfix upload-column-one">
-                    </div>
-                            </div>
-                        </div>
-                        <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">Отправить документы</button>
-
-                        <div class="w-row upload-row">
-
-                            <div class="w-col w-col-4">
-                                <div class="upload-file-label">Результат отправки документов для налоговой</div>
-
-                                <div class="w-col w-col-4 w-clearfix upload-column-one">
-                    </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+          <div class="application-body application-body-upload">
+              <h3 class="application-subheading">Отправка документов</h3>
+              <div class="w-row send-docs-info">
+                  <div class="w-col w-col-4 send-docs-column-1">
+                      <div class="send-docs-category">Электронная подпись</div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">ФИО</div>
+                          </div>
+                          <div class="w-col w-col-8">
+                              <div class="send-docs-text">Павленко Федор Филлипович</div>
+                          </div>
+                      </div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">Паспорт</div>
+                          </div>
+                          <div class="w-col w-col-8">
+                              <div class="send-docs-text">45 08 890245</div>
+                          </div>
+                      </div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">Адрес</div>
+                          </div>
+                          <div class="w-col w-col-8">
+                              <div class="send-docs-text">117186, Москва, Нагорная ул, дом 12, корпус 5, квартира 490</div>
+                          </div>
+                      </div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">ИНН</div>
+                          </div>
+                          <div class="w-col w-col-8">
+                              <div class="send-docs-text">771254639601</div>
+                          </div>
+                      </div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">СНИЛС</div>
+                          </div>
+                          <div class="w-col w-col-8">
+                              <div class="send-docs-text">325-627-865 66</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4 send-docs-column-2">
+                      <div class="send-docs-category">Регистрирующий орган</div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">Код</div>
+                          </div>
+                          <div class="w-col w-col-8">
+                              <div class="send-docs-text">7746</div>
+                          </div>
+                      </div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">Название</div>
+                          </div>
+                          <div class="w-col w-col-8">
+                              <div class="send-docs-text">Межрайонная ИФНС России № 46 по г.Москве</div>
+                          </div>
+                      </div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">Телефон</div>
+                          </div>
+                          <div class="w-col w-col-8">
+                              <div class="send-docs-text">8-800-222-22-22</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4 send-docs-column-3">
+                      <div class="send-docs-category">Документы для отправки</div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">Р21001</div>
+                          </div>
+                          <div class="w-col w-col-8 w-clearfix"><a href="#" class="send-docs-file-link">r21001.tif</a>
+                          </div>
+                      </div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">УСН</div>
+                          </div>
+                          <div class="w-col w-col-8 w-clearfix"><a href="#" class="send-docs-file-link">usn.tif</a>
+                          </div>
+                      </div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">Паспорт</div>
+                          </div>
+                          <div class="w-col w-col-8 w-clearfix"><a href="#" class="send-docs-file-link">passport.tif</a>
+                          </div>
+                      </div>
+                      <div class="w-row send-docs-info-bock">
+                          <div class="w-col w-col-4">
+                              <div class="send-docs-label">Пошлина</div>
+                          </div>
+                          <div class="w-col w-col-8 w-clearfix"><a href="#" class="send-docs-file-link">poshlina.tif</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="send-docs-block-sending">
+                  <div class="w-row">
+                      <div class="w-col w-col-5"><a href="#" class="send-docs-send-button">Выпустить электронную подпись</a>
+                      </div>
+                      <div class="w-col w-col-7">
+                          <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Выпущена</div>
+                          <div class="sen-docs-status send-docs-status-failure"><span class="send-docs-status-icon"></span>Ошибка</div>
+                          <div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link" href="#">Обратиться в техподдержку</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="send-docs-block-sending">
+                  <div class="w-row">
+                      <div class="w-col w-col-5"><a href="#" class="send-docs-send-button">Отправить документы на подписание</a>
+                      </div>
+                      <div class="w-col w-col-7">
+                          <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Подписано</div>
+                          <div class="sen-docs-status send-docs-status-failure"><span class="send-docs-status-icon"></span>Ошибка</div>
+                          <div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link" href="#">Обратиться в техподдержку</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="w-form send-docs-sms-code">
+                  <form id="email-form-2" name="email-form-2" data-name="Email Form 2">
+                      <input id="name" name="name" data-name="Name" class="w-input send-docs-code-field" type="text">
+                      <input value="Отправить код" data-wait="Please wait..." class="w-button send-docs-code-button" type="submit">
+                      <div class="send-docs-block-sending">
+                          <div class="w-row">
+                              <div class="w-col w-col-5"><a href="#" class="send-docs-send-button">Отправить документы в налоговую</a>
+                              </div>
+                              <div class="w-col w-col-7">
+                                  <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Отправлено</div>
+                                  <div class="sen-docs-status send-docs-status-failure"><span class="send-docs-status-icon"></span>Ошибка</div>
+                                  <div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link" href="#">Обратиться в техподдержку</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
 
 
 
