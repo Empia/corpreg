@@ -1,8 +1,16 @@
-@(user: models.User, fillId: Long)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, fillId: Long, phone:String, fileCn: List[FileValue], filling:FillDTO,attrsByFillId:Map[Long,Seq[FillAttributeDTO]]=Map())(implicit messages: Messages,request: RequestHeader)
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play
 @import helper._
+
+@getAttr(id:Long,attrName:String) = {
+  @attrsByFillId.find(l => l._1 == id).map { c =>
+    @c._2.find(c => c.attribute == attrName).map { at =>
+      @at.value
+    }
+  }
+}
 
 @main(Messages("home.title"), Some(user)) {
 <style>
@@ -208,6 +216,7 @@
 </style>
 
 
+
 <div class="w-container application-content">
   <div class="application-header-box">
             <div class="w-clearfix application-header-icon application-header-icon-gett">
@@ -251,7 +260,7 @@
                               <div class="send-docs-label">ФИО</div>
                           </div>
                           <div class="w-col w-col-8">
-                              <div class="send-docs-text">Павленко Федор Филлипович</div>
+                              <div class="send-docs-text">@getAttr(filling.id.getOrElse(0L),"firstname") @getAttr(filling.id.getOrElse(0L),"lastName") @getAttr(filling.id.getOrElse(0L),"middleName")</div>
                           </div>
                       </div>
                       <div class="w-row send-docs-info-bock">
@@ -259,7 +268,7 @@
                               <div class="send-docs-label">Паспорт</div>
                           </div>
                           <div class="w-col w-col-8">
-                              <div class="send-docs-text">45 08 890245</div>
+                              <div class="send-docs-text">@getAttr(filling.id.getOrElse(0L),"passport")</div>
                           </div>
                       </div>
                       <div class="w-row send-docs-info-bock">
@@ -267,7 +276,7 @@
                               <div class="send-docs-label">Адрес</div>
                           </div>
                           <div class="w-col w-col-8">
-                              <div class="send-docs-text">117186, Москва, Нагорная ул, дом 12, корпус 5, квартира 490</div>
+                              <div class="send-docs-text">@getAttr(filling.id.getOrElse(0L),"locationAddress")</div>
                           </div>
                       </div>
                       <div class="w-row send-docs-info-bock">
@@ -275,7 +284,7 @@
                               <div class="send-docs-label">ИНН</div>
                           </div>
                           <div class="w-col w-col-8">
-                              <div class="send-docs-text">771254639601</div>
+                              <div class="send-docs-text">@getAttr(filling.id.getOrElse(0L),"inn")</div>
                           </div>
                       </div>
                       <div class="w-row send-docs-info-bock">
@@ -283,7 +292,7 @@
                               <div class="send-docs-label">СНИЛС</div>
                           </div>
                           <div class="w-col w-col-8">
-                              <div class="send-docs-text">325-627-865 66</div>
+                              <div class="send-docs-text">@getAttr(filling.id.getOrElse(0L),"snils")</div>
                           </div>
                       </div>
                   </div>
@@ -294,7 +303,7 @@
                               <div class="send-docs-label">Код</div>
                           </div>
                           <div class="w-col w-col-8">
-                              <div class="send-docs-text">7746</div>
+                              <div class="send-docs-text">@getAttr(filling.id.getOrElse(0L),"fnsreg")</div>
                           </div>
                       </div>
                       <div class="w-row send-docs-info-bock">
@@ -302,7 +311,7 @@
                               <div class="send-docs-label">Название</div>
                           </div>
                           <div class="w-col w-col-8">
-                              <div class="send-docs-text">Межрайонная ИФНС России № 46 по г.Москве</div>
+                              <div class="send-docs-text"></div>
                           </div>
                       </div>
                       <div class="w-row send-docs-info-bock">
@@ -310,40 +319,29 @@
                               <div class="send-docs-label">Телефон</div>
                           </div>
                           <div class="w-col w-col-8">
-                              <div class="send-docs-text">8-800-222-22-22</div>
+                              <div class="send-docs-text"></div>
                           </div>
                       </div>
                   </div>
                   <div class="w-col w-col-4 send-docs-column-3">
                       <div class="send-docs-category">Документы для отправки</div>
-                      <div class="w-row send-docs-info-bock">
-                          <div class="w-col w-col-4">
-                              <div class="send-docs-label">Р21001</div>
-                          </div>
-                          <div class="w-col w-col-8 w-clearfix"><a href="#" class="send-docs-file-link">r21001.tif</a>
-                          </div>
-                      </div>
-                      <div class="w-row send-docs-info-bock">
-                          <div class="w-col w-col-4">
-                              <div class="send-docs-label">УСН</div>
-                          </div>
-                          <div class="w-col w-col-8 w-clearfix"><a href="#" class="send-docs-file-link">usn.tif</a>
-                          </div>
-                      </div>
-                      <div class="w-row send-docs-info-bock">
-                          <div class="w-col w-col-4">
-                              <div class="send-docs-label">Паспорт</div>
-                          </div>
-                          <div class="w-col w-col-8 w-clearfix"><a href="#" class="send-docs-file-link">passport.tif</a>
-                          </div>
-                      </div>
-                      <div class="w-row send-docs-info-bock">
-                          <div class="w-col w-col-4">
-                              <div class="send-docs-label">Пошлина</div>
-                          </div>
-                          <div class="w-col w-col-8 w-clearfix"><a href="#" class="send-docs-file-link">poshlina.tif</a>
-                          </div>
-                      </div>
+                      @fileCn.map { file =>
+                        @if(file.filePath != "") {
+                        <div class="w-row send-docs-info-bock">
+                            <div class="w-col w-col-4">
+                                <div class="send-docs-label">
+                                  @if(file.fileId == "P21001") {Заявление Р21001}
+                                  @if(file.fileId == "USN") {Заявление на УСН}
+                                  @if(file.fileId == "PASSPORT") {Паспорт}
+                                  @if(file.fileId == "POSHLINA") {Пошлина}
+                                </div>
+                            </div>
+                            <div class="w-col w-col-9 w-clearfix"><a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath"
+                              class="send-docs-file-link">@file.filePath</a>
+                            </div>
+                        </div>
+                        }
+                      }
                   </div>
               </div>
               <div class="send-docs-block-sending">
@@ -353,8 +351,8 @@
                       <div class="w-col w-col-7">
                           <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Выпущена</div>
                           <div class="sen-docs-status send-docs-status-failure"><span class="send-docs-status-icon"></span>Ошибка</div>
-                          <div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link" href="#">Обратиться в техподдержку</a>
-                          </div>
+                          <!--<div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link" href="#">Обратиться в техподдержку</a>
+                          </div>-->
                       </div>
                   </div>
               </div>
@@ -365,8 +363,8 @@
                       <div class="w-col w-col-7">
                           <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Подписано</div>
                           <div class="sen-docs-status send-docs-status-failure"><span class="send-docs-status-icon"></span>Ошибка</div>
-                          <div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link" href="#">Обратиться в техподдержку</a>
-                          </div>
+                          <!--<div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link" href="#">Обратиться в техподдержку</a>
+                          </div>-->
                       </div>
                   </div>
               </div>
@@ -381,8 +379,8 @@
                               <div class="w-col w-col-7">
                                   <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Отправлено</div>
                                   <div class="sen-docs-status send-docs-status-failure"><span class="send-docs-status-icon"></span>Ошибка</div>
-                                  <div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link" href="#">Обратиться в техподдержку</a>
-                                  </div>
+                                  <!--<div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link" href="#">Обратиться в техподдержку</a>
+                                  </div>-->
                               </div>
                           </div>
                       </div>

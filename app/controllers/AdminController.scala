@@ -466,7 +466,19 @@ def writeFillFNS(id: Long) = SecuredAction.async { implicit request =>
   val current_fill = fillings.find(fill => fill.id.get == id).get
   val phone = current_fill.phone
 
-  Future.successful(Ok(views.html.fillFNS(request.identity, id )) )
+
+  val attrsF = fillAttributesDAO.findByFill(id)
+	attrsF.map { attrs =>
+    val filesCn:List[FileValue] = files.map { fileId =>
+      FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
+    }
+    val fillings = List(current_fill)
+    val attrsByFillId:Map[Long,Seq[FillAttributeDTO]] = fillings.map { fill =>
+      fill.id.get -> await(fillAttributesDAO.findByFill(fill.id.get))
+    }.toMap
+
+    Ok(views.html.fillFNS(request.identity, id, phone, filesCn, current_fill,attrsByFillId ))
+  }
 }
 def saveFillFNS(id: Long) = SecuredAction.async { implicit request =>
   val fillingsF = fillsDAO.getAll
@@ -474,7 +486,19 @@ def saveFillFNS(id: Long) = SecuredAction.async { implicit request =>
   val current_fill = fillings.find(fill => fill.id.get == id).get
   val phone = current_fill.phone
 
-  Future.successful(Ok(views.html.fillFNS(request.identity, id )) )
+
+  val attrsF = fillAttributesDAO.findByFill(id)
+	attrsF.map { attrs =>
+    val filesCn:List[FileValue] = files.map { fileId =>
+      FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
+    }
+    val fillings = List(current_fill)
+    val attrsByFillId:Map[Long,Seq[FillAttributeDTO]] = fillings.map { fill =>
+      fill.id.get -> await(fillAttributesDAO.findByFill(fill.id.get))
+    }.toMap
+
+    Ok(views.html.fillFNS(request.identity, id, phone, filesCn, current_fill,attrsByFillId ))
+  }
 }
 
 
