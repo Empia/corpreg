@@ -203,6 +203,28 @@
 </a>
               }
             }
+
+@if(fileCn.find(f => f.fileId == "P21001" && f.filePath == "").isDefined) {
+<a href="#" class="file-upload-button">
+Заявление Р21001
+</a>
+}
+@if(fileCn.find(f => f.fileId == "USN" && f.filePath == "").isDefined) {
+<a href="#" class="file-upload-button">
+Заявление на УСН
+</a>
+}
+@if(fileCn.find(f => f.fileId == "PASSPORT" && f.filePath == "").isDefined) {
+<a href="#" class="file-upload-button">
+Паспорт
+</a>
+}
+@if(fileCn.find(f => f.fileId == "POSHLINA" && f.filePath == "").isDefined) {
+<a href="#" class="file-upload-button">
+Пошлина
+</a>
+}
+
             <!--
 
             <a href="#" class="file-upload-button file-upload-button-pressed">Заявление&nbsp;Р21001</a>
