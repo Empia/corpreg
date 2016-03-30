@@ -545,7 +545,7 @@ if ($('#passport').val().length == 11) {
             $('input#postalcode').val(suggestion.data.postal_code);
             $('input#subject').val(suggestion.data.kladr_id.slice(0,2));
             $('input#region').val(decorate(suggestion.data.region_type, suggestion.data.region));
-            $('input#area').val(suggestion.data.area);
+            $('input#area').val(decorate(suggestion.data.area_type, suggestion.data.area));
             $('input#city').val(decorate(suggestion.data.city_type, suggestion.data.city));
             $('input#settlement').val(decorate(suggestion.data.settlement_type, suggestion.data.settlement));
             $('input#street').val(decorate(suggestion.data.street_type, suggestion.data.street));
