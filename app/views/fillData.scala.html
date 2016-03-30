@@ -489,7 +489,7 @@ $('#passport-issued-date').on('input', function() {
 
 $('#passport').on('input', function() {
 
-
+if ($('#passport').val().length == 11) {
   $.ajax({
     url: '/passport/'+$('#passport').val(),
     dataType: 'json',
@@ -507,7 +507,7 @@ $('#passport').on('input', function() {
 
     }
   });
-
+}
 
 
 
