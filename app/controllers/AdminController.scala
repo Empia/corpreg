@@ -109,8 +109,10 @@ def create_filling() = SecuredAction.async { implicit request =>
 		  fillsDAO.create(FillDTO(id = None, phone = data.phone)).map { r =>
 		  		  val fillingsF = fillsDAO.getAll
 				  val fillings = await(fillingsF)
-				  Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
-		  }
+				  //Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
+          Redirect(routes.AdminController.index)
+          
+      }
       }
     )
 }
