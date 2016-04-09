@@ -111,7 +111,7 @@ def create_filling() = SecuredAction.async { implicit request =>
 				  val fillings = await(fillingsF)
 				  //Ok(views.html.admin(request.identity, forms.FillForm.form, fillings ))
           Redirect(routes.AdminController.index)
-          
+
       }
       }
     )
@@ -358,8 +358,6 @@ FillAttributeDTO(id=None,
 	fill_id=id,
 	attribute="kodPodrazdelenia",
 	value=data.kodPodrazdelenia),
-
-
 FillAttributeDTO(id=None,
 	fill_id=id,
 	attribute="inn",
@@ -368,26 +366,23 @@ FillAttributeDTO(id=None,
 	fill_id=id,
 	attribute="snils",
 	value=data.snils),
-
-  FillAttributeDTO(id=None,
+FillAttributeDTO(id=None,
   	fill_id=id,
   	attribute="postalAddress",
   	value=data.postalAddress),
-    FillAttributeDTO(id=None,
+FillAttributeDTO(id=None,
     	fill_id=id,
     	attribute="eMail",
     	value=data.eMail),
-      FillAttributeDTO(id=None,
+FillAttributeDTO(id=None,
       	fill_id=id,
       	attribute="locationAddress",
       	value=data.locationAddress),
-        FillAttributeDTO(id=None,
+FillAttributeDTO(id=None,
         	fill_id=id,
         	attribute="fnsreg",
         	value=data.fnsreg)
-
-
-      )
+)
 
 val attrF = Future.sequence(fillAttributes.map { attr =>
 	fillAttributesDAO.findOrCreate(id, attr)

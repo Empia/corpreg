@@ -5,6 +5,7 @@
 # Home page
 GET         /                                controllers.UserFillingController.index
 
+GET /test_action controllers.ApplicationController.testAction()
 
 GET /gett-passport controllers.UserFillingController.passport
 GET /gett-esign controllers.SignController.index
