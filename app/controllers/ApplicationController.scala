@@ -176,15 +176,25 @@ def documentsIP = SecuredAction.async { implicit request =>
   Future.successful(Redirect(routes.UserFillingController.passport))
 
 }
-
+import scala.sys.process._
 def testAction() = SecuredAction { implicit request =>
+  val phone = request.identity.email.getOrElse("email")
+  val fields = new com.journaldev.di.test.FormFields()
+
+
   com.journaldev.di.test.MainClass1.main2(Array(
           "ФАМИЛИЯФАМИЛИЯФАМИЛИЯФАМИЛИЯ",
           "ИМЯИМЯИМЯИМЯИМЯИМЯ",
           "ОТЧЕСТВООТЧЕСТВООТЧЕСТВООТЧЕСТВО",
 
-          "ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ", "ТЕСТ", request.identity.email.getOrElse("email")
-        ))
+          "ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ", "ТЕСТ", phone
+        ),
+        fields
+      )
+
+  Seq("convert", s"public/page*_${phone}.png", s"public/${phone}.tif").!!
+  Seq("convert", s"public/usn_page*_${phone}.png", s"public/${phone}_usn.tif").!!
+
   Ok("test")
 }
 
@@ -198,6 +208,8 @@ def testAction() = SecuredAction { implicit request =>
 
          },
         entity => {
+          val fields = new com.journaldev.di.test.FormFields()
+
             val email = request.identity.email.getOrElse("test@empia.io")
             com.journaldev.di.test.MainClass1.main2(Array(
                 entity.arg1.toUpperCase(),
@@ -209,7 +221,7 @@ def testAction() = SecuredAction { implicit request =>
                 entity.arg7.toUpperCase(),
                 entity.arg8.toUpperCase(),
                 entity.arg9.toUpperCase(), email
-              ))
+              ),fields)
 
 
             Future.successful(Ok(views.html.home(request.identity, "", List(), ArgFieldsForm.fill(entity) )))
