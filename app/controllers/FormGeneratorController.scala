@@ -292,7 +292,7 @@ import scala.util.Try
                 attr <- attrF
                 r2 <- fillsDAO.areFilled(id)
               } yield {
-  	   Redirect(routes.AdminController.index)
+  	   Redirect(routes.AdminController.writeFillFiles(id) )
 
   	}
 
