@@ -120,6 +120,10 @@ import scala.util.Try
   	}
   }
 
+  val files = List("P21001",
+                  "USN",
+                  "PASSPORT",
+                  "POSHLINA")
 
 
   def saveFill(id: Long) = SecuredAction.async { implicit request =>
@@ -138,86 +142,7 @@ import scala.util.Try
         data => {
         	println(data)
 
-  /*
-  PrimaryFillData(
-        lastName:String,
-        firstname:String,
-        middleName:String,
-        dob:String,
-        placeOfBorn:String,
-        passport:String,
-        passportIssuedDate:String,
-        passportIssuedBy:String,
-        inn:String,
-        snils:String
-  )*/
-  val fillAttributes = List(
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="lastName",
-  	value=data.lastName),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="firstname",
-  	value=data.firstname),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="middleName",
-  	value=data.middleName),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="dob",
-  	value=data.dob),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="placeOfBorn",
-  	value=data.placeOfBorn),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="passport",
-  	value=data.passport),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="passportIssuedDate",
-  	value=data.passportIssuedDate),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="passportIssuedBy",
-  	value=data.passportIssuedBy),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="kodPodrazdelenia",
-  	value=data.kodPodrazdelenia),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="inn",
-  	value=data.inn),
-  FillAttributeDTO(id=None,
-  	fill_id=id,
-  	attribute="snils",
-  	value=data.snils),
-  FillAttributeDTO(id=None,
-    	fill_id=id,
-    	attribute="postalAddress",
-    	value=data.postalAddress),
-  FillAttributeDTO(id=None,
-      	fill_id=id,
-      	attribute="eMail",
-      	value=data.eMail),
-  FillAttributeDTO(id=None,
-        	fill_id=id,
-        	attribute="locationAddress",
-        	value=data.locationAddress),
-  FillAttributeDTO(id=None,
-          	fill_id=id,
-          	attribute="fnsreg",
-          	value=data.fnsreg)
-  )
 
-  val attrF = Future.sequence(fillAttributes.map { attr =>
-  	//fillAttributesDAO.findOrCreate(id, attr)
-    Future.successful("ok")
-  })
 
     val fields = new com.journaldev.di.test.FormFields()
     val email = request.identity.email.getOrElse("6666")
@@ -331,8 +256,36 @@ import scala.util.Try
         "entity.arg6.toUpperCase()",
         "entity.arg7.toUpperCase()",
         "entity.arg8.toUpperCase()",
-        "entity.arg9.toUpperCase()", email
+        "entity.arg9.toUpperCase()", phone
       ),fields)
+
+      import sys.process._
+
+      Seq("convert", s"public/page*_${phone}.png", s"public/${phone}.tif").!!
+      Seq("convert", s"public/usn_page*_${phone}.png", s"public/${phone}_usn.tif").!!
+
+      Seq(s"mkdir", "-p", s"./public/files/doc_$phone").lineStream
+      Seq(s"mkdir", "-p", s"./public/files/doc_$phone/P21001").lineStream
+      Seq(s"mkdir", "-p", s"./public/files/doc_$phone/USN").lineStream
+
+      Seq(s"mv", s"./public/${phone}.tif", s"./public/files/doc_$phone/P21001").lineStream
+      Seq(s"mv", s"./public/${phone}_usn.tif", s"./public/files/doc_$phone/USN").lineStream
+
+      val attr = FillAttributeDTO(id=None,
+      	fill_id=id,
+      	attribute=s"P21001",
+      	value=s"${phone}.tif")
+        val attr2 = FillAttributeDTO(id=None,
+        	fill_id=id,
+        	attribute=s"USN",
+        	value=s"${phone}_usn.tif")
+      	val createdAttrs = List(
+          fillAttributesDAO.findOrCreate(id, attr),
+          fillAttributesDAO.findOrCreate(id, attr2))
+
+
+
+      val attrF = Future.sequence(createdAttrs)
 
 
   	for {
