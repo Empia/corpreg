@@ -31,6 +31,9 @@ GET  /filling/:id/signReady controllers.AdminController.signReady(id:Long)
 GET  /filling/:id/register  controllers.AdminController.registerFill(id: Long)
 
 
+GET  /form_filling/:id/fill     controllers.FormGeneratorController.writeFill(id: Long)
+POST /form_filling/:id/fill     controllers.FormGeneratorController.saveFill(id: Long)
+
 GET  /filling/:id/fill     controllers.AdminController.writeFill(id: Long)
 POST /filling/:id/fill     controllers.AdminController.saveFill(id: Long)
 GET   /filling/:id/fillFiles     controllers.AdminController.writeFillFiles(id: Long)

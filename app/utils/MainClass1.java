@@ -499,11 +499,11 @@ private Graphics2D createPage3(BufferedImage img, BufferedImage old, String[] ar
     fillField(g2d, 260, 738, 1, fields.getField("vid_doc")); // VID
     fillField(g2d, 557, 878, 2, fields.getField("page3_doc_number")); // NOMER DOCUMENTA
 
-    fillField(g2d, 445, 1033, 2, fields.getField("page3_doc_number") ); // NOMER DOCUMENTA
-    fillField(g2d, 432, 1166, 2, fields.getField("page3_doc_number") ); // NOMER DOCUMENTA
-    fillField(g2d, 90, 1278, 2, fields.getField("page3_doc_number") ); // NOMER DOCUMENTA
-    fillField(g2d, 90, 1386, 2, fields.getField("page3_doc_number") ); // NOMER DOCUMENTA
-    fillField(g2d, 500, 1556, 2, fields.getField("page3_doc_number") ); // NOMER DOCUMENTA
+    fillField(g2d, 445, 1033, 2, fields.getField("page3_doc_number1") ); // NOMER DOCUMENTA
+    fillField(g2d, 432, 1166, 2, fields.getField("page3_doc_number2") ); // NOMER DOCUMENTA
+    fillField(g2d, 90, 1278, 2, fields.getField("page3_doc_number3") ); // NOMER DOCUMENTA
+    fillField(g2d, 90, 1386, 2, fields.getField("page3_doc_number4") ); // NOMER DOCUMENTA
+    fillField(g2d, 500, 1556, 2, fields.getField("page3_doc_number5") ); // NOMER DOCUMENTA
 
 
     g2d.dispose();

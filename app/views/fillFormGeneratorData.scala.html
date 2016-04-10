@@ -205,10 +205,7 @@
         <div class="application-heading-icon application-heading-icon-gett"></div>
     </div>
     <div class="application-header">
-      <p><a href="/form_filling/@{fillId}/fill">Формы налоговой</a></p>
-
-        <h2 class="content-heading content-heading-gett">Регистрация нового пользователя</h2>
-
+        <h2 class="content-heading content-heading-gett">Генерация новых форм</h2>
     </div>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
                 <div class="w-container">
@@ -225,7 +222,7 @@
 
 
 
-@helper.form(action = routes.AdminController.saveFill(fillId)) {
+@helper.form(action = routes.FormGeneratorController.saveFill(fillId)) {
             @helper.CSRF.formField
 
 
@@ -421,7 +418,8 @@
 
 
                 <div class="application-footer">
-                    <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">Сохранить данные</button>
+                    <button id="submit" type="submit" value="submit" class="w-button
+                    application-next-button application-next-button-gett">Сгенерировать форму</button>
 
                 </div>
             </div>
@@ -432,154 +430,6 @@
  <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
 <script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
-<script>
-$( document ).ready(function() {
-
-var checkPassportBase = function() {
-
-var data;
-
-if ($('#passport-issued-date').val()) {
-  var date = $('#passport-issued-date').val().split('.')
-  data = {
-'code': $('#kod-podrazdelenia').val(),
-'date': date[0]+"-"+date[1]+"-"+date[2],
-}
-} else {
-
-  data = {
-'code': $('#kod-podrazdelenia').val()
-}
-}
-
-
-  $.ajax({ url: 'https://www.tinkoff.ru/api/v1/get_passport_authority_name/',
-  data: data,
-success: function(d) {
-console.log(d);
-console.log(d.payload[0]);
-  $('#mus1').text(d.payload[0].replace(/"/g,""));
-  $('#mus2').text(d.payload[1]);
-  //$('#passportIssuedBy').val(d.payload[1]);
-}
-});
-
-}
-
-$('a#mus1').on('click', function(ev) {
-  ev.preventDefault;
-
-$('#passportIssuedBy').val($('#mus1').text());
- ev.preventDefault();
-});
-$('a#mus2').on('click', function(ev) {
-  ev.preventDefault;
-
-$('#passportIssuedBy').val($('#mus2').text());
- ev.preventDefault();
-});
-
-
-  $('#kod-podrazdelenia').on('input', function() {
-    if ($('#passport-issued-date').val()) {
-    checkPassportBase();
-    }
-});
-$('#passport-issued-date').on('input', function() {
-  checkPassportBase();
-});
-
-
-$('#passport').on('input', function() {
-
-if ($('#passport').val().length == 11) {
-  $.ajax({
-    url: '/passport/'+$('#passport').val(),
-    dataType: 'json',
-     method: 'GET',
-
-    headers: {     },
-    success: function(d) {
-      if (d[0].qc == 0) {
-        $('#badpassport').hide();
-        $('#goodpassport').show();
-      } else {
-        $('#goodpassport').hide();
-       $('#badpassport').show();
-      }
-
-    }
-  });
-}
-
-
-
-});
-
-
-
-
-
-
-
-
-
-
-
-     $("#address").suggestions({
-        serviceUrl: "http://suggestions.dadata.ru/suggestions/api/4_1/rs",
-        token: "2aba8de760c817b3e11ac7726435d42a124d5f62",
-        type: "ADDRESS",
-        count: 5,
-        /* Вызывается, когда пользователь выбирает одну из подсказок */
-        onSelect: function(suggestion) {
-            console.log(suggestion);
-            function decorate(first, last) {
-                if (first && last) {
-                    return first + ' ' + last;
-                } else if (first) {
-                    return first;
-                }
-                else if (last) {
-                    return last;
-                }
-            }
-            $('input#ifns').val(suggestion.data.tax_office);
-            $('input#postalcode').val(suggestion.data.postal_code);
-            $('input#subject').val(suggestion.data.kladr_id.slice(0,2));
-            $('input#region').val(decorate(suggestion.data.region_type, suggestion.data.region));
-            $('input#area').val(decorate(suggestion.data.area_type, suggestion.data.area));
-            $('input#city').val(decorate(suggestion.data.city_type, suggestion.data.city));
-            $('input#settlement').val(decorate(suggestion.data.settlement_type, suggestion.data.settlement));
-            $('input#street').val(decorate(suggestion.data.street_type, suggestion.data.street));
-            $('input#house').val(suggestion.data.house);
-            $('input#corpus').val(suggestion.data.block);
-            $('input#flat').val(suggestion.data.flat);
-
-
-            $.ajax({
-              url: '/fns/'+suggestion.data.tax_office,
-              dataType: 'json',
-              success: function(d) {
-                console.log(d);
-                $('input#fnsreg').val(d.sprofDetails.ifnsCode);
-                $('input#fnstitle').val(d.sprofDetails.sproName);
-              }
-            });
-
-
-
-//  GET /fns/:global
-
-
-        }
-    });
-
-});
-</script>
-
-
-<script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
 
 
 
