@@ -13,7 +13,7 @@ public class FormFields
   }
 
   public String[] getField(String fieldId) {
-    String foundedVal = hashmap.getOrDefault(fieldId, "ФФ");
+    String foundedVal = hashmap.getOrDefault(fieldId, "ЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИНЗЕЛЕНИН");
     String[] ary = foundedVal.split("");
     return ary;
   }

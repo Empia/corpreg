@@ -183,13 +183,13 @@ private BufferedImage process(BufferedImage old, BufferedImage[] images, String[
 public int paddingForTwoRow(int step) {
   int actualStep = step + 1;
   if (actualStep == 5) {
-    return 1;
+    return 4;
   } else if (actualStep == 8) {
-    return 1;
+    return 4;
   } else if (actualStep == 11) {
-    return 1;
+    return 4;
   } else if (actualStep == 14 || actualStep == 15 || actualStep == 19 || actualStep == 22 || actualStep == 25 || actualStep == 28 || actualStep == 31 || actualStep == 32 || actualStep == 36) {
-    return 1;
+    return 4;
   } else {
     return 0;
   }
@@ -239,7 +239,7 @@ private Graphics2D createPage1(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 46));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 85));
       FontMetrics fm = g2d.getFontMetrics();
 
     // Cell SIZE 54 / 68
@@ -266,31 +266,52 @@ private Graphics2D createPage1(BufferedImage img, BufferedImage old, String[] ar
             6 rows
            */
           String fullNameString[];
+          String smallNameString[];
           if ((args.length + 1) > 0) {
   	        fullNameString = args[0].split("");
           } else {
   	        fullNameString = g2d3s2s;
           }
-
-
-
-
-
-          fillField(g2d, 410, 769, 40, fields.getField("lastName"));
-          fillField(g2d, 410, 882, 40, fields.getField("firstName"));
-          fillField(g2d, 410, 1005, 40, fields.getField("middleName"));
-          fillField(g2d, 410, 1234, 40, fields.getField("lastName_latin"));
-
-          fillField(g2d, 410, 1343, 40, fields.getField("firstName_latin"));
-          fillField(g2d, 410, 1471, 40, fields.getField("middleName_latin"));
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-          String smallNameString[];
           if ((args.length + 1) > 1) {
   	        smallNameString = args[1].split("");
           } else {
   	        smallNameString = g2d3s2s;
           }
+          String zipString[];
+          if ((args.length + 1) > 2) {
+  	        zipString = args[2].split("");
+          } else {
+  	        zipString = g2d3s2s;
+          }
+          String regionString[];
+          if ((args.length + 1) > 3) {
+  	        regionString = args[3].split("");
+          } else {
+  	        regionString = g2d3s2s;
+          }
+          String addressString[];
+          if ((args.length + 1) > 4) {
+  	        addressString = args[4].split("");
+          } else {
+  	        addressString = g2d3s2s;
+          }
+
+
+
+
+
+
+
+          fillField(g2d, 408, 774, 40, fields.getField("lastName"));
+          fillField(g2d, 408, 887, 40, fields.getField("firstName"));
+          fillField(g2d, 408, 1010, 40, fields.getField("middleName"));
+
+          fillField(g2d, 408, 1241, 40, fields.getField("lastName_latin"));
+          fillField(g2d, 408, 1358, 40, fields.getField("firstName_latin"));
+          fillField(g2d, 408, 1478, 40, fields.getField("middleName_latin"));
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+
 
           /*
             Middle field for small name of corporation
@@ -298,49 +319,18 @@ private Graphics2D createPage1(BufferedImage img, BufferedImage old, String[] ar
             4 rows
            */
           // INN ROW
-          fillField(g2d, 655, 1597, 40, fields.getField("inn"));
+          fillField(g2d, 655, 1620, 40, fields.getField("inn"));
           // GENDER
-          fillField(g2d, 360, 1736, 40, fields.getField("gender"));
+          fillField(g2d, 360, 1745, 40, fields.getField("gender"));
           // DOB
-          fillField(g2d, 510, 1980, 40, fields.getField("dob"));
+          fillField(g2d, 510, 1990, 40, fields.getField("dob"));
           // PLACE OB BIRTH
-          fillField(g2d, 80, 2164, 40, fields.getField("pob"));
-
-
-          String zipString[];
-          if ((args.length + 1) > 2) {
-  	        zipString = args[2].split("");
-          } else {
-  	        zipString = g2d3s2s;
-          }
-          /*
-            Footre field
-            Index, code
-           */
+          fillField(g2d, 80, 2170, 40, fields.getField("pob"));
           // PLACE OB BIRTH #2
-          int xpos = 80;
-          int ypos = 2262;
-          fillField(g2d, 80, 2262, 6, fields.getField("pob2"));
-
-
-          String regionString[];
-          if ((args.length + 1) > 3) {
-  	        regionString = args[3].split("");
-          } else {
-  	        regionString = g2d3s2s;
-          }
+          fillField(g2d, 80, 2270, 6, fields.getField("pob2"));
           // OKG GRAJDANINA
-          xpos = 480;
-          ypos = 2504;
-          fillField(g2d, 480, 2504, 1, fields.getField("grajdanstvo"));
 
-
-          String addressString[];
-          if ((args.length + 1) > 4) {
-  	        addressString = args[4].split("");
-          } else {
-  	        addressString = g2d3s2s;
-          }
+          fillField(g2d, 480, 2524, 1, fields.getField("grajdanstvo"));
 
 
 
@@ -390,18 +380,17 @@ private Graphics2D createPage2(BufferedImage img, BufferedImage old, String[] ar
       String g2d3s2s[] = {"А","Б", "Й", "Ц", "У", "К", "Е", "Н", "Г",
             "Ш", "Щ", "З", "Х", "Х", "Ъ", "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д",
           "Ж", "Э", "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш"};
-
-              /*
-                Full field for fill name of corporation
-                Limit 40
-                6 rows
-               */
-              String fullNameString[];
-              if ((args.length + 1) > 0) {
-      	        fullNameString = args[0].split("");
-              } else {
-      	        fullNameString = g2d3s2s;
-              }
+      /*
+        Full field for fill name of corporation
+        Limit 40
+        6 rows
+       */
+      String fullNameString[];
+      if ((args.length + 1) > 0) {
+        fullNameString = args[0].split("");
+      } else {
+        fullNameString = g2d3s2s;
+      }
 
 
 
@@ -452,10 +441,10 @@ private Graphics2D createPage2(BufferedImage img, BufferedImage old, String[] ar
 private void fillField(Graphics2D g2d, int xpos, int ypos, int letters, String[] fullNameString) {
   FontMetrics fm = g2d.getFontMetrics();
   for(int a = 0; a < fullNameString.length && a < letters; a++) {
-    xpos = xpos + 15 + paddingForTwoRow(a); // first padding
+    xpos = xpos + 4 + paddingForTwoRow(a); // first padding
     g2d.drawString(fullNameString[a], xpos, ypos);
     xpos = xpos + fm.stringWidth(fullNameString[a]); // second padding
-    xpos = xpos + 15; // third padding
+    xpos = xpos + 2; // third padding
     //xpos = xpos + (86 - fm.stringWidth(g2d3s2s));
     //System.out.println("xpos" + xpos);
   }

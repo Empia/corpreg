@@ -112,7 +112,16 @@ import scala.util.Try
         eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
         postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
         locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
-        fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg")
+        fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        AddressData(
+        subject = retriveFromAttrSeq(attrs, attribute="subject"),
+        area = retriveFromAttrSeq(attrs, attribute="area"),
+        city = retriveFromAttrSeq(attrs, attribute="city"),
+        settlement = retriveFromAttrSeq(attrs, attribute="settlement"),
+        street = retriveFromAttrSeq(attrs, attribute="street"),
+        house = retriveFromAttrSeq(attrs, attribute="house"),
+        corpus = retriveFromAttrSeq(attrs, attribute="corpus"),
+        flat = retriveFromAttrSeq(attrs, attribute="flat"))    
   )
   )
 

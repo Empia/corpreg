@@ -13,7 +13,17 @@ object FillForm {
     phone:String
   )
 }
+case class AddressData(
+  subject:String, area:String,
+city:String,
+settlement:String,
+street:String,
+house:String,
+corpus:String,
+flat:String
+) {
 
+}
 object PrimaryFillForm {
   val form = Form(
     mapping(
@@ -31,7 +41,18 @@ object PrimaryFillForm {
          "eMail" -> text,
          "postalAddress" -> text,
          "locationAddress" -> text,
-         "fnsreg" -> text
+         "fnsreg" -> text,
+         "addressInfo" -> mapping(
+           "subject" -> text,
+           "area" -> text,
+           "city" -> text,
+           "settlement" -> text,
+           "street" -> text,
+           "house" -> text,
+           "corpus" -> text,
+           "flat" -> text
+         )(AddressData.apply)(AddressData.unapply)
+
 )(PrimaryFillData.apply)(PrimaryFillData.unapply)
   )
   case class PrimaryFillData(
@@ -49,7 +70,8 @@ object PrimaryFillForm {
       eMail:String,
       postalAddress:String,
       locationAddress:String,
-      fnsreg:String
+      fnsreg:String,
+      addressInfo: AddressData
   )
 }
 

@@ -286,7 +286,16 @@ forms.PrimaryFillForm.PrimaryFillData(
       eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
       postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
       locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
-      fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg")
+      fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+      AddressData(
+      subject = retriveFromAttrSeq(attrs, attribute="subject"),
+      area = retriveFromAttrSeq(attrs, attribute="area"),
+      city = retriveFromAttrSeq(attrs, attribute="city"),
+      settlement = retriveFromAttrSeq(attrs, attribute="settlement"),
+      street = retriveFromAttrSeq(attrs, attribute="street"),
+      house = retriveFromAttrSeq(attrs, attribute="house"),
+      corpus = retriveFromAttrSeq(attrs, attribute="corpus"),
+      flat = retriveFromAttrSeq(attrs, attribute="flat"))
 )
 )
 
@@ -381,7 +390,43 @@ FillAttributeDTO(id=None,
 FillAttributeDTO(id=None,
         	fill_id=id,
         	attribute="fnsreg",
-        	value=data.fnsreg)
+        	value=data.fnsreg),
+
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="subject",
+value=data.addressInfo.subject),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="area",
+value=data.addressInfo.area),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="city",
+value=data.addressInfo.city),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="settlement",
+value=data.addressInfo.settlement),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="street",
+value=data.addressInfo.street),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="house",
+value=data.addressInfo.house),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="corpus",
+value=data.addressInfo.corpus),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="flat",
+value=data.addressInfo.flat)
+
+
+
 )
 
 val attrF = Future.sequence(fillAttributes.map { attr =>
