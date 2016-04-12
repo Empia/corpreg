@@ -36,7 +36,7 @@ POST /form_filling/:id/fill     controllers.FormGeneratorController.saveFill(id:
 GET /positions/:page  controllers.FieldPositionsController.showPage(page: String)
 
 GET /positions_values/:page controllers.FieldPositionsController.getPositions(page: String)
-
+POST /position_value/:page controllers.FieldPositionsController.updatePosition(page: String)
 
 GET  /filling/:id/fill     controllers.AdminController.writeFill(id: Long)
 POST /filling/:id/fill     controllers.AdminController.saveFill(id: Long)

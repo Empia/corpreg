@@ -172,4 +172,15 @@ positions.createPosition(FormPosition(pos_x=657, pos_y=2625, id="usn_date", page
 
 }
 
+def updatePosition(page: String)= SecuredAction.async { implicit request =>
+  println("request.body " + request.body)
+  val pos = request.body.asJson.get.as[FormPosition]
+
+    positions.updatePosition(pos).map { positions =>
+        Ok( "Good" )
+    }
+
+
+}
+
 }
