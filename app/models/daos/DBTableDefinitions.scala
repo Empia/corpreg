@@ -5,6 +5,12 @@ import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
 import models._
 
+
+case class AllPositions(positions: List[FormPosition]) {
+  def getX(page: String, id: String):Int = positions.find(pos => pos.id == id && pos.page == page).get.pos_x
+  def getY(page: String, id: String):Int = positions.find(pos => pos.id == id && pos.page == page).get .pos_y
+}
+
 case class FormPosition(id: String, pos_x: Int, pos_y:Int, page:String)
 
 

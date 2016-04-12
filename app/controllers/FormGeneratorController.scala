@@ -66,6 +66,7 @@ class FormGeneratorController @Inject() (
   fillAttributesDAO: FillAttributesDAO,
   socialProviderRegistry: SocialProviderRegistry,
   mailerClient: MailerClient,
+  positions: FormPositionsDAO,
 
   userService: UserService,
   authInfoRepository: AuthInfoRepository,
@@ -86,6 +87,32 @@ import scala.util.Try
 
 
 
+  import scala.sys.process._
+  def testAction() = SecuredAction { implicit request =>
+    val phone = request.identity.email.getOrElse("email")
+    val positions_dto = await(positions.getAll())
+    var positionsList = positions_dto.toList
+
+
+    val fields = new com.journaldev.di.test.FormFields()
+    fields.addPositions(AllPositions(positionsList))
+
+
+    com.journaldev.di.test.MainClass1.main2(Array(
+            "ФАМИЛИЯФАМИЛИЯФАМИЛИЯФАМИЛИЯ",
+            "ИМЯИМЯИМЯИМЯИМЯИМЯ",
+            "ОТЧЕСТВООТЧЕСТВООТЧЕСТВООТЧЕСТВО",
+
+            "ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ", "ТЕСТ", phone
+          ),
+          fields
+        )
+
+    Seq("convert", s"public/*Page.png", s"public/${phone}.tif").!!
+    Seq("convert", s"public/*Usn.png", s"public/${phone}_usn.tif").!!
+
+    Ok("test")
+  }
 
 
 
@@ -121,7 +148,7 @@ import scala.util.Try
         street = retriveFromAttrSeq(attrs, attribute="street"),
         house = retriveFromAttrSeq(attrs, attribute="house"),
         corpus = retriveFromAttrSeq(attrs, attribute="corpus"),
-        flat = retriveFromAttrSeq(attrs, attribute="flat"))    
+        flat = retriveFromAttrSeq(attrs, attribute="flat"))
   )
   )
 
@@ -151,9 +178,13 @@ import scala.util.Try
         data => {
         	println(data)
 
-
+    val positions_dto = await(positions.getAll())
+    var positionsList = positions_dto.toList
 
     val fields = new com.journaldev.di.test.FormFields()
+    fields.addPositions(AllPositions(positionsList))
+
+//    val fields = new com.journaldev.di.test.FormFields()
     val email = request.identity.email.getOrElse("6666")
 
 
@@ -270,8 +301,8 @@ import scala.util.Try
 
       import sys.process._
 
-      Seq("convert", s"public/page*_${phone}.png", s"public/${phone}.tif").!!
-      Seq("convert", s"public/usn_page*_${phone}.png", s"public/${phone}_usn.tif").!!
+      Seq("convert", s"public/*Page.png", s"public/${phone}.tif").!!
+      Seq("convert", s"public/*Usn.png", s"public/${phone}_usn.tif").!!
 
       Seq(s"mkdir", "-p", s"./public/files/doc_$phone").lineStream
       Seq(s"mkdir", "-p", s"./public/files/doc_$phone/P21001").lineStream

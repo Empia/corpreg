@@ -8,8 +8,14 @@ public class FormFields
 {
   public Map<String, String> hashmap = new HashMap<String, String>();
 
+  public models.daos.AllPositions p;
+
   public void put(String id, String val) {
     hashmap.put(id, val);
+  }
+
+  public void addPositions(models.daos.AllPositions positions) {
+    p = positions;
   }
 
   public String[] getField(String fieldId) {

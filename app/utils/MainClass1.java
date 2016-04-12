@@ -132,13 +132,13 @@ public MainClass1(String[] args, FormFields fields) throws Exception {
         int numThumbsUsn = readerUsn.getNumThumbnails(0);
 
 
-        image = process(image, images, args, fields, "page1");
-        BufferedImage image1 = process(images[1], images, args, fields, "page2");
-        BufferedImage image2 = process(images[2], images, args, fields, "page3");
-        BufferedImage image3 = process(images[3], images, args, fields, "page4");
-        BufferedImage image4 = process(images[4], images, args, fields, "page5");
+        image = process(image, images, args, fields, "firstPage");
+        BufferedImage image1 = process(images[1], images, args, fields, "secondPage");
+        BufferedImage image2 = process(images[2], images, args, fields, "thirdPage");
+        BufferedImage image3 = process(images[3], images, args, fields, "fourthPage");
+        BufferedImage image4 = process(images[4], images, args, fields, "fifthPage");
 
-        imageUsn = process(imageUsn, imagesUsn, args, fields, "usn_page1");
+        imageUsn = process(imageUsn, imagesUsn, args, fields, "firstPageUsn");
 
 
         } catch (IOException e) {
@@ -153,15 +153,15 @@ private BufferedImage process(BufferedImage old, BufferedImage[] images, String[
   BufferedImage img = new BufferedImage(
           w, h, BufferedImage.TYPE_INT_ARGB);
 
-        if (fileNameTitle == "page1") {
+        if (fileNameTitle == "firstPage") {
           Graphics2D g2d = createPage1(img,old,args, fields);
-        } else if (fileNameTitle == "page2") {
+        } else if (fileNameTitle == "secondPage") {
           Graphics2D g2d = createPage2(img,old,args, fields);
-        } else if (fileNameTitle == "page3") {
+        } else if (fileNameTitle == "thirdPage") {
           Graphics2D g2d = createPage3(img,old,args, fields);
-        } else if (fileNameTitle == "page4") {
+        } else if (fileNameTitle == "fourthPage") {
           Graphics2D g2d = createPage4(img,old,args, fields);
-        } else if (fileNameTitle == "usn_page1") {
+        } else if (fileNameTitle == "firstPageUsn") {
           Graphics2D g2d = createPage1Usn(img,old,args, fields);
         } else {
           Graphics2D g2d = createPage5(img,old,args, fields);
@@ -174,7 +174,7 @@ private BufferedImage process(BufferedImage old, BufferedImage[] images, String[
         try {
 
           //}
-          ImageIO.write(img, "png", new File(path + "/public/"+ fileNameTitle + "_" + fileName + ".png"));
+          ImageIO.write(img, "png", new File(path + "/public/"+ fileNameTitle + ".png"));
         } finally {
           return img;
         }
@@ -299,16 +299,17 @@ private Graphics2D createPage1(BufferedImage img, BufferedImage old, String[] ar
 
 
 
+          String fp = "firstPage";
 
 
 
-          fillField(g2d, 408, 774, 40, fields.getField("lastName"));
-          fillField(g2d, 408, 887, 40, fields.getField("firstName"));
-          fillField(g2d, 408, 1010, 40, fields.getField("middleName"));
+          fillField(g2d, fields.p.getX(fp,"lastName"), fields.p.getY(fp,"lastName"), 40, fields.getField("lastName"));
+          fillField(g2d, fields.p.getX(fp,"firstName"), fields.p.getY(fp,"firstName"), 40, fields.getField("firstName"));
+          fillField(g2d, fields.p.getX(fp,"middleName"), fields.p.getY(fp,"middleName"), 40, fields.getField("middleName"));
 
-          fillField(g2d, 408, 1241, 40, fields.getField("lastName_latin"));
-          fillField(g2d, 408, 1358, 40, fields.getField("firstName_latin"));
-          fillField(g2d, 408, 1478, 40, fields.getField("middleName_latin"));
+          fillField(g2d, fields.p.getX(fp,"lastName_latin"), fields.p.getY(fp,"lastName_latin"), 40, fields.getField("lastName_latin"));
+          fillField(g2d, fields.p.getX(fp,"firstName_latin"), fields.p.getY(fp,"firstName_latin"), 40, fields.getField("firstName_latin"));
+          fillField(g2d, fields.p.getX(fp,"middleName_latin"), fields.p.getY(fp,"middleName_latin"), 40, fields.getField("middleName_latin"));
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -319,18 +320,18 @@ private Graphics2D createPage1(BufferedImage img, BufferedImage old, String[] ar
             4 rows
            */
           // INN ROW
-          fillField(g2d, 655, 1620, 40, fields.getField("inn"));
+          fillField(g2d, fields.p.getX(fp,"inn"), fields.p.getY(fp,"inn"), 40, fields.getField("inn"));
           // GENDER
-          fillField(g2d, 360, 1745, 40, fields.getField("gender"));
+          fillField(g2d, fields.p.getX(fp,"gender"), fields.p.getY(fp,"gender"), 40, fields.getField("gender"));
           // DOB
-          fillField(g2d, 510, 1990, 40, fields.getField("dob"));
+          fillField(g2d, fields.p.getX(fp,"dob"), fields.p.getY(fp,"dob"), 40, fields.getField("dob"));
           // PLACE OB BIRTH
-          fillField(g2d, 80, 2170, 40, fields.getField("pob"));
+          fillField(g2d, fields.p.getX(fp,"pob"), fields.p.getY(fp,"pob"), 40, fields.getField("pob"));
           // PLACE OB BIRTH #2
-          fillField(g2d, 80, 2270, 6, fields.getField("pob2"));
+          fillField(g2d, fields.p.getX(fp,"pob2"), fields.p.getY(fp,"pob2"), 6, fields.getField("pob2"));
           // OKG GRAJDANINA
 
-          fillField(g2d, 480, 2524, 1, fields.getField("grajdanstvo"));
+          fillField(g2d, fields.p.getX(fp,"grajdanstvo"), fields.p.getY(fp,"grajdanstvo"), 1, fields.getField("grajdanstvo"));
 
 
 
@@ -374,7 +375,7 @@ private Graphics2D createPage2(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 46));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 85));
 
 
       String g2d3s2s[] = {"А","Б", "Й", "Ц", "У", "К", "Е", "Н", "Г",
@@ -392,47 +393,47 @@ private Graphics2D createPage2(BufferedImage img, BufferedImage old, String[] ar
         fullNameString = g2d3s2s;
       }
 
+    String sp = "secondPage";
 
 
+    fillField(g2d, fields.p.getX(sp, "zip"), fields.p.getY(sp, "zip"), 4, fields.getField("zip")); // ZIP
+    fillField(g2d, fields.p.getX(sp, "subject"), fields.p.getY(sp, "subject"), 2, fields.getField("subject")); // SUBJECT
 
-    fillField(g2d, 545, 615, 4, fields.getField("zip")); // ZIP
-    fillField(g2d, 1710, 615, 2, fields.getField("subject")); // SUBJECT
+    fillField(g2d, fields.p.getX(sp,"area"), fields.p.getY(sp,"area"), 4, fields.getField("area")); // AREA
+    fillField(g2d, fields.p.getX(sp,"area_title"), fields.p.getY(sp,"area_title") , 4, fields.getField("area_title")); // AREA TITLE
+    fillField(g2d, fields.p.getX(sp,"area_title_big"), fields.p.getY(sp,"area_title_big"), 4, fields.getField("area_title_big")); // AREA 2 BIG
 
-    fillField(g2d, 72, 799, 4, fields.getField("area")); // AREA
-    fillField(g2d, 778, 799 , 4, fields.getField("area_title")); // AREA TITLE
-    fillField(g2d, 72, 909, 4, fields.getField("area_title_big")); // AREA 2 BIG
+    fillField(g2d, fields.p.getX(sp,"city"), fields.p.getY(sp,"city"), 4, fields.getField("city")); // CITY
+    fillField(g2d, fields.p.getX(sp,"city_title"), fields.p.getY(sp,"city_title"), 4, fields.getField("city_title")); // CITY TITLE
 
-    fillField(g2d, 72, 1083, 4, fields.getField("city")); // CITY
-    fillField(g2d, 778, 1083, 4, fields.getField("city_title")); // CITY TITLE
+    fillField(g2d, fields.p.getX(sp,"nasel"), fields.p.getY(sp,"nasel"), 4, fields.getField("nasel")); // NASEL PUNKT
+    fillField(g2d, fields.p.getX(sp,"nasel_title"), fields.p.getY(sp,"nasel_title"), 4, fields.getField("nasel_title")); // NASEL PUNKT
+    fillField(g2d, fields.p.getX(sp,"nasel_title_big"), fields.p.getY(sp,"nasel_title_big"), 4, fields.getField("nasel_title_big")); // NASEL PUNKT BIG
 
-    fillField(g2d, 72, 1255, 4, fields.getField("nasel")); // NASEL PUNKT
-    fillField(g2d, 778, 1255, 4, fields.getField("nasel_title")); // NASEL PUNKT
-    fillField(g2d, 72, 1371, 4, fields.getField("nasel_title_big")); // NASEL PUNKT BIG
-
-    fillField(g2d, 72, 1543, 4, fields.getField("street")); // STREET
-    fillField(g2d, 776, 1543, 4, fields.getField("street_title")); // STREET
-    fillField(g2d, 72, 1655, 4, fields.getField("street_title_big")); // STREET
-
-
-    fillField(g2d, 72, 1825, 4, fields.getField("house")); // HOUSE
-    fillField(g2d, 728, 1825, 4, fields.getField("house_num")); // HOUSE NUMBER
-    fillField(g2d, 1286, 1825, 4, fields.getField("corpus")); // CORPUS
-    fillField(g2d, 1948, 1817, 4, fields.getField("corpus_num")); // CORPUS NUMBER
+    fillField(g2d, fields.p.getX(sp,"street"), fields.p.getY(sp,"street"), 4, fields.getField("street")); // STREET
+    fillField(g2d, fields.p.getX(sp,"street_title"), fields.p.getY(sp,"street_title"), 4, fields.getField("street_title")); // STREET
+    fillField(g2d, fields.p.getX(sp,"street_title_big"), fields.p.getY(sp,"street_title_big"), 4, fields.getField("street_title_big")); // STREET
 
 
-    fillField(g2d, 728, 1939, 4, fields.getField("appartment")); // APPARTMENT
-    fillField(g2d, 1948, 1939, 4, fields.getField("appartment_num")); // APPARTMENT NUMBER
+    fillField(g2d, fields.p.getX(sp,"house"), fields.p.getY(sp,"house"), 4, fields.getField("house")); // HOUSE
+    fillField(g2d, fields.p.getX(sp,"house_num"), fields.p.getY(sp,"house_num"), 4, fields.getField("house_num")); // HOUSE NUMBER
+    fillField(g2d, fields.p.getX(sp,"corpus"), fields.p.getY(sp,"corpus"), 4, fields.getField("corpus")); // CORPUS
+    fillField(g2d, fields.p.getX(sp,"corpus_num"), fields.p.getY(sp,"corpus_num"), 4, fields.getField("corpus_num")); // CORPUS NUMBER
 
-    fillField(g2d, 486, 2235, 2, fields.getField("vid_document")); // VID DOCUMENTS
 
-    fillField(g2d, 672, 2414, 4, fields.getField("series")); // SERIES NUMBER
-    fillField(g2d, 426, 2525, 4, fields.getField("issue_date")); // DATA VIDACHI
-    fillField(g2d, 422, 2652, 4, fields.getField("issuer")); // KEM VIDAN
-    fillField(g2d, 72, 2767, 4, fields.getField("issuer2")); // KEM VIDAN 2
-    fillField(g2d, 72, 2887, 4, fields.getField("issuer3")); // KEM VIDAN 3
+    fillField(g2d, fields.p.getX(sp,"appartment"), fields.p.getY(sp,"appartment"), 4, fields.getField("appartment")); // APPARTMENT
+    fillField(g2d, fields.p.getX(sp,"appartment_num"), fields.p.getY(sp,"appartment_num"), 4, fields.getField("appartment_num")); // APPARTMENT NUMBER
 
-    fillField(g2d, 536, 3029, 3, fields.getField("issuer_code1")); // KOD PODR 1
-    fillField(g2d, 778, 3029, 3, fields.getField("issuer_code2")); // KOD PODR 2
+    fillField(g2d, fields.p.getX(sp,"vid_document"), fields.p.getY(sp,"vid_document"), 2, fields.getField("vid_document")); // VID DOCUMENTS
+
+    fillField(g2d, fields.p.getX(sp,"series"), fields.p.getY(sp,"series"), 4, fields.getField("series")); // SERIES NUMBER
+    fillField(g2d, fields.p.getX(sp,"issue_date"), fields.p.getY(sp,"issue_date"), 4, fields.getField("issue_date")); // DATA VIDACHI
+    fillField(g2d, fields.p.getX(sp,"issuer"), fields.p.getY(sp,"issuer"), 4, fields.getField("issuer")); // KEM VIDAN
+    fillField(g2d, fields.p.getX(sp,"issuer2"), fields.p.getY(sp,"issuer2"), 4, fields.getField("issuer2")); // KEM VIDAN 2
+    fillField(g2d, fields.p.getX(sp,"issuer3"), fields.p.getY(sp,"issuer3"), 4, fields.getField("issuer3")); // KEM VIDAN 3
+
+    fillField(g2d, fields.p.getX(sp,"issuer_code1"), fields.p.getY(sp,"issuer_code1"), 3, fields.getField("issuer_code1")); // KOD PODR 1
+    fillField(g2d, fields.p.getX(sp,"issuer_code2"), fields.p.getY(sp,"issuer_code2"), 3, fields.getField("issuer_code2")); // KOD PODR 2
 
     g2d.dispose();
     return g2d;
@@ -463,7 +464,7 @@ private Graphics2D createPage3(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 46));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 85));
 
 
       String g2d3s2s[] = {"А","Б", "Й", "Ц", "У", "К", "Е", "Н", "Г",
@@ -483,16 +484,17 @@ private Graphics2D createPage3(BufferedImage img, BufferedImage old, String[] ar
               }
 
 
+              String tp = "thirdPage";
 
 
-    fillField(g2d, 260, 738, 1, fields.getField("vid_doc")); // VID
-    fillField(g2d, 557, 878, 2, fields.getField("page3_doc_number")); // NOMER DOCUMENTA
+    fillField(g2d, fields.p.getX(tp, "vid_doc"), fields.p.getY(tp,"vid_doc"), 1, fields.getField("vid_doc")); // VID
+    fillField(g2d, fields.p.getX(tp, "page3_doc_number"), fields.p.getY(tp,"page3_doc_number"), 2, fields.getField("page3_doc_number")); // NOMER DOCUMENTA
 
-    fillField(g2d, 445, 1033, 2, fields.getField("page3_doc_number1") ); // NOMER DOCUMENTA
-    fillField(g2d, 432, 1166, 2, fields.getField("page3_doc_number2") ); // NOMER DOCUMENTA
-    fillField(g2d, 90, 1278, 2, fields.getField("page3_doc_number3") ); // NOMER DOCUMENTA
-    fillField(g2d, 90, 1386, 2, fields.getField("page3_doc_number4") ); // NOMER DOCUMENTA
-    fillField(g2d, 500, 1556, 2, fields.getField("page3_doc_number5") ); // NOMER DOCUMENTA
+    fillField(g2d, fields.p.getX(tp, "page3_doc_number1"), fields.p.getY(tp,"page3_doc_number1"), 2, fields.getField("page3_doc_number1") ); // NOMER DOCUMENTA
+    fillField(g2d, fields.p.getX(tp, "page3_doc_number2"), fields.p.getY(tp,"page3_doc_number2"), 2, fields.getField("page3_doc_number2") ); // NOMER DOCUMENTA
+    fillField(g2d, fields.p.getX(tp, "page3_doc_number3"), fields.p.getY(tp,"page3_doc_number3"), 2, fields.getField("page3_doc_number3") ); // NOMER DOCUMENTA
+    fillField(g2d, fields.p.getX(tp, "page3_doc_number4"), fields.p.getY(tp,"page3_doc_number4"), 2, fields.getField("page3_doc_number4") ); // NOMER DOCUMENTA
+    fillField(g2d, fields.p.getX(tp, "page3_doc_number5"), fields.p.getY(tp,"page3_doc_number5"), 2, fields.getField("page3_doc_number5") ); // NOMER DOCUMENTA
 
 
     g2d.dispose();
@@ -525,11 +527,11 @@ private Graphics2D createPage4(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 46));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 85));
       FontMetrics fm = g2d.getFontMetrics();
 
 
-          fillField(g2d, 924, 779, 1, fields.getField("activity_type")); // VID DEYATELNOSTY
+          fillField(g2d, fields.p.getX("fourthPage", "activity_type"), fields.p.getY("fourthPage", "activity_type"), 1, fields.getField("activity_type")); // VID DEYATELNOSTY
 
 
       g2d.dispose();
@@ -560,15 +562,15 @@ private Graphics2D createPage5(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 46));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 85));
       FontMetrics fm = g2d.getFontMetrics();
 
+      String fp = "fifthPage";
 
-
-      fillField(g2d, 264, 513, 5, fields.getField("fio")); // FIO
-      fillField(g2d, 256, 1011, 1, fields.getField("vidat")); // VIDAT
-      fillField(g2d, 872, 1223, 1, fields.getField("phone")); // PHONE
-      fillField(g2d, 290, 1345, 1, fields.getField("email")); // EMAIL
+      fillField(g2d, fields.p.getX(fp,"fio"), fields.p.getY(fp,"fio"), 5, fields.getField("fio")); // FIO
+      fillField(g2d, fields.p.getX(fp,"vidat"), fields.p.getY(fp,"vidat"), 1, fields.getField("vidat")); // VIDAT
+      fillField(g2d, fields.p.getX(fp,"phone"), fields.p.getY(fp,"phone"), 1, fields.getField("phone")); // PHONE
+      fillField(g2d, fields.p.getX(fp,"email"), fields.p.getY(fp,"email"), 1, fields.getField("email")); // EMAIL
 
       g2d.dispose();
       return g2d;
@@ -596,32 +598,33 @@ private Graphics2D createPage1Usn(BufferedImage img, BufferedImage old, String[]
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 46));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 85));
       FontMetrics fm = g2d.getFontMetrics();
 
+      String fps = "firstPageUsn";
 
-      fillField(g2d, 758, 105, 5, fields.getField("inn")); // INN
-      fillField(g2d, 758, 200, 1, fields.getField("kpp")); // KPP
-      fillField(g2d, 834, 475, 1, fields.getField("nalogovaya")); // NALOGOVAYA
-      fillField(g2d, 1870, 479, 1, fields.getField("priznak")); // PRIZNAK
+      fillField(g2d, fields.p.getX(fps, "inn"), fields.p.getY(fps, "inn"), 5, fields.getField("inn")); // INN
+      fillField(g2d, fields.p.getX(fps, "kpp"), fields.p.getY(fps, "kpp"), 1, fields.getField("kpp")); // KPP
+      fillField(g2d, fields.p.getX(fps, "nalogovaya"), fields.p.getY(fps, "nalogovaya"), 1, fields.getField("nalogovaya")); // NALOGOVAYA
+      fillField(g2d, fields.p.getX(fps, "priznak"), fields.p.getY(fps, "priznak"), 1, fields.getField("priznak")); // PRIZNAK
 
-      fillField(g2d, 75, 661, 1, fields.getField("fio1")); // FIO 1
-      fillField(g2d, 75, 763, 1, fields.getField("fio2")); // FIO 2
-      fillField(g2d, 75, 861, 1, fields.getField("fio3")); // FIO 3
-      fillField(g2d, 75, 961, 1, fields.getField("fio4")); // FIO 3
+      fillField(g2d, fields.p.getX(fps, "fio1"), fields.p.getY(fps, "fio1"), 1, fields.getField("fio1")); // FIO 1
+      fillField(g2d, fields.p.getX(fps, "fio2"), fields.p.getY(fps, "fio2"), 1, fields.getField("fio2")); // FIO 2
+      fillField(g2d, fields.p.getX(fps, "fio3"), fields.p.getY(fps, "fio3"), 1, fields.getField("fio3")); // FIO 3
+      fillField(g2d, fields.p.getX(fps, "fio4"), fields.p.getY(fps, "fio4"), 1, fields.getField("fio4")); // FIO 3
 
 
 
-      fillField(g2d, 1050, 1115, 1, fields.getField("perehodit1")); // PEREHODIT
-      fillField(g2d, 935, 1335, 1, fields.getField("perehodit2")); // PEREHODIT
+      fillField(g2d, fields.p.getX(fps,"perehodit1"), fields.p.getY(fps,"perehodit1"), 1, fields.getField("perehodit1")); // PEREHODIT
+      fillField(g2d, fields.p.getX(fps,"perehodit2"), fields.p.getY(fps,"perehodit2"), 1, fields.getField("perehodit2")); // PEREHODIT
 
-      fillField(g2d, 286, 1975, 1, fields.getField("tax_type")); // TYPE NALOGOPLATILSHIKA
+      fillField(g2d, fields.p.getX(fps,"tax_type"), fields.p.getY(fps,"tax_type"), 1, fields.getField("tax_type")); // TYPE NALOGOPLATILSHIKA
 
-      fillField(g2d, 82, 2061, 1, fields.getField("fio1")); // FIO 1
-      fillField(g2d, 82, 2159, 1, fields.getField("fio2")); // FIO 2
-      fillField(g2d, 82, 2257, 1, fields.getField("fio3")); // FIO 3
+      fillField(g2d, fields.p.getX(fps,"fio1"), fields.p.getY(fps,"fio1"), 1, fields.getField("fio1")); // FIO 1
+      fillField(g2d, fields.p.getX(fps,"fio2"), fields.p.getY(fps,"fio2"), 1, fields.getField("fio2")); // FIO 2
+      fillField(g2d, fields.p.getX(fps,"fio3"), fields.p.getY(fps,"fio3"), 1, fields.getField("fio3")); // FIO 3
 
-      fillField(g2d, 657, 2625, 1, fields.getField("usn_date")); // DATE
+      fillField(g2d, fields.p.getX(fps,"usn_date"), fields.p.getY(fps,"usn_date"), 1, fields.getField("usn_date")); // DATE
 
 
       g2d.dispose();
