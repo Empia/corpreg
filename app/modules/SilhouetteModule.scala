@@ -46,7 +46,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
     bind[FillAttributesDAO].to[FillAttributesDAOImpl]
     bind[FNSCodeDAO].to[FNSCodeDAOImpl]
     bind[FNSCode2DAO].to[FNSCode2DAOImpl]
-
+    bind[FormPositionsDAO].to[FormPositionsDAOImpl]
 
     bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAO]
     bind[DelegableAuthInfoDAO[OAuth1Info]].to[OAuth1InfoDAO]

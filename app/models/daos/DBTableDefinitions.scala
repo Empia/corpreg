@@ -5,6 +5,8 @@ import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
 import models._
 
+case class FormPosition(id: String, pos_x: Int, pos_y:Int, page:String)
+
 
 case class FNSCodeDTO (
                       id:String,
@@ -305,6 +307,14 @@ class Fills(tag: Tag) extends Table[FillDTO](tag, "fill") {
     def * = (id, key, value) <> (DBOpenIDAttribute.tupled, DBOpenIDAttribute.unapply)
   }
 
+  class FormPositions(tag: Tag) extends Table[FormPosition](tag, "form_positions") {
+    def id = column[String]("id")
+    def pos_x = column[Int]("pos_x")
+    def pos_y = column[Int]("pos_y")
+    def page = column[String]("page")
+    def * = (id, pos_x,pos_y,page) <> (FormPosition.tupled, FormPosition.unapply)
+  }
+
   // table query definitions
   val slickUsers = TableQuery[Users]
   val slickLoginInfos = TableQuery[LoginInfos]
@@ -314,7 +324,7 @@ class Fills(tag: Tag) extends Table[FillDTO](tag, "fill") {
   val slickOAuth2Infos = TableQuery[OAuth2Infos]
   val slickOpenIDInfos = TableQuery[OpenIDInfos]
   val slickOpenIDAttributes = TableQuery[OpenIDAttributes]
-
+  val form_positions = TableQuery[FormPositions]
 
 
   val fills = TableQuery[Fills]

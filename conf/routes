@@ -33,6 +33,10 @@ GET  /filling/:id/register  controllers.AdminController.registerFill(id: Long)
 
 GET  /form_filling/:id/fill     controllers.FormGeneratorController.writeFill(id: Long)
 POST /form_filling/:id/fill     controllers.FormGeneratorController.saveFill(id: Long)
+GET /positions/:page  controllers.FieldPositionsController.showPage(page: String)
+
+GET /positions_values/:page controllers.FieldPositionsController.getPositions(page: String)
+
 
 GET  /filling/:id/fill     controllers.AdminController.writeFill(id: Long)
 POST /filling/:id/fill     controllers.AdminController.saveFill(id: Long)

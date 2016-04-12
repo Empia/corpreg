@@ -1,0 +1,123 @@
+@(page: String)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title> Get Image coordinates</title>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="https://raw.githubusercontent.com/lodash/lodash/4.10.0/dist/lodash.js"></script>
+    <script language="JavaScript" type="text/javascript">
+
+      var points = [{x: 408, y: 774, id: 'lastName'},
+      {x: 408, y: 888, id: 'firstName'}];
+      $( document ).ready(function() {
+        $.ajax('/positions_values/@page').then(function(data){
+          console.log('data', data);
+          points = data;
+
+      _.forEach(points, function(p) {
+        $('.points').append('<div class="point" id="'+p.id+'"><div class="text">A</div></div>');
+        $('#'+p.id).css({top: p.pos_y, left: p.pos_x});
+      });
+
+      $.each(points, function(i, value) {
+          $('#myselect').append($('<option>').text(value.id).attr('value', value.id));
+      });
+
+      $('#myselect').change(function() {
+        var selected = null;
+        $( "#myselect option" ).each(function() {
+          $('#'+$( this ).val()).removeClass('selected');
+        });
+        $( "#myselect option:selected" ).each(function() {
+          selected = $( this ).val();
+          $('#'+$( this ).val()).addClass('selected');
+        });
+        var obj = _.find(points, function(p) { return p.id == selected });
+        console.log(obj);
+        window.scrollTo(obj.pos_x-50, obj.pos_y-50);
+
+      });
+        });
+
+    });
+        function point_it(event) {
+            pos_x = event.offsetX ? (event.offsetX) : event.pageX - document.getElementById("pointer_div").offsetLeft;
+            pos_y = event.offsetY ? (event.offsetY) : event.pageY - document.getElementById("pointer_div").offsetTop;
+            document.pointform.form_x.value = pos_x;
+            document.pointform.form_y.value = pos_y;
+            var selected = $("#myselect option:selected").val();
+            console.log(selected);
+            $('#'+selected).css({top: pos_y, left: pos_x});
+
+        }
+    </script>
+<style>
+
+.point {
+    display: block;
+    width: 3px;
+    height: 3px;
+    background: red;
+    left: 408px;
+    position: absolute;
+    top: 774px;
+    box-shadow: black 0px -1px 3px;
+}
+.text {
+  font-family: 'Courier New';
+  font-size: 85px;
+  line-height: 13px;
+  margin-top: -16px;
+margin-left: 13px;
+}
+.point.selected::before {
+  opacity:0.7;
+  background: black;
+}
+.point::before {
+    content: '';
+    position: absolute;
+    width: 39px;
+    height: 21px;
+    background: blue;
+    left: -26px;
+    top: -10px;
+    border-radius: 0px 7px 8px 0px;
+    opacity: 0.2;
+}
+</style>
+</head>
+
+<body>
+    <form name="pointform" method="post">
+    <div style="position: absolute; left: 20px; top: 20px;">
+        Get Image coordinates
+    </div>
+    <div style="clear:both;height:5px;">
+    </div>
+    <div id="pointer_div" onclick="point_it(event)" style="background-image: url('/assets/page1_4044.png');
+        background-repeat: no-repeat; width: 2480px; height: 3508px;" >
+        <div class="points">
+        </div>
+
+    </div>
+    <div style="position: fixed;
+left: 20px;
+top: 88px;
+background: white none repeat scroll 0% 0%;
+width: 35%;
+height: 23px;
+padding-top: 17px;
+margin-bottom: 14px;
+opacity: 0.9;
+border: 1px solid;
+padding: 32px 31px;">
+<select id="myselect" name="myselect" >
+  <option selected="selected">Select anchor</option></select>
+        You pointed on x =
+        <input type="text" name="form_x" size="4" />
+        - y =
+        <input type="text" name="form_y" size="4" />
+    </div>
+</body>
+</html>
