@@ -167,7 +167,8 @@ positions.createPosition(FormPosition(pos_x=657, pos_y=2625, id="usn_date", page
  }
  def getPositions(page: String) = SecuredAction.async { implicit request =>
       positions.getPosition(page).map { positions =>
-          Ok( Json.toJson(positions) )
+        val distinct_positions = positions
+          Ok( Json.toJson(distinct_positions) )
       }
 
 }

@@ -182,6 +182,7 @@ def testAction() = SecuredAction { implicit request =>
   val fields = new com.journaldev.di.test.FormFields()
 
 
+
   com.journaldev.di.test.MainClass1.main2(Array(
           "ФАМИЛИЯФАМИЛИЯФАМИЛИЯФАМИЛИЯ",
           "ИМЯИМЯИМЯИМЯИМЯИМЯ",

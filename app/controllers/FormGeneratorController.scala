@@ -97,6 +97,71 @@ import scala.util.Try
     val fields = new com.journaldev.di.test.FormFields()
     fields.addPositions(AllPositions(positionsList))
 
+        positions.createPosition(FormPosition(id="bottom_fio1", pos_x = 0, pos_y = 0, page="firstPageUsn"))
+        positions.createPosition(FormPosition(id="bottom_fio2", pos_x = 0, pos_y = 0, page="firstPageUsn"))
+        positions.createPosition(FormPosition(id="bottom_fio3", pos_x = 0, pos_y = 0, page="firstPageUsn"))
+        positions.createPosition(FormPosition(id="okved_addit1", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit2", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit3", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit4", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit5", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit6", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit7", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit8", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit9", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit10", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit11", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit12", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit13", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit14", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit15", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit16", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit17", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit18", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit19", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit20", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit21", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit22", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit23", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit24", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit25", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit26", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit27", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit28", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit29", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit30", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit31", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit32", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit33", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit34", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit35", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit36", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit37", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit38", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit39", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit40", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit41", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit42", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit43", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit44", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit45", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit46", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit47", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit48", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit49", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit50", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit51", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit52", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit53", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit54", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit55", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="okved_addit56", pos_x=0, pos_y=0, page="FourthPage"))
+
+        positions.createPosition(FormPosition(id="page_num", pos_x=0, pos_y=0, page="FourthPage"))
+        positions.createPosition(FormPosition(id="page_num", pos_x=0, pos_y=0, page="fifthPage"))
+
+
+
 
     com.journaldev.di.test.MainClass1.main2(Array(
             "ФАМИЛИЯФАМИЛИЯФАМИЛИЯФАМИЛИЯ",
@@ -212,8 +277,8 @@ import scala.util.Try
     fields.put("nasel_title", "" ) // #
     fields.put("nasel_title_big", "" ) // #
     fields.put("street", "") // #
-    fields.put("street_title", "") // #
-    fields.put("street_title_big", "") // #
+    fields.put("street_title", data.addressInfo.street) // #
+    //fields.put("street_title_big", "") // #
     fields.put("house", "" ) // #
     fields.put("house_num", "" ) // #
     fields.put("corpus", "" ) // #
@@ -224,10 +289,10 @@ import scala.util.Try
     fields.put("series", data.passport)
     fields.put("issue_date", data.passportIssuedDate)
     fields.put("issuer", data.passportIssuedBy)
-    fields.put("issuer2", "" )
-    fields.put("issuer3", "" )
+    //fields.put("issuer2", "" )
+    //fields.put("issuer3", "" )
     fields.put("issuer_code1", data.kodPodrazdelenia )
-    fields.put("issuer_code2", data.kodPodrazdelenia )
+    //fields.put("issuer_code2", data.kodPodrazdelenia )
 
 
 
@@ -253,17 +318,22 @@ import scala.util.Try
     fields.put("kpp", "")
     fields.put("nalogovaya", data.fnsreg)
     fields.put("priznak", "1")
-    fields.put("fio1", data.lastName.toUpperCase()+" "+data.firstname.toUpperCase()+" "+data.middleName.toUpperCase())
-    fields.put("fio2", "")
-    fields.put("fio3", "")
-    fields.put("fio4", "")
+    //fields.put("fio1", data.lastName.toUpperCase()+" "+data.firstname.toUpperCase()+" "+data.middleName.toUpperCase())
+    //fields.put("fio2", "")
+    //fields.put("fio3", "")
+    //fields.put("fio4", "")
     fields.put("perehodit1", "1")
     fields.put("perehodit2", "1")
     fields.put("tax_type", "1")
     fields.put("fio1", data.lastName.toUpperCase())
     fields.put("fio2", data.firstname.toUpperCase())
     fields.put("fio3", data.middleName.toUpperCase())
-    fields.put("usn_date", "10.04.2016")
+
+    val dateFormat = new java.text.SimpleDateFormat("dd.MM.yyyy");
+    val date = new java.util.Date();
+    System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
+
+    fields.put("usn_date", dateFormat.format(date).toString)
 
 
 
@@ -301,12 +371,15 @@ import scala.util.Try
 
       import sys.process._
 
-      Seq("convert", s"public/*Page.png", s"public/${phone}.tif").!!
-      Seq("convert", s"public/*Usn.png", s"public/${phone}_usn.tif").!!
+
 
       Seq(s"mkdir", "-p", s"./public/files/doc_$phone").lineStream
       Seq(s"mkdir", "-p", s"./public/files/doc_$phone/P21001").lineStream
       Seq(s"mkdir", "-p", s"./public/files/doc_$phone/USN").lineStream
+
+      Seq("convert", s"public/*Page.png", s"public/${phone}.tif").!!
+      Seq("convert", s"public/*Usn.png", s"public/${phone}_usn.tif").!!
+
 
       Seq(s"mv", s"./public/${phone}.tif", s"./public/files/doc_$phone/P21001").lineStream
       Seq(s"mv", s"./public/${phone}_usn.tif", s"./public/files/doc_$phone/USN").lineStream
