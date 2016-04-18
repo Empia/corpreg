@@ -96,7 +96,7 @@ import scala.util.Try
 
     val fields = new com.journaldev.di.test.FormFields()
     fields.addPositions(AllPositions(positionsList))
-
+/*
         positions.createPosition(FormPosition(id="bottom_fio1", pos_x = 0, pos_y = 0, page="firstPageUsn"))
         positions.createPosition(FormPosition(id="bottom_fio2", pos_x = 0, pos_y = 0, page="firstPageUsn"))
         positions.createPosition(FormPosition(id="bottom_fio3", pos_x = 0, pos_y = 0, page="firstPageUsn"))
@@ -160,7 +160,7 @@ import scala.util.Try
         positions.createPosition(FormPosition(id="page_num", pos_x=0, pos_y=0, page="FourthPage"))
         positions.createPosition(FormPosition(id="page_num", pos_x=0, pos_y=0, page="fifthPage"))
 
-
+*/
 
 
     com.journaldev.di.test.MainClass1.main2(Array(
