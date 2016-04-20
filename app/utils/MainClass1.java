@@ -706,7 +706,7 @@ private Graphics2D createPage1Usn(BufferedImage img, BufferedImage old, String[]
       fillField(g2d, fields.p.getX(fps,"perehodit1"), fields.p.getY(fps,"perehodit1"), 1, fields.getField("perehodit1")); // PEREHODIT
       fillField(g2d, fields.p.getX(fps,"perehodit2"), fields.p.getY(fps,"perehodit2"), 1, fields.getField("perehodit2")); // PEREHODIT
 
-      fillField(g2d, fields.p.getX(fps,"tax_type"), fields.p.getY(fps,"tax_type"), 1, fields.getField("tax_type")); // TYPE NALOGOPLATILSHIKA
+      //fillField(g2d, fields.p.getX(fps,"tax_type"), fields.p.getY(fps,"tax_type"), 1, fields.getField("tax_type")); // TYPE NALOGOPLATILSHIKA
 
       // bottom line
       fillField(g2d, fields.p.getX(fps,"bottom_fio1"), fields.p.getY(fps,"bottom_fio1"), 40, fields.getField("lastName")); // FIO 1
