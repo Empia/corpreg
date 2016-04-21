@@ -276,7 +276,7 @@ val fileName = s"${fileId}.bin"
 <firstName>{firstName}</firstName>
 <lastName>{lastName}</lastName>
 <patronymic>{patronymic}</patronymic>
-<passportType>{passportType}</passportType>
+<passportType>01</passportType>
 <passportSerial>{passportSerial}</passportSerial>
 <passportNumber>{passportNumber}</passportNumber>
 <passportDate>{passportDate}</passportDate>
