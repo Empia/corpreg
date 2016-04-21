@@ -211,7 +211,7 @@ import scala.concurrent.Future
 val officeGuid = "40FA0D16-3B54-4004-B9D3-3997C4C0CC91"
 def uuid() = java.util.UUID.randomUUID.toString
 
-def saveDoc(phone: String,
+def saveDoc(phoneBad: String,
             abnGuid: String,
             eMail: String,
             inn:String,
@@ -237,6 +237,7 @@ def saveDoc(phone: String,
             appartment: String=""
             ):String = {
 
+val phone = {"8"+phoneBad.substring(1, phoneBad.length())}
 val guid = uuid()
 val dateTime = "08.03.2016 11:29:13"
 val packetId = MD5.hash(abnGuid+"1")
@@ -260,8 +261,8 @@ val fileName = s"${fileId}.bin"
 <rnsPfr stPfr=""></rnsPfr>
 <storageType>1</storageType>
 <fullName>{inn}</fullName>
-<phone>{"8"+phone.substring(1, phone.length())}</phone>
-<mobilePhone>{"8"+phone.substring(1, phone.length())}</mobilePhone>
+<phone>{phone}</phone>
+<mobilePhone>{phone}</mobilePhone>
 <shortName>{shortName}</shortName>
 <postalAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</postalAddress>
 <locationAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</locationAddress>
