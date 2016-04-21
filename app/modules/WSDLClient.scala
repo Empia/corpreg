@@ -226,7 +226,7 @@ def saveDoc(phone: String,
             passportSerial:String,
             passportNumber:String,
             passportDate:String,
-            passportComment:String="",
+            passportIssuedBy: String,
             region: String="",
             area: String="",
             city: String="",
@@ -279,7 +279,7 @@ val fileName = s"${fileId}.bin"
 <passportSerial>{passportSerial}</passportSerial>
 <passportNumber>{passportNumber}</passportNumber>
 <passportDate>{passportDate}</passportDate>
-<passportComment>{passportComment}</passportComment>
+<passportComment>{passportIssuedBy}</passportComment>
 <signer>1</signer>
 <encrypt>1</encrypt>
 <certTemplate>3</certTemplate>
