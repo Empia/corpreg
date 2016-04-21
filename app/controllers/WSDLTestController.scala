@@ -126,8 +126,8 @@ def saveDoc(phone:String) = Action.async { implicit request =>
       lastName,
       patronymic,
       passportType="1",
-      passportSerial=passport,
-      passportNumber=passport,
+      passportSerial=passport.split(" ").lift(0).getOrElse("")+ " "+passport.split(" ").lift(1).getOrElse(""),
+      passportNumber=passport.split(" ").lift(2).getOrElse(""),
       passportDate
     ))
   )
