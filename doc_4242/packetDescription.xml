@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<packet version="2.0" date="08.03.2016 11:29:13" type="AbonentRegistration" transaction="Request" id="5ec0253de1f2ef4018ffa77412a0d6d9">
+<packet version="2.0" date="08.03.2016 11:29:13" type="AbonentRegistration" transaction="Request" id="90a8f668c4ff9865852a98ab9b6a26a0">
     <sender type="Agent" id="40FA0D16-3B54-4004-B9D3-3997C4C0CC91"/>
 <recipient type="RegOffice" id="KalugaAstral"/>
 <document id="fdc7654c1473399b8838f574e7044efb" type="RegRequest" contentType="xml" compressed="true" encrypted="false">
-<content fileName="bcf6d6596cbe7e420b99a1e567e413c7.bin"/></document>
+<content fileName="d1fb22cb8a3e95453a124b74125610c7.bin"/></document>
 </packet>

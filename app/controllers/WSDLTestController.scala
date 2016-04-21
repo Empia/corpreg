@@ -109,7 +109,7 @@ def saveDoc(phone:String) = Action.async { implicit request =>
   val inn = retriveFromAttrSeq(attrs, attribute="inn")
   val snils = retriveFromAttrSeq(attrs, attribute="snils")
   val passport = retriveFromAttrSeq(attrs, attribute="passport")
-  val passportIssuedBy = retriveFromAttrSeq(attrs, attribute="/media/stan/videos/corpreg/app/controllers/WSDLTestController.scala")
+  val passportIssuedBy = retriveFromAttrSeq(attrs, attribute="passportIssuedBy")
   val passportDate = retriveFromAttrSeq(attrs, attribute="passportIssuedDate")
   val eMail = retriveFromAttrSeq(attrs, attribute="eMail")
   val postalAddress = retriveFromAttrSeq(attrs, attribute="postalAddress")
