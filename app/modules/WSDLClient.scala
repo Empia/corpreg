@@ -263,8 +263,8 @@ val fileName = s"${fileId}.bin"
 <phone>{phone}</phone>
 <mobilePhone>{phone}</mobilePhone>
 <shortName>{shortName}</shortName>
-<postalAddress>{postalAddress},{},{},{},{},{},{},{},{}</postalAddress>
-<locationAddress>{postalAddress},{},{},{},{},{},{},{},{}</locationAddress>
+<postalAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</postalAddress>
+<locationAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</locationAddress>
 <eMail>{eMail}</eMail>
 <rnsFss></rnsFss>
 <kpFss></kpFss>
