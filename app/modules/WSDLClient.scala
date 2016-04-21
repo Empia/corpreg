@@ -328,9 +328,37 @@ val fileName = s"${fileId}.bin"
     s"${path}/doc_$phone/${fileId}.bin").lineStream
   val out = (Seq("cat", s"${path}/doc_$phone/test.zip")  #| Seq("openssl", "base64")  #| Seq("tr", "-d", "'\n")).lineStream
 
-println(zipout)
 
-  doc.toString + "        " + out.headOption.toString
+  import scala.util.Random
+
+  def uniqueRandomKey(chars: String, length: Int, uniqueFunc: String=>Boolean) : String =
+  {
+   val newKey = (1 to length).map(
+     x =>
+     {
+       val index = Random.nextInt(chars.length)
+       chars(index)
+     }
+    ).mkString("")
+
+   if (uniqueFunc(newKey))
+    newKey
+   else
+    uniqueRandomKey(chars, length, uniqueFunc)
+  }
+
+  /**
+   * implement your own is unique here
+   */
+  def isUnique(s:String):Boolean = true
+
+  val chars = ('a' to 'z') ++ ('A' to 'Z')
+  //val key = uniqueRandomKey(chars.mkString(""), 8, isUnique)
+
+  println(zipout)
+  val packageId =  uniqueRandomKey(chars.mkString(""), 32, isUnique)
+
+  doc.toString + "        " + out.headOption.toString + "        " + packageId
 
 }
 
