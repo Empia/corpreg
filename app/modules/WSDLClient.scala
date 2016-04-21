@@ -309,11 +309,11 @@ val fileName = s"${fileId}.bin"
 
   Seq(s"mkdir", s"${path}/doc_$phone").lineStream
   Seq(s"mv", s"${path}/doc_$phone.xml", s"${path}/doc_$phone/file").lineStream
-  Seq(s"zip", s"${path}/doc_$phone/${fileId}.bin", s"${path}/doc_$phone/file").lineStream
+  Seq(s"zip", "-j", s"${path}/doc_$phone/${fileId}.bin", s"${path}/doc_$phone/file").lineStream
   Seq(s"rm", s"${path}/doc_$phone/file").lineStream
 
   scala.xml.XML.save(s"${path}/doc_$phone/packetDescription.xml", packet, "UTF-8",xmlDecl = true)
-  val zipout = Seq(s"zip", s"${path}/doc_$phone/test.zip", s"${path}/doc_$phone/packetDescription.xml",
+  val zipout = Seq(s"zip", "-j", s"${path}/doc_$phone/test.zip", s"${path}/doc_$phone/packetDescription.xml",
     s"${path}/doc_$phone/${fileId}.bin").lineStream
   val out = (Seq("cat", s"${path}/doc_$phone/test.zip")  #| Seq("openssl", "base64")  #| Seq("tr", "-d", "'\n")).lineStream
 
