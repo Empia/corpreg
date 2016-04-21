@@ -103,7 +103,7 @@ def saveDoc(phone:String) = Action.async { implicit request =>
     	value=abnGuid)
       fillAttributesDAO.findOrCreate(id, attr)
 
-  val firstName = retriveFromAttrSeq(attrs, attribute="firstName")
+  val firstName = retriveFromAttrSeq(attrs, attribute="firstname")
   val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
   val patronymic = retriveFromAttrSeq(attrs, attribute="middleName")
   val inn = retriveFromAttrSeq(attrs, attribute="inn")

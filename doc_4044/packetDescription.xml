@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<packet version="2.0" date="08.03.2016 11:29:13" type="AbonentRegistration" transaction="Request" id="a1d9dbc25986724af10a7aaa13c21cde">
+    <sender type="Agent" id="40FA0D16-3B54-4004-B9D3-3997C4C0CC91"/>
+<recipient type="RegOffice" id="KalugaAstral"/>
+<document id="b56b578e75da9fd3d1075eadcf570e51" type="RegRequest" contentType="xml" compressed="true" encrypted="false">
+<content fileName="c8c78168e92dc542231fcecfeba10ee3.bin"/></document>
+</packet>
