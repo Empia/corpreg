@@ -293,7 +293,6 @@ val fileName = s"${fileId}.bin"
 </member>
 </members>
 <plugins>
-<plugin guid={guid}></plugin>
 </plugins>
 </regRequest>
 
