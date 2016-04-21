@@ -226,7 +226,15 @@ def saveDoc(phone: String,
             passportSerial:String,
             passportNumber:String,
             passportDate:String,
-            passportComment:String=""
+            passportComment:String="",
+            region: String="",
+            area: String="",
+            city: String="",
+            nasel: String = "",
+            street: String="",
+            house: String="",
+            corpus: String="",
+            appartment: String=""
             ):String = {
 
 val guid = uuid()
@@ -236,6 +244,9 @@ val packetId = MD5.hash(abnGuid+"1")
 val fileId = MD5.hash(abnGuid)
 val document_id = MD5.hash(inn)
 val fileName = s"${fileId}.bin"
+
+//<postalAddress>{postalAddress}</postalAddress>       // index, region, area, g city, n nasel, uls ulitsa, dom, corpus, kv
+//<locationAddress>{locationAddress}</locationAddress> // index, region, area, g city, n nasel, uls ulitsa, dom, corpus, kv
 
   val doc =
     <regRequest version="3.1" dateTime={dateTime} id={packetId}>
@@ -252,8 +263,8 @@ val fileName = s"${fileId}.bin"
 <phone>{phone}</phone>
 <mobilePhone>{phone}</mobilePhone>
 <shortName>{shortName}</shortName>
-<postalAddress>{postalAddress}</postalAddress>
-<locationAddress>{locationAddress}</locationAddress>
+<postalAddress>{postalAddress},{},{},{},{},{},{},{},{}</postalAddress>
+<locationAddress>{postalAddress},{},{},{},{},{},{},{},{}</locationAddress>
 <eMail>{eMail}</eMail>
 <rnsFss></rnsFss>
 <kpFss></kpFss>

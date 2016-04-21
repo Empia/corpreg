@@ -113,6 +113,16 @@ def saveDoc(phone:String) = Action.async { implicit request =>
   val eMail = retriveFromAttrSeq(attrs, attribute="eMail")
   val postalAddress = retriveFromAttrSeq(attrs, attribute="postalAddress")
   val locationAddress = retriveFromAttrSeq(attrs, attribute="locationAddress")
+
+  val subject = retriveFromAttrSeq(attrs, attribute="subject")
+  val area = retriveFromAttrSeq(attrs, attribute="area")
+  val city = retriveFromAttrSeq(attrs, attribute="city")
+  val settlement = retriveFromAttrSeq(attrs, attribute="settlement")
+  val street = retriveFromAttrSeq(attrs, attribute="street")
+  val house = retriveFromAttrSeq(attrs, attribute="house")
+  val corpus = retriveFromAttrSeq(attrs, attribute="corpus")
+  val flat = retriveFromAttrSeq(attrs, attribute="flat")
+
   Future.successful(
     Ok(clersky.WSDLTest.saveDoc(phone,
       abnGuid = abnGuid,
@@ -128,7 +138,17 @@ def saveDoc(phone:String) = Action.async { implicit request =>
       passportType="1",
       passportSerial=passport.split(" ").lift(0).getOrElse("")+ " "+passport.split(" ").lift(1).getOrElse(""),
       passportNumber=passport.split(" ").lift(2).getOrElse(""),
-      passportDate
+      passportDate,
+      "",
+      subject,
+      area,
+      city,
+    settlement,
+    street,
+  house,
+  corpus,
+  flat
+
     ))
   )
 }
