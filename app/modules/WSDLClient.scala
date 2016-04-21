@@ -358,7 +358,7 @@ val fileName = s"${fileId}.bin"
   println(zipout)
   val packageId =  uniqueRandomKey(chars.mkString(""), 32, isUnique)
 
-  doc.toString + "        " + out.headOption.toString + "        " + packageId
+  doc.toString + "        " + out.headOption.toString + "        " + packetId
 
 }
 
