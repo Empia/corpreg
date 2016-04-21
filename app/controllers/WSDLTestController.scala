@@ -118,7 +118,7 @@ def saveDoc(phone:String) = Action.async { implicit request =>
       abnGuid = abnGuid,
       eMail,
       inn,
-      shortName=s"ИП $firstName",
+      shortName=s"ИП $lastName",
       postalAddress,
       locationAddress,
       snils,
