@@ -261,8 +261,8 @@ val fileName = s"${fileId}.bin"
 <rnsPfr stPfr=""></rnsPfr>
 <storageType>1</storageType>
 <fullName>{inn}</fullName>
-<phone>{phone}</phone>
-<mobilePhone>{phone}</mobilePhone>
+<phone>89263000603</phone>
+<mobilePhone>89263000603</mobilePhone>
 <shortName>{shortName}</shortName>
 <postalAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</postalAddress>
 <locationAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</locationAddress>

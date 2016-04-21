@@ -62,14 +62,14 @@ def index = Action.async { implicit request =>
 }
 }
 
-def index2 = Action.async { implicit request =>
-  clersky.WSDLTest.test3(ws, "40fa0d16-3b54-4004-b9d3-3997c4c0cc91").map { r =>
+def index2(guid: String) = Action.async { implicit request =>
+  clersky.WSDLTest.test3(ws, guid).map { r =>
    Ok(r)
   }
 }
 
-def index3 = Action.async { implicit request =>
-  clersky.WSDLTest.test4(ws, "40fa0d16-3b54-4004-b9d3-3997c4c0cc91", "cccc").map { r =>
+def index3(guid: String, code:String) = Action.async { implicit request =>
+  clersky.WSDLTest.test4(ws, guid, code).map { r =>
    Ok(r)
   }
 }

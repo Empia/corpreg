@@ -56,8 +56,8 @@ GET /balance controllers.ApplicationController.balance
 
 
 GET /wsdltest         controllers.WSDLTestController.index
-GET /wsdltest2        controllers.WSDLTestController.index2
-GET /wsdltest3        controllers.WSDLTestController.index3
+GET /wsdltest2/:guid  controllers.WSDLTestController.index2(guid: String)
+GET /wsdltest3/:guid/:code        controllers.WSDLTestController.index3(guid: String,code:String)
 
 
 
