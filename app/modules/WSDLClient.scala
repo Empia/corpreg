@@ -294,6 +294,7 @@ val fileName = s"${fileId}.bin"
 </member>
 </members>
 <plugins>
+<plugin guid="46472FBA-069F-4D41-9E49-736DF914CCD1"></plugin>
 </plugins>
 </regRequest>
 
