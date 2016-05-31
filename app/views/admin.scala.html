@@ -126,19 +126,23 @@ attrsByFillId:Map[Long,Seq[FillAttributeDTO]]=Map())(implicit messages: Messages
           </div>
           <div class="w-col w-col-4 admit-panel-user-column">
               <div class="admin-panel-username admin-panel-username-text">ИП</div>
-              <div class="admin-panel-username">@getAttr(filling.id.getOrElse(0L),"firstname") @getAttr(filling.id.getOrElse(0L),"lastName") @getAttr(filling.id.getOrElse(0L),"middleName")</div>
+              <div class="admin-panel-username">
+                <a href="/filling/@filling.id.getOrElse(0)/fill" class="manage-link">
+                  @getAttr(filling.id.getOrElse(0L),"firstname") @getAttr(filling.id.getOrElse(0L),"lastName") @getAttr(filling.id.getOrElse(0L),"middleName")
+                </a>
+                </div>
           </div>
           <div class="w-col w-col-2 admit-panel-user-column">
               <div class="w-clearfix admin-panel-status admin-panel-status-active"><span class="admin-panel-status-icon"></span>Ввод данных</div>
           </div>
-          <div class="w-col w-col-2 admit-panel-user-column">
-              <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>&nbsp;+ @filling.phone</div>
-              <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>&nbsp; @getAttr(filling.id.getOrElse(0L),"eMail")</div>
+          <div class="w-col w-col-2 admit-panel-user-column2">
+              <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>@filling.phone</div>
+              <div class="admin-panel-user-tel">@getAttr(filling.id.getOrElse(0L),"eMail")</div>
 
 
           </div>
-          <div class="w-col w-col-2 admit-panel-user-column">
-            <a href="/filling/@filling.id.getOrElse(0)/fill" class="manage-link">Внести данные</a>
+          <div class="w-col w-col-2 admit-panel-user-column2">
+
             <a href="/filling/@filling.id.getOrElse(0)/register" class="manage-link">Выслать пароль</a>
             <a href="/filling/@filling.id.getOrElse(0)/signReady" class="manage-link">Подпись готова</a>
             <a href="/filling/@filling.id.getOrElse(0)/close" class="manage-link">Закрыть заявку</a>
