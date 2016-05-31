@@ -1885,8 +1885,9 @@ h4 {
 }
 
 .user-info-bar {
-  margin-bottom: 40px;
-  background-color: transparent;
+    margin-bottom: 40px;
+    background-color: transparent;
+    margin-top: 73px;
 }
 
 .user-info-bar-right-link {
@@ -3171,3 +3172,229 @@ h4 {
     border-width: 2px;
     border-color: #5c92cc;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.navbar.navbar-admin {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    z-index: 1006;
+    border-bottom-style: solid;
+    border-bottom-color: #eee;
+    background-color: #fff;
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, .05);
+}
+.navmenu {
+    float: right;
+}
+.brand {
+    display: block;
+    margin-right: 30px;
+    padding-top: 27px;
+    padding-bottom: 16px;
+    float: left;
+}
+.navlink {
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 31px 12px 27px;
+    border-style: none;
+    border-right-width: 1px;
+    border-right-color: transparent;
+    border-bottom-width: 4px;
+    border-bottom-color: transparent;
+    border-left-width: 1px;
+    border-left-color: transparent;
+    -webkit-transition: none 0ms ease;
+    transition: none 0ms ease;
+    font-family: Roboto, sans-serif;
+    color: #6b95c2;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 400;
+    text-align: center;
+    text-transform: none;
+}
+.navlink.navlink-buro {
+    color: #2681e2;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 400;
+}
+
+
+
+
+
+.footer-section {
+    padding-top: 50px;
+    padding-bottom: 70px;
+    border-top: 1px solid #e9e9e9;
+    background-color: #fff;
+    box-shadow: none;
+}
+.copyright-text {
+    font-family: Roboto, sans-serif;
+    color: #727272;
+}
+.agreement-link {
+    display: block;
+    border-bottom: 1px none #000;
+    font-family: Roboto, sans-serif;
+    color: #5c92cc;
+    line-height: 22px;
+    text-decoration: none;
+}
+.social-link {
+    display: inline-block;
+    margin-right: 30px;
+    font-family: 'Fon Aawesome', sans-serif;
+    color: #bbb;
+    font-size: 20px;
+    line-height: 20px;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.application-content.application-login {
+    margin-top: 60px;
+    margin-right: 30px;
+    margin-left: 30px;
+    box-shadow: none;
+}
+.application-header-box.application-header-box-gett.application-header-box-gett-login {
+    padding-bottom: 0px;
+    border-bottom-style: solid;
+}
+.application-body.application-body-login {
+    padding: 70px 90px 80px 80px;
+    border-style: none;
+    border-bottom-width: 1px;
+    border-bottom-color: #d8d8d8;
+    border-radius: 5px;
+    background-image: none;
+    background-size: auto;
+    background-repeat: repeat;
+}
+
+.faq-main-label {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 400;
+}
+.faq-main-par {
+    margin-bottom: 5px;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 13px;
+    line-height: 20px;
+}
+.gett-login-form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: Roboto, sans-serif;
+    color: #bbb5b5;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.application-next-button.application-next-button-gett.application-login-button {
+    margin-top: 7px;
+    margin-right: 7px;
+    padding: 14px 12px;
+    border-width: 1px;
+    border-color: #96bae0;
+    background-color: #f3f9ff;
+    color: #5c92cc;
+    line-height: 14px;
+}
+.logon-page-register-text {
+    display: block;
+    margin-top: 22px;
+    border-top: 1px none #e2e2e2;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 13px;
+    line-height: 18px;
+}
+.login-page-register-link {
+    border-bottom: 1px none #9cbfe6;
+    color: #5c92cc;
+    text-decoration: none;
+}
+.application-form-field {
+    display: inline-block;
+    width: 210px;
+    margin-bottom: 15px;
+    padding-right: 12px;
+    padding-left: 12px;
+    border: 1px solid #e6e6e6;
+    border-radius: 0px;
+    background-color: #fdfdfd;
+    font-family: Roboto, sans-serif;
+    color: #d6d6d6;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+}
+
+.gett-login-form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: Roboto, sans-serif;
+    color: #bbb5b5;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 400;
+    text-align: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**/

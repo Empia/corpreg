@@ -42,6 +42,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick-evolutions" % "1.1.0",
   "com.h2database" % "h2" % "1.4.187",
   "net.ceedubs" %% "ficus" % "1.1.2",
+  "pl.jsolve" % "templ4docx" % "2.0.0",
+  "org.docx4j" % "docx4j" % "3.0.0",
 
   "com.adrianhurt" %% "play-bootstrap3" % "0.4.4-P24",
   "com.mohiva" %% "play-silhouette-testkit" % "3.0.0" % "test",
