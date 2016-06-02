@@ -16,6 +16,10 @@ import play.api.i18n.{ MessagesApi, Messages }
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc.Action
 
+
+import models._
+import models.daos._
+
 import scala.concurrent.Future
 
 /**
