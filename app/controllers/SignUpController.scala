@@ -32,6 +32,7 @@ class SignUpController @Inject() (
   val messagesApi: MessagesApi,
   val env: Environment[User, CookieAuthenticator],
   userService: UserService,
+  fillsDAO: FillsDAO,
   authInfoRepository: AuthInfoRepository,
   avatarService: AvatarService,
   passwordHasher: PasswordHasher)
@@ -95,6 +96,7 @@ class SignUpController @Inject() (
           case None =>
             val password = smsComponent.generatePassword
             smsComponent.sendSms(data.email, text = s"Ваш пароль для входа $password")
+            fillsDAO.create(FillDTO(id = None, phone = data.phone))
             val authInfo = passwordHasher.hash(password)
             val user = User(
               userID = UUID.randomUUID(),
