@@ -9,6 +9,9 @@ GET /test_action controllers.FormGeneratorController.testAction()
 
 GET /gett-passport controllers.UserFillingController.passport
 GET /gett-address controllers.UserFillingController.fillAddress
+GET /gett-nalog   controllers.UserFillingController.fillNalog
+
+
 
 GET /gett-esign controllers.SignController.index
 GET /states controllers.SignController.states
@@ -45,6 +48,9 @@ POST /position_value/:page controllers.FieldPositionsController.updatePosition(p
 GET  /filling/:id/fill     controllers.AdminController.writeFill(id: Long)
 POST /filling/:id/fill     controllers.AdminController.saveFill(id: Long)
 POST /form_filling/:id/user_fill     controllers.AdminController.saveFillUser(id: Long)
+POST /form_filling/:id/user_address_fill     controllers.AdminController.saveAddressFillUser(id: Long)
+
+
 
 GET   /filling/:id/fillFiles     controllers.AdminController.writeFillFiles(id: Long)
 POST  /filling/:id/fillFiles     controllers.AdminController.saveFillFiles(id: Long)
