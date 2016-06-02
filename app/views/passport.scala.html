@@ -71,7 +71,7 @@
                         </div>
                         <div class="w-col w-col-5">
                             <label for="name-71" class="application-form-label application-form-label-pro">Пол:</label>
-                            @helper.inputText(fillForm("gender"), 'id -> "gender-field", '_label -> null, 'class -> "w-input application-form-field application-form-field-xs")
+                            @helper.select(field = fillForm("gender"), options = Seq("МУЖ"->"МУЖ.", "ЖЕН"->"ЖЕН."), 'id -> "gender-field", '_label -> null, 'class -> "w-input application-form-field application-form-field-xs")
                         </div>
                     </div>
                 </div>
