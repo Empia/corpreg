@@ -100,7 +100,7 @@ class SignUpController @Inject() (
           case None =>
             val password = smsComponent.generatePassword
             smsComponent.sendSms(data.email, text = s"Ваш пароль для входа $password")
-            fillsDAO.create(FillDTO(id = None, phone = data.phone))
+            fillsDAO.create(FillDTO(id = None, phone = data.email))
             val authInfo = passwordHasher.hash(password)
             val user = User(
               userID = UUID.randomUUID(),
