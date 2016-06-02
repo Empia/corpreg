@@ -43,14 +43,14 @@ object PrimaryFillForm {
          "locationAddress" -> text,
          "fnsreg" -> text,
          "addressInfo" -> mapping(
-           "subject" -> text,
-           "area" -> text,
-           "city" -> text,
-           "settlement" -> text,
-           "street" -> text,
-           "house" -> text,
-           "corpus" -> text,
-           "flat" -> text
+           "subject" -> default(text, ""),
+           "area" -> default(text, ""),
+           "city" -> default(text, ""),
+           "settlement" -> default(text, ""),
+           "street" -> default(text, ""),
+           "house" -> default(text, ""),
+           "corpus" -> default(text, ""),
+           "flat" -> default(text, "")
          )(AddressData.apply)(AddressData.unapply)
 
 )(PrimaryFillData.apply)(PrimaryFillData.unapply)

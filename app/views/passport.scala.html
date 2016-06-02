@@ -52,7 +52,7 @@
 
 
 @helper.form(action = routes.AdminController.saveFillUser(fillId)) {
-@helper.CSRF.formField
+  @helper.CSRF.formField
 <div class="application-body application-body-address">
     <h3 class="application-subheading">Паспорт и личные данные</h3>
     <div class="w-form application-form">
@@ -108,7 +108,7 @@
             <div class="w-row appplication-form-row application-form-row-alt application-form-pro">
                 <div class="w-col w-col-4 pro-column-inn">
                     <label for="name-76" class="application-form-label application-form-label-pro">Электронная почта:</label>
-                    <input id="name-76" type="text" name="name-76" data-name="Name 76" class="w-input application-form-field application-form-field-194">
+                    @helper.inputText(fillForm("eMail"), 'id -> "inn",'_label -> null, 'class -> "w-input application-form-field application-form-field-194")
                 </div>
                 <div class="w-col w-col-4 pro-column-snils">
                     <label for="name-77" class="application-form-label application-form-label-pro">ИНН:</label>
@@ -123,9 +123,74 @@
 </div>
 
 
-                <div class="application-footer">
-                    <button href="/gett-esign" class="w-button application-next-button application-next-button-gett">Все правильно</button>
+<div class="application-body application-body-address" style="display: none;">
+    <h3 class="application-subheading">Адрес регистрации</h3>
+    <div class="w-form application-form">
+          @b3.text(fillForm("locationAddress"), 'id -> "address",'class -> "w-input application-form-field application-form-field-verybig")
+            <div class="w-row appplication-form-row">
+                <div class="w-col w-col-2">
+                    <label for="name-38" class="application-form-label application-form-label-address">Индекс</label>
+                    @b3.text(fillForm("postalAddress"), 'id -> "postalcode",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="subject" class="application-form-label application-form-label-address">Субъект:</label>
+                    @b3.text(fillForm("addressInfo.subject"), 'id -> "subject",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-7">
+                    <label for="area" class="application-form-label application-form-label-address">Район:</label>
+                    @b3.text(fillForm("addressInfo.area"), 'id -> "area",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+            </div>
+            <div class="w-row appplication-form-row">
+                <div class="w-col w-col-5">
+                    <label for="city" class="application-form-label application-form-label-address">Город:</label>
+                    @b3.text(fillForm("addressInfo.city"), 'id -> "city",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-7">
+                    <label for="settlement" class="application-form-label application-form-label-address">Населенный пункт:</label>
+                    @b3.text(fillForm("addressInfo.settlement"), 'id -> "settlement",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+            </div>
+            <div class="w-row">
+                <div class="w-col w-col-5">
+                    <label for="street" class="application-form-label application-form-label-address">Улица:</label>
+                    @b3.text(fillForm("addressInfo.street"), 'id -> "street",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-2">
+                    <label for="house" class="application-form-label application-form-label-address">Дом:</label>
+                    @b3.text(fillForm("addressInfo.house"), 'id -> "house",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-2">
+                    <label for="corpus" class="application-form-label application-form-label-address">Корпус:</label>
+                    @b3.text(fillForm("addressInfo.corpus"), 'id -> "corpus",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="flat" class="application-form-label application-form-label-address">Квартира:</label>
+                    @b3.text(fillForm("addressInfo.flat"), 'id -> "flat",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+            </div>
+    </div>
+    <div class="w-row appplication-form-row application-form-row-alt">
+        <div class="w-col w-col-2">
+            <label for="ifns" class="application-form-label application-form-label-address">Код ИФНС</label>
+            <input id="ifns" name="name-47" data-name="Name 47" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
+        </div>
+        <div class="w-col w-col-2">
+            <label for="fnsreg" class="application-form-label application-form-label-address">Код рег. органа</label>
+            @b3.text(fillForm("fnsreg"), 'id -> "fnsreg",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
 
+        </div>
+        <div class="w-col w-col-8">
+            <label for="fnstitle" class="application-form-label application-form-label-address">Наименование регистрирующего органа</label>
+            <input id="fnstitle" name="name-49" data-name="Name 49" class="w-input application-form-field application-form-field-reg" type="text">
+
+        </div>
+    </div>
+</div>
+
+
+                <div class="application-footer">
+                  <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">Все правильно</button>
                 </div>
             </div>
         </div>
