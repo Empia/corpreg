@@ -62,6 +62,9 @@ GET   /filling/:id/fillFiles     controllers.AdminController.writeFillFiles(id: 
 
 
 POST  /filling/:id/fillFiles     controllers.AdminController.saveFillFiles(id: Long)
+POST  /filling/:id/fillUserFiles     controllers.AdminController.saveFillUserFiles(id: Long)
+
+
 GET   /filling/:id/fillFNS       controllers.AdminController.writeFillFNS(id: Long)
 POST  /filling/:id/fillFNS       controllers.AdminController.saveFillFNS(id: Long)
 

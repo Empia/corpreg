@@ -822,6 +822,31 @@ def saveFillFiles(id: Long) = SecuredAction.async(parse.multipartFormData) { imp
   }
   Future.successful( Redirect(routes.AdminController.writeFillFiles(id)) )
 }
+def saveFillUserFiles(id: Long) = SecuredAction.async(parse.multipartFormData) { implicit request =>
+  val fillingsF = fillsDAO.getAll
+  val fillings = await(fillingsF)
+  val current_fill = fillings.find(fill => fill.id.get == id).get
+  val phone = current_fill.phone
+
+  files.map { fileId =>
+    request.body.file(fileId).map { fileAbst =>
+        import java.io.File
+        val filename = fileAbst.filename
+        val contentType = fileAbst.contentType
+        println(fileAbst)
+        val attr = FillAttributeDTO(id=None,
+        	fill_id=id,
+        	attribute=s"$fileId",
+        	value=filename)
+        	fillAttributesDAO.findOrCreate(id, attr)
+          Seq(s"mkdir", "-p", s"./public/files/doc_$phone").lineStream
+          Seq(s"mkdir", "-p", s"./public/files/doc_$phone/$fileId").lineStream
+        fileAbst.ref.moveTo(new File(s"./public/files/doc_$phone/$fileId/$filename"))
+      }
+  }
+  Future.successful( Redirect(routes.AdminController.writeFillFilesUser()) )
+}
+
 
 def writeFillFNS(id: Long) = SecuredAction.async { implicit request =>
   val fillingsF = fillsDAO.getAll
