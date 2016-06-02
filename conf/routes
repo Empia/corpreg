@@ -10,6 +10,8 @@ GET /test_action controllers.FormGeneratorController.testAction()
 GET /gett-passport controllers.UserFillingController.passport
 GET /gett-address controllers.UserFillingController.fillAddress
 GET /gett-nalog   controllers.UserFillingController.fillNalog
+GET /gett-documents   controllers.UserFillingController.fillDocuments
+GET /gett-confirmation   controllers.UserFillingController.fillConfirmation
 
 
 
