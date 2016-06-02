@@ -136,7 +136,11 @@ attrsByFillId:Map[Long,Seq[FillAttributeDTO]]=Map())(implicit messages: Messages
               <div class="w-clearfix admin-panel-status admin-panel-status-active"><span class="admin-panel-status-icon"></span>Ввод данных</div>
           </div>
           <div class="w-col w-col-2 admit-panel-user-column2">
-              <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>@filling.phone</div>
+              <div class="admin-panel-user-tel">
+                <a href="/filling/@filling.id.getOrElse(0)/fill">
+                  <span class="admin-panel-user-phone-icon"></span>@filling.phone
+                </a>
+              </div>
               <div class="admin-panel-user-tel">@getAttr(filling.id.getOrElse(0L),"eMail")</div>
 
 
