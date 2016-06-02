@@ -53,6 +53,21 @@
 
 @helper.form(action = routes.AdminController.saveAddressFillUser(fillId)) {
   @helper.CSRF.formField
+  <div class="application-body application-body-upload">
+            <h3 class="application-subheading">Выбор системы налогообложения</h3>
+            <p class="application-paragraph">При подаче документов на регистрацию в качестве ИП можно сразу выбрать систему налогообложения. Обратите внимание, что выбранный налоговый режим будет действовать в течении всего календарного года, перейти на другую систему налогообложения вы сможете перед началом следующего календарного года.</p>
+            <div class="application-okved-subcategory"><a class="app-tax-icon app-tax-icon-gett" data-new-link="true" href="#"></a>&nbsp;Общая система налогообложения (с НДС)</div>
+            <div class="application-okved-subcategory"><a class="app-tax-icon app-tax-icon-gett" data-new-link="true" href="#"></a>&nbsp;Упрощенная система —&nbsp;6% с доходов</div>
+            <div class="application-okved-subcategory"><a class="app-tax-icon app-tax-icon-gett" data-new-link="true" href="#"></a>&nbsp;Упрощенная система — 15% от разницы между доходами и расходами (для Москвы и Московской области)</div><a href="#" class="article-link article-link-alt">Смотреть ставки для других регионов&nbsp;<span class="article-link-icon"></span></a>
+            <p class="application-paragraph application-paragraph-middle">Кроме того, вы можете использовать патентную систему налогообложения — разновидность налогового режима, при котором налог уплачивается авансом за определенный налоговый период: 3, 6, 9 или 12 месяцев.</p>
+            <p class="application-paragraph application-paragraph-middle">К примеру, стоимость патента на деятельность такси в Москве на 12 месяцев составляет 18 000 рублей.</p>
+            <div class="application-okved-subcategory"><a class="app-tax-icon app-tax-icon-gett" data-new-link="true" href="#"></a>&nbsp;Подать заявление на патент</div>
+            <div class="patent-block">
+              <p class="application-paragraph application-paragraph-middle">Для индивидуальных предпринимателей, зарегистрированный постоянно и ведущих деятельность в Москве, заявление будет подано одновременно с документами на государственную регистрацию.</p>
+              <p class="application-paragraph application-paragraph-middle">Для индивидуальных предпринимателей, зарегистрированных постоянно в других регионах, но планирующих вести деятельность в Москве, будет сформировано заявление о переходе на патентную систему налогообложения и отправлено на электронную почту — вам необходимо будет самостоятельно подать его в любую налоговую в Москве после регистрации.</p><a href="#" class="article-link">Подробнее о патентной системе налогообложения <span class="article-link-icon"></span></a>
+            </div>
+          </div>
+
 
                 <div class="application-footer">
                   <a id="submit" href="/gett-documents" value="submit" class="w-button application-next-button application-next-button-gett">Добавить документы</a>

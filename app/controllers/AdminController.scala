@@ -769,6 +769,29 @@ def writeFillFiles(id: Long) = SecuredAction.async { implicit request =>
 }
 
 }
+
+def writeFillFilesUser() = SecuredAction.async { implicit request =>
+  val phone = request.identity.email.getOrElse("")
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+
+  val fillingsF = fillsDAO.getAll
+  val fillings = await(fillingsF)
+  val current_fill = fillings.find(fill => fill.id.get == id).get
+
+  val attrsF = fillAttributesDAO.findByFill(id)
+	attrsF.map { attrs =>
+    val filesCn:List[FileValue] = files.map { fileId =>
+      FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
+    }
+
+	  Ok(views.html.fillDocuments(request.identity, id, phone, filesCn ) )
+}
+
+}
+
+
+
 //import play.api.Play.current
 
 //Play.application.path

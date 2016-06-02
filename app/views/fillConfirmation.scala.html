@@ -50,17 +50,124 @@
 
 
 
-
-@helper.form(action = routes.AdminController.saveAddressFillUser(fillId)) {
-  @helper.CSRF.formField
+  <div class="application-body application-body-upload">
+            <h3 class="application-subheading">Подтверждение</h3>
+            <p class="application-paragraph application-paragraph-last">Теперь внимательно проверьте все свои данные, внесите исправления в случае обнаружения ошибки.</p>
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Личные данные</div><a href="#" class="confirm-edit-link">Редактировать</a>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Ф.И.О.</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">Сорокин Павел Михайлович</div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Дата рождения</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">12.12.1982</div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Место рождения</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">СЕЛО АРХАНГЕЛЬСКОЕ КРАСНОГОРСКОГО РАЙНА</div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Номер паспорта</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">45 01 004576</div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Дата выдачи</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">21.12.2005</div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Кем выдан</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">ТП № 2 КАЛИНИСКОГО РАЙОНА МОСКОВСКОЙ ОБЛАСТИ</div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">ИНН</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">772712346578</div>
+                </div>
+              </div>
+              <div class="w-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">СНИЛС</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">123-123-456 78</div>
+                </div>
+              </div>
+            </div>
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Адрес регистрации</div><a href="#" class="confirm-edit-link">Редактировать</a>
+              </div>
+              <div class="data-confirm-address">117186, Москва, Нагорная улица, дом 38. корпус 1, квартира 142</div>
+            </div>
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Виды деятельности</div><a href="#" class="confirm-edit-link confirm-edit-link-gett">Редактировать</a>
+              </div>
+              <div class="confirm-data-okved">60.22 — Деятельность такси</div>
+              <div class="confirm-data-okved confirm-data-okved-main">основной</div>
+              <div class="confirm-data-okved-comment">По условиям акции «Бесплатная регистрация ИП» для партнеров Gett, можно выбрать только один ОКВЭД.
+                <br>Если вам необходимо добавить другие коды, напишите в поддержку сервиса.</div>
+            </div>
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Система налогообложения</div><a href="#" class="confirm-edit-link">Редактировать</a>
+              </div>
+              <div class="confirm-data-tax">Упрощенная система налогообложения (6% от доходов)</div>
+            </div>
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Сканы документов</div><a href="#" class="confirm-edit-link">Редактировать</a>
+              </div>
+              <div>
+                <div class="confirm-data-file">Скан паспорта (стр. 2-3)</div><a href="#" class="confirm-data-file confirm-data-file-link">посмотреть</a>
+              </div>
+              <div>
+                <div class="confirm-data-file">Скан паспорта (регистрация)</div><a href="#" class="confirm-data-file confirm-data-file-link">посмотреть</a>
+              </div>
+              <div>
+                <div class="confirm-data-file">Свидетельство ИНН</div><a href="#" class="confirm-data-file confirm-data-file-link">посмотреть</a>
+              </div>
+              <div>
+                <div class="confirm-data-file">Карточка СНИЛС</div><a href="#" class="confirm-data-file confirm-data-file-link">посмотреть</a>
+              </div>
+            </div>
+          </div>
 
                 <div class="application-footer">
-                  <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">Подать запрос на выпуск</button>
+                  <a id="submit" href="/" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">
+                    Подать запрос на выпуск</a>
                 </div>
             </div>
         </div>
-
-}
 
 
 

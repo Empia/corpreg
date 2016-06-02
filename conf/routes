@@ -10,7 +10,11 @@ GET /test_action controllers.FormGeneratorController.testAction()
 GET /gett-passport controllers.UserFillingController.passport
 GET /gett-address controllers.UserFillingController.fillAddress
 GET /gett-nalog   controllers.UserFillingController.fillNalog
-GET /gett-documents   controllers.UserFillingController.fillDocuments
+
+GET   /gett-documents     controllers.AdminController.writeFillFilesUser()
+POST  /filling/:id/fillFiles     controllers.AdminController.saveFillFiles(id: Long)
+
+
 GET /gett-confirmation   controllers.UserFillingController.fillConfirmation
 
 
@@ -55,6 +59,8 @@ POST /form_filling/:id/user_address_fill     controllers.AdminController.saveAdd
 
 
 GET   /filling/:id/fillFiles     controllers.AdminController.writeFillFiles(id: Long)
+
+
 POST  /filling/:id/fillFiles     controllers.AdminController.saveFillFiles(id: Long)
 GET   /filling/:id/fillFNS       controllers.AdminController.writeFillFNS(id: Long)
 POST  /filling/:id/fillFNS       controllers.AdminController.saveFillFNS(id: Long)
