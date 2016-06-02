@@ -305,6 +305,147 @@ forms.PrimaryFillForm.PrimaryFillData(
 
 
 
+def saveFillUser(id: Long) = SecuredAction.async { implicit request =>
+	  val fillingsF = fillsDAO.getAll
+	  val fillings = await(fillingsF)
+    forms.PrimaryFillForm.form.bindFromRequest.fold(
+      form => {
+      	println("error")
+      	println(form)
+      	Future.successful(Redirect(routes.AdminController.index))
+      },
+      data => {
+      	println(data)
+
+/*
+PrimaryFillData(
+      lastName:String,
+      firstname:String,
+      middleName:String,
+      dob:String,
+      placeOfBorn:String,
+      passport:String,
+      passportIssuedDate:String,
+      passportIssuedBy:String,
+      inn:String,
+      snils:String
+)*/
+val fillAttributes = List(
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="lastName",
+	value=data.lastName),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="firstname",
+	value=data.firstname),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="middleName",
+	value=data.middleName),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="dob",
+	value=data.dob),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="placeOfBorn",
+	value=data.placeOfBorn),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="passport",
+	value=data.passport),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="passportIssuedDate",
+	value=data.passportIssuedDate),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="passportIssuedBy",
+	value=data.passportIssuedBy),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="kodPodrazdelenia",
+	value=data.kodPodrazdelenia),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="inn",
+	value=data.inn),
+FillAttributeDTO(id=None,
+	fill_id=id,
+	attribute="snils",
+	value=data.snils),
+FillAttributeDTO(id=None,
+  	fill_id=id,
+  	attribute="postalAddress",
+  	value=data.postalAddress),
+FillAttributeDTO(id=None,
+    	fill_id=id,
+    	attribute="eMail",
+    	value=data.eMail),
+FillAttributeDTO(id=None,
+      	fill_id=id,
+      	attribute="locationAddress",
+      	value=data.locationAddress),
+FillAttributeDTO(id=None,
+        	fill_id=id,
+        	attribute="fnsreg",
+        	value=data.fnsreg),
+
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="subject",
+value=data.addressInfo.subject),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="area",
+value=data.addressInfo.area),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="city",
+value=data.addressInfo.city),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="settlement",
+value=data.addressInfo.settlement),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="street",
+value=data.addressInfo.street),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="house",
+value=data.addressInfo.house),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="corpus",
+value=data.addressInfo.corpus),
+FillAttributeDTO(id=None,
+fill_id=id,
+attribute="flat",
+value=data.addressInfo.flat)
+
+
+
+)
+
+val attrF = Future.sequence(fillAttributes.map { attr =>
+	fillAttributesDAO.findOrCreate(id, attr)
+})
+
+	for {
+              attr <- attrF
+              r2 <- fillsDAO.areFilled(id)
+            } yield {
+	   Redirect(routes.UserFillingController.index)
+
+	}
+
+
+      })
+
+}
+
 def saveFill(id: Long) = SecuredAction.async { implicit request =>
 	  val fillingsF = fillsDAO.getAll
 	  val fillings = await(fillingsF)
