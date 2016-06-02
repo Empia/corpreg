@@ -42,6 +42,7 @@ object PrimaryFillForm {
          "postalAddress" -> text,
          "locationAddress" -> text,
          "fnsreg" -> text,
+         "gender" -> default(text, "МУЖ"),
          "addressInfo" -> mapping(
            "subject" -> default(text, ""),
            "area" -> default(text, ""),
@@ -71,6 +72,7 @@ object PrimaryFillForm {
       postalAddress:String,
       locationAddress:String,
       fnsreg:String,
+      gender: String,
       addressInfo: AddressData
   )
 }

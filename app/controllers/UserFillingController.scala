@@ -112,6 +112,7 @@ forms.PrimaryFillForm.PrimaryFillData(
       postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
       locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
       fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+      gender = retriveFromAttrSeq(attrs, attribute="gender"),      
       AddressData(
       subject = retriveFromAttrSeq(attrs, attribute="subject"),
       area = retriveFromAttrSeq(attrs, attribute="area"),

@@ -3887,7 +3887,9 @@ h4 {
     background-size: 12px;
     background-repeat: no-repeat;
 }
-
+.application-form-field.application-form-field-450 {
+    width: 450px;
+}
 
 
 

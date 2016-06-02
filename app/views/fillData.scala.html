@@ -247,7 +247,7 @@
                 </div>
                 <div class="w-col w-col-2">
                     <label for="email-4" class="application-form-label">Пол:</label>
-                    <div class="form-gender-swithcer"><a href="#" class="w-button gender-button">МУЖ</a><a href="#" class="w-button gender-button gender-button-female">ЖЕН</a>
+                    @helper.inputText(fillForm("gender"), 'id -> "gender-field", '_label -> null, 'class -> "w-input application-form-field application-form-field-xs")
                     </div>
                 </div>
                 <div class="w-col w-col-3">

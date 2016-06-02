@@ -205,6 +205,7 @@ import scala.util.Try
         postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
         locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
         fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        gender = retriveFromAttrSeq(attrs, attribute="gender"),
         AddressData(
         subject = retriveFromAttrSeq(attrs, attribute="subject"),
         area = retriveFromAttrSeq(attrs, attribute="area"),
@@ -261,7 +262,7 @@ import scala.util.Try
     fields.put("firstName_latin", "" )
     fields.put("middleName_latin", "" )
     fields.put("inn", data.inn)
-    fields.put("gender", "1")
+    fields.put("gender", data.gender)
     fields.put("dob", data.dob)
     fields.put("pob", data.placeOfBorn.toUpperCase() )
     fields.put("pob2", "" )

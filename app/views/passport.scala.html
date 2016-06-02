@@ -12,7 +12,9 @@
     width: 20%;
     margin-right: 10px;
 }
-
+.kp-block {
+    margin-left: -29px;
+}
 </style>
 
 <div class="w-container fill-data-form">
@@ -69,7 +71,7 @@
                         </div>
                         <div class="w-col w-col-5">
                             <label for="name-71" class="application-form-label application-form-label-pro">Пол:</label>
-                            <input id="name-71" type="text" placeholder="Муж." name="name-71" data-name="Name 71" class="w-input application-form-field application-form-field-xs">
+                            @helper.inputText(fillForm("gender"), 'id -> "gender-field", '_label -> null, 'class -> "w-input application-form-field application-form-field-xs")
                         </div>
                     </div>
                 </div>
