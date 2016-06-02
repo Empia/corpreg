@@ -3880,6 +3880,13 @@ h4 {
 .application-form-field.application-form-field-s {
     width: 120px;
 }
+.application-form-field.application-form-field-xs {
+    width: 85px;
+    background-image: url('/assets/images/Shape.svg');
+    background-position: 85% 50%;
+    background-size: 12px;
+    background-repeat: no-repeat;
+}
 
 
 
