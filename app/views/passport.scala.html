@@ -16,37 +16,99 @@
 
 <div class="w-container">
             <div class="application-content">
-               <div class="w-clearfix application-header-box application-header-box-gett">
-    <div class="w-clearfix application-header-icon application-header-icon-gett">
-        <div class="application-heading-icon application-heading-icon-gett"></div>
-    </div>
-    <div class="application-header">
-        <h2 class="content-heading content-heading-gett">Подготовка пакета документов</h2>
-    </div>
-    <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
-        <div class="w-container">
 
-<nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/gett-passport" class="w-nav-link application-nav-button application-nav-button-active application-nav-button-active-gett">Личные данные</a>
-    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Электронная подпись</a>
-    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Регистрация в ФНС</a>
-    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Открытие счета</a>
-</nav>
+              <div class="application-header-box application-header-box-gett">
+                  <div class="w-clearfix application-header-icon application-header-icon-gett">
+                      <div class="application-heading-icon"></div>
+                      <h2 class="content-heading content-heading-gett">Формирование заявления</h2>
+                  </div>
+                  <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+                      <div class="w-container">
+                          <nav role="navigation" class="w-nav-menu application-nav-menu">
+                            <a href="#" class="w-nav-link application-nav-button application-nav-button-active w--current" style="max-width: 940px;">Личные данные</a>
+                              <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Адрес регистрации</a>
+                              <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Налогообложение</a>
+                              <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Документы</a>
+                              <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Подтверждение</a>
+                          </nav>
+                          <div class="w-nav-button">
+                              <div class="w-icon-nav-menu"></div>
+                          </div>
+                      </div>
+                      <div class="w-nav-overlay" data-wf-ignore=""></div>
+                  </div>
+              </div>
 
 
-            <div class="w-nav-button">
-                <div class="w-icon-nav-menu"></div>
+              
+<div class="application-body application-body-menu"></div>
+
+<div class="application-body application-body-address">
+    <h3 class="application-subheading">Паспорт и личные данные</h3>
+    <div class="w-form application-form">
+        <form id="email-form" name="email-form" data-name="Email Form">
+            <div class="w-row">
+                <div class="w-col w-col-4">
+                    <label for="name-68" class="application-form-label application-form-label-pro">Фамилия:</label>
+                    <input id="name-68" type="text" name="name-68" data-name="Name 68" class="w-input application-form-field">
+                    <label for="name-69" class="application-form-label application-form-label-pro">Имя:</label>
+                    <input id="name-69" type="text" name="name-69" data-name="Name 69" class="w-input application-form-field">
+                    <label for="name-70" class="application-form-label application-form-label-pro">Отчество:</label>
+                    <input id="name-70" type="text" name="name-70" data-name="Name 70" class="w-input application-form-field">
+                    <div class="w-row">
+                        <div class="w-col w-col-7">
+                            <label for="email-29" class="application-form-label application-form-label-pro">Дата рождения:</label>
+                            <input id="email-29" type="email" placeholder="__.__.__" name="email-29" data-name="Email 29" required="required" class="w-input application-form-field application-form-field-s">
+                        </div>
+                        <div class="w-col w-col-5">
+                            <label for="name-71" class="application-form-label application-form-label-pro">Пол:</label>
+                            <input id="name-71" type="text" placeholder="Муж." name="name-71" data-name="Name 71" class="w-input application-form-field application-form-field-xs">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-col w-col-8">
+                    <label for="email-30" class="application-form-label application-form-label-pro">Место рождения (точно по паспорту):</label>
+                    <input id="email-30" type="email" name="email-30" data-name="Email 30" required="required" class="w-input application-form-field application-form-field-450">
+                    <label for="name-72" class="application-form-label application-form-label-pro">Серия и номер паспорта:</label>
+                    <input id="name-72" type="text" placeholder="__ __ ______" name="name-72" data-name="Name 72" class="w-input application-form-field application-form-field-pass">
+                    <div class="w-clearfix passport-status">Паспорт недействителен.
+                        <br>Возможно, истек срок действия.</div>
+                    <div class="w-row">
+                        <div class="w-col w-col-4">
+                            <label for="email-31" class="application-form-label application-form-label-pro">Дата выдачи:</label>
+                            <input id="email-31" type="email" placeholder="__.__.__" name="email-31" data-name="Email 31" required="required" class="w-input application-form-field application-form-field-s">
+                        </div>
+                        <div class="w-col w-col-8">
+                            <div class="kp-block">
+                                <label for="name-73" class="application-form-label application-form-label-pro">Код подразделения:</label>
+                                <input id="name-73" type="text" placeholder="___-___" name="name-73" data-name="Name 73" class="w-input application-form-field application-form-field-s">
+                            </div>
+                        </div>
+                    </div>
+                    <label for="email-32" class="application-form-label application-form-label-pro">Кем выдан паспорт:</label>
+                    <input id="email-32" type="email" name="email-32" data-name="Email 32" required="required" class="w-input application-form-field application-form-field-450">
+                    <div class="issued-types-block"><a href="#" class="passport-fms-name">ОТДЕЛЕНИЕМ УФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ В КАМЕНСКОМ РАЙОНЕ</a><a href="#" class="passport-fms-name">ОУФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ В КАМЕНСКОМ РАЙОНЕ</a><a href="#" class="passport-fms-name">Ввести самостоятельно</a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="w-nav-overlay" data-wf-ignore=""></div>
+            <div class="w-row appplication-form-row application-form-row-alt application-form-pro">
+                <div class="w-col w-col-4 pro-column-inn">
+                    <label for="name-76" class="application-form-label application-form-label-pro">Электронная почта:</label>
+                    <input id="name-76" type="text" name="name-76" data-name="Name 76" class="w-input application-form-field application-form-field-194">
+                </div>
+                <div class="w-col w-col-4 pro-column-snils">
+                    <label for="name-77" class="application-form-label application-form-label-pro">ИНН:</label>
+                    <input id="name-77" type="text" placeholder="____________" name="name-77" data-name="Name 77" class="w-input application-form-field application-form-field-194">
+                </div>
+                <div class="w-col w-col-4 pro-column-snils">
+                    <label for="name-78" class="application-form-label application-form-label-pro">СНИЛС:</label>
+                    <input id="name-78" type="text" placeholder="___-___-___ __" name="name-78" data-name="Name 78" class="w-input application-form-field application-form-field-194">
+                </div>
+            </div>
+            <input type="submit" value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button">
+        </form>
     </div>
 </div>
-
-<div class="application-body application-body-upper">
-    <h3 class="application-subheading application-subheading-gett">Личные данные</h3>
-    <p class="application-paragraph application-paragraph-gett-light">Введите ваши данные уже внесены в систему.&nbsp;
-        <br>Проверьте — все ли верно и переходите к следующему шагу. <br> Если в данных ошибка просьба сообщить по номеру +7 926 300-06-03</p>
-</div>
-
 
 
 
