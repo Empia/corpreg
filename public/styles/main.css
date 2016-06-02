@@ -3864,7 +3864,18 @@ h4 {
 
 
 
-
+.w-input:focus, .w-select:focus {
+    border-color: #3898EC;
+    outline: 0;
+}
+.application-form-field:focus {
+    padding-right: 11px;
+    padding-left: 11px;
+    border-width: 2px;
+    border-color: #ec675d;
+    background-color: #fff;
+    color: #555;
+}
 
 
 
