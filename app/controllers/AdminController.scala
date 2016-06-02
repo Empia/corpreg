@@ -442,7 +442,7 @@ val attrF = Future.sequence(fillAttributes.map { attr =>
               attr <- attrF
               r2 <- fillsDAO.areFilled(id)
             } yield {
-	   Redirect(routes.UserFillingController.index)
+	   Redirect(routes.UserFillingController.fillAddress)
 
 	}
 

@@ -8,6 +8,8 @@ GET         /                                controllers.UserFillingController.i
 GET /test_action controllers.FormGeneratorController.testAction()
 
 GET /gett-passport controllers.UserFillingController.passport
+GET /gett-address controllers.UserFillingController.fillAddress
+
 GET /gett-esign controllers.SignController.index
 GET /states controllers.SignController.states
 

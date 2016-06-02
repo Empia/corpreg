@@ -112,22 +112,65 @@ forms.PrimaryFillForm.PrimaryFillData(
       postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
       locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
       fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
-      gender = retriveFromAttrSeq(attrs, attribute="gender"),      
+      gender = retriveFromAttrSeq(attrs, attribute="gender"),
       AddressData(
-      subject = retriveFromAttrSeq(attrs, attribute="subject"),
-      area = retriveFromAttrSeq(attrs, attribute="area"),
-      city = retriveFromAttrSeq(attrs, attribute="city"),
-      settlement = retriveFromAttrSeq(attrs, attribute="settlement"),
-      street = retriveFromAttrSeq(attrs, attribute="street"),
-      house = retriveFromAttrSeq(attrs, attribute="house"),
-      corpus = retriveFromAttrSeq(attrs, attribute="corpus"),
-      flat = retriveFromAttrSeq(attrs, attribute="flat"))
+        subject = retriveFromAttrSeq(attrs, attribute="subject"),
+        area = retriveFromAttrSeq(attrs, attribute="area"),
+        city = retriveFromAttrSeq(attrs, attribute="city"),
+        settlement = retriveFromAttrSeq(attrs, attribute="settlement"),
+        street = retriveFromAttrSeq(attrs, attribute="street"),
+        house = retriveFromAttrSeq(attrs, attribute="house"),
+        corpus = retriveFromAttrSeq(attrs, attribute="corpus"),
+        flat = retriveFromAttrSeq(attrs, attribute="flat"))
     ))
 
 	Ok(views.html.passport(request.identity,id, form ))
 }
 
 }
+
+
+def fillAddress = SecuredAction.async { implicit request =>
+	val phone = request.identity.email.getOrElse("")
+	val fill = await(fillsDAO.getByPhone(phone)).get
+	val id = fill.id.get
+
+ 	val attrsF = fillAttributesDAO.findByFill(id)
+	attrsF.map { attrs =>
+
+  val form = forms.PrimaryFillForm.form.fill(
+  forms.PrimaryFillForm.PrimaryFillData(
+        lastName = retriveFromAttrSeq(attrs, attribute="lastName"),
+        firstname =  retriveFromAttrSeq(attrs, attribute="firstname"),
+        middleName =  retriveFromAttrSeq(attrs, attribute="middleName"),
+        dob =  retriveFromAttrSeq(attrs, attribute="dob"),
+        placeOfBorn =  retriveFromAttrSeq(attrs, attribute="placeOfBorn"),
+        passport =  retriveFromAttrSeq(attrs, attribute="passport"),
+        passportIssuedDate =  retriveFromAttrSeq(attrs, attribute="passportIssuedDate"),
+        kodPodrazdelenia = retriveFromAttrSeq(attrs, attribute="kodPodrazdelenia"),
+        passportIssuedBy =  retriveFromAttrSeq(attrs, attribute="passportIssuedBy"),
+        inn = retriveFromAttrSeq(attrs, attribute="inn"),
+        snils = retriveFromAttrSeq(attrs, attribute="snils"),
+        eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
+        postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
+        locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
+        fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        gender = retriveFromAttrSeq(attrs, attribute="gender"),
+        AddressData(
+          subject = retriveFromAttrSeq(attrs, attribute="subject"),
+          area = retriveFromAttrSeq(attrs, attribute="area"),
+          city = retriveFromAttrSeq(attrs, attribute="city"),
+          settlement = retriveFromAttrSeq(attrs, attribute="settlement"),
+          street = retriveFromAttrSeq(attrs, attribute="street"),
+          house = retriveFromAttrSeq(attrs, attribute="house"),
+          corpus = retriveFromAttrSeq(attrs, attribute="corpus"),
+          flat = retriveFromAttrSeq(attrs, attribute="flat"))
+      ))
+
+  	Ok(views.html.fillUserAddress(request.identity,id, form ))
+  }
+}
+
 def address = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.address(request.identity )))
 }

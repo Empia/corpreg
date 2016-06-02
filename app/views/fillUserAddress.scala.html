@@ -27,13 +27,13 @@
                   </div>
                   <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
                       <div class="w-container">
-                          <nav role="navigation" class="w-nav-menu application-nav-menu">
-                            <a href="/gett-passport" class="w-nav-link application-nav-button application-nav-button-active w--current" style="max-width: 940px;">Личные данные</a>
-                              <div class="application-nav-arrow"></div><a href="/gett-address" class="w-nav-link application-nav-button" style="max-width: 940px;">Адрес регистрации</a>
-                              <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Налогообложение</a>
-                              <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Документы</a>
-                              <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Подтверждение</a>
-                          </nav>
+<nav role="navigation" class="w-nav-menu application-nav-menu">
+  <a href="/gett-passport" class="w-nav-link application-nav-button" style="max-width: 940px;">Личные данные</a>
+    <div class="application-nav-arrow"></div><a href="/gett-address" class="w-nav-link application-nav-button application-nav-button-active w--current" style="max-width: 940px;">Адрес регистрации</a>
+    <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Налогообложение</a>
+    <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Документы</a>
+    <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Подтверждение</a>
+</nav>
                           <div class="w-nav-button">
                               <div class="w-icon-nav-menu"></div>
                           </div>
@@ -53,7 +53,7 @@
 
 @helper.form(action = routes.AdminController.saveFillUser(fillId)) {
   @helper.CSRF.formField
-<div class="application-body application-body-address">
+<div class="application-body application-body-address" style="display: none;">
     <h3 class="application-subheading">Паспорт и личные данные</h3>
     <div class="w-form application-form">
             <div class="w-row">
@@ -123,7 +123,7 @@
 </div>
 
 
-<div class="application-body application-body-address" style="display: none;">
+<div class="application-body application-body-address">
     <h3 class="application-subheading">Адрес регистрации</h3>
     <div class="w-form application-form">
           @b3.text(fillForm("locationAddress"), 'id -> "address",'class -> "w-input application-form-field application-form-field-verybig")
