@@ -1,4 +1,4 @@
-@(user: models.User, fillId: Long, fillForm: Form[forms.PrimaryFillForm.PrimaryFillData], attrs: Seq[FillAttributeDTO])(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, fillId: Long, fillForm: Form[forms.PrimaryFillForm.PrimaryFillData], attrs: Seq[FillAttributeDTO], fileCn: List[FileValue], phone: String)(implicit messages: Messages,request: RequestHeader)
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play
@@ -164,18 +164,25 @@
               <div class="w-clearfix confirm-heading-box">
                 <div class="confirm-data-heading confirm-data-heading-2">Сканы документов</div><a href="#" class="confirm-edit-link">Редактировать</a>
               </div>
-              <div>
-                <div class="confirm-data-file">Скан паспорта (стр. 2-3)</div><a href="#" class="confirm-data-file confirm-data-file-link">посмотреть</a>
-              </div>
-              <div>
-                <div class="confirm-data-file">Скан паспорта (регистрация)</div><a href="#" class="confirm-data-file confirm-data-file-link">посмотреть</a>
-              </div>
-              <div>
-                <div class="confirm-data-file">Свидетельство ИНН</div><a href="#" class="confirm-data-file confirm-data-file-link">посмотреть</a>
-              </div>
-              <div>
-                <div class="confirm-data-file">Карточка СНИЛС</div><a href="#" class="confirm-data-file confirm-data-file-link">посмотреть</a>
-              </div>
+              @fileCn.map { file =>
+                @if(file.filePath != "") {
+                  <div>
+                    <div class="confirm-data-file">
+                      @if(file.fileId == "P21001") {Заявление Р21001}
+                      @if(file.fileId == "USN") {Заявление на УСН}
+                      @if(file.fileId == "PASSPORT") {Паспорт}
+                      @if(file.fileId == "POSHLINA") {Пошлина}
+                    </div>
+
+
+  <a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="confirm-data-file confirm-data-file-link">
+    посмотреть
+  </a>
+  </div>
+                }
+              }
+
+
             </div>
           </div>
 

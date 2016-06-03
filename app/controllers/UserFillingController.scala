@@ -219,7 +219,10 @@ def fillNalog = SecuredAction.async { implicit request =>
 
 
 
-
+val files = List("P21001",
+                "USN",
+                "PASSPORT",
+                "POSHLINA")
 
 def fillConfirmation = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
@@ -258,7 +261,11 @@ def fillConfirmation = SecuredAction.async { implicit request =>
           flat = retriveFromAttrSeq(attrs, attribute="flat"))
       ))
 
-  	Ok(views.html.fillConfirmation(request.identity,id, form, attrs ))
+      val filesCn:List[FileValue] = files.map { fileId =>
+        FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
+      }
+
+  	Ok(views.html.fillConfirmation(request.identity,id, form, attrs, filesCn, phone ))
   }
 }
 
