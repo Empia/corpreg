@@ -1,0 +1,153 @@
+@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String)(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+@getAttr(id:Long,attrName:String) = {
+  @attrs.find(c => c.attribute == attrName).map { at =>
+    @at.value
+  }
+
+}
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.kp-block {
+    margin-left: -29px;
+}
+</style>
+
+<div class="w-container fill-data-form">
+            <div class="application-content">
+
+              <div class="application-header-box application-header-box-gett">
+                  <div class="w-clearfix application-header-icon application-header-icon-gett">
+                      <div class="application-heading-icon"></div>
+                      <h2 class="content-heading content-heading-gett">Формирование заявления</h2>
+                  </div>
+                  <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+                      <div class="w-container">
+<nav role="navigation" class="w-nav-menu application-nav-menu"><a href="#" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Оплата госпошлины</a>
+  <div class="application-nav-arrow application-arrow-done"></div><a href="#" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Идентификация</a>
+  <div class="application-nav-arrow application-nav-arrow-next"></div><a href="#" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Электронная подпись</a>
+  <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button application-nav-button-active" style="max-width: 940px;">Отправка в ФНС</a>
+</nav>
+                          <div class="w-nav-button">
+                              <div class="w-icon-nav-menu"></div>
+                          </div>
+                      </div>
+                      <div class="w-nav-overlay" data-wf-ignore=""></div>
+                  </div>
+              </div>
+
+
+
+<div class="application-body application-body-menu"></div>
+
+
+<div class="w-clearfix application-body application-body-upload">
+          <div class="certificate-block certificate-sign">
+            <div class="confirm-heading-box confirm-heading-box-no">
+              <div class="confirm-data-heading">Сертификат электронной подписи</div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-4">
+                <div class="confirm-data confirm-data-label">Владелец:</div>
+              </div>
+              <div class="w-col w-col-8 w-clearfix">
+                <div class="confirm-data">@getAttr(fillId,"firstname") @getAttr(fillId,"lastName") @getAttr(fillId,"middleName")</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-4">
+                <div class="confirm-data confirm-data-label">Телефон:</div>
+              </div>
+              <div class="w-col w-col-8 w-clearfix">
+                <div class="confirm-data">@phone</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-4">
+                <div class="confirm-data confirm-data-label">Действителен:</div>
+              </div>
+              <div class="w-col w-col-8 w-clearfix">
+                <div class="confirm-data">31.12.2015 - 31.12.2016</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-4">
+                <div class="confirm-data confirm-data-label">ИНН:</div>
+              </div>
+              <div class="w-col w-col-8 w-clearfix">
+                <div class="confirm-data">@getAttr(fillId,"inn")</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-4">
+                <div class="confirm-data confirm-data-label">СНИЛС:</div>
+              </div>
+              <div class="w-col w-col-8 w-clearfix">
+                <div class="confirm-data">@getAttr(fillId,"snils")</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-4">
+                <div class="confirm-data confirm-data-label">Кем выдан:</div>
+              </div>
+              <div class="w-col w-col-8 w-clearfix">
+                <div class="confirm-data">УЦ&nbsp;ЗАО «Калуга Астрал»</div>
+              </div>
+            </div>
+            <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Действующий сертификат</div>
+          </div>
+          <h3 class="application-subheading">1. Подписание документов</h3>
+          <p class="application-paragraph">Пакет документов сформирован, осталось подписать его электронной подписью и отправить в регистрирующий орган.</p>
+          <p class="application-paragraph application-paragraph-last">На ваш номер мобильного телефона придет сообщение, содержащее код, с помощью которого вы сможете подписать сформированные документы.</p>
+          <div class="sign-and-send-box"><a href="#" data-ix="signature-sms" class="w-button send-docs-send-button send-button-2">Подписать документы</a>
+            <div class="w-form signature-form">
+              <form id="email-form-2" name="email-form-2" data-name="Email Form 2">
+                <div class="docs-signature-text">Введите код из смс <span class="send-docs-icon"></span>
+                </div>
+                <input id="name-2" type="text" name="name-2" data-name="Name 2" class="w-input signature-form-field"><a href="#" data-ix="signature-done" class="w-button signature-submit-button">Отправить</a>
+              </form>
+            </div>
+            <div class="send-docs-done-text"><span class="send-docs-done-icon"></span>&nbsp;Документы подписаны</div>
+          </div>
+          <div class="sign-and-send-box"><a href="#" data-ix="send-to-taxoffice" class="w-button send-docs-dend-button-2">Отправить в ФНС</a>
+            <div class="send-docs-done-text-2"><span class="send-docs-done-icon"></span>&nbsp;Отправлено в налоговую</div>
+          </div>
+        </div>
+
+        <div class="w-clearfix application-body application-body-reg">
+                  <div class="certificate-block certificate-sign">
+                    <div class="confirm-heading-box confirm-heading-box-no">
+                      <div class="confirm-data-heading">Статус регистрации</div>
+                    </div>
+                    <div class="taxoffice-status"><span class="taxoffice-status-icon"></span>&nbsp;Отправка документов в орган регистрации</div>
+                    <div class="taxoffice-status taxoffice-status-blue"><span class="taxoffice-status-icon"></span>&nbsp;Обработка документов в ЦОД ФНС</div>
+                    <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Выдача расписки в получении документов</div>
+                    <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Регистрация в ФНС (3-4 дня)</div>
+                    <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Принято решение о регистрации</div>
+                  </div>
+                  <h3 class="application-subheading">2. Регистрация в ФНС</h3>
+                  <p class="application-paragraph">Документы отправлены на регистрацию в ФНС. Статус регистрации можно отслеживать на этой странице. Кроме того, мы будем уведомлять вас по электронной почте, когда статус обработки ваших документов будет меняться.</p>
+                  <p class="application-paragraph">Обычно, регистрация в налоговой занимает от трех до пяти рабочих дней. Если вы ждете свои документы более пяти дней, свяжитесь со службой поддержки сервиса.</p>
+                  <div class="fns-documents-block"><a href="#" class="fns-documents-link">Скачать расписку в получении документов</a><a href="#" class="fns-documents-link">Скачать архив с документами о регистрации</a>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+}

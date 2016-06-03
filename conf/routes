@@ -17,7 +17,7 @@ POST  /filling/:id/fillFiles     controllers.AdminController.saveFillFiles(id: L
 
 GET /gett-confirmation   controllers.UserFillingController.fillConfirmation
 GET /gett-fill-sign   controllers.UserFillingController.fillSign
-
+GET /gett-fill-send-fns   controllers.UserFillingController.fillSendFns
 
 
 

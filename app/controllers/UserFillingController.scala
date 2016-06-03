@@ -285,6 +285,21 @@ def fillSign = SecuredAction.async { implicit request =>
   }
 }
 
+def fillSendFns = SecuredAction.async { implicit request =>
+	val phone = request.identity.email.getOrElse("")
+	val fill = await(fillsDAO.getByPhone(phone)).get
+	val id = fill.id.get
+
+ 	val attrsF = fillAttributesDAO.findByFill(id)
+	attrsF.map { attrs =>
+
+
+
+
+  	Ok(views.html.internal_forms.fillFns(request.identity,id, attrs, phone ))
+  }
+}
+
 
 def address = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.address(request.identity )))
