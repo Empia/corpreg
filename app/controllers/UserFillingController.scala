@@ -258,7 +258,7 @@ def fillConfirmation = SecuredAction.async { implicit request =>
           flat = retriveFromAttrSeq(attrs, attribute="flat"))
       ))
 
-  	Ok(views.html.fillConfirmation(request.identity,id, form ))
+  	Ok(views.html.fillConfirmation(request.identity,id, form, attrs ))
   }
 }
 

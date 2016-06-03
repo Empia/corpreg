@@ -1,9 +1,15 @@
-@(user: models.User, fillId: Long, fillForm: Form[forms.PrimaryFillForm.PrimaryFillData])(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, fillId: Long, fillForm: Form[forms.PrimaryFillForm.PrimaryFillData], attrs: Seq[FillAttributeDTO])(implicit messages: Messages,request: RequestHeader)
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play
 @import helper._
 
+@getAttr(id:Long,attrName:String) = {
+  @attrs.find(c => c.attribute == attrName).map { at =>
+    @at.value
+  }
+
+}
 
 @main(Messages("home.title"), Some(user)) {
 <style>
@@ -62,7 +68,7 @@
                   <div class="confirm-data confirm-data-label">Ф.И.О.</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">Сорокин Павел Михайлович</div>
+                  <div class="confirm-data">@getAttr(fillId,"firstname") @getAttr(fillId,"lastName") @getAttr(fillId,"middleName")</div>
                 </div>
               </div>
               <div class="w-row confirm-data-row">
@@ -70,7 +76,7 @@
                   <div class="confirm-data confirm-data-label">Дата рождения</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">12.12.1982</div>
+                  <div class="confirm-data">@getAttr(fillId,"dob")</div>
                 </div>
               </div>
               <div class="w-row confirm-data-row">
@@ -78,15 +84,16 @@
                   <div class="confirm-data confirm-data-label">Место рождения</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">СЕЛО АРХАНГЕЛЬСКОЕ КРАСНОГОРСКОГО РАЙНА</div>
+                  <div class="confirm-data">@getAttr(fillId,"dob") </div>
                 </div>
               </div>
+
               <div class="w-row confirm-data-row">
                 <div class="w-col w-col-2">
                   <div class="confirm-data confirm-data-label">Номер паспорта</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">45 01 004576</div>
+                  <div class="confirm-data">@getAttr(fillId,"dob") @getAttr(fillId,"passport") </div>
                 </div>
               </div>
               <div class="w-row confirm-data-row">
@@ -94,7 +101,7 @@
                   <div class="confirm-data confirm-data-label">Дата выдачи</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">21.12.2005</div>
+                  <div class="confirm-data">@getAttr(fillId,"passportIssuedDate") </div>
                 </div>
               </div>
               <div class="w-row confirm-data-row">
@@ -102,7 +109,7 @@
                   <div class="confirm-data confirm-data-label">Кем выдан</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">ТП № 2 КАЛИНИСКОГО РАЙОНА МОСКОВСКОЙ ОБЛАСТИ</div>
+                  <div class="confirm-data">@getAttr(fillId,"passportIssuedBy") </div>
                 </div>
               </div>
               <div class="w-row confirm-data-row">
@@ -110,7 +117,7 @@
                   <div class="confirm-data confirm-data-label">ИНН</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">772712346578</div>
+                  <div class="confirm-data">@getAttr(fillId,"inn")</div>
                 </div>
               </div>
               <div class="w-row">
@@ -118,19 +125,29 @@
                   <div class="confirm-data confirm-data-label">СНИЛС</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">123-123-456 78</div>
+                  <div class="confirm-data">@getAttr(fillId,"snils")</div>
                 </div>
               </div>
             </div>
             <div class="confirm-data-block">
               <div class="w-clearfix confirm-heading-box">
-                <div class="confirm-data-heading confirm-data-heading-2">Адрес регистрации</div><a href="#" class="confirm-edit-link">Редактировать</a>
+                <div class="confirm-data-heading confirm-data-heading-2">Адрес регистрации</div><a href="/gett-address" class="confirm-edit-link">Редактировать</a>
               </div>
-              <div class="data-confirm-address">117186, Москва, Нагорная улица, дом 38. корпус 1, квартира 142</div>
+              <div class="data-confirm-address">
+                @getAttr(fillId,"subject")
+                @getAttr(fillId,"area")
+                @getAttr(fillId,"city")
+                @getAttr(fillId,"settlement")
+                @getAttr(fillId,"street")
+                @getAttr(fillId,"house")
+                @getAttr(fillId,"corpus")
+                @getAttr(fillId,"flat")
+              </div>
             </div>
             <div class="confirm-data-block">
               <div class="w-clearfix confirm-heading-box">
-                <div class="confirm-data-heading confirm-data-heading-2">Виды деятельности</div><a href="#" class="confirm-edit-link confirm-edit-link-gett">Редактировать</a>
+                <div class="confirm-data-heading confirm-data-heading-2">Виды деятельности</div>
+                <!-- <a href="#" class="confirm-edit-link confirm-edit-link-gett">Редактировать</a> -->
               </div>
               <div class="confirm-data-okved">60.22 — Деятельность такси</div>
               <div class="confirm-data-okved confirm-data-okved-main">основной</div>
