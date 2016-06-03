@@ -202,6 +202,69 @@
 }
 
 
+<script>
+$( document ).ready(function() {
+
+
+
+
+
+
+
+
+
+
+     $("#address").suggestions({
+        serviceUrl: "http://suggestions.dadata.ru/suggestions/api/4_1/rs",
+        token: "2aba8de760c817b3e11ac7726435d42a124d5f62",
+        type: "ADDRESS",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function(suggestion) {
+            console.log(suggestion);
+            function decorate(first, last) {
+                if (first && last) {
+                    return first + ' ' + last;
+                } else if (first) {
+                    return first;
+                }
+                else if (last) {
+                    return last;
+                }
+            }
+            $('input#ifns').val(suggestion.data.tax_office);
+            $('input#postalcode').val(suggestion.data.postal_code);
+            $('input#subject').val(suggestion.data.kladr_id.slice(0,2));
+            $('input#region').val(decorate(suggestion.data.region_type, suggestion.data.region));
+            $('input#area').val(decorate(suggestion.data.area_type, suggestion.data.area));
+            $('input#city').val(decorate(suggestion.data.city_type, suggestion.data.city));
+            $('input#settlement').val(decorate(suggestion.data.settlement_type, suggestion.data.settlement));
+            $('input#street').val(decorate(suggestion.data.street_type, suggestion.data.street));
+            $('input#house').val(suggestion.data.house);
+            $('input#corpus').val(suggestion.data.block);
+            $('input#flat').val(suggestion.data.flat);
+
+
+            $.ajax({
+              url: '/fns/'+suggestion.data.tax_office,
+              dataType: 'json',
+              success: function(d) {
+                console.log(d);
+                $('input#fnsreg').val(d.sprofDetails.ifnsCode);
+                $('input#fnstitle').val(d.sprofDetails.sproName);
+              }
+            });
+
+
+
+//  GET /fns/:global
+
+
+        }
+    });
+
+});
+</script>
 
 
 

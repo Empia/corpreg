@@ -356,6 +356,93 @@
     }
 </style>
 <script>
+
+$( document ).ready(function() {
+
+var checkPassportBase = function() {
+
+var data;
+
+if ($('#passport-issued-date').val()) {
+  var date = $('#passport-issued-date').val().split('.')
+  data = {
+'code': $('#kod-podrazdelenia').val(),
+'date': date[0]+"-"+date[1]+"-"+date[2],
+}
+} else {
+
+  data = {
+'code': $('#kod-podrazdelenia').val()
+}
+}
+
+
+  $.ajax({ url: 'https://www.tinkoff.ru/api/v1/get_passport_authority_name/',
+  data: data,
+success: function(d) {
+console.log(d);
+console.log(d.payload[0]);
+  $('#mus1').text(d.payload[0].replace(/"/g,""));
+  $('#mus2').text(d.payload[1]);
+  //$('#passportIssuedBy').val(d.payload[1]);
+}
+});
+
+}
+
+$('a#mus1').on('click', function(ev) {
+  ev.preventDefault;
+
+$('#passportIssuedBy').val($('#mus1').text());
+ ev.preventDefault();
+});
+$('a#mus2').on('click', function(ev) {
+  ev.preventDefault;
+
+$('#passportIssuedBy').val($('#mus2').text());
+ ev.preventDefault();
+});
+
+
+  $('#kod-podrazdelenia').on('input', function() {
+    if ($('#passport-issued-date').val()) {
+    checkPassportBase();
+    }
+});
+$('#passport-issued-date').on('input', function() {
+  checkPassportBase();
+});
+
+
+$('#passport').on('input', function() {
+
+if ($('#passport').val().length == 11) {
+  $.ajax({
+    url: '/passport/'+$('#passport').val(),
+    dataType: 'json',
+     method: 'GET',
+
+    headers: {     },
+    success: function(d) {
+      if (d[0].qc == 0) {
+        $('#badpassport').hide();
+        $('#goodpassport').show();
+      } else {
+        $('#goodpassport').hide();
+       $('#badpassport').show();
+      }
+
+    }
+  });
+}
+
+
+
+});
+
+});
+
+
 $(function () {
     var dropZoneId = "drop-zone";
     var buttonId = "clickHere";
