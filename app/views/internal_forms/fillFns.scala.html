@@ -155,14 +155,15 @@ finalizing: Boolean = false
                     <div class="confirm-heading-box confirm-heading-box-no">
                       <div class="confirm-data-heading">Статус регистрации</div>
                     </div>
-                    <!--
+                                @if(finalizing) {
+
                     <div class="taxoffice-status"><span class="taxoffice-status-icon"></span>&nbsp;Отправка документов в орган регистрации</div>
                     <div class="taxoffice-status taxoffice-status-blue"><span class="taxoffice-status-icon"></span>&nbsp;Обработка документов в ЦОД ФНС</div>
-                  -->
+
+                } else {
                   <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Отправка документов в орган регистрации</div>
-
                   <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Обработка документов в ЦОД ФНС</div>
-
+}
                     <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Выдача расписки в получении документов</div>
                     <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Регистрация в ФНС (3-4 дня)</div>
                     <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Принято решение о регистрации</div>
