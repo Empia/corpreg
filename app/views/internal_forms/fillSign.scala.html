@@ -1,0 +1,153 @@
+@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String)(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+@getAttr(id:Long,attrName:String) = {
+  @attrs.find(c => c.attribute == attrName).map { at =>
+    @at.value
+  }
+
+}
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.kp-block {
+    margin-left: -29px;
+}
+</style>
+
+<div class="w-container fill-data-form">
+            <div class="application-content">
+
+              <div class="application-header-box application-header-box-gett">
+                  <div class="w-clearfix application-header-icon application-header-icon-gett">
+                      <div class="application-heading-icon"></div>
+                      <h2 class="content-heading content-heading-gett">Формирование заявления</h2>
+                  </div>
+                  <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+                      <div class="w-container">
+<nav role="navigation" class="w-nav-menu application-nav-menu"><a href="#" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Оплата госпошлины</a>
+  <div class="application-nav-arrow application-arrow-done"></div><a href="#" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Идентификация</a>
+  <div class="application-nav-arrow application-nav-arrow-next"></div><a href="#" class="w-nav-link application-nav-button application-nav-button-active" style="max-width: 940px;">Электронная подпись</a>
+  <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Отправка в ФНС</a>
+</nav>
+                          <div class="w-nav-button">
+                              <div class="w-icon-nav-menu"></div>
+                          </div>
+                      </div>
+                      <div class="w-nav-overlay" data-wf-ignore=""></div>
+                  </div>
+              </div>
+
+
+
+<div class="application-body application-body-menu"></div>
+
+
+
+<div class="w-clearfix application-body application-body-upper">
+          <div class="certificate-block">
+            <div class="confirm-heading-box confirm-heading-box-no">
+              <div class="confirm-data-heading">Сертификат электронной подписи</div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-5">
+                <div class="confirm-data confirm-data-label">Владелец:</div>
+              </div>
+              <div class="w-col w-col-7 w-clearfix">
+                <div class="confirm-data">Сорокин Павел Михайлович</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-5">
+                <div class="confirm-data confirm-data-label">Телефон:</div>
+              </div>
+              <div class="w-col w-col-7 w-clearfix">
+                <div class="confirm-data">+7 926 500-07-06</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-5">
+                <div class="confirm-data confirm-data-label">Срок действия:</div>
+              </div>
+              <div class="w-col w-col-7 w-clearfix">
+                <div class="confirm-data">31.12.2015 - 31.12.2016</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-5">
+                <div class="confirm-data confirm-data-label">ИНН:</div>
+              </div>
+              <div class="w-col w-col-7 w-clearfix">
+                <div class="confirm-data">772712346578</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-5">
+                <div class="confirm-data confirm-data-label">СНИЛС:</div>
+              </div>
+              <div class="w-col w-col-7 w-clearfix">
+                <div class="confirm-data">123-123-456 78</div>
+              </div>
+            </div>
+            <div class="w-row">
+              <div class="w-col w-col-5">
+                <div class="confirm-data confirm-data-label">Удостов. центр:</div>
+              </div>
+              <div class="w-col w-col-7 w-clearfix">
+                <div class="confirm-data">ЗАО «Калуга Астрал»</div>
+              </div>
+            </div><a href="#" class="send-docs-send-button"><span class="send-docs-status-icon send-docs-status-icon-alt"></span>Выпустить электронную подпись</a>
+            <div>
+              <div class="send-docs-process-text">Идет выпуск электронной подписи</div>
+              <div class="w-embed process-icon"><i class="fa fa-circle-o-notch fa-spin fa-lg fa-fw margin-bottom"></i>
+              </div>
+            </div>
+            <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Действующий сертификат</div>
+            <div>
+              <div class="sen-docs-status send-docs-status-failure"><span class="send-docs-status-icon send-docs-status-icon-alt"></span>Ошибка</div>
+              <div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link send-docs-contact-support-main" href="#">Обратиться в поддержку</a>
+              </div>
+            </div>
+          </div>
+          <h3 class="application-subheading">Сертификат электронной подписи</h3>
+          <p class="application-paragraph">Ваша личность подтверждена, теперь вы можете заказать выпуск сертификата электронной подписи.</p>
+          <p class="application-paragraph">Обычно, это занимает 10-15 минут. Мы пришлем вам смс-оповещение, когда ваша электронная подпись будет готова.</p>
+          <p class="application-paragraph application-paragraph-last">Одобрение заявок на выпуск сертификата электронной подписи происходит в будние дни, с 9 до 19 часов по московскому времени.</p><a href="#" class="arrow-link"></a>
+        </div>
+
+
+        <div class="application-body application-body-address">
+
+                  <h3 class="application-subheading">Часто задаваемые вопросы</h3>
+                  <div class="certificate-question">Что значит «облачная» электронная подпись?</div>
+                  <div class="certificate-answer">Это значит, что ваша электронная подпись хранится на защищенном сервере удостоверяющего центра и вы можете пользоваться ей с помощью своего мобильного телефона — вам будут приходить смс, с помощью которых вы будете подписывать файлы и документы.</div>
+                  <div class="w-form application-form">
+                  </div>
+                  <div class="certificate-question">Для чего это нужно?</div>
+                  <div class="certificate-answer">Если выпустить электронную подпись на вашем компьютере или «флешке», для работы с ней вам придется устанавливать на компьютер дополнительные криптографические программные средства, они довольно сложно настраиваются и вам придется покупать лицензию на их использование. На сервере удостоверяющего центра уже установлено все необходимое программное обеспечение, вам остается только нажать пару кнопок.</div>
+                  <div class="certificate-question">Какой у вас удостоверяющий центр, где можно увидеть его лицензии?</div>
+                  <div class="certificate-answer">Электронные подписи выпускаются удостоверяющим центром «Калуга Астрал», у него есть все необходимые <a class="certificate-link" target="_blank" href="http://astralnalog.ru/about/certifications/">лицензии</a>&nbsp;ФСБ, ФСТЭК РФ, Роскомнадзора и других ведомств. Кроме того, «Калуга Астрал» <a class="certificate-link" target="_blank" href="http://minsvyaz.ru/ru/activity/govservices/2/">входит</a> в число аккредитованных в Минкомсвязи России удостоверяющих центров.</div>
+                  <div class="certificate-question">Где я смогу использовать эту электронную подпись?</div>
+                  <div class="certificate-answer">Подпись хранится на сервере удостоверяющего центра, поэтому в данный момент её можно использовать только в сервисах, работающих с данным УЦ. Сейчас вам доступны регистрация в качестве ИП и регистрация ООО.</div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+}

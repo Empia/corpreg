@@ -4027,4 +4027,75 @@ h4 {
     background-color: #f8f8f8;
 }
 
+
+.certificate-block {
+    display: inline-block;
+    width: 350px;
+    margin-left: 30px;
+    padding: 20px 25px 18px;
+    float: right;
+    border: 1px solid #e9e9e9;
+    border-radius: 3px;
+    color: #6f6f6f;
+}
+
+.confirm-heading-box {
+    display: block;
+    margin-bottom: 10px;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+.confirm-data-heading {
+    display: inline-block;
+    margin-right: 7px;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 400;
+}
+.application-subheading {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-left: 0px;
+    font-family: Roboto, sans-serif;
+    color: #727272;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: left;
+}
+.application-paragraph {
+    margin-bottom: 17px;
+    margin-left: 0px;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: left;
+}
+.certificate-question {
+    margin-bottom: 7px;
+    font-family: Roboto, sans-serif;
+    color: #616161;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.certificate-answer {
+    margin-bottom: 17px;
+    font-family: Roboto, sans-serif;
+    color: #727272;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.certificate-link {
+    color: #5c92cc;
+    text-decoration: none;
+}
+
 /**/
