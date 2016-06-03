@@ -278,10 +278,12 @@ def fillSign = SecuredAction.async { implicit request =>
  	val attrsF = fillAttributesDAO.findByFill(id)
 	attrsF.map { attrs =>
 
-
-
-
-  	Ok(views.html.internal_forms.fillSign(request.identity,id, attrs, phone ))
+    val signRequested = fill.signRequested
+    if (fill.signMarked && !fill.signCompleted) {
+    	Redirect(routes.UserFillingController.fillSendFns)
+    } else {
+      Ok(views.html.internal_forms.fillSign(request.identity,id, attrs, phone, signRequested ))
+    }
   }
 }
 

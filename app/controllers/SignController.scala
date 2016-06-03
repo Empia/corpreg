@@ -96,7 +96,7 @@ def requestSign = SecuredAction.async { implicit request =>
 		action = "Запросил выпуск электронной подписи")
 	}
 
-	  Ok(views.html.sign(request.identity, true ))
+	  Redirect(routes.UserFillingController.fillSign)
 //	  Redirect(routes.UserFillingController.index)
   }
 }

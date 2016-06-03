@@ -1,4 +1,4 @@
-@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String, signRequested: Boolean)(implicit messages: Messages,request: RequestHeader)
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play
@@ -104,18 +104,27 @@
               <div class="w-col w-col-7 w-clearfix">
                 <div class="confirm-data">ЗАО «Калуга Астрал»</div>
               </div>
-            </div><a href="#" class="send-docs-send-button"><span class="send-docs-status-icon send-docs-status-icon-alt"></span>Выпустить электронную подпись</a>
+            </div>
+
+            @if(!signRequested) {
+            <a href="/make-sign" class="send-docs-send-button"><span class="send-docs-status-icon send-docs-status-icon-alt"></span>Выпустить электронную подпись</a>
+          } else {
             <div>
               <div class="send-docs-process-text">Идет выпуск электронной подписи</div>
               <div class="w-embed process-icon"><i class="fa fa-circle-o-notch fa-spin fa-lg fa-fw margin-bottom"></i>
               </div>
             </div>
+
+          }
+          <!--
             <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Действующий сертификат</div>
             <div>
               <div class="sen-docs-status send-docs-status-failure"><span class="send-docs-status-icon send-docs-status-icon-alt"></span>Ошибка</div>
               <div class="send-docs-cotact-support">— <a class="send-docs-contact-support-link send-docs-contact-support-main" href="#">Обратиться в поддержку</a>
               </div>
             </div>
+          -->
+
           </div>
           <h3 class="application-subheading">Сертификат электронной подписи</h3>
           <p class="application-paragraph">Ваша личность подтверждена, теперь вы можете заказать выпуск сертификата электронной подписи.</p>
