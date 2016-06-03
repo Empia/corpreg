@@ -15,6 +15,10 @@
 .kp-block {
     margin-left: -29px;
 }
+.w-row.appplication-form-row {
+    clear: both;
+}
+
 </style>
 
 <div class="w-container fill-data-form">
@@ -138,23 +142,23 @@
                 </div>
                 <div class="w-col w-col-7">
                     <label for="area" class="application-form-label application-form-label-address">Район:</label>
-                    @b3.text(fillForm("addressInfo.area"), 'id -> "area",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                    @b3.text(fillForm("addressInfo.area"), 'id -> "area",'class -> "w-input application-form-field application-form-field-address")
                 </div>
             </div>
             <div class="w-row appplication-form-row">
                 <div class="w-col w-col-5">
                     <label for="city" class="application-form-label application-form-label-address">Город:</label>
-                    @b3.text(fillForm("addressInfo.city"), 'id -> "city",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                    @b3.text(fillForm("addressInfo.city"), 'id -> "city",'class -> "w-input application-form-field application-form-field-address")
                 </div>
                 <div class="w-col w-col-7">
                     <label for="settlement" class="application-form-label application-form-label-address">Населенный пункт:</label>
-                    @b3.text(fillForm("addressInfo.settlement"), 'id -> "settlement",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                    @b3.text(fillForm("addressInfo.settlement"), 'id -> "settlement",'class -> "w-input application-form-field application-form-field-address")
                 </div>
             </div>
             <div class="w-row">
                 <div class="w-col w-col-5">
                     <label for="street" class="application-form-label application-form-label-address">Улица:</label>
-                    @b3.text(fillForm("addressInfo.street"), 'id -> "street",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                    @b3.text(fillForm("addressInfo.street"), 'id -> "street",'class -> "w-input application-form-field application-form-field-address")
                 </div>
                 <div class="w-col w-col-2">
                     <label for="house" class="application-form-label application-form-label-address">Дом:</label>

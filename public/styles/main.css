@@ -4008,4 +4008,23 @@ h4 {
     text-decoration: none;
 }
 
+
+
+
+.application-form-field.application-form-field-address {
+    width: 300px;
+    margin-bottom: 15px;
+    border: 1px none #eee;
+    background-color: #f8f8f8;
+}
+.application-form-field.application-form-field-address.aaplication-form-field-address-amall {
+    width: 100px;
+}
+
+.application-form-field.application-form-field-reg {
+    width: 442px;
+    border-style: none;
+    background-color: #f8f8f8;
+}
+
 /**/
