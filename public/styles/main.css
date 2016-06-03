@@ -4204,7 +4204,7 @@ h4 {
     border: 1px solid #d6d6d6;
     background-color: #f7f7f7;
     font-family: Roboto, sans-serif;
-    color: #d6d6d6;
+    color: black;
     font-size: 16px;
     line-height: 18px;
     text-align: center;
@@ -4312,7 +4312,9 @@ h4 {
     line-height: 20px;
     text-decoration: none;
 }
-
+.signature-form div#last-name_field {
+    display: inline-block;
+}
 
 
 /**/

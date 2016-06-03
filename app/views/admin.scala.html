@@ -142,6 +142,7 @@ attrsByFillId:Map[Long,Seq[FillAttributeDTO]]=Map())(implicit messages: Messages
                 </a>
               </div>
               <div class="admin-panel-user-tel">@getAttr(filling.id.getOrElse(0L),"eMail")</div>
+              <div class="admin-panel-user-tel">SMS CODE @filling.smsCode</div>
 
 
           </div>

@@ -296,9 +296,23 @@ def fillSendFns = SecuredAction.async { implicit request =>
 	attrsF.map { attrs =>
 
 
+    val smsCode = fill.smsCode
+    var smsCodeRequestGranted = false
+    val codeSigned = smsCode match {
+    	case "0000" => true
+    	case _ => false
+    }
+    if (smsCode != "" && smsCode != "0000") {
+    	smsCodeRequestGranted = true
+    }
+    val finalizing = (fill.signCompleted && (fill.smsCode != "0000") )
 
-
-  	Ok(views.html.internal_forms.fillFns(request.identity,id, attrs, phone ))
+  	Ok(views.html.internal_forms.fillFns(request.identity,id, attrs, phone,
+      codeSigned,
+      forms.FillForm.form,
+      smsCodeRequestGranted,
+      finalizing
+       ))
   }
 }
 

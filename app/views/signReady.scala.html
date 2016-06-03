@@ -1,4 +1,10 @@
-@(user: models.User, smsCodeRequest: Boolean, firstName:String,lastName:String, inn:String,snils:String, smsForm: Form[forms.FillForm.FillData],smsCodeRequestGranted:Boolean=false)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User,
+smsCodeRequest: Boolean, 
+firstName:String,lastName:String,
+inn:String,snils:String,
+smsForm: Form[forms.FillForm.FillData],
+smsCodeRequestGranted:Boolean=false)(implicit messages: Messages,request: RequestHeader)
+
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play

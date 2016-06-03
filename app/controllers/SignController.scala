@@ -142,7 +142,7 @@ def sendDocs() = SecuredAction.async { implicit request =>
 			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
 			action = "Решил подписать и отправить документы в налоговую")
 		}
-	    	Redirect(routes.SignController.retriveSms)
+	    	Redirect(routes.UserFillingController.fillSendFns)
 	}
 }
 
@@ -158,13 +158,15 @@ def sendSms() = SecuredAction.async { implicit request =>
 	  	Future.successful(Redirect(routes.UserFillingController.index)	)
 	  },
 	  data => {
-	  		fillsDAO.smsCode(id, data.phone).map { r =>
+	  		fillsDAO.smsCode(id, data.phone).flatMap { r =>
 	  	if (fill.smsCode == "0000"){
 			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
 			action = s"Получил кодик и решил передать его на подписание. Сам кодик $data.phone")
 		}
+    fillsDAO.signComplete(id).map { r2 =>
+      Redirect(routes.UserFillingController.fillSendFns) 
+    }
 
-		    	Redirect(routes.UserFillingController.index)
 			}
 	  })
 }

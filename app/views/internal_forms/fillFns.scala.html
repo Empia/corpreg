@@ -1,4 +1,10 @@
-@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String,
+smsCodeRequest: Boolean,
+smsForm: Form[forms.FillForm.FillData],
+smsCodeRequestGranted:Boolean=false,
+finalizing: Boolean = false
+)(implicit messages: Messages,request: RequestHeader)
+
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play
@@ -104,33 +110,59 @@
                 <div class="confirm-data">УЦ&nbsp;ЗАО «Калуга Астрал»</div>
               </div>
             </div>
+            @if(finalizing) {
             <div class="sen-docs-status"><span class="send-docs-status-icon"></span>Действующий сертификат</div>
+            }
           </div>
           <h3 class="application-subheading">1. Подписание документов</h3>
           <p class="application-paragraph">Пакет документов сформирован, осталось подписать его электронной подписью и отправить в регистрирующий орган.</p>
           <p class="application-paragraph application-paragraph-last">На ваш номер мобильного телефона придет сообщение, содержащее код, с помощью которого вы сможете подписать сформированные документы.</p>
-          <div class="sign-and-send-box"><a href="#" data-ix="signature-sms" class="w-button send-docs-send-button send-button-2">Подписать документы</a>
+
+          <div class="sign-and-send-box">
+            @if(!smsCodeRequest && !smsCodeRequestGranted) {
+            <a href="/filling/sendDocs" data-ix="signature-sms" class="w-button send-docs-send-button send-button-2">Подписать документы</a>
+    }
+        @if(smsCodeRequest) {
             <div class="w-form signature-form">
-              <form id="email-form-2" name="email-form-2" data-name="Email Form 2">
-                <div class="docs-signature-text">Введите код из смс <span class="send-docs-icon"></span>
-                </div>
-                <input id="name-2" type="text" name="name-2" data-name="Name 2" class="w-input signature-form-field"><a href="#" data-ix="signature-done" class="w-button signature-submit-button">Отправить</a>
-              </form>
+              @helper.form(action = routes.SignController.sendSms()) {
+                          @helper.CSRF.formField
+                          <div class="docs-signature-text">Введите код из смс <span class="send-docs-icon"></span>
+                          </div>
+              				@b3.text(smsForm("phone"), 'id -> "last-name", 'class -> "w-input signature-form-field")
+                                      <button id="submit" type="submit" value="submit"
+                                       data-ix="signature-done" class="w-button signature-submit-button">Отправить</button>
+              }
+
+
             </div>
-            <div class="send-docs-done-text"><span class="send-docs-done-icon"></span>&nbsp;Документы подписаны</div>
+          } else {
+            @if(finalizing) {
+
+             <div class="send-docs-done-text"><span class="send-docs-done-icon"></span>&nbsp;Документы подписаны и отправлены в налоговую</div>
           </div>
+          <!--
           <div class="sign-and-send-box"><a href="#" data-ix="send-to-taxoffice" class="w-button send-docs-dend-button-2">Отправить в ФНС</a>
             <div class="send-docs-done-text-2"><span class="send-docs-done-icon"></span>&nbsp;Отправлено в налоговую</div>
           </div>
+            -->
+          }
+        }
         </div>
+      </div>
 
         <div class="w-clearfix application-body application-body-reg">
                   <div class="certificate-block certificate-sign">
                     <div class="confirm-heading-box confirm-heading-box-no">
                       <div class="confirm-data-heading">Статус регистрации</div>
                     </div>
+                    <!--
                     <div class="taxoffice-status"><span class="taxoffice-status-icon"></span>&nbsp;Отправка документов в орган регистрации</div>
                     <div class="taxoffice-status taxoffice-status-blue"><span class="taxoffice-status-icon"></span>&nbsp;Обработка документов в ЦОД ФНС</div>
+                  -->
+                  <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Отправка документов в орган регистрации</div>
+
+                  <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Обработка документов в ЦОД ФНС</div>
+
                     <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Выдача расписки в получении документов</div>
                     <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Регистрация в ФНС (3-4 дня)</div>
                     <div class="taxoffice-status taxoffice-status-gray"><span class="taxoffice-status-icon"></span>&nbsp;Принято решение о регистрации</div>
