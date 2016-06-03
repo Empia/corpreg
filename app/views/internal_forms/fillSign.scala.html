@@ -62,7 +62,7 @@
                 <div class="confirm-data confirm-data-label">Владелец:</div>
               </div>
               <div class="w-col w-col-7 w-clearfix">
-                <div class="confirm-data">Сорокин Павел Михайлович</div>
+                <div class="confirm-data">@getAttr(fillId,"firstname") @getAttr(fillId,"lastName") @getAttr(fillId,"middleName")</div>
               </div>
             </div>
             <div class="w-row">
@@ -70,7 +70,7 @@
                 <div class="confirm-data confirm-data-label">Телефон:</div>
               </div>
               <div class="w-col w-col-7 w-clearfix">
-                <div class="confirm-data">+7 926 500-07-06</div>
+                <div class="confirm-data">@phone</div>
               </div>
             </div>
             <div class="w-row">
@@ -86,7 +86,7 @@
                 <div class="confirm-data confirm-data-label">ИНН:</div>
               </div>
               <div class="w-col w-col-7 w-clearfix">
-                <div class="confirm-data">772712346578</div>
+                <div class="confirm-data">@getAttr(fillId,"inn")</div>
               </div>
             </div>
             <div class="w-row">
@@ -94,7 +94,7 @@
                 <div class="confirm-data confirm-data-label">СНИЛС:</div>
               </div>
               <div class="w-col w-col-7 w-clearfix">
-                <div class="confirm-data">123-123-456 78</div>
+                <div class="confirm-data">@getAttr(fillId,"snils") </div>
               </div>
             </div>
             <div class="w-row">
