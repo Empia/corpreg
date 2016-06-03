@@ -4098,4 +4098,88 @@ h4 {
     text-decoration: none;
 }
 
+
+.send-docs-send-button {
+    display: inline-block;
+    margin-top: 12px;
+    margin-right: 10px;
+    padding: 7px 11px;
+    border: 1px solid #e9e9e9;
+    border-radius: 3px;
+    background-color: transparent;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 14px;
+    text-decoration: none;
+}
+.send-docs-status-icon {
+    margin-right: 4px;
+    margin-left: -2px;
+    font-family: 'Fon Aawesome', sans-serif;
+    line-height: 18px;
+}
+
+.send-docs-process-text {
+    display: inline-block;
+    margin-top: 12px;
+    margin-right: 5px;
+    padding: 7px 11px;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border: 1px solid #e9e9e9;
+    border-radius: 3px;
+    background-color: #fafafa;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    line-height: 20px;
+}
+
+.process-icon {
+    display: inline-block;
+    padding-top: 0px;
+    color: #6f6f6f;
+}
+
+.sen-docs-status {
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 6px 10px;
+    border: 1px solid #c3ecc5;
+    border-radius: 3px;
+    background-color: #f3fff3;
+    font-family: Roboto, sans-serif;
+    color: #6bbd6e;
+    font-size: 14px;
+}
+.send-docs-status-icon {
+    margin-right: 4px;
+    margin-left: -2px;
+    font-family: 'Fon Aawesome', sans-serif;
+    line-height: 18px;
+}
+.sen-docs-status.send-docs-status-failure {
+    display: inline-block;
+    width: auto;
+    border-color: #f0ccc9;
+    background-color: #fff1f0;
+    color: #ec675d;
+}
+.send-docs-cotact-support {
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    color: #2681e2;
+}
+
+
+
 /**/
