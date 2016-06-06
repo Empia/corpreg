@@ -57,7 +57,7 @@ class WSDLTestController @Inject() (
 
 def index = Action.async { implicit request =>
   clersky.WSDLTest.test()
-  clersky.WSDLTest.test2().map { r =>
+  clersky.WSDLTest.test2("").map { r =>
    Ok(r)
 }
 }
@@ -148,7 +148,9 @@ def saveDoc(phone:String) = Action.async { implicit request =>
     street,
   house,
   corpus,
-  flat
+  flat,
+
+  ws
 
     ))
   )
