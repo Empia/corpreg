@@ -40,12 +40,15 @@ import play.api.libs.mailer._
 import java.io.File
 import org.apache.commons.mail.EmailAttachment
 import play.api.libs.json._
+import play.api.mvc._
+import play.api.libs.ws._
 
 class SignController @Inject() (
   val messagesApi: MessagesApi,
   fillsDAO:FillsDAO,
   fillAttributesDAO: FillAttributesDAO,
   mailerClient: MailerClient,
+  ws: WSClient,
 
   val env: Environment[User, CookieAuthenticator],
   socialProviderRegistry: SocialProviderRegistry)
@@ -86,10 +89,83 @@ def index = SecuredAction.async { implicit request =>
   }
 }
 
+
+
+
+
+
+
+
+def uuid = java.util.UUID.randomUUID.toString
+
 def requestSign = SecuredAction.async { implicit request =>
+
 	val phone = request.identity.email.getOrElse("")
-	val fill = await(fillsDAO.getByPhone(phone)).get
-	val id = fill.id.get
+
+  val abnGuid = uuid
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+  val attrs = await(fillAttributesDAO.findByFill(id))
+
+  val attr = FillAttributeDTO(id=None,
+    	fill_id=id,
+    	attribute="abnGuid",
+    	value=abnGuid)
+      fillAttributesDAO.findOrCreate(id, attr)
+
+  val firstName = retriveFromAttrSeq(attrs, attribute="firstname")
+  val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
+  val patronymic = retriveFromAttrSeq(attrs, attribute="middleName")
+  val inn = retriveFromAttrSeq(attrs, attribute="inn")
+  val snils = retriveFromAttrSeq(attrs, attribute="snils")
+  val passport = retriveFromAttrSeq(attrs, attribute="passport")
+  val passportIssuedBy = retriveFromAttrSeq(attrs, attribute="passportIssuedBy")
+  val passportDate = retriveFromAttrSeq(attrs, attribute="passportIssuedDate")
+  val eMail = retriveFromAttrSeq(attrs, attribute="eMail")
+  val postalAddress = retriveFromAttrSeq(attrs, attribute="postalAddress")
+  val locationAddress = retriveFromAttrSeq(attrs, attribute="locationAddress")
+
+  val subject = retriveFromAttrSeq(attrs, attribute="subject")
+  val area = retriveFromAttrSeq(attrs, attribute="area")
+  val city = retriveFromAttrSeq(attrs, attribute="city")
+  val settlement = retriveFromAttrSeq(attrs, attribute="settlement")
+  val street = retriveFromAttrSeq(attrs, attribute="street")
+  val house = retriveFromAttrSeq(attrs, attribute="house")
+  val corpus = retriveFromAttrSeq(attrs, attribute="corpus")
+  val flat = retriveFromAttrSeq(attrs, attribute="flat")
+
+clersky.WSDLTest.saveDoc(phone,
+      abnGuid = abnGuid,
+      eMail,
+      inn,
+      shortName=s"ИП $lastName",
+      postalAddress,
+      locationAddress,
+      snils,
+      firstName,
+      lastName,
+      patronymic,
+      passportType="1",
+      passportSerial=passport.split(" ").lift(0).getOrElse("")+ " "+passport.split(" ").lift(1).getOrElse(""),
+      passportNumber=passport.split(" ").lift(2).getOrElse(""),
+      passportDate,
+      passportIssuedBy,
+      subject,
+      area,
+      city,
+    settlement,
+    street,
+  house,
+  corpus,
+  flat,
+
+  ws
+
+    )
+  
+
+
+
   fillsDAO.signRequested(id).map { r2 =>
   	if (!fill.signRequested){
 	Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
@@ -100,6 +176,12 @@ def requestSign = SecuredAction.async { implicit request =>
 //	  Redirect(routes.UserFillingController.index)
   }
 }
+
+
+
+
+
+
 
 def retriveSms = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
