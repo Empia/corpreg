@@ -1548,7 +1548,7 @@ h4 {
   border: 1px solid #e4e4e4;
   border-radius: 0px;
   font-family: Roboto, sans-serif;
-  color: #535350;
+  color: #999;
   font-size: 16px;
   line-height: 25px;
   font-weight: 400;
@@ -1759,14 +1759,18 @@ h4 {
 }
 
 .application-next-button.application-next-button-gett {
-  border: 1px solid #e9e9e9;
-  background-color: #fff;
+  margin-right: 15px;
+  padding: 12px;
+  border: 1px solid #e6e6e6;
+  background-color: transparent;
   box-shadow: none;
   color: #6f6f6f;
+  font-size: 14px;
+  line-height: 14px;
 }
 
 .application-next-button.application-next-button-gett:hover {
-  background-color: #fafafa;
+  background-color: #fdfdfd;
   box-shadow: none;
 }
 
@@ -1803,13 +1807,14 @@ h4 {
 .application-nav-button {
   margin-right: 5px;
   margin-left: 5px;
-  padding: 7px 11px;
+  padding: 7px 10px;
   border: 1px solid #e2e2e2;
   border-radius: 3px;
   background-color: transparent;
   font-family: Roboto, sans-serif;
   color: #7b7d80;
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 18px;
   font-weight: 400;
 }
 
@@ -1871,7 +1876,7 @@ h4 {
   margin-left: 2px;
   padding: 4px 3px 3px;
   font-family: 'Fon Aawesome', sans-serif;
-  color: #e2e2e2;
+  color: #b9b9b9;
   font-size: 12px;
   line-height: 12px;
 }
@@ -4314,6 +4319,27 @@ h4 {
 }
 .signature-form div#last-name_field {
     display: inline-block;
+}
+
+.appplication-form-row {
+  margin-bottom: 3px;
+}
+
+.appplication-form-row.application-form-field-row-last {
+  margin-bottom: 6px;
+  border-bottom: 1px none #f1e5cb;
+}
+
+.appplication-form-row.application-form-row-alt {
+  margin-top: 20px;
+  margin-right: 84px;
+  margin-left: 0px;
+  padding-top: 20px;
+  border-top: 1px dashed #e2e2e2;
+}
+
+.appplication-form-row.application-form-row-alt.application-form-pro {
+  margin-right: 75px;
 }
 
 
