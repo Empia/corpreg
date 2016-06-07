@@ -422,7 +422,7 @@ def test2(file: String):Future[String] = {
               //must greaterThan(10000D).awaitFor(timeOut)
 
          //test(WS11).map(println)
-         test(WS12)//.map(println)
+         test(WS12).map(println)
 }
 
 import javax.inject.Inject
