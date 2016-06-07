@@ -67,10 +67,10 @@ def index = SecuredAction.async { implicit request =>
 	  Future.successful(Redirect(routes.SignController.index))
   } else
   if (fill.filled && fill.filledCorrect && fill.signMarked && !fill.signCompleted) {
-  	Future.successful(Redirect(routes.SignController.retriveSms))
+  	Future.successful(Redirect(routes.UserFillingController.fillSign))
   } else
   if (fill.filled && fill.filledCorrect && fill.signMarked && fill.signCompleted && (fill.smsCode != "0000")) {
-  	Future.successful(Redirect(routes.SignController.finalizing))
+  	Future.successful(Redirect(routes.UserFillingController.fillSendFns))
   } else {
 	  Future.successful(Redirect(routes.UserFillingController.passport))
   }
