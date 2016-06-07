@@ -172,6 +172,56 @@
   </div>
 
 
+<div class="application-body application-body-upload">
+          <h3 class="application-subheading">Загрузка сканов документов</h3>
+          <p class="application-paragraph">Теперь загрузите сканы ваших документов — для выпуска электронной подписи понадобятся копии паспорта, свидетельства ИНН и СНИЛС.</p>
+          <p class="application-paragraph">Очень важно, чтобы скан или фото паспорта были в хорошем качестве и в хорошо читаемом виде. Копия паспорта предоставляется в регистрирующий орган вместе с заявлением на регистрацию ИП.</p>
+          <div class="w-row upload-documents-block">
+            <div class="w-col w-col-7 upload-file-column-1">
+              <p class="application-paragraph application-paragraph-ulpoad">Допустимые форматы файлов: PDF, JPEG, GIF, PNG, TIFF</p>
+              <div class="w-clearfix upload-big-block">
+                <a class="w-inline-block upload-file-box" href="#">
+                  <div>Паспорт
+                    <br>(страницы 2-3)</div>
+                  <div class="upload-box-icon"></div>
+                  <div class="upload-link-drop">Перетащите &nbsp;сюда
+                    <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                  </div>
+                </a>
+                <a class="w-inline-block upload-file-box upload-file-box-right" href="#">
+                  <div>Паспорт
+                    <br>(регистрация)</div>
+                  <div class="upload-box-icon"></div>
+                  <div class="upload-link-drop">Перетащите сюда
+                    <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                  </div>
+                </a>
+                <a class="w-inline-block upload-file-box" href="#">
+                  <div>Свидетельство
+                    <br>ИНН</div>
+                  <div class="upload-box-icon"></div>
+                  <div class="upload-link-drop">Перетащите сюда
+                    <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                  </div>
+                </a>
+                <a class="w-inline-block upload-file-box" href="#">
+                  <div>Свидетельство
+                    <br>СНИЛС</div>
+                  <div class="upload-box-icon"></div>
+                  <div class="upload-link-drop">Перетащите сюда
+                    <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="w-col w-col-5 w-clearfix"><img class="passport-image-style" src="/assets/images/Pasport_RF.png" width="303">
+            </div>
+          </div>
+</div>
+
+
+
+
 @helper.form(action = routes.AdminController.saveFillUserFiles(fillId), 'enctype -> "multipart/form-data") {
   @helper.CSRF.formField
 

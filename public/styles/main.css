@@ -2702,9 +2702,6 @@ h4 {
   text-decoration: none;
 }
 
-.app-tax-icon.app-tax-icon-gett {
-  color: #fcb824;
-}
 
 .button-sign {
   background-color: #ec675d;
@@ -4344,3 +4341,141 @@ h4 {
 
 
 /**/
+
+.app-tax-icon {
+    margin-right: 3px;
+    font-family: 'Fon Aawesome', sans-serif;
+    color: #6f6f6f;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: none;
+}
+.app-tax-icon.app-tax-icon-gett {
+    display: inline-block;
+    margin-right: 2px;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+
+.article-link {
+    font-family: Roboto, sans-serif;
+    color: #5c92cc;
+    font-size: 13px;
+    line-height: 20px;
+    text-decoration: none;
+}
+
+.article-link.article-link-alt {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.application-okved-subcategory {
+    display: block;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    margin-left: 0px;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+
+.upload-documents-block {
+    margin-bottom: 30px;
+}
+.upload-file-column-1 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding-right: 30px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-right: 2px none #ebebeb;
+}
+
+.upload-big-block {
+    margin-top: 10px;
+}
+
+.upload-file-box {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 180px;
+    height: 180px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    float: left;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border: 2px dashed #d8d8d8;
+    background-color: #fff;
+    font-family: Roboto, sans-serif;
+    color: #a7a7a7;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+}
+
+.upload-box-icon {
+    margin-top: 10px;
+    font-family: 'Fon Aawesome', sans-serif;
+    font-size: 30px;
+    line-height: 30px;
+}
+
+.upload-link-drop {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+
+.upload-link-drop-choose {
+    color: #2681e2;
+}
+
+.passport-image-style {
+    display: block;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    float: left;
+    border: 2px solid #dfc6c4;
+}
