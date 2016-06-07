@@ -277,7 +277,7 @@ val fileName = s"${fileId}.bin"
 <fullName>{inn}</fullName>
 <phone>{phone}</phone>
 <mobilePhone>{phone}</mobilePhone>
-<shortName>{shortName} {firstName} {lastName} {patronymic}</shortName>
+<shortName>{firstName} {lastName} {patronymic}</shortName>
 <postalAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</postalAddress>
 <locationAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</locationAddress>
 <eMail>{eMail}</eMail>
