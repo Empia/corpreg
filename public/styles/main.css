@@ -1508,11 +1508,11 @@ h4 {
 }
 
 .application-content {
-  margin-top: 30px;
-  border: 1px none #ec675d;
+  margin-top: 40px;
+  border: 1px solid #e9e9e9;
   border-radius: 5px;
   background-color: #fff;
-  box-shadow: 0 10px 80px 0 rgba(15, 29, 51, .15);
+  box-shadow: none;
 }
 
 .content-heading {
@@ -1565,21 +1565,30 @@ h4 {
 }
 
 .application-form-field.application-form-field-verybig {
-  display: block;
-  width: 600px;
-  margin-top: 20px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  float: left;
-  border-width: 2px;
-  border-color: #5c92cc;
+  display: inline-block;
+  width: 650px;
+  margin: 15px auto 30px;
+  padding: 12px 10px;
+  float: none;
+  border: 2px solid #5c92cc;
+  background-color: #fff;
+  color: #555;
+}
+
+.application-form-field.application-form-field-verybig:focus {
+  border-color: #ec675d;
 }
 
 .application-form-field.application-form-field-verybig.application-form-field-verybig-gett {
-  display: block;
+  display: inline-block;
+  margin-top: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-width: 2px;
   border-color: #fcb824;
+  border-radius: 0px;
+  font-size: 16px;
+  line-height: 25px;
 }
 
 .application-form-field.application-form-field-address {
@@ -1871,7 +1880,7 @@ h4 {
   display: inline-block;
   width: 20px;
   height: 20px;
-  margin-top: 10px;
+  margin-top: 9px;
   margin-right: 2px;
   margin-left: 2px;
   padding: 4px 3px 3px;
@@ -1882,7 +1891,12 @@ h4 {
 }
 
 .application-nav-arrow.application-arrow-done {
-  color: #6d6d6d;
+  color: #5c92cc;
+  text-align: center;
+}
+
+.application-nav-arrow.application-nav-arrow-next {
+  color: #ec675d;
 }
 
 .user-info-bar {
@@ -4469,6 +4483,36 @@ h4 {
 
 .upload-link-drop-choose {
     color: #2681e2;
+}
+
+.ifns-column-1 {
+  padding-left: 0px;
+}
+
+.ifns-column-3 {
+  padding-left: 17px;
+}
+
+.ifns-column-4 {
+  padding-right: 0px;
+  padding-left: 34px;
+}
+
+.pro-column-inn {
+  padding-left: 0px;
+}
+
+.pro-column-snils {
+  padding-left: 0px;
+}
+
+.application-body.application-body-upload {
+  position: relative;
+  padding-top: 70px;
+  padding-bottom: 60px;
+  border-bottom-style: solid;
+  border-bottom-color: #eee;
+  text-align: left;
 }
 
 .passport-image-style {
