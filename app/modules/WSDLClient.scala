@@ -514,7 +514,7 @@ val path = play.Play.application().path().getAbsolutePath()+"/public"
 
 import sys.process._
 val out1 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/P21001/Р21001.tif",
-                                      "-out", s"files/doc_${phone}/P21001/Р21001.tif.base64")).lineStream
+                                      "-out", s"${path}/files/doc_${phone}/P21001/Р21001.tif.base64")).lineStream
 val out2 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif",
                                       "-out", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif.base64")).lineStream
 val out3 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/POSHLINA/Пошлина.tif",
