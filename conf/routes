@@ -91,6 +91,13 @@ GET /wsdltest3/:guid/:code        controllers.WSDLTestController.index3(guid: St
 GET /wsdlsave/:phone controllers.WSDLTestController.saveDoc(phone:String)
 
 
+GET /wsdlstatus_phone/:phone  controllers.WSDLTestController.checkStatusByPhone(phone: String)
+GET /wsdlstatus/:guid       controllers.WSDLTestController.checkStatus(guid: String)
+
+GET /wsdlsmssend/:guid       controllers.WSDLTestController.index2(guid: String)
+GET /wsdlsmscode/:guid/:code controllers.WSDLTestController.index3(guid: String,code:String)
+GET /wsdlsendfile/:guid      controllers.WSDLTestController.sendFiles(guid: String)
+
 GET /gett-address controllers.ApplicationController.address
 GET /gett-okved controllers.ApplicationController.okved
 GET /gett-taxes-ip controllers.ApplicationController.taxesIP

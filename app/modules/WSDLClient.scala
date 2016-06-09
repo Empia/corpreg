@@ -374,12 +374,14 @@ val fileName = s"${fileId}.bin"
   val packageId =  uniqueRandomKey(chars.mkString(""), 32, isUnique)
 
 
- // firstRequest(ws, out.head.toString)
+   // firstRequest(ws, out.head.toString)
 
-//  packet.toString
-//doc.toString + "        " + out.headOption.toString + "        " + 
-test2(out.head.toString)
-out.head.toString
+  //  packet.toString
+  //doc.toString + "        " + out.headOption.toString + "        " + 
+  test2(out.head.toString)
+  out.head.toString
+  // ИД Документоборота
+  packetId
 
 }
 
@@ -429,7 +431,26 @@ import javax.inject.Inject
 import scala.concurrent.Future
 
 
-
+// getStatus
+def getStatus(ws: WSClient, guid: String): Future[String] = {
+  val data = s"""
+  <x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:reg="http://regservice.keydisk.ru/">
+    <x:Header/>
+    <x:Body>
+        <reg:ReceivePacket>
+            <reg:packetId>$guid</reg:packetId>
+        </reg:ReceivePacket>
+    </x:Body>
+</x:Envelope>
+"""
+     ws.url("http://regservice.keydisk.ru/regservice.asmx").withHeaders("Content-Type" -> "text/xml; charset=utf-8",
+     "SOAPAction"->"http://regservice.keydisk.ru/ReceivePacket")
+     .post(data).map { r =>
+       println(r)
+       println(r.body)
+       r.body.toString
+     }
+}
 
 // getPassword
 def test3(ws: WSClient, guid:String):Future[String] = {

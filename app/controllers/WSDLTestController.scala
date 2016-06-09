@@ -91,6 +91,32 @@ private def retriveFromAttrSeq(attrs: Seq[FillAttributeDTO], attribute:String):S
 }
 
 
+// get status of initial request
+def checkStatus(guid: String) = Action.async { implicit request =>
+  clersky.WSDLTest.getStatus(ws, guid).map { r =>
+   Ok(r)
+  }
+}
+
+// get status of initial request
+def checkStatusByPhone(phone: String) = Action.async { implicit request =>
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+  val attrs = await(fillAttributesDAO.findByFill(id))
+  val packetId = retriveFromAttrSeq(attrs, attribute="packetId")
+
+  clersky.WSDLTest.getStatus(ws, packetId).map { r =>
+   Ok(r)
+  }
+
+}
+
+
+def sendFiles(guid: String) = Action.async { implicit request =>
+  Future.successful(Ok("good"))
+}
+
+
 def saveDoc(phone:String) = Action.async { implicit request =>
   val abnGuid = uuid
   val fill = await(fillsDAO.getByPhone(phone)).get
@@ -155,5 +181,6 @@ def saveDoc(phone:String) = Action.async { implicit request =>
     ))
   )
 }
+
 
 }

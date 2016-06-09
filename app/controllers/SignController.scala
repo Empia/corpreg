@@ -134,7 +134,7 @@ def requestSign = SecuredAction.async { implicit request =>
   val corpus = retriveFromAttrSeq(attrs, attribute="corpus")
   val flat = retriveFromAttrSeq(attrs, attribute="flat")
 
-clersky.WSDLTest.saveDoc(phone,
+val packetId: String = clersky.WSDLTest.saveDoc(phone,
       abnGuid = abnGuid,
       eMail,
       inn,
@@ -164,16 +164,25 @@ clersky.WSDLTest.saveDoc(phone,
     )
   
 
+  val cleanPacketId = packetId replaceAll ("-", "")
 
-
-  fillsDAO.signRequested(id).map { r2 =>
+  fillsDAO.signRequested(id).flatMap { r2 =>
   	if (!fill.signRequested){
 	Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
 		action = "Запросил выпуск электронной подписи")
 	}
 
-	  Redirect(routes.UserFillingController.fillSign)
-//	  Redirect(routes.UserFillingController.index)
+    fillAttributesDAO.findOrCreate(id,
+      FillAttributeDTO(None,
+                        fill_id = id,
+                        attribute = "packetId",
+                        value = cleanPacketId)).map { r3 =>
+    Redirect(routes.UserFillingController.fillSign)
+//    Redirect(routes.UserFillingController.index)
+    }
+
+
+
   }
 }
 
