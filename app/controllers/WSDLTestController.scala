@@ -151,8 +151,19 @@ def getSmsByPhone(phone: String, code: String) = Action.async {
 }
 
 
-def sendFiles(guid: String) = Action.async { implicit request =>
-  Future.successful(Ok("good"))
+def sendFiles(phone: String) = Action.async { implicit request =>
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+  val attrs = await(fillAttributesDAO.findByFill(id))
+  val sessionKey = retriveFromAttrSeq(attrs, attribute="sessionKey")
+  val firstName = retriveFromAttrSeq(attrs, attribute="firstname")
+  val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
+  val patronymic = retriveFromAttrSeq(attrs, attribute="middleName")
+
+  clersky.WSDLTest.sendFiles(ws, sessionKey, firstName+lastName+patronymic).map { r =>
+      Ok(r)
+  }
+
 }
 
 

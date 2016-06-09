@@ -494,6 +494,45 @@ def test4(ws: WSClient, guid:String, smsPass:String):Future[String] = {
 }
 
 
+
+def sendFiles(ws: WSClient, sessionKey: String, fullName: String): Future[String] = {
+  val data = s"""
+  <x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns" xmlns:nam="https://iotchet.ru/namespases">
+    <x:Header/>
+    <x:Body>
+        <tns:Send>
+            <tns:RegFiles>
+                <nam:RegFile>
+                    <nam:Name>Р21001.tif</nam:Name>
+                    <nam:Content></nam:Content>
+                    <nam:Sessionkeys>
+                        <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+                    </nam:Sessionkeys>
+                    <nam:SVDReg>011011</nam:SVDReg>
+                </nam:RegFile>
+            </tns:RegFiles>
+            <tns:ReceiverFNS>0000</tns:ReceiverFNS>
+            <tns:SenderType>IP</tns:SenderType>
+            <tns:SignForList>${sessionKey}</tns:SignForList>
+            <tns:PrVisBum>1</tns:PrVisBum>
+            <tns:ULNameFull>ИП ${fullName}</tns:ULNameFull>
+            <tns:Email>gett.mail@ya.ru</tns:Email>
+        </tns:Send>
+    </x:Body>
+</x:Envelope>
+"""
+
+
+     ws.url("http://iotchet.ru/api/gos_reg").withHeaders("Content-Type" -> "text-xml",
+     "SOAPAction"->"GetSessionkeyBySMS")
+     .post(data).map { r =>
+       println(r)
+       println(r.body)
+       r.body.toString
+     }
+}
+
+
 def test() {
      import GetCurrencyByCountry._
      def test(ws: WS[Param, Result]) = ws.call(Param("vietnam"))

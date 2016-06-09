@@ -98,7 +98,7 @@ GET /wsdlsmssendByPhone/:phone       controllers.WSDLTestController.sendSmsByPho
 
 GET /wsdlsmssend/:guid       controllers.WSDLTestController.index2(guid: String)
 GET /wsdlsmscode/:phone/:code controllers.WSDLTestController.getSmsByPhone(phone: String,code:String)
-GET /wsdlsendfile/:guid      controllers.WSDLTestController.sendFiles(guid: String)
+GET /wsdlsendfile/:phone      controllers.WSDLTestController.sendFiles(phone: String)
 
 GET /gett-address controllers.ApplicationController.address
 GET /gett-okved controllers.ApplicationController.okved

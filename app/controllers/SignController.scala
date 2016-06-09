@@ -259,7 +259,7 @@ def sendSms() = SecuredAction.async { implicit request =>
 
           clersky.WSDLTest.test4(ws, abnGuid, data.phone).flatMap { oH =>
             val sessionKeyXml = scala.xml.XML.loadString(oH)
-            val sessionKey = (sessionKeyXml \\ "tns:Sessionkey").text 
+            val sessionKey = (sessionKeyXml \\ "Sessionkey").text 
               val attr = FillAttributeDTO(id=None,
                   fill_id=id,
                   attribute="sessionKey",
