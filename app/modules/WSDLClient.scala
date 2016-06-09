@@ -496,20 +496,22 @@ def test4(ws: WSClient, guid:String, smsPass:String):Future[String] = {
 
 
 def sendFiles(ws: WSClient, sessionKey: String, fullName: String): Future[String] = {
+  /*
+                  <nam:RegFile>
+                    <nam:Name>Р21001.tif</nam:Name>
+                    <nam:Content>${file1}</nam:Content>
+                    <nam:Sessionkeys>
+                        <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+                    </nam:Sessionkeys>
+                    <nam:SVDReg>011011</nam:SVDReg>
+                </nam:RegFile>
+                */
   val data = s"""
   <x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns" xmlns:nam="https://iotchet.ru/namespases">
     <x:Header/>
     <x:Body>
         <tns:Send>
             <tns:RegFiles>
-                <nam:RegFile>
-                    <nam:Name>Р21001.tif</nam:Name>
-                    <nam:Content></nam:Content>
-                    <nam:Sessionkeys>
-                        <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
-                    </nam:Sessionkeys>
-                    <nam:SVDReg>011011</nam:SVDReg>
-                </nam:RegFile>
             </tns:RegFiles>
             <tns:ReceiverFNS>0000</tns:ReceiverFNS>
             <tns:SenderType>IP</tns:SenderType>
