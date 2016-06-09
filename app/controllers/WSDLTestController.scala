@@ -139,7 +139,7 @@ def getSmsByPhone(phone: String, code: String) = Action.async {
   clersky.WSDLTest.test4(ws, abnGuid, code).map { r =>
   println(r)
       val sessionKeyXml = scala.xml.XML.loadString(r)
-      val sessionKey = (sessionKeyXml \\ "tns:Sessionkey")//.text 
+      val sessionKey = (sessionKeyXml \\ "Sessionkey").text 
    Ok(sessionKey.toString)
   }
 }
