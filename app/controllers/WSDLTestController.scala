@@ -110,6 +110,30 @@ def checkStatusByPhone(phone: String) = Action.async { implicit request =>
   }
 
 }
+def sendSmsByPhone(phone: String) = Action.async {
+  implicit request =>
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+  val attrs = await(fillAttributesDAO.findByFill(id))
+  val packetId = retriveFromAttrSeq(attrs, attribute="packetId")
+
+  clersky.WSDLTest.test3(ws, packetId).map { r =>
+   Ok(r)
+  }
+}
+
+def getSmsByPhone(phone: String, code: String) = Action.async {
+  implicit request =>
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+  val attrs = await(fillAttributesDAO.findByFill(id))
+  val packetId = retriveFromAttrSeq(attrs, attribute="packetId")
+
+  clersky.WSDLTest.test4(ws, packetId, code).map { r =>
+  println(r)
+   Ok(r)
+  }
+}
 
 
 def sendFiles(guid: String) = Action.async { implicit request =>
