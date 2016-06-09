@@ -160,7 +160,7 @@ def sendFiles(phone: String) = Action.async { implicit request =>
   val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
   val patronymic = retriveFromAttrSeq(attrs, attribute="middleName")
 
-  clersky.WSDLTest.sendFiles(ws, sessionKey, firstName+lastName+patronymic).map { r =>
+  clersky.WSDLTest.sendFiles(ws, sessionKey, firstName+lastName+patronymic, phone).map { r =>
       Ok(r)
   }
 

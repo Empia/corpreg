@@ -495,7 +495,7 @@ def test4(ws: WSClient, guid:String, smsPass:String):Future[String] = {
 
 
 
-def sendFiles(ws: WSClient, sessionKey: String, fullName: String): Future[String] = {
+def sendFiles(ws: WSClient, sessionKey: String, fullName: String, phone: String): Future[String] = {
   /*
                   <nam:RegFile>
                     <nam:Name>Р21001.tif</nam:Name>
@@ -506,12 +506,77 @@ def sendFiles(ws: WSClient, sessionKey: String, fullName: String): Future[String
                     <nam:SVDReg>011011</nam:SVDReg>
                 </nam:RegFile>
                 */
+//"openssl base64 -in files/doc_${phone}/P21001/Р21001.tif -out files/doc_${phone}/P21001/Р21001.tif.base64"
+//"openssl base64 -in files/doc_${phone}/PASSPORT/Паспорт.tif -out files/doc_${phone}/PASSPORT/Паспорт.tif.base64"
+//"openssl base64 -in files/doc_${phone}/POSHLINA/Пошлина.tif -out files/doc_${phone}/POSHLINA/Пошлина.tif.base64"
+//"openssl base64 -in files/doc_${phone}/USN/УСН.tif -out files/doc_${phone}/USN/УСН.tif.base64"
+val path = play.Play.application().path().getAbsolutePath()+"/public"
+
+import sys.process._
+val out1 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/P21001/Р21001.tif",
+                                      "-out", s"files/doc_${phone}/P21001/Р21001.tif.base64")).lineStream
+val out2 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif",
+                                      "-out", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif.base64")).lineStream
+val out3 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/POSHLINA/Пошлина.tif",
+                                      "-out", s"${path}/files/doc_${phone}/POSHLINA/Пошлина.tif.base64")).lineStream
+val out4 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/USN/УСН.tif",
+                                      "-out", s"${path}/files/doc_${phone}/USN/УСН.tif.base64")).lineStream
+
+
+val file1_content = (Seq("cat", s"${path}/files/doc_${phone}/P21001/Р21001.tif.base64")).lineStream
+val file2_content = (Seq("cat", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif.base64")).lineStream
+val file3_content = (Seq("cat", s"${path}/files/doc_${phone}/POSHLINA/Пошлина.tif.base64")).lineStream
+val file4_content = (Seq("cat", s"${path}/files/doc_${phone}/USN/УСН.tif.base64")).lineStream         
+
+  val file1:String = s"""
+<nam:RegFile>
+<nam:Name>Р21001.tif</nam:Name>
+<nam:Content>${file1_content}</nam:Content>
+<nam:Sessionkeys>
+    <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+</nam:Sessionkeys>
+<nam:SVDReg>011011</nam:SVDReg>
+</nam:RegFile>
+  """     
+  val file2:String = s"""
+<nam:RegFile>
+<nam:Name>УСН.tif</nam:Name>
+<nam:Content>${file2_content}</nam:Content>
+<nam:Sessionkeys>
+    <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+</nam:Sessionkeys>
+<nam:SVDReg>020111</nam:SVDReg>
+</nam:RegFile>
+  """     
+  val file3:String = s"""
+<nam:RegFile>
+<nam:Name>Паспорт.tif</nam:Name>
+<nam:Content>${file3_content}</nam:Content>
+<nam:Sessionkeys>
+    <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+</nam:Sessionkeys>
+<nam:SVDReg>022011</nam:SVDReg>
+</nam:RegFile>
+  """     
+  val file4:String = s"""
+<nam:RegFile>
+<nam:Name>Пошлина.tif</nam:Name>
+<nam:Content>${file4_content}</nam:Content>
+<nam:Sessionkeys>
+    <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+</nam:Sessionkeys>
+<nam:SVDReg>020001</nam:SVDReg>
+</nam:RegFile>
+  """                    
+  val files:String = List(file1,file2,file3,file4).mkString("")
+
   val data = s"""
   <x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns" xmlns:nam="https://iotchet.ru/namespases">
     <x:Header/>
     <x:Body>
         <tns:Send>
             <tns:RegFiles>
+                ${files}
             </tns:RegFiles>
             <tns:ReceiverFNS>0000</tns:ReceiverFNS>
             <tns:SenderType>IP</tns:SenderType>
