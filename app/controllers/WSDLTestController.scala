@@ -206,8 +206,7 @@ def saveDoc(phone:String) = Action.async { implicit request =>
   val corpus = retriveFromAttrSeq(attrs, attribute="corpus")
   val flat = retriveFromAttrSeq(attrs, attribute="flat")
 
-  Future.successful(
-    Ok(clersky.WSDLTest.saveDoc(phone,
+  val packetId = clersky.WSDLTest.saveDoc(phone,
       abnGuid = abnGuid,
       eMail,
       inn,
@@ -230,12 +229,17 @@ def saveDoc(phone:String) = Action.async { implicit request =>
     street,
   house,
   corpus,
-  flat,
+  flat, ws    )
+    
+    fillAttributesDAO.findOrCreate(id,
+      FillAttributeDTO(None,
+                        fill_id = id,
+                        attribute = "packetId",
+                        value = packetId)).map { r3 =>
+    Ok(packetId)
+//    Redirect(routes.UserFillingController.index)
+    }
 
-  ws
-
-    ))
-  )
 
 // 46472FBA-069F-4D41-9E49-736DF914CCD1
 // 6d118197-a5ba-a803-17ff-58e9b3c7776d
