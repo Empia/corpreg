@@ -136,11 +136,17 @@ def getSmsByPhone(phone: String, code: String) = Action.async {
   val attrs = await(fillAttributesDAO.findByFill(id))
   val abnGuid = retriveFromAttrSeq(attrs, attribute="abnGuid")
 
-  clersky.WSDLTest.test4(ws, abnGuid, code).map { r =>
+  clersky.WSDLTest.test4(ws, abnGuid, code).flatMap { r =>
   println(r)
       val sessionKeyXml = scala.xml.XML.loadString(r)
       val sessionKey = (sessionKeyXml \\ "Sessionkey").text 
-   Ok(sessionKey.toString)
+      val attr = FillAttributeDTO(id=None,
+            fill_id=id,
+            attribute="sessionKey",
+            value=sessionKey)
+      fillAttributesDAO.findOrCreate(id, attr).map { ohhhh => 
+           Ok(sessionKey.toString)
+     }
   }
 }
 
