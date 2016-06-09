@@ -163,9 +163,10 @@ val packetId: String = clersky.WSDLTest.saveDoc(phone,
 
     )
   
-
+  println("packetId: "+packetId)
   val cleanPacketId = packetId replaceAll ("-", "")
-
+  println("cleanPacketId: "+cleanPacketId)
+  
   fillsDAO.signRequested(id).flatMap { r2 =>
   	if (!fill.signRequested){
 	Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
@@ -180,8 +181,6 @@ val packetId: String = clersky.WSDLTest.saveDoc(phone,
     Redirect(routes.UserFillingController.fillSign)
 //    Redirect(routes.UserFillingController.index)
     }
-
-
 
   }
 }
