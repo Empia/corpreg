@@ -115,16 +115,16 @@ def sendSmsByPhone(phone: String) = Action.async {
   val fill = await(fillsDAO.getByPhone(phone)).get
   val id = fill.id.get
   val attrs = await(fillAttributesDAO.findByFill(id))
-  val packetId = retriveFromAttrSeq(attrs, attribute="packetId")
+  val abnGuid = retriveFromAttrSeq(attrs, attribute="abnGuid")
   // a0459ad6-89d5-4d1a-9694-319bd225f469
-  val (beg, rest1) = packetId.splitAt(8)
-  val (rest2, rest3) = rest1.splitAt(4)
-  val (rest4,rest5) = rest3.splitAt(4)
-  val (rest6,rest7) = rest5.splitAt(4)
-  val (rest8,rest9) = rest7.splitAt(12)
-  val packetIdTransformed = beg+"-"+rest2+"-"+rest4+"-"+rest6+"-"+rest8
+  //val (beg, rest1) = packetId.splitAt(8)
+  //val (rest2, rest3) = rest1.splitAt(4)
+  //val (rest4,rest5) = rest3.splitAt(4)
+  //val (rest6,rest7) = rest5.splitAt(4)
+  //val (rest8,rest9) = rest7.splitAt(12)
+  //val packetIdTransformed = beg+"-"+rest2+"-"+rest4+"-"+rest6+"-"+rest8
 
-  clersky.WSDLTest.test3(ws, packetIdTransformed).map { r =>
+  clersky.WSDLTest.test3(ws, abnGuid).map { r =>
    Ok(r)
   }
 }
