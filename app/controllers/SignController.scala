@@ -265,9 +265,17 @@ def sendSms() = SecuredAction.async { implicit request =>
                   attribute="sessionKey",
                   value=sessionKey)
               fillAttributesDAO.findOrCreate(id, attr).flatMap { ohhhh => 
-                  fillsDAO.signComplete(id).map { r2 =>
-                    Redirect(routes.UserFillingController.fillSendFns) 
-                  }                
+                  val firstName = retriveFromAttrSeq(attrs, attribute="firstname")
+                  val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
+                  val patronymic = retriveFromAttrSeq(attrs, attribute="middleName")
+
+                  clersky.WSDLTest.sendFiles(ws, sessionKey, firstName+lastName+patronymic, phone).flatMap { rczxcz =>
+                    fillsDAO.signComplete(id).map { r2 =>
+                      Redirect(routes.UserFillingController.fillSendFns) 
+                    } 
+                  }
+
+               
               }            
           }          
 
