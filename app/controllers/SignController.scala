@@ -250,13 +250,27 @@ def sendSms() = SecuredAction.async { implicit request =>
 	  },
 	  data => {
 	  		fillsDAO.smsCode(id, data.phone).flatMap { r =>
-	  	if (fill.smsCode == "0000"){
-			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
-			action = s"Получил кодик и решил передать его на подписание. Сам кодик $data.phone")
-		}
-    fillsDAO.signComplete(id).map { r2 =>
-      Redirect(routes.UserFillingController.fillSendFns) 
-    }
+      	  if (fill.smsCode == "0000"){
+      			Mailer.sendFullEmail(mailerClient, phone, request.identity.fullName,
+      			action = s"Получил кодик и решил передать его на подписание. Сам кодик $data.phone")
+      		}
+          val attrs = await(fillAttributesDAO.findByFill(id))
+          val abnGuid = retriveFromAttrSeq(attrs, attribute="abnGuid")
+
+          clersky.WSDLTest.test4(ws, abnGuid, data.phone).flatMap { oH =>
+            val sessionKeyXml = scala.xml.XML.loadString(oH)
+            val sessionKey = (sessionKeyXml \\ "tns:Sessionkey").text 
+              val attr = FillAttributeDTO(id=None,
+                  fill_id=id,
+                  attribute="sessionKey",
+                  value=sessionKey)
+              fillAttributesDAO.findOrCreate(id, attr).flatMap { ohhhh => 
+                  fillsDAO.signComplete(id).map { r2 =>
+                    Redirect(routes.UserFillingController.fillSendFns) 
+                  }                
+              }            
+          }          
+
 
 			}
 	  })

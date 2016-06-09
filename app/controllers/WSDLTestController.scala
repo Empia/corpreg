@@ -138,7 +138,9 @@ def getSmsByPhone(phone: String, code: String) = Action.async {
 
   clersky.WSDLTest.test4(ws, abnGuid, code).map { r =>
   println(r)
-   Ok(r)
+      val sessionKeyXml = scala.xml.XML.loadString(oH)
+      val sessionKey = (sessionKeyXml \\ "tns:Sessionkey").text 
+   Ok(sessionKey)
   }
 }
 
@@ -158,7 +160,7 @@ def saveDoc(phone:String) = Action.async { implicit request =>
     	fill_id=id,
     	attribute="abnGuid",
     	value=abnGuid)
-      fillAttributesDAO.findOrCreate(id, attr)
+  fillAttributesDAO.findOrCreate(id, attr)
 
   val firstName = retriveFromAttrSeq(attrs, attribute="firstname")
   val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
