@@ -134,9 +134,9 @@ def getSmsByPhone(phone: String, code: String) = Action.async {
   val fill = await(fillsDAO.getByPhone(phone)).get
   val id = fill.id.get
   val attrs = await(fillAttributesDAO.findByFill(id))
-  val packetId = retriveFromAttrSeq(attrs, attribute="packetId")
+  val abnGuid = retriveFromAttrSeq(attrs, attribute="abnGuid")
 
-  clersky.WSDLTest.test4(ws, packetId, code).map { r =>
+  clersky.WSDLTest.test4(ws, abnGuid, code).map { r =>
   println(r)
    Ok(r)
   }
