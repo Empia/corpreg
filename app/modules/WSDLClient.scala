@@ -523,10 +523,10 @@ val out4 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/USN/У�
                                       "-out", s"${path}/files/doc_${phone}/USN/УСН.tif.base64")).lineStream
 
 
-val file1_content = (Seq("cat", s"${path}/files/doc_${phone}/P21001/Р21001.tif.base64")).lineStream
-val file2_content = (Seq("cat", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif.base64")).lineStream
-val file3_content = (Seq("cat", s"${path}/files/doc_${phone}/POSHLINA/Пошлина.tif.base64")).lineStream
-val file4_content = (Seq("cat", s"${path}/files/doc_${phone}/USN/УСН.tif.base64")).lineStream         
+val file1_content = (Seq("cat", s"${path}/files/doc_${phone}/P21001/Р21001.tif.base64")).lineStream.head.toString
+val file2_content = (Seq("cat", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif.base64")).lineStream.head.toString
+val file3_content = (Seq("cat", s"${path}/files/doc_${phone}/POSHLINA/Пошлина.tif.base64")).lineStream.head.toString
+val file4_content = (Seq("cat", s"${path}/files/doc_${phone}/USN/УСН.tif.base64")).lineStream.head.toString         
 
   val file1:String = s"""
 <nam:RegFile>
