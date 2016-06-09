@@ -104,8 +104,14 @@ def checkStatusByPhone(phone: String) = Action.async { implicit request =>
   val id = fill.id.get
   val attrs = await(fillAttributesDAO.findByFill(id))
   val packetId = retriveFromAttrSeq(attrs, attribute="packetId")
+  val (beg, rest1) = packetId.splitAt(8)
+  val (rest2, rest3) = rest1.splitAt(4)
+  val (rest4,rest5) = rest3.splitAt(4)
+  val (rest6,rest7) = rest5.splitAt(4)
+  val (rest8,rest9) = rest7.splitAt(12)
+  val packetIdTransformed = beg+"-"+rest2+"-"+rest4+"-"+rest6+"-"+rest8
 
-  clersky.WSDLTest.getStatus(ws, packetId).map { r =>
+  clersky.WSDLTest.getStatus(ws, packetIdTransformed).map { r =>
    Ok(r)
   }
 
@@ -230,6 +236,10 @@ def saveDoc(phone:String) = Action.async { implicit request =>
 
     ))
   )
+
+// 46472FBA-069F-4D41-9E49-736DF914CCD1
+// 6d118197-a5ba-a803-17ff-58e9b3c7776d
+
 }
 
 
