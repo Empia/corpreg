@@ -34,10 +34,13 @@ import scala.concurrent.Future
 import info.folone.scala.poi._
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.mvc._
+import play.api.libs.ws._
 
 class UserFillingController @Inject() (
   val messagesApi: MessagesApi,
   fillsDAO:FillsDAO,
+  ws: WSClient,
   fillAttributesDAO: FillAttributesDAO,
   val env: Environment[User, CookieAuthenticator],
   socialProviderRegistry: SocialProviderRegistry)
@@ -276,14 +279,29 @@ def fillSign = SecuredAction.async { implicit request =>
 	val id = fill.id.get
 
  	val attrsF = fillAttributesDAO.findByFill(id)
-	attrsF.map { attrs =>
+	attrsF.flatMap { attrs =>
 
     val signRequested = fill.signRequested
-    if (fill.signMarked && !fill.signCompleted) {
-    	Redirect(routes.UserFillingController.fillSendFns)
+    val packetId = retriveFromAttrSeq(attrs, attribute="packetId")
+
+    clersky.WSDLTest.getStatus(ws, packetId).flatMap { r =>
+      // check length of response
+      if (r.length > 400) {
+        fillsDAO.signMarketByCode(id).map { rrr =>
+          if (!fill.signCompleted) {
+            Redirect(routes.UserFillingController.fillSendFns)
+          } else {
+            Ok(views.html.internal_forms.fillSign(request.identity,id, attrs, phone, signRequested ))
+          }        
+        }
     } else {
-      Ok(views.html.internal_forms.fillSign(request.identity,id, attrs, phone, signRequested ))
+        Future.successful( 
+          Ok(views.html.internal_forms.fillSign(request.identity,id, attrs, phone, signRequested ))
+        )
+      }   
+
     }
+
   }
 }
 
