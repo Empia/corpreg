@@ -52,33 +52,46 @@ def index = SecuredAction.async { implicit request =>
 	val phone = request.identity.email.getOrElse("")
 	await(fillsDAO.getByPhone(phone)) match {
 		case Some(fill) => {
+    	val id = fill.id.get
+    	val signRequested = fill.signRequested
+    /*
+    	filled:Boolean = false,
+    	filledCorrect: Boolean = false,
+    	signRequested: Boolean = false,
+    	signMarked:Boolean = false,
+    	smsCode: String = "",
+    	signCompleted:Boolean = false)
+     *///
+      //if (fill.filled && !fill.filledCorrect) {
+        // Личные данные
+        // Адрес регистрации
+        //Future.successful(Redirect(routes.UserFillingController.passport))
+        // Налоговый режим
+        // fill.addressFilled
+        Future.successful(Redirect(routes.UserFillingController.fillNalog))
+        // fill.nalogFilled
+        Future.successful(Redirect(routes.AdminController.writeFillFilesUser))
+        // userFilesUploaded
+        Future.successful(Redirect(routes.UserFillingController.fillConfirmation))
+        // signCreationConfirm
+        Future.successful(Redirect(routes.UserFillingController.fillConfirmation))
 
-	val id = fill.id.get
-	val signRequested = fill.signRequested
-/*
-	filled:Boolean = false,
-	filledCorrect: Boolean = false,
-	signRequested: Boolean = false,
-	signMarked:Boolean = false,
-	smsCode: String = "",
-	signCompleted:Boolean = false)
- */
-  if (fill.filled && !fill.filledCorrect) {
-      Future.successful(Redirect(routes.UserFillingController.passport))
-  } else
-  if (fill.filled && fill.filledCorrect && !fill.signMarked) {
-	  Future.successful(Redirect(routes.SignController.index))
-  } else
-  if (fill.filled && fill.filledCorrect && fill.signMarked && !fill.signCompleted) {
-  	Future.successful(Redirect(routes.UserFillingController.fillSign))
-  } else
-  if (fill.filled && fill.filledCorrect && fill.signMarked && fill.signCompleted && (fill.smsCode != "0000")) {
-  	Future.successful(Redirect(routes.UserFillingController.fillSendFns))
-  } else {
-	  Future.successful(Redirect(routes.UserFillingController.passport))
-  }
+        //  identityConfirmRequest
+        //  identityConfirmApproved
 
-  }
+      ////} else
+      //if (fill.filled && fill.filledCorrect && !fill.signMarked) {
+    	  //Future.successful(Redirect(routes.SignController.index))
+      ////} else
+      //if (fill.filled && fill.filledCorrect && fill.signMarked && !fill.signCompleted) {
+      	//Future.successful(Redirect(routes.UserFillingController.fillSign))
+      ////} else
+      //if (fill.filled && fill.filledCorrect && fill.signMarked && fill.signCompleted && (fill.smsCode != "0000")) {
+      	//Future.successful(Redirect(routes.UserFillingController.fillSendFns))
+      //} else {
+    	  //Future.successful(Redirect(routes.UserFillingController.passport))
+      //}
+    }
   case _ => Future(Ok("Вас нету в системе. Свяжитесь с нами "))
 }
 
@@ -86,6 +99,16 @@ def index = SecuredAction.async { implicit request =>
 
 def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
 def awaitAndPrint[T](a: Awaitable[T])(implicit ec: ExecutionContext) = println(await(a))
+
+
+/*
+setAttraddressFilled
+setAttrnalogFilled
+setAttruserFilesUploaded
+setAttrsignCreationConfirm
+setAttridentityConfirmRequest
+setAttridentityConfirmApproved
+*/
 
 
 def passport = SecuredAction.async { implicit request =>
@@ -271,6 +294,98 @@ def fillConfirmation = SecuredAction.async { implicit request =>
   	Ok(views.html.fillConfirmation(request.identity,id, form, attrs, filesCn, phone ))
   }
 }
+
+
+def fillDuty = SecuredAction.async { implicit request =>
+  val phone = request.identity.email.getOrElse("")
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+
+  val attrsF = fillAttributesDAO.findByFill(id)
+  attrsF.map { attrs =>
+
+  val form = forms.PrimaryFillForm.form.fill(
+  forms.PrimaryFillForm.PrimaryFillData(
+        lastName = retriveFromAttrSeq(attrs, attribute="lastName"),
+        firstname =  retriveFromAttrSeq(attrs, attribute="firstname"),
+        middleName =  retriveFromAttrSeq(attrs, attribute="middleName"),
+        dob =  retriveFromAttrSeq(attrs, attribute="dob"),
+        placeOfBorn =  retriveFromAttrSeq(attrs, attribute="placeOfBorn"),
+        passport =  retriveFromAttrSeq(attrs, attribute="passport"),
+        passportIssuedDate =  retriveFromAttrSeq(attrs, attribute="passportIssuedDate"),
+        kodPodrazdelenia = retriveFromAttrSeq(attrs, attribute="kodPodrazdelenia"),
+        passportIssuedBy =  retriveFromAttrSeq(attrs, attribute="passportIssuedBy"),
+        inn = retriveFromAttrSeq(attrs, attribute="inn"),
+        snils = retriveFromAttrSeq(attrs, attribute="snils"),
+        eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
+        postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
+        locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
+        fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        gender = retriveFromAttrSeq(attrs, attribute="gender"),
+        AddressData(
+          subject = retriveFromAttrSeq(attrs, attribute="subject"),
+          area = retriveFromAttrSeq(attrs, attribute="area"),
+          city = retriveFromAttrSeq(attrs, attribute="city"),
+          settlement = retriveFromAttrSeq(attrs, attribute="settlement"),
+          street = retriveFromAttrSeq(attrs, attribute="street"),
+          house = retriveFromAttrSeq(attrs, attribute="house"),
+          corpus = retriveFromAttrSeq(attrs, attribute="corpus"),
+          flat = retriveFromAttrSeq(attrs, attribute="flat"))
+      ))
+
+      val filesCn:List[FileValue] = files.map { fileId =>
+        FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
+      }
+
+    Ok(views.html.internal_forms.fillDuty(request.identity,id, attrs, phone, false ))
+  }
+}
+def fillUserIdent = SecuredAction.async { implicit request =>
+  val phone = request.identity.email.getOrElse("")
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+
+  val attrsF = fillAttributesDAO.findByFill(id)
+  attrsF.map { attrs =>
+
+  val form = forms.PrimaryFillForm.form.fill(
+  forms.PrimaryFillForm.PrimaryFillData(
+        lastName = retriveFromAttrSeq(attrs, attribute="lastName"),
+        firstname =  retriveFromAttrSeq(attrs, attribute="firstname"),
+        middleName =  retriveFromAttrSeq(attrs, attribute="middleName"),
+        dob =  retriveFromAttrSeq(attrs, attribute="dob"),
+        placeOfBorn =  retriveFromAttrSeq(attrs, attribute="placeOfBorn"),
+        passport =  retriveFromAttrSeq(attrs, attribute="passport"),
+        passportIssuedDate =  retriveFromAttrSeq(attrs, attribute="passportIssuedDate"),
+        kodPodrazdelenia = retriveFromAttrSeq(attrs, attribute="kodPodrazdelenia"),
+        passportIssuedBy =  retriveFromAttrSeq(attrs, attribute="passportIssuedBy"),
+        inn = retriveFromAttrSeq(attrs, attribute="inn"),
+        snils = retriveFromAttrSeq(attrs, attribute="snils"),
+        eMail= retriveFromAttrSeq(attrs, attribute="eMail"),
+        postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
+        locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
+        fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        gender = retriveFromAttrSeq(attrs, attribute="gender"),
+        AddressData(
+          subject = retriveFromAttrSeq(attrs, attribute="subject"),
+          area = retriveFromAttrSeq(attrs, attribute="area"),
+          city = retriveFromAttrSeq(attrs, attribute="city"),
+          settlement = retriveFromAttrSeq(attrs, attribute="settlement"),
+          street = retriveFromAttrSeq(attrs, attribute="street"),
+          house = retriveFromAttrSeq(attrs, attribute="house"),
+          corpus = retriveFromAttrSeq(attrs, attribute="corpus"),
+          flat = retriveFromAttrSeq(attrs, attribute="flat"))
+      ))
+
+      val filesCn:List[FileValue] = files.map { fileId =>
+        FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
+      }
+
+    Ok(views.html.internal_forms.fillUserIdent(request.identity,id, attrs, phone, false ))
+  }
+}
+
+
 
 
 def fillSign = SecuredAction.async { implicit request =>

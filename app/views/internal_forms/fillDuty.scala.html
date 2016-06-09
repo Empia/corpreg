@@ -1,0 +1,77 @@
+@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String, signRequested: Boolean)(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+@getAttr(id:Long,attrName:String) = {
+  @attrs.find(c => c.attribute == attrName).map { at =>
+    @at.value
+  }
+
+}
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.kp-block {
+    margin-left: -29px;
+}
+</style>
+
+<div class="w-container fill-data-form">
+            <div class="application-content">
+
+              <div class="application-header-box application-header-box-gett">
+                  <div class="w-clearfix application-header-icon application-header-icon-gett">
+                      <div class="application-heading-icon"></div>
+                      <h2 class="content-heading content-heading-gett">Формирование заявления</h2>
+                  </div>
+                  <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+                      <div class="w-container">
+<nav role="navigation" class="w-nav-menu application-nav-menu"><a href="#" class="w-nav-link application-nav-button application-nav-button-active" style="max-width: 940px;">Оплата госпошлины</a>
+  <div class="application-nav-arrow application-arrow-done"></div><a href="/gett-fill-userIdent" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Идентификация</a>
+  <div class="application-nav-arrow application-nav-arrow-next"></div><a href="#" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Электронная подпись</a>
+  <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Отправка в ФНС</a>
+</nav>
+                          <div class="w-nav-button">
+                              <div class="w-icon-nav-menu"></div>
+                          </div>
+                      </div>
+                      <div class="w-nav-overlay" data-wf-ignore=""></div>
+                  </div>
+              </div>
+
+
+
+<div class="application-body application-body-upload">
+          <h3 class="application-subheading">Оплата госпошлины</h3>
+          <p class="application-paragraph application-paragraph-last">Оплата пошлины производится с помощью сервиса <a class="oplatagosuslug-link" href="http://www.oplatagosuslug.ru" target="_blank">«Оплата госуслуг»</a>.&nbsp;Совершить платеж можно с помощью банковских карт Visa и MasterCard, а также с помощью мобильного телефона. Комиссия при оплате через сервис — 50 рублей.</p><a href="#" class="w-button duty-pay-button duty-pay-main">Перейти к оплате госпошлины</a>
+          <div class="w-row payment-method-row">
+            <div class="w-col w-col-6">
+              <div class="payment-method">Мобильные платежи</div><img src="/assets/images/beeline-logo.png" class="payment-method-image" width="80"><img src="/assets/images/mts-logo.png" class="payment-method-image" width="80"><img src="/assets/images/megafon-logo.png" class="payment-method-image" width="80"><img src="/assets/images/tele2-logo.png" class="payment-method-image" width="80"><img src="/assets/images/rtc-logo.png" class="payment-method-image" width="80"><img src="/assets/images/smarts-logo.png" class="payment-method-image" width="80">
+            </div>
+            <div class="w-col w-col-6">
+              <div class="payment-method">Банковские карты</div><img src="/assets/images/mc-logo.png" class="payment-method-image" width="80"><img src="/assets/images/visa-logo.png" class="payment-method-image" width="80"><img src="/assets/images/jcb-logo.png" class="payment-method-image" width="80">
+            </div>
+          </div>
+        </div>
+
+<div class="application-footer"><a href="/gett-fill-userIdent" class="w-button application-next-button application-next-button-gett">Подтвердить и продолжить</a>
+        </div>        
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+}

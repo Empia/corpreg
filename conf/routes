@@ -15,7 +15,10 @@ GET   /gett-documents     controllers.AdminController.writeFillFilesUser()
 POST  /filling/:id/fillFiles     controllers.AdminController.saveFillFiles(id: Long)
 
 
-GET /gett-confirmation   controllers.UserFillingController.fillConfirmation
+GET /gett-confirmation     controllers.UserFillingController.fillConfirmation
+GET /gett-fill-duty        controllers.UserFillingController.fillDuty
+GET /gett-fill-userIdent   controllers.UserFillingController.fillUserIdent
+
 GET /gett-fill-sign   controllers.UserFillingController.fillSign
 GET /gett-fill-send-fns   controllers.UserFillingController.fillSendFns
 

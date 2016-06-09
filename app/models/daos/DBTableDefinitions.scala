@@ -179,13 +179,39 @@ class Fills(tag: Tag) extends Table[FillDTO](tag, "fill") {
     def signMarked = column[Boolean]("signMarked")
     def smsCode = column[String]("smsCode")
     def signCompleted = column[Boolean]("signCompleted")
+
+/*
+alter table fill add column title bool not null default false;
+
+alter table fill add column addressFilled bool not null default false;
+alter table fill add column nalogFilled bool not null default false;
+alter table fill add column userFilesUploaded bool not null default false;
+alter table fill add column signCreationConfirm bool not null default false;
+alter table fill add column identityConfirmRequest bool not null default false;
+alter table fill add column identityConfirmApproved bool not null default false;
+
+*/
+
+    def addressFilled = column[Boolean]("addressfilled")
+    def nalogFilled = column[Boolean]("nalogfilled")
+    def userFilesUploaded = column[Boolean]("userfilesuploaded")
+    def signCreationConfirm = column[Boolean]("signcreationconfirm")
+    def identityConfirmRequest = column[Boolean]("identityconfirmrequest")
+    def identityConfirmApproved = column[Boolean]("identityconfirmapproved")
+
     def * = (id.?, phone, registered,
       filled,
       filledCorrect,
       signRequested,
       signMarked,
       smsCode,
-      signCompleted) <> (FillDTO.tupled, FillDTO.unapply)
+      signCompleted,
+      addressFilled,
+      nalogFilled,
+      userFilesUploaded,
+      signCreationConfirm,
+      identityConfirmRequest,
+      identityConfirmApproved      ) <> (FillDTO.tupled, FillDTO.unapply)
 }
 
 

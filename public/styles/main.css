@@ -4479,3 +4479,124 @@ h4 {
     float: left;
     border: 2px solid #dfc6c4;
 }
+
+
+.oplatagosuslug-link {
+    color: #5c92cc;
+    text-decoration: none;
+}
+
+.duty-pay-button {
+    margin-top: 10px;
+    border-radius: 3px;
+    background-color: #4a95e4;
+    font-family: Roboto, sans-serif;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+}
+.duty-pay-button.duty-pay-main {
+    margin-top: 0px;
+    background-color: #5c92cc;
+}
+
+.payment-method-row {
+    position: relative;
+    left: 10px;
+    display: block;
+    width: 432px;
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #f8f8f8;
+}
+
+.payment-method {
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 14px;
+    line-height: 14px;
+}
+.payment-method-image {
+    margin-top: 15px;
+    margin-right: 10px;
+}
+.city-name {
+    margin-bottom: 15px;
+    color: #6f6f6f;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+}
+.city-name-link {
+    display: inline-block;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+    color: #5c92cc;
+    line-height: 16px;
+    text-decoration: none;
+}
+.sign-box {
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+
+
+.partner-office-text {
+    margin-left: 16px;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 13px;
+    line-height: 20px;
+}
+.partner-office-text.partner-office-text-alt {
+    display: inline-block;
+    margin-bottom: 0px;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+
+.partner-office-text {
+    margin-left: 16px;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+    font-size: 13px;
+    line-height: 20px;
+}
+.map-link-text {
+    display: inline-block;
+    margin-left: 7px;
+    border-bottom: 1px none #000;
+    font-family: Roboto, sans-serif;
+    color: #5c92cc;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.map-libk {
+    display: inline-block;
+    font-family: 'Fon Aawesome', sans-serif;
+    text-decoration: none;
+}
+
+.delivery-address-field:focus {
+    padding-left: 11px;
+    border: 2px solid #ec675d;
+    background-color: #fff;
+}
+.delivery-address-field {
+    width: 700px;
+    margin-top: 10px;
+    margin-left: 17px;
+    padding-left: 12px;
+    border-color: #ddd;
+    background-color: #fdfdfd;
+    font-family: Roboto, sans-serif;
+    color: #6f6f6f;
+}
+
