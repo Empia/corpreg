@@ -254,7 +254,12 @@ $( document ).ready(function() {
               success: function(d) {
                 console.log(d);
                 $('input#fnsreg').val(d.sprofDetails.ifnsCode);
-                $('input#oktmo').val(suggestion.data.oktmo);
+                $.ajax({
+                  url: '/oktmo/'+d.ifnsDetails.ifnsInn,
+                  dataType: 'json',
+                  success: function(d) {
+                    $('input#oktmo').val(suggestion.data.oktmo);
+                  } });
                 
                 $('input#fnstitle').val(d.sprofDetails.sproName);
               }
