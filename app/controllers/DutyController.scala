@@ -202,7 +202,7 @@ val orderId = r.nextInt(10000000)
 println("orderId " + orderId)
 
 val fullName = firstName+" "+lastName+" "+patronymic
-val address = subject+" "+city+" "+settlement+" "+street+" "+house+" "+corpus+" "+flat
+//val address = subject+" "+city+" "+settlement+" "+street+" "+house+" "+corpus+" "+flat
 val region = area
 
 
@@ -228,7 +228,7 @@ println("t"+ retriveFromAttrSeq(attrs, attribute="subject"))
 val req = MobiRequest(OrderID = orderId,
 					Amount = 800,
 					FIO = lastName + " " +firstName+" "+patronymic,
-					Address = address,
+					Address = subject+" "+city+" "+settlement+" "+street+" "+house+" "+corpus+" "+flat,
 					PayerINN = inn,
 					Region = retriveFromAttrSeq(attrs, attribute="subject"),
 					KBK = "18210807010011000110",
