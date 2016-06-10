@@ -205,6 +205,7 @@ import scala.util.Try
         postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
         locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
         fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        oktmo = retriveFromAttrSeq(attrs, attribute="oktmo"),        
         gender = retriveFromAttrSeq(attrs, attribute="gender"),
         AddressData(
         subject = retriveFromAttrSeq(attrs, attribute="subject"),

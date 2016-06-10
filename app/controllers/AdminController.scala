@@ -287,6 +287,7 @@ forms.PrimaryFillForm.PrimaryFillData(
       postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
       locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
       fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+      oktmo = retriveFromAttrSeq(attrs, attribute="oktmo"),
       gender = retriveFromAttrSeq(attrs, attribute="gender"),
       AddressData(
       subject = retriveFromAttrSeq(attrs, attribute="subject"),
@@ -392,6 +393,13 @@ FillAttributeDTO(id=None,
         	fill_id=id,
         	attribute="fnsreg",
         	value=data.fnsreg),
+FillAttributeDTO(id=None,
+          fill_id=id,
+          attribute="oktmo",
+          value=data.oktmo),
+
+
+
 FillAttributeDTO(id=None,
         	fill_id=id,
         	attribute="gender",
@@ -538,6 +546,12 @@ FillAttributeDTO(id=None,
         	fill_id=id,
         	attribute="fnsreg",
         	value=data.fnsreg),
+FillAttributeDTO(id=None,
+          fill_id=id,
+          attribute="oktmo",
+          value=data.oktmo),
+
+
 FillAttributeDTO(id=None,
         	fill_id=id,
         	attribute="gender",
@@ -686,6 +700,13 @@ FillAttributeDTO(id=None,
         	fill_id=id,
         	attribute="fnsreg",
         	value=data.fnsreg),
+FillAttributeDTO(id=None,
+          fill_id=id,
+          attribute="oktmo",
+          value=data.oktmo),
+
+
+
 FillAttributeDTO(id=None,
         	fill_id=id,
         	attribute="gender",

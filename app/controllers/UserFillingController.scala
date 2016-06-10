@@ -138,6 +138,8 @@ forms.PrimaryFillForm.PrimaryFillData(
       postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
       locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
       fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+      oktmo = retriveFromAttrSeq(attrs, attribute="oktmo"),
+
       gender = retriveFromAttrSeq(attrs, attribute="gender"),
       AddressData(
         subject = retriveFromAttrSeq(attrs, attribute="subject"),
@@ -181,6 +183,8 @@ def fillAddress = SecuredAction.async { implicit request =>
         postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
         locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
         fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        oktmo = retriveFromAttrSeq(attrs, attribute="oktmo"),
+
         gender = retriveFromAttrSeq(attrs, attribute="gender"),
         AddressData(
           subject = retriveFromAttrSeq(attrs, attribute="subject"),
@@ -225,6 +229,8 @@ def fillNalog = SecuredAction.async { implicit request =>
         postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
         locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
         fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        oktmo = retriveFromAttrSeq(attrs, attribute="oktmo"),
+
         gender = retriveFromAttrSeq(attrs, attribute="gender"),
         AddressData(
           subject = retriveFromAttrSeq(attrs, attribute="subject"),
@@ -275,6 +281,8 @@ def fillConfirmation = SecuredAction.async { implicit request =>
         postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
         locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
         fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        oktmo = retriveFromAttrSeq(attrs, attribute="oktmo"),
+
         gender = retriveFromAttrSeq(attrs, attribute="gender"),
         AddressData(
           subject = retriveFromAttrSeq(attrs, attribute="subject"),
@@ -321,6 +329,8 @@ def fillDuty = SecuredAction.async { implicit request =>
         postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
         locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
         fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+        oktmo = retriveFromAttrSeq(attrs, attribute="oktmo"),
+
         gender = retriveFromAttrSeq(attrs, attribute="gender"),
         AddressData(
           subject = retriveFromAttrSeq(attrs, attribute="subject"),
@@ -365,6 +375,8 @@ def fillUserIdent = SecuredAction.async { implicit request =>
         postalAddress= retriveFromAttrSeq(attrs, attribute="postalAddress"),
         locationAddress= retriveFromAttrSeq(attrs, attribute="locationAddress"),
         fnsreg = retriveFromAttrSeq(attrs, attribute="fnsreg"),
+      oktmo = retriveFromAttrSeq(attrs, attribute="oktmo"),
+          
         gender = retriveFromAttrSeq(attrs, attribute="gender"),
         AddressData(
           subject = retriveFromAttrSeq(attrs, attribute="subject"),

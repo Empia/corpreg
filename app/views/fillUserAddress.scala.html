@@ -18,7 +18,9 @@
 .w-row.appplication-form-row {
     clear: both;
 }
-
+#oktmo {
+    visibility: hidden;
+}
 </style>
 
 <div class="w-container fill-data-form">
@@ -182,6 +184,7 @@
         <div class="w-col w-col-2">
             <label for="fnsreg" class="application-form-label application-form-label-address">Код рег. органа</label>
             @b3.text(fillForm("fnsreg"), 'id -> "fnsreg",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+            @b3.text(fillForm("oktmo"), 'id -> "oktmo",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
 
         </div>
         <div class="w-col w-col-8">
@@ -251,6 +254,8 @@ $( document ).ready(function() {
               success: function(d) {
                 console.log(d);
                 $('input#fnsreg').val(d.sprofDetails.ifnsCode);
+                $('input#oktmo').val(suggestion.data.oktmo);
+                
                 $('input#fnstitle').val(d.sprofDetails.sproName);
               }
             });
