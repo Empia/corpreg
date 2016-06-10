@@ -255,6 +255,7 @@ val data = Json.toJson(req.copy(HASH=hash))
 val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.ru/tax/pay/").withHeaders("Content-Type" -> "application/json",
 	"Authorization" -> "8TKM8IFG").post(data)
 	futureResponse.flatMap { r => 
+		println("index "+r.json)
 		val url = r.json.as[MobiRequestResult].Result.url 
 		    fillAttributesDAO.findOrCreate(id,
 		      FillAttributeDTO(None,
