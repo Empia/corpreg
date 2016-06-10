@@ -225,7 +225,7 @@ val payee = (fnsRes.json \ "payeeDetails").as[PayeeDetails]
 
 val req = MobiRequest(OrderID = orderId,
 					Amount = 800,
-					FIO = fullName,
+					FIO = lastName + " " +firstName+" "+patronymic,
 					Address = address,
 					PayerINN = inn,
 					Region = "77",
@@ -324,7 +324,7 @@ val payee = (fnsRes.json \ "payeeDetails").as[PayeeDetails]
 val req = MobiRequest(OrderID = poshlinaFormatter(
 		retriveFromAttrSeq(attrs, attribute="poshlinaOrder")),
 					Amount = 800,
-					FIO = firstName+" "+lastName+" "+patronymic,
+					FIO = lastName + " " +firstName+" "+patronymic,
 					Address = subject+" "+city+" "+settlement+" "+street+" "+house+" "+corpus+" "+flat,
 					PayerINN = inn,
 					Region = "77",
