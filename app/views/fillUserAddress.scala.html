@@ -255,10 +255,10 @@ $( document ).ready(function() {
                 console.log(d);
                 $('input#fnsreg').val(d.sprofDetails.ifnsCode);
                 $.ajax({
-                  url: '/oktmo/'+d.ifnsDetails.ifnsInn,
+                  url: '/oktmo/'+d.sprofDetails.ifnsCode,
                   dataType: 'json',
                   success: function(d) {
-                    $('input#oktmo').val(suggestion.data.oktmo);
+                    $('input#oktmo').val(d);
                   } });
                 
                 $('input#fnstitle').val(d.sprofDetails.sproName);

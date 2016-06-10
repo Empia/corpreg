@@ -100,6 +100,18 @@ ws.url("https://service.nalog.ru/addrno-proc.json").withHeaders("headerKey" -> "
 def fnsOktmo(glob: String) = Action.async { implicit request =>
   import play.api.libs.json.{JsNull,Json,JsString,JsValue}
 
+val fnsResF: Future[WSResponse] = ws.url("https://service.nalog.ru/addrno-proc.json")
+.post((Map(
+    "ifns" -> Seq( glob ),
+    "lk" ->  Seq("false"),
+    "c" ->  Seq("next"),
+    "step" ->  Seq("1"),
+    "npKind" ->  Seq("fl"),
+    "objectAddr" ->  Seq(""),
+    "oktmmf" ->  Seq("")
+    )))
+val fnsInn = (await(fnsResF).json \ "ifnsDetails" \ "ifnsInn").as[String]
+
 
   ws.url("https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/party").withHeaders(
     "Content-Type" -> "application/json",
@@ -107,7 +119,7 @@ def fnsOktmo(glob: String) = Action.async { implicit request =>
     "headerKey" -> "headerValue",
     "Authorization" -> "Token 2aba8de760c817b3e11ac7726435d42a124d5f62",
     "X-Secret" -> "5fe3c7bcbe3363365af9657e800674680bde36c4"
-  ).post(s"""{ "query": "${glob}" } """
+  ).post(s"""{ "query": "${fnsInn}" } """
 
   ).flatMap {
     response =>
