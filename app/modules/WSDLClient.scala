@@ -382,7 +382,7 @@ val fileName = s"${fileId}.bin"
   out.head.toString
   // ИД Документоборота
   sendDocRequest(ws, out.head.toString)
-  firstRequest(ws, out.head.toString)
+  //firstRequest(ws, out.head.toString)
 
   packetId
 }
@@ -404,8 +404,8 @@ def sendDocRequest(ws: WSClient, packet:String):Future[String] = {
 </x:Envelope>
 """
 
-     ws.url("http://regservice.keydisk.ru/regservice.asmx").withHeaders("Content-Type" -> "text-xml",
-     "SOAPAction"->"urn:http://regservice.keydisk.ru/SendPacket")
+     ws.url("http://regservice.keydisk.ru/regservice.asmx").withHeaders("Content-Type" -> "text/xml; charset=utf-8",
+     "SOAPAction"->"http://regservice.keydisk.ru/SendPacket")
      .post(data).map { r =>
        println(r)
        println(r.body)
@@ -427,7 +427,7 @@ def firstRequest(ws: WSClient, packet:String):Future[String] = {
 </x:Envelope>
 """
 
-     ws.url("http://regservice.keydisk.ru/regservice.asmx").withHeaders("Content-Type" -> "text-xml",
+     ws.url("http://regservice.keydisk.ru/regservice.asmx").withHeaders("Content-Type" -> "text/xml; charset=utf-8",
      "SOAPAction"->"urn:SendPacket")
      .post(data).map { r =>
        println(r)
