@@ -223,6 +223,8 @@ println("fnsRes: " + fnsRes.json)
 val fnsData = (fnsRes.json \ "ifnsDetails").as[IfnsDetails] 
 val payee = (fnsRes.json \ "payeeDetails").as[PayeeDetails]
 
+println("t", retriveFromAttrSeq(attrs, attribute="subject"))
+
 val req = MobiRequest(OrderID = orderId,
 					Amount = 800,
 					FIO = lastName + " " +firstName+" "+patronymic,
