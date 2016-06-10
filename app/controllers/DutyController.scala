@@ -146,7 +146,9 @@ val r = scala.util.Random
 
 
 def index = Action.async { implicit request =>
-	val req = MobiRequest(OrderID = r.nextInt(10000000),
+	val orderId = r.nextInt(10000000)
+	println("orderId " + orderId)
+	val req = MobiRequest(OrderID = orderId,
 Amount = 400000,
 FIO = "Иванов Иван Иванович",
 Address = "г. Москва, ул. Ленина, д.1",
@@ -187,8 +189,8 @@ val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.
 
 
 
-def check = Action.async { implicit request =>
-	val req = MobiRequest(OrderID = 123456789,
+def check(orderId: Int) = Action.async { implicit request =>
+	val req = MobiRequest(OrderID = orderId,
 Amount = 400000,
 FIO = "Иванов Иван Иванович",
 Address = "г. Москва, ул. Ленина, д.1",
