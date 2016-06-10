@@ -327,7 +327,7 @@ val req = MobiRequest(OrderID = poshlinaFormatter(
 					FIO = firstName+" "+lastName+" "+patronymic,
 					Address = subject+" "+city+" "+settlement+" "+street+" "+house+" "+corpus+" "+flat,
 					PayerINN = inn,
-					Region = area,
+					Region = "77",
 					KBK = "18210807010011000110",
 					TaxName = "Государственная пошлина за регистрацию ЮЛ",
 					URL = "http://clerksy.ru/gett-fill-duty",
