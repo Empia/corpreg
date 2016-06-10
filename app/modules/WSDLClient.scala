@@ -378,14 +378,38 @@ val fileName = s"${fileId}.bin"
 
   //  packet.toString
   //doc.toString + "        " + out.headOption.toString + "        " + 
-  test2(out.head.toString)
+  //test2(out.head.toString)
   out.head.toString
   // ИД Документоборота
+  sendDocRequest(ws, out.head.toString)
   packetId
-
 }
 
 
+// getPassword
+def sendDocRequest(ws: WSClient, packet:String):Future[String] = {
+
+     val data = s"""
+<x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:reg="http://regservice.keydisk.ru/">
+    <x:Header/>
+    <x:Body>
+        <reg:SendPacket>
+            <reg:packet>
+              ${packet}
+            </reg:packet>
+        </reg:SendPacket>
+    </x:Body>
+</x:Envelope>
+"""
+
+     ws.url("http://regservice.keydisk.ru/regservice.asmx").withHeaders("Content-Type" -> "text-xml",
+     "SOAPAction"->"urn:http://regservice.keydisk.ru/SendPacket")
+     .post(data).map { r =>
+       println(r)
+       println(r.body)
+       r.body.toString
+     }
+}
 
 // getPassword
 def firstRequest(ws: WSClient, packet:String):Future[String] = {
