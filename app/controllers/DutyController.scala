@@ -48,7 +48,7 @@ case class MobiRequest(
 	TaxName: String,
 	URL: String,
 	NotifyURL: String,
-	OKTМO: String,
+	OKTMO: String,
 	PayeeName: String,
 	PayeeBIC: String,
 	PayeePersonalAcc: String,
@@ -123,7 +123,7 @@ KBK = "18210807010011000110",
 TaxName = "Государственная пошлина за регистрацию ЮЛ",
 URL = "https://www.oplatagosuslug.ru/",
 NotifyURL = "https://www.oplatagosuslug.ru/",
-OKTМO = "40911000",
+OKTMO = "40911000",
 PayeeName = "УФК по г. Санкт-Петербургу (Межрайонная ИФНС России №11 по Санкт- Петербургу)",
 PayeeBIC = "044030001",
 PayeePersonalAcc = "40101810200000010001",
@@ -133,7 +133,7 @@ HASH = ""
 )
 
 
-val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTМO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}B0P3OHFA"
+val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTMO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}B0P3OHFA	"
 val md = java.security.MessageDigest.getInstance("SHA-1")
 val hashSha = md.digest(hashFirst.getBytes("UTF-8")).map("%02x".format(_)).mkString
 val hash = java.util.Base64.getUrlEncoder.encodeToString(hashSha.getBytes("UTF-8"))
