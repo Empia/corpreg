@@ -4,6 +4,7 @@
 
 # Home page
 GET         /                                controllers.UserFillingController.index
+GET         /duty_test                       controllers.DutyController.index
 
 GET /test_action controllers.FormGeneratorController.testAction()
 
