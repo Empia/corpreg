@@ -358,7 +358,7 @@ val data = Json.toJson(req.copy(HASH=hash))
 val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.ru/tax/check/").withHeaders("Content-Type" -> "application/json",
 	"Authorization" -> "8TKM8IFG").post(data)
 	futureResponse.map { r => 
-		Ok( r.body)
+		Ok( (r.json \ "Result" \ "CheckURL").as[String].replace("\\", "") )
 	}
 
 
