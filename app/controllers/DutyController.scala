@@ -112,7 +112,7 @@ implicit val MobiRequestFormat = Json.format[MobiRequest]
 }
  */
 
-def index = SecuredAction.async { implicit request =>
+def index = Action.async { implicit request =>
 	val req = MobiRequest(OrderID = 123456789,
 Amount = 400000,
 FIO = "Иванов Иван Иванович",
