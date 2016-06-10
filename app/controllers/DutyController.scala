@@ -133,7 +133,7 @@ HASH = ""
 )
 
 
-val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTМO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}iODA0OD"
+val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTМO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}B0P3OHFA"
 val md = java.security.MessageDigest.getInstance("SHA-1")
 val hashSha = md.digest(hashFirst.getBytes("UTF-8")).map("%02x".format(_)).mkString
 val hash = java.util.Base64.getUrlEncoder.encodeToString(hashSha.getBytes("UTF-8"))
