@@ -77,6 +77,24 @@ case class MobiRequestResultObj(
     url: String
   )
 
+case class IfnsDetails(
+ifnsPhone: String,
+ifnsKpp: String,
+ifnsComment: String,
+ifnsAddr: String,
+ifnsCode: String,
+ifnsName: String,
+ifnsInn: String
+)
+
+case class PayeeDetails(
+    payeeName: String,
+    payeeAcc:String,
+    bankBik:String,
+    payeeKpp:String,
+    payeeInn:String,
+    bankName:String)
+
 class DutyController @Inject() (
   val messagesApi: MessagesApi,
   fillsDAO:FillsDAO,
@@ -92,51 +110,57 @@ implicit val MobiRequestResultWrites = Json.writes[MobiRequestResult]
 implicit val MobiRequestResultFormat = Json.format[MobiRequestResult]
 
 
+def awaitAndPrint[T](a: Awaitable[T])(implicit ec: ExecutionContext) = println(await(a))
+private def retriveAttribute(c: Option[FillAttributeDTO]):String = {
+	c match {
+		case Some(attr) => attr.value
+		case _ => ""
+	}
+}
+private def retriveFromAttrSeq(attrs: Seq[FillAttributeDTO], attribute:String):String = {
+	retriveAttribute(attrs.find(attr => attr.attribute == attribute))
+}
+
+implicit val PayeeDetailsWrites = Json.writes[PayeeDetails]
+implicit val PayeeDetailsFormat = Json.format[PayeeDetails]
+
+
+implicit val IfnsDetailsWrites = Json.writes[IfnsDetails]
+implicit val IfnsDetailsFormat = Json.format[IfnsDetails]
 
 
 implicit val MobiRequestWrites = Json.writes[MobiRequest]
 implicit val MobiRequestFormat = Json.format[MobiRequest]
+
+
 /*
 {
-    "OrderID": 123456,
-    "Amount": 800,
-    "FIO": "Тестовый пользователь",
-    "Address": "117186, Нахимовский пр­кт, дом 22, кв 33",
-    "PayerINN": "771234567890",
-    "Region": 77,
-    "KBK": "18210807010 011000110",
-    "TaxName": "Государственная пошлина за регистрацию ЮЛ",
-    "URL": "http://gett.clerksy.ru/gett/gett-payment",
-    "NotifyURL": "https://www.oplatagosuslug.ru/",
-    "OKTМO": "40911000",
-    "PayeeName": "УФК по г. Москве (МИ ФНС России o46 по г. Москве)",
-    "PayeeBIC": "44583001",
-    "PayeePersonalAcc": "40101810800000010041",
-    "PayeeINN": "7733506810",
-    "PayeeKPP": "773301001",
-    "HASH": "ZmMxNWJiZjY3MmI4OGIwMGVmODZkMTQ4OWZlY2IzNTY2OWNjZjllMQ=="
+  "ifnsDetails": {
+    "ifnsPhone": "8-800-222-22-22",
+    "ifnsKpp": "771401001",
+    "ifnsComment": "Код ОКПО: 17654504 Понедельник-четверг с 9-00 до 18-00, пятница с 9-00 до 16-45",
+    "ifnsAddr": ",125284,Москва г,,,,Хорошевское ш,12А,,",
+    "ifnsCode": "7700",
+    "ifnsName": "Управление Федеральной налоговой службы по г.Москве",
+    "ifnsInn": "7710474590"
+  },
+  "form": {
+    "lk": "false",
+    "step": "1",
+    "ifns": "7700"
+  },
+  "payeeDetails": {
+    "payeeName": "Управление Федерального казначейства по г. Москве (Управление Федеральной налоговой службы по г.Москве)",
+    "payeeAcc": "40101810800000010041",
+    "bankBik": "044583001",
+    "payeeKpp": "771401001",
+    "payeeInn": "7710474590",
+    "bankName": "Отделение 1 Москва"
+  },
+  "nextStep": 2,
+  "step": 1
 }
-
-{
-    "OrderID": 123456789,
-    "Amount": 400000,
-    "FIO": "Иванов Иван Иванович",
-    "Address": "г. Москва, ул. Ленина, д.1",
-    "PayerINN": "500100732259",
-    "Region": "77",
-    "KBK": "18210807010011000110",
-    "TaxName": "Государственная пошлина за регистрацию ЮЛ",
-    "URL": "https://www.oplatagosuslug.ru/",
-    "NotifyURL": "https://www.oplatagosuslug.ru/",
-    "OKTMO": "40911000",
-    "PayeeName": "УФК по г. Санкт-Петербургу (Межрайонная ИФНС России №11 по Санкт- Петербургу)",
-    "PayeeBIC": "044030001",
-    "PayeePersonalAcc": "40101810200000010001",
-    "PayeeINN": "7842000011",
-    "PayeeKPP": "784201001",
-    "HASH": "NWUwNjMzM2ViMTc4YzhiMjkxNjYxOTFmZjQ5MmEwNjRjZDlmOWMyNA=="
-}
- */
+*/
 
 val config = new AsyncHttpClientConfigBean()
   config.setAcceptAnyCertificate(true)
@@ -145,27 +169,78 @@ val config = new AsyncHttpClientConfigBean()
 val r = scala.util.Random
 
 
-def index = Action.async { implicit request =>
-	val orderId = r.nextInt(10000000)
-	println("orderId " + orderId)
-	val req = MobiRequest(OrderID = orderId,
-Amount = 400000,
-FIO = "Иванов Иван Иванович",
-Address = "г. Москва, ул. Ленина, д.1",
-PayerINN = "500100732259",
-Region = "77",
-KBK = "18210807010011000110",
-TaxName = "Государственная пошлина за регистрацию ЮЛ",
-URL = "https://www.oplatagosuslug.ru/",
-NotifyURL = "https://www.oplatagosuslug.ru/",
-OKTMO = "40911000",
-PayeeName = "УФК по г. Санкт-Петербургу (Межрайонная ИФНС России №11 по Санкт- Петербургу)",
-PayeeBIC = "044030001",
-PayeePersonalAcc = "40101810200000010001",
-PayeeINN = "7842000011",
-PayeeKPP = "784201001",
-HASH = ""
-)
+def index(phone: String) = Action.async { implicit request =>
+
+  val abnGuid = uuid
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+  val attrs = await(fillAttributesDAO.findByFill(id))
+
+  val firstName = retriveFromAttrSeq(attrs, attribute="firstname")
+  val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
+  val patronymic = retriveFromAttrSeq(attrs, attribute="middleName")
+  val inn = retriveFromAttrSeq(attrs, attribute="inn")
+  val snils = retriveFromAttrSeq(attrs, attribute="snils")
+  val passport = retriveFromAttrSeq(attrs, attribute="passport")
+  val passportIssuedBy = retriveFromAttrSeq(attrs, attribute="passportIssuedBy")
+  val passportDate = retriveFromAttrSeq(attrs, attribute="passportIssuedDate")
+  val eMail = retriveFromAttrSeq(attrs, attribute="eMail")
+  val postalAddress = retriveFromAttrSeq(attrs, attribute="postalAddress")
+  val locationAddress = retriveFromAttrSeq(attrs, attribute="locationAddress")
+
+  val subject = retriveFromAttrSeq(attrs, attribute="subject")
+  val area = retriveFromAttrSeq(attrs, attribute="area")
+  val city = retriveFromAttrSeq(attrs, attribute="city")
+  val settlement = retriveFromAttrSeq(attrs, attribute="settlement")
+  val street = retriveFromAttrSeq(attrs, attribute="street")
+  val house = retriveFromAttrSeq(attrs, attribute="house")
+  val corpus = retriveFromAttrSeq(attrs, attribute="corpus")
+  val flat = retriveFromAttrSeq(attrs, attribute="flat")
+
+
+val orderId = r.nextInt(10000000)
+println("orderId " + orderId)
+
+val fullName = firstName+" "+lastName+" "+patronymic
+val address = subject+" "+city+" "+settlement+" "+street+" "+house+" "+corpus+" "+flat
+val region = area
+
+
+val fnsResF: Future[WSResponse] = ws.url("https://service.nalog.ru/addrno-proc.json")
+.post((Map(
+		"ifns" -> Seq( retriveFromAttrSeq(attrs, attribute="fnsreg")),
+		"lk" ->  Seq("false"),
+		"c" ->  Seq("next"),
+		"step" ->  Seq("1"),
+		"npKind" ->  Seq("fl"),
+		"objectAddr" ->  Seq(""),
+		"oktmmf" ->  Seq("")
+		)))
+val fnsRes = await(fnsResF)
+
+println("fnsRes: " + fnsRes.json)
+
+val fnsData = (fnsRes.json \ "ifnsDetails").as[IfnsDetails] 
+val payee = (fnsRes.json \ "payeeDetails").as[PayeeDetails]
+
+val req = MobiRequest(OrderID = orderId,
+					Amount = 800,
+					FIO = fullName,
+					Address = address,
+					PayerINN = inn,
+					Region = region,
+					KBK = "18210807010011000110",
+					TaxName = "Государственная пошлина за регистрацию ЮЛ",
+					URL = "http://clerksy.ru/gett-fill-duty",
+					NotifyURL = "https://www.oplatagosuslug.ru/",
+					OKTMO = retriveFromAttrSeq(attrs, attribute="oktmo")),
+					PayeeName = payee.payeeName,
+					PayeeBIC = payee.bankBik,
+					PayeePersonalAcc = payee.payeeAcc,
+					PayeeINN = payee.payeeInn,
+					PayeeKPP = payee.payeeKpp,
+					HASH = ""
+					)
 
 
 val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTMO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}B0P3OHFA"
@@ -179,9 +254,16 @@ val data = Json.toJson(req.copy(HASH=hash))
 
 val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.ru/tax/pay/").withHeaders("Content-Type" -> "application/json",
 	"Authorization" -> "8TKM8IFG").post(data)
-	futureResponse.map { r => 
+	futureResponse.flatMap { r => 
 		val url = r.json.as[MobiRequestResult].Result.url 
-		Redirect( url )
+		    fillAttributesDAO.findOrCreate(id,
+		      FillAttributeDTO(None,
+		                        fill_id = id,
+		                        attribute = "poshlinaOrder",
+		                        value = req.OrderID.toString)).map { r3 =>
+				Redirect( url )
+		    }
+
 	}
 
 
@@ -189,25 +271,76 @@ val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.
 
 
 
-def check(orderId: Int) = Action.async { implicit request =>
-	val req = MobiRequest(OrderID = orderId,
-Amount = 400000,
-FIO = "Иванов Иван Иванович",
-Address = "г. Москва, ул. Ленина, д.1",
-PayerINN = "500100732259",
-Region = "77",
-KBK = "18210807010011000110",
-TaxName = "Государственная пошлина за регистрацию ЮЛ",
-URL = "https://www.oplatagosuslug.ru/",
-NotifyURL = "https://www.oplatagosuslug.ru/",
-OKTMO = "40911000",
-PayeeName = "УФК по г. Санкт-Петербургу (Межрайонная ИФНС России №11 по Санкт- Петербургу)",
-PayeeBIC = "044030001",
-PayeePersonalAcc = "40101810200000010001",
-PayeeINN = "7842000011",
-PayeeKPP = "784201001",
-HASH = ""
+def check(phone: String) = Action.async { implicit request =>
+  val abnGuid = uuid
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+  val attrs = await(fillAttributesDAO.findByFill(id))
+
+  val firstName = retriveFromAttrSeq(attrs, attribute="firstname")
+  val lastName = retriveFromAttrSeq(attrs, attribute="lastName")
+  val patronymic = retriveFromAttrSeq(attrs, attribute="middleName")
+  val inn = retriveFromAttrSeq(attrs, attribute="inn")
+  val snils = retriveFromAttrSeq(attrs, attribute="snils")
+  val passport = retriveFromAttrSeq(attrs, attribute="passport")
+  val passportIssuedBy = retriveFromAttrSeq(attrs, attribute="passportIssuedBy")
+  val passportDate = retriveFromAttrSeq(attrs, attribute="passportIssuedDate")
+  val eMail = retriveFromAttrSeq(attrs, attribute="eMail")
+  val postalAddress = retriveFromAttrSeq(attrs, attribute="postalAddress")
+  val locationAddress = retriveFromAttrSeq(attrs, attribute="locationAddress")
+
+  val subject = retriveFromAttrSeq(attrs, attribute="subject")
+  val area = retriveFromAttrSeq(attrs, attribute="area")
+  val city = retriveFromAttrSeq(attrs, attribute="city")
+  val settlement = retriveFromAttrSeq(attrs, attribute="settlement")
+  val street = retriveFromAttrSeq(attrs, attribute="street")
+  val house = retriveFromAttrSeq(attrs, attribute="house")
+  val corpus = retriveFromAttrSeq(attrs, attribute="corpus")
+  val flat = retriveFromAttrSeq(attrs, attribute="flat")
+
+
+//println("orderId " + orderId)
+
+
+val fnsResF: Future[WSResponse] = ws.url("https://service.nalog.ru/addrno-proc.json")
+.post((Map(
+		"ifns" -> Seq( retriveFromAttrSeq(attrs, attribute="fnsreg")),
+		"lk" ->  Seq("false"),
+		"c" ->  Seq("next"),
+		"step" ->  Seq("1"),
+		"npKind" ->  Seq("fl"),
+		"objectAddr" ->  Seq(""),
+		"oktmmf" ->  Seq("")
+		)))
+val fnsRes = await(fnsResF)
+
+println("fnsRes: " + fnsRes.json)
+
+
+val fnsData = (fnsRes.json \ "ifnsDetails").as[IfnsDetails] 
+val payee = (fnsRes.json \ "payeeDetails").as[PayeeDetails]
+
+val req = MobiRequest(OrderID = poshlinaFormatter(
+		retriveFromAttrSeq(attrs, attribute="poshlinaOrder")),
+					Amount = 800,
+					FIO = firstName+" "+lastName+" "+patronymic,
+					Address = subject+" "+city+" "+settlement+" "+street+" "+house+" "+corpus+" "+flat,
+					PayerINN = inn,
+					Region = area,
+					KBK = "18210807010011000110",
+					TaxName = "Государственная пошлина за регистрацию ЮЛ",
+					URL = "http://clerksy.ru/gett-fill-duty",
+					NotifyURL = "https://www.oplatagosuslug.ru/",
+					OKTMO = retriveFromAttrSeq(attrs, attribute="oktmo")),
+					PayeeName = payee.payeeName,
+					PayeeBIC = payee.bankBik,
+					PayeePersonalAcc = payee.payeeAcc,
+					PayeeINN = payee.payeeInn,
+					PayeeKPP = payee.payeeKpp,
+					HASH = ""
 )
+
+
 
 
 val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTMO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}B0P3OHFA"
@@ -228,5 +361,16 @@ val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.
 
 }
 
+
+def poshlinaFormatter(s: String):Int = {
+	s match {
+		case "" => 0
+		case _ => s.toInt 
+	}
+}
+
+def uuid = java.util.UUID.randomUUID.toString
+
+def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
 
 }

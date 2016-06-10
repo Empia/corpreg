@@ -4,8 +4,9 @@
 
 # Home page
 GET         /                                controllers.UserFillingController.index
-GET         /duty_check/:orderId             controllers.DutyController.check(orderId: Int)
-GET         /duty_test                       controllers.DutyController.index
+GET         /gett                            controllers.UserFillingController.index
+GET         /duty_check/:phone               controllers.DutyController.check(phone: String)
+GET         /duty_test/:phone                controllers.DutyController.index(phone: String)
 
 GET /test_action controllers.FormGeneratorController.testAction()
 
