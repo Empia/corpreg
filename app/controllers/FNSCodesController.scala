@@ -96,6 +96,39 @@ ws.url("https://service.nalog.ru/addrno-proc.json").withHeaders("headerKey" -> "
 }
 }
 
+
+def fnsOktmo(glob: String) = Action.async { implicit request =>
+  import play.api.libs.json.{JsNull,Json,JsString,JsValue}
+
+
+  ws.url("https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/party").withHeaders(
+    "Content-Type" -> "application/json",
+    "Accept" -> "application/json",
+    "headerKey" -> "headerValue",
+    "Authorization" -> "Token 2aba8de760c817b3e11ac7726435d42a124d5f62",
+    "X-Secret" -> "5fe3c7bcbe3363365af9657e800674680bde36c4"
+  ).post(s"""{ "query": "${glob}" } """
+
+  ).flatMap {
+    response =>
+    val address = ((response.json \ "suggestions" )(0) \ "data" \ "address" \ "value").as[String]
+
+  ws.url("https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address").withHeaders(
+    "Content-Type" -> "application/json",
+    "Accept" -> "application/json",
+    "headerKey" -> "headerValue",
+    "Authorization" -> "Token 2aba8de760c817b3e11ac7726435d42a124d5f62",
+    "X-Secret" -> "5fe3c7bcbe3363365af9657e800674680bde36c4"
+  ).post(s"""{ "query": "${address}" } """
+
+  ).map { c =>
+
+      println(c.body)
+      Ok( ((response.json \ "suggestions" )(0) \ "data" \ "address" \ "data" \ "oktmo").as[String] ) 
+    }
+  }
+}
+
 def passport(num: String) = Action.async { implicit request =>
   import play.api.libs.json.{JsNull,Json,JsString,JsValue}
 

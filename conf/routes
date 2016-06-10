@@ -34,6 +34,8 @@ GET /states controllers.SignController.states
 GET /make-sign controllers.SignController.requestSign
 
 GET /fns/:global controllers.FNSCodesController.index(global: String)
+GET /oktmo/:global controllers.FNSCodesController.fnsOktmo(global: String)
+
 GET /passport/:num controllers.FNSCodesController.passport(num: String)
 
 
