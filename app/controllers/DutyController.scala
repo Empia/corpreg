@@ -228,7 +228,7 @@ println("t"+ locationAddress)
 val req = MobiRequest(OrderID = orderId,
 					Amount = 800,
 					FIO = lastName + " " +firstName+" "+patronymic,
-					Address = locationAddress,
+					Address = subject+" "+city+" "+settlement+" "+street,
 					PayerINN = inn,
 					Region = retriveFromAttrSeq(attrs, attribute="subject"),
 					KBK = "18210807010011000110",
