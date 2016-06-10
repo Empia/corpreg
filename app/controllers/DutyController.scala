@@ -36,6 +36,18 @@ import info.folone.scala.poi._
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.mvc._
 import play.api.libs.ws._
+import play.api.mvc._
+import play.api.libs.ws._
+import scala.concurrent.ExecutionContext.Implicits.global
+
+import com.ning.http.client.AsyncHttpClientConfigBean
+import play.api.libs.ws.WSResponse
+import play.api.libs.ws.ning.NingWSClient
+import scala.concurrent.Future
+
+import com.ning.http.client.AsyncHttpClientConfig
+import play.api.libs.ws.ning._
+import play.api.libs.ws._
 
 case class MobiRequest(
 	OrderID: Int,
@@ -56,15 +68,29 @@ case class MobiRequest(
 	PayeeKPP: String,
 	HASH: String = ""
 	)
+case class MobiRequestResult(
+	  Error: String,
+      Result: MobiRequestResultObj 
+)
+case class MobiRequestResultObj(
+    ttl: Int,
+    url: String
+  )
 
 class DutyController @Inject() (
   val messagesApi: MessagesApi,
   fillsDAO:FillsDAO,
-  ws: WSClient,
   fillAttributesDAO: FillAttributesDAO,
   val env: Environment[User, CookieAuthenticator],
   socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[User, CookieAuthenticator] {
+
+implicit val MobiRequestResultObjFormat = Json.format[MobiRequestResultObj]
+implicit val MobiRequestResultObjWrites = Json.writes[MobiRequestResultObj]
+
+implicit val MobiRequestResultWrites = Json.writes[MobiRequestResult]
+implicit val MobiRequestResultFormat = Json.format[MobiRequestResult]
+
 
 
 
@@ -112,7 +138,56 @@ implicit val MobiRequestFormat = Json.format[MobiRequest]
 }
  */
 
+val config = new AsyncHttpClientConfigBean()
+  config.setAcceptAnyCertificate(true)
+  config.setFollowRedirect(true)
+  val ws = NingWSClient(config) 
+val r = scala.util.Random
+
+
 def index = Action.async { implicit request =>
+	val req = MobiRequest(OrderID = r.nextInt(10000000),
+Amount = 400000,
+FIO = "Иванов Иван Иванович",
+Address = "г. Москва, ул. Ленина, д.1",
+PayerINN = "500100732259",
+Region = "77",
+KBK = "18210807010011000110",
+TaxName = "Государственная пошлина за регистрацию ЮЛ",
+URL = "https://www.oplatagosuslug.ru/",
+NotifyURL = "https://www.oplatagosuslug.ru/",
+OKTMO = "40911000",
+PayeeName = "УФК по г. Санкт-Петербургу (Межрайонная ИФНС России №11 по Санкт- Петербургу)",
+PayeeBIC = "044030001",
+PayeePersonalAcc = "40101810200000010001",
+PayeeINN = "7842000011",
+PayeeKPP = "784201001",
+HASH = ""
+)
+
+
+val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTMO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}B0P3OHFA"
+val md = java.security.MessageDigest.getInstance("SHA-1")
+val hashSha = md.digest(hashFirst.getBytes("UTF-8")).map("%02x".format(_)).mkString
+val hash = java.util.Base64.getUrlEncoder.encodeToString(hashSha.getBytes("UTF-8"))
+
+val data = Json.toJson(req.copy(HASH=hash))
+
+
+
+val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.ru/tax/pay/").withHeaders("Content-Type" -> "application/json",
+	"Authorization" -> "8TKM8IFG").post(data)
+	futureResponse.map { r => 
+		val url = r.json.as[MobiRequestResult].Result.url 
+		Redirect( url )
+	}
+
+
+}
+
+
+
+def check = Action.async { implicit request =>
 	val req = MobiRequest(OrderID = 123456789,
 Amount = 400000,
 FIO = "Иванов Иван Иванович",
@@ -137,12 +212,19 @@ val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.Payer
 val md = java.security.MessageDigest.getInstance("SHA-1")
 val hashSha = md.digest(hashFirst.getBytes("UTF-8")).map("%02x".format(_)).mkString
 val hash = java.util.Base64.getUrlEncoder.encodeToString(hashSha.getBytes("UTF-8"))
-	Future.successful(Ok( Json.toJson(req.copy(HASH=hash)) ))
+
+val data = Json.toJson(req.copy(HASH=hash))
+
+
+
+val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.ru/tax/check/").withHeaders("Content-Type" -> "application/json",
+	"Authorization" -> "8TKM8IFG").post(data)
+	futureResponse.map { r => 
+		Ok( r.body)
+	}
 
 
 }
-
-
 
 
 }
