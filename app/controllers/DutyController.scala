@@ -245,7 +245,7 @@ val req = MobiRequest(OrderID = orderId,
 					)
 
 
-val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTMO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}B0P3OHFA"
+val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTMO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}XCVDI24A"
 val md = java.security.MessageDigest.getInstance("SHA-1")
 val hashSha = md.digest(hashFirst.getBytes("UTF-8")).map("%02x".format(_)).mkString
 val hash = java.util.Base64.getUrlEncoder.encodeToString(hashSha.getBytes("UTF-8"))
@@ -254,8 +254,8 @@ val data = Json.toJson(req.copy(HASH=hash))
 
 
 
-val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.ru/tax/pay/").withHeaders("Content-Type" -> "application/json",
-	"Authorization" -> "8TKM8IFG").post(data)
+val futureResponse: Future[WSResponse] = ws.url("https://pay.oplatagosuslug.ru/tax/pay/").withHeaders("Content-Type" -> "application/json",
+	"Authorization" -> "LQB17KFR").post(data)
 	futureResponse.flatMap { r => 
 		println("index "+r.json)
 		val url = r.json.as[MobiRequestResult].Result.url 
@@ -346,7 +346,7 @@ val req = MobiRequest(OrderID = poshlinaFormatter(
 
 
 
-val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTMO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}B0P3OHFA"
+val hashFirst = s"${req.OrderID}${req.Amount}${req.FIO}${req.Address}${req.PayerINN}${req.Region}${req.KBK}${req.TaxName}${req.URL}${req.NotifyURL}${req.OKTMO}${req.PayeeName}${req.PayeeBIC}${req.PayeePersonalAcc}${req.PayeeINN}${req.PayeeKPP}XCVDI24A"
 val md = java.security.MessageDigest.getInstance("SHA-1")
 val hashSha = md.digest(hashFirst.getBytes("UTF-8")).map("%02x".format(_)).mkString
 val hash = java.util.Base64.getUrlEncoder.encodeToString(hashSha.getBytes("UTF-8"))
@@ -355,8 +355,8 @@ val data = Json.toJson(req.copy(HASH=hash))
 
 
 
-val futureResponse: Future[WSResponse] = ws.url("https://demopay.oplatagosuslug.ru/tax/check/").withHeaders("Content-Type" -> "application/json",
-	"Authorization" -> "8TKM8IFG").post(data)
+val futureResponse: Future[WSResponse] = ws.url("https://pay.oplatagosuslug.ru/tax/check/").withHeaders("Content-Type" -> "application/json",
+	"Authorization" -> "LQB17KFR").post(data)
 	futureResponse.map { r => 
 		Ok( (r.json \ "Result" \ "CheckURL").as[String].replace("\\", "") )
 	}
