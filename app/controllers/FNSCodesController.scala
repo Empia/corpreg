@@ -56,6 +56,8 @@ class FNSCodesController @Inject() (
   socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[User, CookieAuthenticator] {
 
+def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
+
 
 def index(glob: String) = Action.async { implicit request =>
   import play.api.libs.json.{JsNull,Json,JsString,JsValue}
