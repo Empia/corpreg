@@ -207,7 +207,10 @@ def index(phone: String) = Action.async { implicit request =>
   val flat = retriveFromAttrSeq(attrs, attribute="flat")
 
 
-val orderId = r.nextInt(10000000)
+val orderId = retriveFromAttrSeq(attrs, attribute="poshlinaOrder") match {
+		case "" => r.nextInt(10000000)
+		case _ => retriveFromAttrSeq(attrs, attribute="poshlinaOrder").toInt
+	} 
 println("orderId " + orderId)
 
 val fullName = firstName+" "+lastName+" "+patronymic
