@@ -1,4 +1,4 @@
-@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String, signRequested: Boolean)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String, signRequested: Boolean, url: String)(implicit messages: Messages,request: RequestHeader)
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play
@@ -21,6 +21,13 @@
 .kp-block {
     margin-left: -29px;
 }
+.payment-done-check {
+    font-family: 'Fon Aawesome', sans-serif;
+    color: #6bbd6e;
+    font-size: 40px;
+    line-height: 40px;
+    text-align: left;
+}
 </style>
 
 <div class="w-container fill-data-form">
@@ -34,8 +41,8 @@
                   <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
                       <div class="w-container">
 <nav role="navigation" class="w-nav-menu application-nav-menu"><a href="#" class="w-nav-link application-nav-button application-nav-button-active" style="max-width: 940px;">Оплата госпошлины</a>
-  <div class="application-nav-arrow application-arrow-done"></div><a href="/gett-fill-userIdent" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Идентификация</a>
-  <div class="application-nav-arrow application-nav-arrow-next"></div><a href="#" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Электронная подпись</a>
+  <div class="application-nav-arrow"></div><a href="/gett-fill-userIdent" class="w-nav-link application-nav-button" style="max-width: 940px;">Идентификация</a>
+  <div class="application-nav-arrow application-nav-arrow-next"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Электронная подпись</a>
   <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Отправка в ФНС</a>
 </nav>
                           <div class="w-nav-button">
@@ -47,7 +54,7 @@
               </div>
 
 
-
+@if(signRequested == false) {
 <div class="application-body application-body-upload">
           <h3 class="application-subheading">Оплата госпошлины</h3>
           <p class="application-paragraph application-paragraph-last">Оплата пошлины производится с помощью сервиса <a class="oplatagosuslug-link" href="/duty_test/@phone" target="_blank">«Оплата госуслуг»</a>.&nbsp;Совершить платеж можно с помощью банковских карт Visa и MasterCard, а также с помощью мобильного телефона. Комиссия при оплате через сервис — 50 рублей.</p><a href="/duty_test/@phone" class="w-button duty-pay-button duty-pay-main">Перейти к оплате госпошлины</a>
@@ -59,12 +66,24 @@
               <div class="payment-method">Банковские карты</div><img src="/assets/images/mc-logo.png" class="payment-method-image" width="80"><img src="/assets/images/visa-logo.png" class="payment-method-image" width="80"><img src="/assets/images/jcb-logo.png" class="payment-method-image" width="80">
             </div>
           </div>
+</div>
+} else {
+<div class="application-body application-body-upload">
+    <h3 class="application-subheading">Оплата госпошлины</h3>
+    <p class="application-paragraph application-paragraph-last">Оплата пошлины производится с помощью сервиса <a class="oplatagosuslug-link" target="_blank" href="http://www.oplatagosuslug.ru">«Оплата госуслуг»</a>.&nbsp;Совершить платеж можно с помощью банковских карт Visa и MasterCard, а также с помощью мобильного телефона. Комиссия при оплате через сервис — 50 рублей.</p>
+    <div class="w-row">
+        <div class="w-col w-col-1">
+            <div class="payment-done-check"></div>
         </div>
+        <div class="w-col w-col-11">
+            <div class="payment-done-text">Оплата произведена успешно</div><a class="article-link article-link-alt article-link-payment" href="@url">Скачать квитанцию об оплате пошлины</a>
+        </div>
+    </div>
+</div>
 
-<!--
-<div class="application-footer"><a href="/gett-fill-userIdent" class="w-button application-next-button application-next-button-gett">Подтвердить и продолжить</a>
+<div class="application-footer"><a href="/gett-fill-userIdent" class="w-button application-next-button application-next-button-gett">Продолжить</a>
         </div>        
--->
+}
 
             </div>
         </div>

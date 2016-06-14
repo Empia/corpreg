@@ -362,8 +362,9 @@ def fillDuty = SecuredAction.async { implicit request =>
       val filesCn:List[FileValue] = files.map { fileId =>
         FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
       }
+      val payed = true
 
-    Ok(views.html.internal_forms.fillDuty(request.identity,id, attrs, phone, false ))
+    Ok(views.html.internal_forms.fillDuty(request.identity,id, attrs, phone, payed, "" ))
   }
 }
 def fillUserIdent = SecuredAction.async { implicit request =>
