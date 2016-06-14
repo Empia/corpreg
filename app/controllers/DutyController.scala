@@ -284,6 +284,22 @@ val futureResponse: Future[WSResponse] = ws.url("https://pay.oplatagosuslug.ru/t
 
 
 def check(phone: String) = Action.async { implicit request =>
+ 
+checkPaymentProcess(phone).map { r => 
+	val reqOpt = (r.json \ "Result" \ "CheckURL").asOpt[String]
+	reqOpt match {
+		case Some(r) => Ok(  r.replace("\\", "") )
+		case _ => Ok( "Bad condition" )
+		
+	}
+}
+
+
+}
+
+
+
+def checkPaymentProcess(phone: String) = {
   val abnGuid = uuid
   val fill = await(fillsDAO.getByPhone(phone)).get
   val id = fill.id.get
@@ -366,12 +382,9 @@ val data = Json.toJson(req.copy(HASH=hash))
 
 val futureResponse: Future[WSResponse] = ws.url("https://pay.oplatagosuslug.ru/tax/check/").withHeaders("Content-Type" -> "application/json",
 	"Authorization" -> "LQB17KFR").post(data)
-	futureResponse.map { r => 
-		Ok( (r.json \ "Result" \ "CheckURL").as[String].replace("\\", "") )
-	}
-
-
+futureResponse
 }
+
 
 
 def poshlinaFormatter(s: String):Int = {
