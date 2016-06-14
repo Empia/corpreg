@@ -855,6 +855,7 @@ def saveFillUserFiles(id: Long) = SecuredAction.async(parse.multipartFormData) {
 
   Future.sequence( files.map { fileId =>
     request.body.file(fileId).map { fileAbst =>
+        println("file uploaded"+fileAbst)
         import java.io.File
         val filename = fileAbst.filename
         val contentType = fileAbst.contentType
