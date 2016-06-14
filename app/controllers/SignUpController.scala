@@ -15,6 +15,7 @@ import models.services.UserService
 import play.api.i18n.{ MessagesApi, Messages }
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc.Action
+import play.api.libs.mailer._
 
 
 import models._
@@ -38,6 +39,8 @@ class SignUpController @Inject() (
   userService: UserService,
   fillsDAO: FillsDAO,
   authInfoRepository: AuthInfoRepository,
+    mailerClient: MailerClient,
+
   avatarService: AvatarService,
   passwordHasher: PasswordHasher)
   extends Silhouette[User, CookieAuthenticator] {
@@ -100,6 +103,7 @@ class SignUpController @Inject() (
           case None =>
             val password = smsComponent.generatePassword
             smsComponent.sendSms(data.email, text = s"Ваш пароль для входа $password")
+            Mailer.sendFullEmail(mailerClient, data.email, fullName = Some(""), action = "зарегистрировался")
             fillsDAO.create(FillDTO(id = None, phone = data.email))
             val authInfo = passwordHasher.hash(password)
             val user = User(
