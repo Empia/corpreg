@@ -65,16 +65,28 @@ def index = SecuredAction.async { implicit request =>
       //if (fill.filled && !fill.filledCorrect) {
         // Личные данные
         // Адрес регистрации
-        //Future.successful(Redirect(routes.UserFillingController.passport))
+        if (fill.addressFilled == false) {
+        Future.successful(Redirect(routes.UserFillingController.passport))
         // Налоговый режим
-        // fill.addressFilled
-        Future.successful(Redirect(routes.UserFillingController.fillNalog))
-        // fill.nalogFilled
-        Future.successful(Redirect(routes.AdminController.writeFillFilesUser))
-        // userFilesUploaded
-        Future.successful(Redirect(routes.UserFillingController.fillConfirmation))
-        // signCreationConfirm
-        Future.successful(Redirect(routes.UserFillingController.fillConfirmation))
+        } else {
+          if (fill.addressFilled) {
+            Future.successful(Redirect(routes.UserFillingController.fillNalog))
+          } else 
+          if (fill.nalogFilled) {
+            Future.successful(Redirect(routes.AdminController.writeFillFilesUser))
+          } else 
+          if (fill.userFilesUploaded) {
+            Future.successful(Redirect(routes.UserFillingController.fillConfirmation))
+          } else 
+          if (fill.signCreationConfirm) {
+            Future.successful(Redirect(routes.UserFillingController.fillConfirmation))
+          } else {
+            Future.successful(Redirect(routes.UserFillingController.passport))
+          } 
+        }
+
+
+
 
         //  identityConfirmRequest
         //  identityConfirmApproved
