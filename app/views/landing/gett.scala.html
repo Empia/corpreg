@@ -1,3 +1,7 @@
+@(signInForm: Form[forms.SignUpForm.Data])(implicit request: RequestHeader, messages: Messages)
+
+@import b3.inline.fieldConstructor
+
 <!DOCTYPE html>
 
 <html data-wf-site="5637501d17335e240c9c1dd0" data-wf-page="574d849c116766101d3309c9">
@@ -19,9 +23,19 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.ico")">
     <link rel="apple-touch-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/assets/styles/landing	.css">
+    <link rel="stylesheet" href="/assets/styles/landing.css">
 
 </head>
+<style>.hidden {
+	display: none;}
+	.home-email-form {
+		display: block;
+	}
+	#name-11_field {
+    display: inline-block;
+    margin-right: -5px;
+}
+	</style>
 
 <body>
     <div class="w-section home-main-section home-main-section-gett">
@@ -41,16 +55,22 @@
             <p class="home-hero-paragraph home-hero-paragraph-gett">Клеркси — сервис онлайн-регистрации ИП с помощью электронной подписи.
                 <br>Без очередей и бюрократии, без посещения налоговой или нотариуса.</p><img class="home-hero-image" src="/assets/images/574c449ada805a38250bc70f_book01%20(1).png" width="700">
             <div class="w-form home-email-form">
-                <form class="tel-form-block" data-name="Email Form" id="email-form" name="email-form">
-                    <div class="tongue"></div>
-                    <input class="w-input home-email-field home-email-field-gett" data-name="Name" id="name" maxlength="256" name="name" placeholder="79001234567" type="text"><a class="w-button home-email-button home-email-button-gett" href="/signUp">Стать ИП</a>
-                </form>
-                <div class="w-form-done">
-                    <p>Thank you! Your submission has been received!</p>
-                </div>
-                <div class="w-form-fail">
-                    <p>Oops! Something went wrong while submitting the form</p>
-                </div>
+                    @helper.form(action = routes.SignUpController.smsSignUp(), 'id -> "email-form", 'class -> "tel-form-block") {
+                                @helper.CSRF.formField
+<div class="w-row appplication-form-row hidden">
+  <label for="name-11" class="gett-login-form-label">Имя</label>
+  @b3.text(signInForm("firstName"), 'id -> "name-11",'class -> "w-input application-form-field")
+  <label for="name-11" class="gett-login-form-label">Фамилия</label>
+  @b3.text(signInForm("lastName"), 'id -> "name-11",'class -> "w-input application-form-field")
+  <label for="name-11" class="gett-login-form-label">Номер телефона 79000000000</label>
+
+ <label for="name-12" class="gett-login-form-label">Секретное слово:</label>
+  @b3.password(signInForm("password"), 'id -> "name-12", 'class -> "w-input application-form-field")
+</div>                                
+                      @b3.text(signInForm("email"), 'id -> "name-11",'class -> "w-input home-email-field home-email-field-gett", 'placeholder -> "79001234567")                                                
+                        <button type="submit" value="submit" class="w-button home-email-button home-email-button-gett" href="/signUp">Стать ИП</button>
+                            }
+
             </div>
             <div class="gett-point gett-point-arrow arrow-2">
                 <div class="gett-point-text gett-point-text-arrow text-arrow-2"></div>
@@ -159,7 +179,7 @@
                     <h3 class="home-section-heading home-section-heading-gett home-section-heading-gett-alt">Заключите договор с Gett</h3>
                     <p class="home-hero-paragraph home-hero-paragraph-gett-on">После регистрации в качестве индивидуального предпринимателя и открытия расчетного счета ваши документы будут автоматически направлены в Gett — можно заключать договор!</p>
                     <p class="home-hero-paragraph home-hero-paragraph-gett-on home-hero-paragraph-gett-2">Есть вопросы по работе с Gett? Пишите на ip@@gett.ru</p>
-                    <div class="gett-links"><a class="gett-link" href="http://www.gettaximan.ru" target="_blank">—&nbsp;Gettaximan</a><a class="gett-link" href="#">—&nbsp;Памятка партнера</a><a class="gett-link" href="https://n12556.yclients.com/company:31491/idx:0/date?o=m-1" target="_blank">—&nbsp;Запись на заключение договора</a>
+                    <div class="gett-links"><a class="gett-link" href="http://www.gettaximan.ru" target="_blank">—&nbsp;Gettaximan</a><a class="gett-link" href="/assets/Помощь партнеру_20160425.pdf">—&nbsp;Памятка партнера</a><a class="gett-link" href="https://n12556.yclients.com/company:31491/idx:0/date?o=m-1" target="_blank">—&nbsp;Запись на заключение договора</a>
                     </div>
                 </div>
             </div>

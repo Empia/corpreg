@@ -48,6 +48,7 @@ import scala.concurrent.Future
 import com.ning.http.client.AsyncHttpClientConfig
 import play.api.libs.ws.ning._
 import play.api.libs.ws._
+import forms._
 
 
 
@@ -55,14 +56,11 @@ import play.api.libs.ws._
 
 class LandingController @Inject() (
   val messagesApi: MessagesApi,
-  fillsDAO:FillsDAO,
-  fillAttributesDAO: FillAttributesDAO,
-  val env: Environment[User, CookieAuthenticator],
-  socialProviderRegistry: SocialProviderRegistry)
+  val env: Environment[User, CookieAuthenticator])
   extends Silhouette[User, CookieAuthenticator] {
 
 def index = Action.async { implicit request =>
-	Future.successful(    Ok(views.html.landing.gett()) )
+	Future.successful(    Ok(views.html.landing.gett(SignUpForm.form.fill(SignUpForm.Data("Имя","Фамилия","","Слово"))  )) )
 
 }
 
