@@ -176,6 +176,11 @@
           <h3 class="application-subheading">Загрузка сканов документов</h3>
           <p class="application-paragraph">Теперь загрузите сканы ваших документов — для выпуска электронной подписи понадобятся копии паспорта, свидетельства ИНН и СНИЛС.</p>
           <p class="application-paragraph">Очень важно, чтобы скан или фото паспорта были в хорошем качестве и в хорошо читаемом виде. Копия паспорта предоставляется в регистрирующий орган вместе с заявлением на регистрацию ИП.</p>
+
+
+@helper.form(action = routes.AdminController.saveFillUserFiles(fillId), 'enctype -> "multipart/form-data") {
+  @helper.CSRF.formField
+
           <div class="w-row upload-documents-block">
             <div class="w-col w-col-7 upload-file-column-1">
               <p class="application-paragraph application-paragraph-ulpoad">Допустимые форматы файлов: PDF, JPEG, GIF, PNG, TIFF</p>
@@ -186,22 +191,52 @@
                   <div class="upload-box-icon"></div>
                   <div class="upload-link-drop">Перетащите &nbsp;сюда
                     <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                    <input name="PASSPORT" id="drop-zone" type="file">
+
+            @fileCn.map { file =>
+              @if(file.filePath != "" && file.fileId == "PASSPORT") {
+<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
+Паспорт
+</a>
+              }
+            }
+
+
                   </div>
                 </a>
                 <a class="w-inline-block upload-file-box upload-file-box-right" href="#">
                   <div>Паспорт
                     <br>(регистрация)</div>
                   <div class="upload-box-icon"></div>
+
                   <div class="upload-link-drop">Перетащите сюда
                     <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                    <input name="PASSPORT2" id="drop-zone" type="file">
+            @fileCn.map { file =>
+              @if(file.filePath != "" && file.fileId == "PASSPORT2_SCAN") {
+<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
+Паспорт
+</a>
+              }
+            }
                   </div>
                 </a>
+
                 <a class="w-inline-block upload-file-box" href="#">
                   <div>Свидетельство
                     <br>ИНН</div>
                   <div class="upload-box-icon"></div>
                   <div class="upload-link-drop">Перетащите сюда
                     <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                    <input name="INN" id="drop-zone" type="file">   
+             @fileCn.map { file =>
+              @if(file.filePath != "" && file.fileId == "INN_SCAN") {
+<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
+Паспорт
+</a>
+              }
+            }
+
                   </div>
                 </a>
                 <a class="w-inline-block upload-file-box" href="#">
@@ -210,6 +245,16 @@
                   <div class="upload-box-icon"></div>
                   <div class="upload-link-drop">Перетащите сюда
                     <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                    <input name="SNILS" id="drop-zone" type="file">
+            @fileCn.map { file =>
+              @if(file.filePath != "" && file.fileId == "SNILS_SCAN") {
+<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
+Паспорт
+</a>
+              }
+            }
+
+
                   </div>
                 </a>
               </div>
@@ -221,109 +266,6 @@
 
 
 
-
-@helper.form(action = routes.AdminController.saveFillUserFiles(fillId), 'enctype -> "multipart/form-data") {
-  @helper.CSRF.formField
-
-  <div class="application-body application-body-upload">
-      <h3 class="application-subheading">Загрузка документов</h3>
-      <div class="w-row">
-          <div class="w-col w-col-4 w-clearfix upload-column-one">
-
-            <div class="w-clearfix"><a href="#" class="upload-filter-link upload-filter-link-active">ИП</a><a href="#" class="upload-filter-link">ООО</a>
-                          </div>
-
-            @fileCn.map { file =>
-              @if(file.filePath != "") {
-<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
-  @if(file.fileId == "P21001") {Заявление Р21001}
-  @if(file.fileId == "USN") {Заявление на УСН}
-  @if(file.fileId == "PASSPORT") {Паспорт}
-  @if(file.fileId == "POSHLINA") {Пошлина}
-</a>
-              }
-            }
-
-@if(fileCn.find(f => f.fileId == "P21001" && f.filePath == "").isDefined) {
-<a href="#" class="file-upload-button">
-Заявление Р21001
-</a>
-}
-@if(fileCn.find(f => f.fileId == "USN" && f.filePath == "").isDefined) {
-<a href="#" class="file-upload-button">
-Заявление на УСН
-</a>
-}
-@if(fileCn.find(f => f.fileId == "PASSPORT" && f.filePath == "").isDefined) {
-<a href="#" class="file-upload-button">
-Паспорт
-</a>
-}
-@if(fileCn.find(f => f.fileId == "POSHLINA" && f.filePath == "").isDefined) {
-<a href="#" class="file-upload-button">
-Пошлина
-</a>
-}
-
-            <!--
-
-            <a href="#" class="file-upload-button file-upload-button-pressed">Заявление&nbsp;Р21001</a>
-            <a href="#" class="file-upload-button file-upload-button-pressed">Заявление УСН</a>
-            <a href="#" class="file-upload-button file-upload-button-pressed">Паспорт</a>
-            <a href="#" class="file-upload-button file-upload-button-pressed">Госпошлина</a>
-
-            <a href="#" class="file-upload-button">Заявление Р11001</a>
-            <a href="#" class="file-upload-button">Устав</a>
-            <a href="#" class="file-upload-button">Решение</a>
-            <a href="#" class="file-upload-button">Протокол</a>
-            <a href="#" class="file-upload-button">Юридический адрес</a>
-            <a href="#" class="file-upload-button">Другой документ</a>
-          -->
-          </div>
-          <div class="w-col w-col-8 upload-column-two">
-              <div class="w-row upload-row">
-                  <div class="w-col w-col-8">
-                      <div class="w-embed upload-file-field">
-                          <input name="P21001" id="drop-zone" type="file">
-                      </div>
-                  </div>
-                  <div class="w-col w-col-4">
-                      <div class="upload-file-label">Заявление Р21001</div>
-                  </div>
-              </div>
-              <div class="w-row upload-row">
-                  <div class="w-col w-col-8">
-                      <div class="w-embed upload-file-field">
-                          <input name="USN" id="drop-zone" type="file">
-                      </div>
-                  </div>
-                  <div class="w-col w-col-4">
-                      <div class="upload-file-label">Заявление на УСН</div>
-                  </div>
-              </div>
-              <div class="w-row upload-row">
-                  <div class="w-col w-col-8">
-                      <div class="w-embed upload-file-field">
-                          <input name="PASSPORT" id="drop-zone" type="file">
-                      </div>
-                  </div>
-                  <div class="w-col w-col-4">
-                      <div class="upload-file-label">Паспорт</div>
-                  </div>
-              </div>
-              <div class="w-row upload-row">
-                  <div class="w-col w-col-8">
-                      <div class="w-embed upload-file-field">
-                          <input name="POSHLINA" id="drop-zone" type="file">
-                      </div>
-                  </div>
-                  <div class="w-col w-col-4">
-                      <div class="upload-file-label">Пошлина</div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
 
 
 

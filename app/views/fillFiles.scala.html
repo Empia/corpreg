@@ -200,6 +200,9 @@
   @if(file.fileId == "USN") {Заявление на УСН}
   @if(file.fileId == "PASSPORT") {Паспорт}
   @if(file.fileId == "POSHLINA") {Пошлина}
+@if(file.fileId == "PASSPORT2_SCAN") {PASSPORT2_SCAN}
+@if(file.fileId == "INN_SCAN") {INN_SCAN}
+@if(file.fileId == "SNILS_SCAN") {SNILS_SCAN}
 </a>
               }
             }
@@ -224,6 +227,25 @@
 Пошлина
 </a>
 }
+
+@if(fileCn.find(f => f.fileId == "PASSPORT2_SCAN" && f.filePath == "").isDefined) {
+<a href="#" class="file-upload-button">
+PASSPORT2_SCAN
+</a>
+}
+
+@if(fileCn.find(f => f.fileId == "INN_SCAN" && f.filePath == "").isDefined) {
+<a href="#" class="file-upload-button">
+INN_SCAN
+</a>
+}
+
+@if(fileCn.find(f => f.fileId == "SNILS_SCAN" && f.filePath == "").isDefined) {
+<a href="#" class="file-upload-button">
+SNILS_SCAN
+</a>
+}
+
 
             <!--
 
@@ -281,6 +303,37 @@
                       <div class="upload-file-label">Пошлина</div>
                   </div>
               </div>
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="PASSPORT2_SCAN" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">PASSPORT2_SCAN</div>
+                  </div>
+              </div>
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="INN_SCAN" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">INN_SCAN</div>
+                  </div>
+              </div>
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="SNILS_SCAN" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">SNILS_SCAN</div>
+                  </div>
+              </div>
+
           </div>
       </div>
   </div>

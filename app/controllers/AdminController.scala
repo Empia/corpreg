@@ -772,6 +772,10 @@ val attrF = Future.sequence(fillAttributes.map { attr =>
 val files = List("P21001",
                 "USN",
                 "PASSPORT",
+"PASSPORT2_SCAN",
+"INN_SCAN",
+"SNILS_SCAN",
+
                 "POSHLINA")
 
 def writeFillFiles(id: Long) = SecuredAction.async { implicit request =>
