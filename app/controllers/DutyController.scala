@@ -289,7 +289,7 @@ DutyProcess.checkPaymentProcess(phone,
 	fillsDAO,
 	fillAttributesDAO).map { r => 
 	val reqOpt = (r.json \ "Result" \ "CheckURL").asOpt[String]
-	println("reqOpt: "+reqOpt)
+	println("reqOpt: "+r.json)
 	reqOpt match {
 		case Some(r) => Ok(  r.replace("\\", "") )
 		case _ => Ok( "Bad condition" )
