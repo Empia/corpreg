@@ -190,7 +190,7 @@
                     <br>(страницы 2-3)</div>
                   <div class="upload-box-icon"></div>
                   <div class="upload-link-drop">Перетащите &nbsp;сюда
-                    <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                    <br>или <!-- <span class="upload-link-drop-choose">выберете файл</span>-->
                     <input name="PASSPORT" id="drop-zone" type="file">
 
             @fileCn.map { file =>
@@ -210,7 +210,7 @@
                   <div class="upload-box-icon"></div>
 
                   <div class="upload-link-drop">Перетащите сюда
-                    <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                    <br>или 
                     <input name="PASSPORT2" id="drop-zone" type="file">
             @fileCn.map { file =>
               @if(file.filePath != "" && file.fileId == "PASSPORT2_SCAN") {
@@ -227,7 +227,7 @@
                     <br>ИНН</div>
                   <div class="upload-box-icon"></div>
                   <div class="upload-link-drop">Перетащите сюда
-                    <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                    <br>или 
                     <input name="INN" id="drop-zone" type="file">   
              @fileCn.map { file =>
               @if(file.filePath != "" && file.fileId == "INN_SCAN") {
@@ -244,7 +244,7 @@
                     <br>СНИЛС</div>
                   <div class="upload-box-icon"></div>
                   <div class="upload-link-drop">Перетащите сюда
-                    <br>или <span class="upload-link-drop-choose">выберете файл</span>
+                    <br>или 
                     <input name="SNILS" id="drop-zone" type="file">
             @fileCn.map { file =>
               @if(file.filePath != "" && file.fileId == "SNILS_SCAN") {
