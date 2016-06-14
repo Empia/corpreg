@@ -285,7 +285,9 @@ val futureResponse: Future[WSResponse] = ws.url("https://pay.oplatagosuslug.ru/t
 
 def check(phone: String) = Action.async { implicit request =>
  
-checkPaymentProcess(phone).map { r => 
+DutyProcess.checkPaymentProcess(phone,
+	fillsDAO,
+	fillAttributesDAO).map { r => 
 	val reqOpt = (r.json \ "Result" \ "CheckURL").asOpt[String]
 	reqOpt match {
 		case Some(r) => Ok(  r.replace("\\", "") )
@@ -299,7 +301,68 @@ checkPaymentProcess(phone).map { r =>
 
 
 
-def checkPaymentProcess(phone: String) = {
+
+
+def poshlinaFormatter(s: String):Int = {
+	s match {
+		case "" => 0
+		case _ => s.toInt 
+	}
+}
+
+def uuid = java.util.UUID.randomUUID.toString
+
+def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
+
+}
+
+
+object DutyProcess {
+
+implicit val PayeeDetailsWrites = Json.writes[PayeeDetails]
+implicit val PayeeDetailsFormat = Json.format[PayeeDetails]
+
+
+implicit val IfnsDetailsWrites = Json.writes[IfnsDetails]
+implicit val IfnsDetailsFormat = Json.format[IfnsDetails]
+
+
+implicit val MobiRequestWrites = Json.writes[MobiRequest]
+implicit val MobiRequestFormat = Json.format[MobiRequest]
+
+val config = new AsyncHttpClientConfigBean()
+  config.setAcceptAnyCertificate(true)
+  config.setFollowRedirect(true)
+  val ws = NingWSClient(config) 
+val r = scala.util.Random
+def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
+def uuid = java.util.UUID.randomUUID.toString
+
+def awaitAndPrint[T](a: Awaitable[T])(implicit ec: ExecutionContext) = println(await(a))
+private def retriveAttribute(c: Option[FillAttributeDTO]):String = {
+	c match {
+		case Some(attr) => attr.value
+		case _ => ""
+	}
+}
+private def retriveFromAttrSeq(attrs: Seq[FillAttributeDTO], attribute:String):String = {
+	retriveAttribute(attrs.find(attr => attr.attribute == attribute))
+}
+def poshlinaFormatter(s: String):Int = {
+	s match {
+		case "" => 0
+		case _ => s.toInt 
+	}
+}
+
+
+
+
+
+def checkPaymentProcess(phone: String,
+  fillsDAO:FillsDAO,
+  fillAttributesDAO: FillAttributesDAO
+	) = {
   val abnGuid = uuid
   val fill = await(fillsDAO.getByPhone(phone)).get
   val id = fill.id.get
@@ -384,18 +447,5 @@ val futureResponse: Future[WSResponse] = ws.url("https://pay.oplatagosuslug.ru/t
 	"Authorization" -> "LQB17KFR").post(data)
 futureResponse
 }
-
-
-
-def poshlinaFormatter(s: String):Int = {
-	s match {
-		case "" => 0
-		case _ => s.toInt 
-	}
-}
-
-def uuid = java.util.UUID.randomUUID.toString
-
-def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
 
 }

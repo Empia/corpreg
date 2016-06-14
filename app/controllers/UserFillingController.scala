@@ -362,9 +362,20 @@ def fillDuty = SecuredAction.async { implicit request =>
       val filesCn:List[FileValue] = files.map { fileId =>
         FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
       }
-      val payed = true
 
-    Ok(views.html.internal_forms.fillDuty(request.identity,id, attrs, phone, payed, "" ))
+val r = await(DutyProcess.checkPaymentProcess(phone,
+  fillsDAO,
+  fillAttributesDAO) )
+
+  val reqOpt = (r.json \ "Result" \ "CheckURL").asOpt[String]
+  val url = reqOpt match {
+    case Some(r) => r.replace("\\", "") 
+    case _ => "" 
+    
+  }
+  val payed = reqOpt.isDefined
+
+    Ok(views.html.internal_forms.fillDuty(request.identity,id, attrs, phone, payed, url ))
   }
 }
 def fillUserIdent = SecuredAction.async { implicit request =>
