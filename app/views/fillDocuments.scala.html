@@ -178,105 +178,88 @@
           <p class="application-paragraph">Очень важно, чтобы скан или фото паспорта были в хорошем качестве и в хорошо читаемом виде. Копия паспорта предоставляется в регистрирующий орган вместе с заявлением на регистрацию ИП.</p>
 
 
-@helper.form(action = routes.AdminController.saveFillUserFiles(fillId), 'enctype -> "multipart/form-data") {
+
+
+@helper.form(action = routes.AdminController.saveFillFiles(fillId), 'enctype -> "multipart/form-data") {
   @helper.CSRF.formField
 
-          <div class="w-row upload-documents-block">
-            <div class="w-col w-col-7 upload-file-column-1">
-              <p class="application-paragraph application-paragraph-ulpoad">Допустимые форматы файлов: PDF, JPEG, GIF, PNG, TIFF</p>
-              <div class="w-clearfix upload-big-block">
-                <a class="w-inline-block upload-file-box" href="#">
-                  <div>Паспорт
-                    <br>(страницы 2-3)</div>
-                  <div class="upload-box-icon"></div>
-                  <div class="upload-link-drop">Перетащите &nbsp;сюда
-                    <br>или <!-- <span class="upload-link-drop-choose">выберете файл</span>-->
-                    <input name="PASSPORT" id="drop-zone" type="file">
-
-            @fileCn.map { file =>
-              @if(file.filePath != "" && file.fileId == "PASSPORT") {
-<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
-Паспорт
-</a>
-              }
-            }
-
-
+  <div class="application-body application-body-upload">
+      <div class="w-row">
+          <div class="w-col w-col-8 upload-column-two">
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="PASSPORT" id="drop-zone" type="file">
+                      </div>
                   </div>
-                </a>
-                <a class="w-inline-block upload-file-box upload-file-box-right" href="#">
-                  <div>Паспорт
-                    <br>(регистрация)</div>
-                  <div class="upload-box-icon"></div>
-
-                  <div class="upload-link-drop">Перетащите сюда
-                    <br>или 
-                    <input name="PASSPORT2" id="drop-zone" type="file">
-            @fileCn.map { file =>
-              @if(file.filePath != "" && file.fileId == "PASSPORT2_SCAN") {
-<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
-Паспорт
-</a>
-              }
-            }
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">Паспорт</div>
                   </div>
-                </a>
-
-                <a class="w-inline-block upload-file-box" href="#">
-                  <div>Свидетельство
-                    <br>ИНН</div>
-                  <div class="upload-box-icon"></div>
-                  <div class="upload-link-drop">Перетащите сюда
-                    <br>или 
-                    <input name="INN" id="drop-zone" type="file">   
-             @fileCn.map { file =>
-              @if(file.filePath != "" && file.fileId == "INN_SCAN") {
-<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
-Паспорт
-</a>
-              }
-            }
-
-                  </div>
-                </a>
-                <a class="w-inline-block upload-file-box" href="#">
-                  <div>Свидетельство
-                    <br>СНИЛС</div>
-                  <div class="upload-box-icon"></div>
-                  <div class="upload-link-drop">Перетащите сюда
-                    <br>или 
-                    <input name="SNILS" id="drop-zone" type="file">
-            @fileCn.map { file =>
-              @if(file.filePath != "" && file.fileId == "SNILS_SCAN") {
-<a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="file-upload-button file-upload-button-pressed">
-Паспорт
-</a>
-              }
-            }
-
-
-                  </div>
-                </a>
               </div>
-            </div>
-            <div class="w-col w-col-5 w-clearfix"><img class="passport-image-style" src="/assets/images/Pasport_RF.png" width="303">
-            </div>
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="PASSPORT2_SCAN" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">Паспорт страница с пропиской</div>
+                  </div>
+              </div>              
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="POSHLINA" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">Пошлина</div>
+                  </div>
+              </div>
+
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="INN_SCAN" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">Скан ИНН</div>
+                  </div>
+              </div>
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="SNILS_SCAN" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">Скан СНИЛС</div>
+                  </div>
+              </div>
+
           </div>
-
-
-
-
+      </div>
+  </div>
 
 
 
 
                 <div class="application-footer">
                     <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">Загрузить</button>
-                    <a id="submit" href="/gett-confirmation" value="submit" class="w-button application-next-button application-next-button-gett">
+                                        <a id="submit" href="/gett-confirmation" value="submit" class="w-button application-next-button application-next-button-gett">
                       Далее</a>
 
                 </div>
 }
+
+<!--
+            <div class="w-col w-col-5 w-clearfix"><img class="passport-image-style" src="/assets/images/Pasport_RF.png" width="303">
+            </div>
+        </div>
+-->
+
+
 </div>
 </div>
 
