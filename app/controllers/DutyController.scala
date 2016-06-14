@@ -406,7 +406,7 @@ val fnsResF: Future[WSResponse] = ws.url("https://service.nalog.ru/addrno-proc.j
 		)))
 val fnsRes = await(fnsResF)
 
-println("fnsRes: " + fnsRes.json)
+//println("fnsRes: " + fnsRes.json)
 
 
 val fnsData = (fnsRes.json \ "ifnsDetails").as[IfnsDetails] 

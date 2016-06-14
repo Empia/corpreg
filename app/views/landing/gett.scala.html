@@ -67,7 +67,7 @@
  <label for="name-12" class="gett-login-form-label">Секретное слово:</label>
   @b3.password(signInForm("password"), 'id -> "name-12", 'class -> "w-input application-form-field")
 </div>                                
-                      @b3.text(signInForm("email"), 'id -> "name-11",'class -> "w-input home-email-field home-email-field-gett", 'placeholder -> "79001234567")                                                
+                      @b3.text(signInForm("email"), 'id -> "phonereg",'class -> "w-input home-email-field home-email-field-gett", 'placeholder -> "79001234567")                                                
                         <button type="submit" value="submit" class="w-button home-email-button home-email-button-gett" href="/signUp">Стать ИП</button>
                             }
 
@@ -198,6 +198,19 @@
         </div>
     </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<script src="/assets/t.js">
+</script>
+
+<script type="text/javascript" src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
+<script>
+    // $("#phonereg").mask('00000000000', {placeholder: "79001234567"});
+
+$(document).ready(function(){
+     $("#phonereg").mask('00000000000', {placeholder: "79001234567"});
+ });
+</script>
 
 <script>
 window.intercomSettings = {
