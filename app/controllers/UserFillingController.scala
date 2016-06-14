@@ -266,6 +266,10 @@ def fillNalog = SecuredAction.async { implicit request =>
 val files = List("P21001",
                 "USN",
                 "PASSPORT",
+"PASSPORT2_SCAN",
+"INN_SCAN",
+"SNILS_SCAN",
+
                 "POSHLINA")
 
 def fillConfirmation = SecuredAction.async { implicit request =>
