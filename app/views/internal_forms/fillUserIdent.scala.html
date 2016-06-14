@@ -1,4 +1,4 @@
-@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String, signRequested: Boolean)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String, identityConfirmRequest:Boolean, identityConfirmApproved: Boolean)(implicit messages: Messages,request: RequestHeader)
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play
@@ -51,6 +51,8 @@
 <div class="application-body application-body-menu"></div>
 
 
+
+@if(identityConfirmRequest == false) {
 <div class="application-body application-body-upload">
     <h3 class="application-subheading">Выбор способа идентификации</h3>
     <p class="application-paragraph application-paragraph-last">Для того, чтобы выпустить электронную подпись, вам необходимо пройти идентификацию (подписать заявление на выпуск электронной подписи). Выберете подходящий способ подтверждения вашей личности из приведенных ниже.</p>
@@ -73,23 +75,26 @@
     </div>
 </div>
 
-<div class="application-footer"><a class="w-button application-next-button application-next-button-gett" href="#">Подтвердить и продолжить</a></div>
-
-
-
-
-
+<div class="application-footer"><a class="w-button application-next-button application-next-button-gett" href="/gett-fill/userIdentAct">Подтвердить и продолжить</a></div>
+} else {
 <div class="application-body application-body-upload">
     <h3 class="application-subheading">Подтверждение идентификации</h3>
     <p class="application-paragraph">Ваши документы направлены на партнерскую точку подписания по адресу: шоссе Энтузиастов, дом 17, офис 426
         <br>Режим работы: понедельник-пятница, с 9 до 18 часов.
         <br>Перед тем как подъехать, необходимо позвонить по номеру +7 495-005-51-42 (доб. 3).</p>
-    <div class="triar-map">
-        <div class="w-embed w-script">
-        </div>
-    </div>
+                    <div class="triar-map">
+                        <div class="w-embed w-script">
+                            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=687wrPA-mvwwn_xIyeFMDRMm7YIIVWVd&width=100%&height=400&lang=ru_RU&sourceType=constructor&scroll=true"></script>
+                        </div>
+                    </div>
     <p class="application-paragraph application-paragraph-alt">Не забудьте взять с собой паспорт и оригиналы свидетельств ИНН и СНИЛС.</p>
 </div>
+  
+}
+
+
+
+
 
 
 

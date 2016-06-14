@@ -420,8 +420,35 @@ def fillUserIdent = SecuredAction.async { implicit request =>
       val filesCn:List[FileValue] = files.map { fileId =>
         FileValue(fileId, retriveFromAttrSeq(attrs, attribute=fileId))
       }
+      val identityConfirmRequest = fill.identityConfirmRequest
+      val identityConfirmApproved = fill.identityConfirmApproved
+  
+      identityConfirmApproved match {
+        case false => Ok(views.html.internal_forms.fillUserIdent(request.identity,
+                              id, attrs, phone, identityConfirmRequest, identityConfirmApproved ))
+        case true => Redirect(routes.UserFillingController.fillSign)
+      }
+  }
+}
 
-    Ok(views.html.internal_forms.fillUserIdent(request.identity,id, attrs, phone, false ))
+// Запрос на подтверждение личности
+def fillUserIdentReq = SecuredAction.async { implicit request =>
+  val phone = request.identity.email.getOrElse("")
+  val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fill.id.get
+
+  fillsDAO.setAttridentityConfirmRequest(id).map { l =>
+    Redirect(routes.UserFillingController.fillUserIdent)
+  }
+}
+// Подтверждение личности
+def fillUseruserIdentCf(fillId: Long) = SecuredAction.async { implicit request =>
+  //val phone = request.identity.email.getOrElse("")
+  //val fill = await(fillsDAO.getByPhone(phone)).get
+  val id = fillId
+
+  fillsDAO.setAttridentityConfirmApproved(id).map { l =>
+    Redirect(routes.AdminController.index)
   }
 }
 

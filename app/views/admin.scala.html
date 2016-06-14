@@ -152,6 +152,7 @@ attrsByFillId:Map[Long,Seq[FillAttributeDTO]]=Map())(implicit messages: Messages
           <div class="w-col w-col-2 admit-panel-user-column2">
 
             <a href="/filling/@filling.id.getOrElse(0)/register" class="manage-link">Выслать пароль</a>
+            <a href="/userIdentCf/@filling.id.getOrElse(0)" class="manage-link">Подтвердить личность</a>
             <a href="/filling/@filling.id.getOrElse(0)/signReady" class="manage-link">Подпись готова</a>
             <a href="/filling/@filling.id.getOrElse(0)/close" class="manage-link">Закрыть заявку</a>
             <a href="/filling/@filling.id.getOrElse(0)/remove" class="manage-link">Удалить заявку</a>
