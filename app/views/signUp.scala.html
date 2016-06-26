@@ -20,7 +20,7 @@
     <div class="application-body application-body-login">
         <div class="w-row">
             <div class="w-col w-col-5 login-column-1">
-                <div class="w-form application-form">
+                <div class="w-form application-form" style="display:none;">
                     @helper.form(action = routes.SignUpController.smsSignUp(), 'id -> "email-form") {
                                 @helper.CSRF.formField
                                 <div class="w-row appplication-form-row">
@@ -42,6 +42,8 @@
                             }
                           </div>
             </div>
+                                <div class="logon-page-register-text">Для тех, кто уже зарегистрирован:&nbsp;<a class="login-page-register-link" href="/signIn">войти</a>
+
             <div class="w-col w-col-7 login-column-2" style="display: none;">
                 <div class="faq-main">
                     <div class="faq-main-label">Куда я попал?</div>
