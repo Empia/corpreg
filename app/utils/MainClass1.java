@@ -237,7 +237,7 @@ public static void main2(String[] args, FormFields fields) throws Exception {
   //EventQueue.invokeLater(new Runnable() {
          //   @Override
          //   public void run() {
-            	String[] values = {"ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ", "ТЕСТ"};
+            	String[] values = {"ТЕСТ", "ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ", "ТЕСТ"};
                 create(args, fields);
            //}
         //});
@@ -259,7 +259,7 @@ private Graphics2D createPage1(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 45));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
       FontMetrics fm = g2d.getFontMetrics();
 
     // Cell SIZE 54 / 68
@@ -349,7 +349,7 @@ private Graphics2D createPage1(BufferedImage img, BufferedImage old, String[] ar
           String fullPob[] = fields.getField("pob");
           String[] textArray = splitByNumber(String.join("", fullPob), 41);
 
-          fillField(g2d, fields.p.getX(fp,"pob"), fields.p.getY(fp,"pob"), 41, textArray[0].split("") );
+          fillField(g2d, fields.p.getX(fp,"pob"), fields.p.getY(fp,"pob"), 41, fields.getField("inn") );//textArray[0].split("") );
           // PLACE OB BIRTH #2
           if (textArray.length > 1) {
             fillField(g2d, fields.p.getX(fp,"pob2"), fields.p.getY(fp,"pob2"), 41, textArray[1].split("") );
@@ -406,7 +406,7 @@ private Graphics2D createPage2(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 45));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
 
 
       String g2d3s2s[] = {"А","Б", "Й", "Ц", "У", "К", "Е", "Н", "Г",
@@ -506,8 +506,8 @@ private Graphics2D createPage2(BufferedImage img, BufferedImage old, String[] ar
 
     String issuer_code = String.join("", fields.getField("issuer_code1"));
 
-    fillField(g2d, fields.p.getX(sp,"issuer_code1"), fields.p.getY(sp,"issuer_code1"), 3, issuer_code.split("-")[0].split("")  ); // KOD PODR 1
-    fillField(g2d, fields.p.getX(sp,"issuer_code2"), fields.p.getY(sp,"issuer_code2"), 3, issuer_code.split("-")[1].split("") ); // KOD PODR 2
+    // fillField(g2d, fields.p.getX(sp,"issuer_code1"), fields.p.getY(sp,"issuer_code1"), 3, issuer_code.split("-")[0].split("")  ); // KOD PODR 1
+    // fillField(g2d, fields.p.getX(sp,"issuer_code2"), fields.p.getY(sp,"issuer_code2"), 3, issuer_code.split("-")[1].split("") ); // KOD PODR 2
 
     g2d.dispose();
     return g2d;
@@ -547,7 +547,7 @@ private Graphics2D createPage3(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 45));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
 
 
       String g2d3s2s[] = {"А","Б", "Й", "Ц", "У", "К", "Е", "Н", "Г",
@@ -611,7 +611,7 @@ private Graphics2D createPage4(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 45));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
       FontMetrics fm = g2d.getFontMetrics();
 
       String v = "60.22";
@@ -650,7 +650,7 @@ private Graphics2D createPage5(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 45));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
       FontMetrics fm = g2d.getFontMetrics();
 
       String fp = "fifthPage";
@@ -686,7 +686,7 @@ private Graphics2D createPage1Usn(BufferedImage img, BufferedImage old, String[]
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 45));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
       FontMetrics fm = g2d.getFontMetrics();
 
       String fps = "firstPageUsn";
