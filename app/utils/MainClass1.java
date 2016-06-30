@@ -259,7 +259,7 @@ private Graphics2D createPage1(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 68));
       FontMetrics fm = g2d.getFontMetrics();
 
     // Cell SIZE 54 / 68
@@ -406,7 +406,7 @@ private Graphics2D createPage2(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 68));
 
 
       String g2d3s2s[] = {"А","Б", "Й", "Ц", "У", "К", "Е", "Н", "Г",
@@ -547,7 +547,7 @@ private Graphics2D createPage3(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 68));
 
 
       String g2d3s2s[] = {"А","Б", "Й", "Ц", "У", "К", "Е", "Н", "Г",
@@ -611,7 +611,7 @@ private Graphics2D createPage4(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 68));
       FontMetrics fm = g2d.getFontMetrics();
 
       String v = "60.22";
@@ -650,7 +650,7 @@ private Graphics2D createPage5(BufferedImage img, BufferedImage old, String[] ar
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 68));
       FontMetrics fm = g2d.getFontMetrics();
 
       String fp = "fifthPage";
@@ -686,7 +686,7 @@ private Graphics2D createPage1Usn(BufferedImage img, BufferedImage old, String[]
       Graphics2D g2d = img.createGraphics();
       g2d.drawImage(old, 0, 0, null);
       g2d.setPaint(Color.black);
-      g2d.setFont(new Font("Courier New", Font.PLAIN, 65));
+      g2d.setFont(new Font("Courier New", Font.PLAIN, 68));
       FontMetrics fm = g2d.getFontMetrics();
 
       String fps = "firstPageUsn";
