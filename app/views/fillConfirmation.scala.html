@@ -24,21 +24,14 @@
 </style>
 
 <div class="w-container fill-data-form">
-            <div class="application-content">
-
-              <div class="application-header-box application-header-box-gett">
-                  <div class="w-clearfix application-header-icon application-header-icon-gett">
-                      <div class="application-heading-icon"></div>
-                      <h2 class="content-heading content-heading-gett">Формирование заявления</h2>
-                  </div>
-                  <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+  <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
                       <div class="w-container">
 <nav role="navigation" class="w-nav-menu application-nav-menu">
-  <a href="/up-passport" class="w-nav-link application-nav-button" style="max-width: 940px;">Личные данные</a>
-    <div class="application-nav-arrow"></div><a href="/up-address" class="w-nav-link application-nav-button" style="max-width: 940px;">Адрес регистрации</a>
-    <div class="application-nav-arrow"></div><a href="/up-nalog" class="w-nav-link application-nav-button" style="max-width: 940px;">Налогообложение</a>
-    <div class="application-nav-arrow"></div><a href="/up-documents" class="w-nav-link application-nav-button" style="max-width: 940px;">Документы</a>
-    <div class="application-nav-arrow"></div><a href="/up-confirmation" class="w-nav-link application-nav-button application-nav-button-active w--current" style="max-width: 940px;">Подтверждение</a>
+  <a href="/gett-passport" class="w-nav-link application-nav-button" style="max-width: 940px;">Личные данные</a>
+    <div class="application-nav-arrow"></div><a href="/gett-address" class="w-nav-link application-nav-button" style="max-width: 940px;">Адрес регистрации</a>
+    <div class="application-nav-arrow"></div><a href="/gett-nalog" class="w-nav-link application-nav-button" style="max-width: 940px;">Налогообложение</a>
+    <div class="application-nav-arrow"></div><a href="/gett-documents" class="w-nav-link application-nav-button" style="max-width: 940px;">Документы</a>
+    <div class="application-nav-arrow"></div><a href="/gett-confirmation" class="w-nav-link application-nav-button application-nav-button-active w--current" style="max-width: 940px;">Подтверждение</a>
 </nav>
                           <div class="w-nav-button">
                               <div class="w-icon-nav-menu"></div>
@@ -46,6 +39,15 @@
                       </div>
                       <div class="w-nav-overlay" data-wf-ignore=""></div>
                   </div>
+            <div class="application-content">
+
+                            <div class="application-header-box application-header-box-gett">
+                  <div class="w-clearfix application-header-icon application-header-icon-gett">
+                      <h2 class="content-heading content-heading-gett">Подтверждение</h2>
+                         <div class="form-heading-text">Внимательно проверьте все свои данные,
+                            <br>внесите исправления в случае обнаружения ошибки</div>
+                  </div>
+                  
               </div>
 
 
@@ -57,18 +59,17 @@
 
 
   <div class="application-body application-body-upload">
-            <h3 class="application-subheading">Подтверждение</h3>
-            <p class="application-paragraph application-paragraph-last">Теперь внимательно проверьте все свои данные, внесите исправления в случае обнаружения ошибки.</p>
+            
             <div class="confirm-data-block">
               <div class="w-clearfix confirm-heading-box">
-                <div class="confirm-data-heading confirm-data-heading-2">Личные данные</div><a href="/up-passport" class="confirm-edit-link">Редактировать</a>
+                <div class="confirm-data-heading confirm-data-heading-2">Личные данные</div><a href="/gett-passport" class="confirm-edit-link">Редактировать</a>
               </div>
               <div class="w-row confirm-data-row">
                 <div class="w-col w-col-2">
                   <div class="confirm-data confirm-data-label">Ф.И.О.</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">@getAttr(fillId,"lastName") @getAttr(fillId,"firstname") @getAttr(fillId,"middleName")</div>
+                  <div class="confirm-data">@getAttr(fillId,"firstname") @getAttr(fillId,"lastName") @getAttr(fillId,"middleName")</div>
                 </div>
               </div>
               <div class="w-row confirm-data-row">
@@ -84,7 +85,7 @@
                   <div class="confirm-data confirm-data-label">Место рождения</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">@getAttr(fillId,"placeOfBorn") </div>
+                  <div class="confirm-data">@getAttr(fillId,"dob") </div>
                 </div>
               </div>
 
@@ -93,7 +94,7 @@
                   <div class="confirm-data confirm-data-label">Номер паспорта</div>
                 </div>
                 <div class="w-col w-col-10 w-clearfix">
-                  <div class="confirm-data">@getAttr(fillId,"passport") </div>
+                  <div class="confirm-data">@getAttr(fillId,"dob") @getAttr(fillId,"passport") </div>
                 </div>
               </div>
               <div class="w-row confirm-data-row">
@@ -131,7 +132,7 @@
             </div>
             <div class="confirm-data-block">
               <div class="w-clearfix confirm-heading-box">
-                <div class="confirm-data-heading confirm-data-heading-2">Адрес регистрации</div><a href="/up-address" class="confirm-edit-link">Редактировать</a>
+                <div class="confirm-data-heading confirm-data-heading-2">Адрес регистрации</div><a href="/gett-address" class="confirm-edit-link">Редактировать</a>
               </div>
               <div class="data-confirm-address">
                 @getAttr(fillId,"subject")
@@ -156,13 +157,13 @@
             </div>
             <div class="confirm-data-block">
               <div class="w-clearfix confirm-heading-box">
-                <div class="confirm-data-heading confirm-data-heading-2">Система налогообложения</div><a href="/up-nalog" class="confirm-edit-link">Редактировать</a>
+                <div class="confirm-data-heading confirm-data-heading-2">Система налогообложения</div><a href="/gett-nalog" class="confirm-edit-link">Редактировать</a>
               </div>
               <div class="confirm-data-tax">Упрощенная система налогообложения (6% от доходов)</div>
             </div>
             <div class="confirm-data-block">
               <div class="w-clearfix confirm-heading-box">
-                <div class="confirm-data-heading confirm-data-heading-2">Сканы документов</div><a href="/up-documents" class="confirm-edit-link">Редактировать</a>
+                <div class="confirm-data-heading confirm-data-heading-2">Сканы документов</div><a href="/gett-documents" class="confirm-edit-link">Редактировать</a>
               </div>
               @fileCn.map { file =>
                 @if(file.filePath != "") {
@@ -172,10 +173,6 @@
                       @if(file.fileId == "USN") {Заявление на УСН}
                       @if(file.fileId == "PASSPORT") {Паспорт}
                       @if(file.fileId == "POSHLINA") {Пошлина}
-
-                      @if(file.fileId == "PASSPORT2_SCAN") {Паспорт прописка}
-                      @if(file.fileId == "INN_SCAN") {ИНН Скан}
-                      @if(file.fileId == "SNILS_SCAN") {СНИЛС Скан}                      
                     </div>
 
 
@@ -191,8 +188,8 @@
           </div>
 
                 <div class="application-footer">
-                  <a id="submit" href="/up-fill-duty" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">
-                    Перейти к оплате</a>
+                  <a id="submit" href="/gett-fill-sign" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">
+                    Подать запрос на выпуск</a>
                 </div>
             </div>
         </div>
