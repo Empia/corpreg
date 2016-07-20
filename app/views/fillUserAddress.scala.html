@@ -44,8 +44,8 @@
  <div class="application-header-box application-header-box-gett">
                   <div class="w-clearfix application-header-icon application-header-icon-gett">
                       <h2 class="content-heading content-heading-gett">Адрес регистрации</h2>
-                         <div class="form-heading-text">Введите адрес в свободной форме,
-                            <br>мы сами укажем все данные как нужно</div>
+                         <div class="form-heading-text">Введите адрес постоянного места жительства в свободной форме.
+                            <br>Нужные поля заполнятся автоматически.</div>
                   </div>
                   
               </div>
@@ -132,7 +132,6 @@
 
 
 <div class="application-body application-body-address">
-    <h3 class="application-subheading">Адрес регистрации</h3>
     <div class="w-form application-form">
           @b3.text(fillForm("locationAddress"), 'id -> "address",'class -> "w-input application-form-field application-form-field-verybig")
             <div class="w-row appplication-form-row">
@@ -179,17 +178,17 @@
             </div>
     </div>
     <div class="w-row appplication-form-row application-form-row-alt">
-        <div class="w-col w-col-2">
+        <div class="w-col w-col-2 ifns-column-1">
             <label for="ifns" class="application-form-label application-form-label-address">Код ИФНС</label>
             <input id="ifns" name="name-47" data-name="Name 47" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
         </div>
-        <div class="w-col w-col-2">
+        <div class="w-col w-col-2 ifns-column-3">
             <label for="fnsreg" class="application-form-label application-form-label-address">Код рег. органа</label>
             @b3.text(fillForm("fnsreg"), 'id -> "fnsreg",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
             @b3.text(fillForm("oktmo"), 'id -> "oktmo",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
 
         </div>
-        <div class="w-col w-col-8">
+        <div class="w-col w-col-8 ifns-column-4">
             <label for="fnstitle" class="application-form-label application-form-label-address">Наименование регистрирующего органа</label>
             <input id="fnstitle" name="name-49" data-name="Name 49" class="w-input application-form-field application-form-field-reg" type="text">
 
