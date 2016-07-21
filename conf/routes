@@ -25,7 +25,7 @@ GET /up-fill/userIdentAct controllers.UserFillingController.fillUserIdentReq
 GET /userIdentCf/:id       controllers.UserFillingController.fillUseruserIdentCf(id: Long)
 
 
-GET /up-fill-sign   controllers.UserFillingController.fillSign
+GET /up-fill-sign       controllers.UserFillingController.fillSign
 GET /up-fill-send-fns   controllers.UserFillingController.fillSendFns
 
 

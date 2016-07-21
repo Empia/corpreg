@@ -465,7 +465,9 @@ def fillSign = SecuredAction.async { implicit request =>
 
     val signRequested = fill.signRequested
     val packetId = retriveFromAttrSeq(attrs, attribute="packetId")
-
+    // send and get link
+    // POST['dt']: ['1','2','3','4'], # 1 - квитанция, 2 - паспорт, 3 - прописка, 4 – снилс, 5 – 21001, 
+    // 6 - усн
     clersky.WSDLTest.getStatus(ws, packetId).flatMap { r =>
       // check length of response
       if (r.length > 400) {
