@@ -464,10 +464,23 @@ def fillSign = SecuredAction.async { implicit request =>
 	attrsF.flatMap { attrs =>
 
     val signRequested = fill.signRequested
-    val packetId = retriveFromAttrSeq(attrs, attribute="packetId")
+    val packetId = retriveFromAttrSeq(attrs, attribute="redirectUrl")
     // send and get link
+    // send https://1registr.ru/ipapi/s1/
+
     // POST['dt']: ['1','2','3','4'], # 1 - квитанция, 2 - паспорт, 3 - прописка, 4 – снилс, 5 – 21001, 
     // 6 - усн
+
+
+    // https://1registr.ru/ipapi/e1/
+    // redirect uri
+    // https://sign.me/signapi/multijson/f7dd68da-4f2d-11e6-bda2-18a9055c0762"
+
+    packetId match {
+      case "" => Future.successful( Redirect(routes.UserFillingController.fillSign) )
+      case _ => Future.successful( Redirect(packetId) )
+    }
+/*
     clersky.WSDLTest.getStatus(ws, packetId).flatMap { r =>
       // check length of response
       if (r.length > 400) {
@@ -483,8 +496,10 @@ def fillSign = SecuredAction.async { implicit request =>
           Ok(views.html.internal_forms.fillSign(request.identity,id, attrs, phone, signRequested ))
         )
       }   
-
     }
+*/
+
+
 
   }
 }
