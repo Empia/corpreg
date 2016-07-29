@@ -65,7 +65,13 @@ def index = SecuredAction.async { implicit request =>
       //if (fill.filled && !fill.filledCorrect) {
         // Личные данные
         // Адрес регистрации
-        if (fill.addressFilled == false) {
+      val attrs = await(fillAttributesDAO.findByFill(id))
+      val packetId = retriveFromAttrSeq(attrs, attribute="redirectUrl")
+
+      
+        if (fill.addressFilled == false && packetId != "") {
+            Future.successful( Redirect(packetId) )
+        } else if (fill.addressFilled == false) {
         Future.successful(Redirect(routes.UserFillingController.passport))
         // Налоговый режим
         } else {
