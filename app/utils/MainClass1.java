@@ -203,13 +203,13 @@ private BufferedImage process(BufferedImage old, BufferedImage[] images, String[
 public int paddingForTwoRow(int step) {
   int actualStep = step + 1;
   if (actualStep == 5) {
-    return 4;
+    return 5;
   } else if (actualStep == 8) {
-    return 4;
+    return 5;
   } else if (actualStep == 11) {
-    return 4;
+    return 5;
   } else if (actualStep == 14 || actualStep == 15 || actualStep == 19 || actualStep == 22 || actualStep == 25 || actualStep == 28 || actualStep == 31 || actualStep == 32 || actualStep == 36) {
-    return 4;
+    return 5;
   } else {
     return 0;
   }
