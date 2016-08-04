@@ -619,8 +619,63 @@ private Graphics2D createPage4(BufferedImage img, BufferedImage old, String[] ar
       String tp = "FourthPage";
 
 
-          fillField(g2d, fields.p.getX(tp, "activity_type"), fields.p.getY(tp,"activity_type"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "activity_type"), fields.p.getY(tp,"activity_type"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
 
+fillField(g2d, fields.p.getX(tp, "okved_addit1"), fields.p.getY(tp,"okved_addit1"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit3"), fields.p.getY(tp,"okved_addit3"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit4"), fields.p.getY(tp,"okved_addit4"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit6"), fields.p.getY(tp,"okved_addit6"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit5"), fields.p.getY(tp,"okved_addit5"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit8"), fields.p.getY(tp,"okved_addit8"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit7"), fields.p.getY(tp,"okved_addit7"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit9"), fields.p.getY(tp,"okved_addit9"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit12"), fields.p.getY(tp,"okved_addit12"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit10"), fields.p.getY(tp,"okved_addit10"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit11"), fields.p.getY(tp,"okved_addit11"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit18"), fields.p.getY(tp,"okved_addit18"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit13"), fields.p.getY(tp,"okved_addit13"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit16"), fields.p.getY(tp,"okved_addit16"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit15"), fields.p.getY(tp,"okved_addit15"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit17"), fields.p.getY(tp,"okved_addit17"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit21"), fields.p.getY(tp,"okved_addit21"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit22"), fields.p.getY(tp,"okved_addit22"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit19"), fields.p.getY(tp,"okved_addit19"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit20"), fields.p.getY(tp,"okved_addit20"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit25"), fields.p.getY(tp,"okved_addit25"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit23"), fields.p.getY(tp,"okved_addit23"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit26"), fields.p.getY(tp,"okved_addit26"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit24"), fields.p.getY(tp,"okved_addit24"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit28"), fields.p.getY(tp,"okved_addit28"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit29"), fields.p.getY(tp,"okved_addit29"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit27"), fields.p.getY(tp,"okved_addit27"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit30"), fields.p.getY(tp,"okved_addit30"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit32"), fields.p.getY(tp,"okved_addit32"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit38"), fields.p.getY(tp,"okved_addit38"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit33"), fields.p.getY(tp,"okved_addit33"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit34"), fields.p.getY(tp,"okved_addit34"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit35"), fields.p.getY(tp,"okved_addit35"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit39"), fields.p.getY(tp,"okved_addit39"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit36"), fields.p.getY(tp,"okved_addit36"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit37"), fields.p.getY(tp,"okved_addit37"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit40"), fields.p.getY(tp,"okved_addit40"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit42"), fields.p.getY(tp,"okved_addit42"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit41"), fields.p.getY(tp,"okved_addit41"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit45"), fields.p.getY(tp,"okved_addit45"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit43"), fields.p.getY(tp,"okved_addit43"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit44"), fields.p.getY(tp,"okved_addit44"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit50"), fields.p.getY(tp,"okved_addit50"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit47"), fields.p.getY(tp,"okved_addit47"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit55"), fields.p.getY(tp,"okved_addit55"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit48"), fields.p.getY(tp,"okved_addit48"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit46"), fields.p.getY(tp,"okved_addit46"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit56"), fields.p.getY(tp,"okved_addit56"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit14"), fields.p.getY(tp,"okved_addit14"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit31"), fields.p.getY(tp,"okved_addit31"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit49"), fields.p.getY(tp,"okved_addit49"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit51"), fields.p.getY(tp,"okved_addit51"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit52"), fields.p.getY(tp,"okved_addit52"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit53"), fields.p.getY(tp,"okved_addit53"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
+fillField(g2d, fields.p.getX(tp, "okved_addit54"), fields.p.getY(tp,"okved_addit54"), 6, v.split(""));//fields.getField("activity_type")); // VID DEYATELNOSTY
 
       g2d.dispose();
 
