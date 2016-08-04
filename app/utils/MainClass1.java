@@ -203,13 +203,13 @@ private BufferedImage process(BufferedImage old, BufferedImage[] images, String[
 public int paddingForTwoRow(int step) {
   int actualStep = step + 1;
   if (actualStep == 5) {
-    return 5;
+    return 4;
   } else if (actualStep == 8) {
-    return 5;
+    return 4;
   } else if (actualStep == 11) {
-    return 5;
+    return 4;
   } else if (actualStep == 14 || actualStep == 15 || actualStep == 19 || actualStep == 22 || actualStep == 25 || actualStep == 28 || actualStep == 31 || actualStep == 32 || actualStep == 36) {
-    return 5;
+    return 4;
   } else {
     return 0;
   }
@@ -519,7 +519,7 @@ private void fillField(Graphics2D g2d, int xpos, int ypos, int letters, String[]
   FontMetrics fm = g2d.getFontMetrics();
   String[] dot = {"."};
   for(int a = 0; a < fullNameString.length && a < letters; a++) {
-    xpos = xpos + 4 + paddingForTwoRow(a); // first padding
+    xpos = xpos + 6 + paddingForTwoRow(a); // first padding
 
     if (fullNameString[a].contains(".")) {
       System.out.println("dott found");
