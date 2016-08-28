@@ -81,7 +81,6 @@ public MainClass1(String[] args, FormFields fields) throws Exception {
 
   String canonicalPath = new java.io.File( "." ).getCanonicalPath();
 
-
 	File file = new File(canonicalPath + "/ip.tif");
 	InputStream is = new FileInputStream(canonicalPath + "/ip.tif");
 

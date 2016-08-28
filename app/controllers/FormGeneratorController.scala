@@ -88,6 +88,33 @@ import scala.util.Try
 
 
   import scala.sys.process._
+
+
+def putTest() = SecuredAction { implicit request =>
+    val phone = request.identity.email.getOrElse("email")
+    val positions_dto = await(positions.getAll())
+    var positionsList = positions_dto.toList
+
+
+    val fields = new com.journaldev.di.test.FormFields()
+    fields.addPositions(AllPositions(positionsList))
+
+/*
+    com.journaldev.di.test.MainClass1.main2(Array(
+            "ФАМИЛИЯФАМИЛИЯФАМИЛИЯФАМИЛИЯ",
+            "ИМЯИМЯИМЯИМЯИМЯИМЯ",
+            "ОТЧЕСТВООТЧЕСТВООТЧЕСТВООТЧЕСТВО",
+
+            "ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ", "ТЕСТ", phone
+          ),
+          fields
+        )
+*/
+    com.journaldev.di.test.MainWriter.apply(fields)        
+    Ok(views.html.formGeneratorTest(request.identity ))
+}
+ 
+
   def testAction() = SecuredAction { implicit request =>
     val phone = request.identity.email.getOrElse("email")
     val positions_dto = await(positions.getAll())

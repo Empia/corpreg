@@ -63,6 +63,8 @@ GET  /form_filling/:id/fill     controllers.FormGeneratorController.writeFill(id
 POST /form_filling/:id/fill     controllers.FormGeneratorController.saveFill(id: Long)
 
 
+GET /form_gen_test              controllers.FormGeneratorController.putTest()
+
 GET /positions/:page  controllers.FieldPositionsController.showPage(page: String)
 
 GET /positions_values/:page controllers.FieldPositionsController.getPositions(page: String)
