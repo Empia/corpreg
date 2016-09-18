@@ -290,8 +290,9 @@ div#user-phone_field {
           </div>
           <div class="w-clearfix admin-panel-block-3">
             <div class="admin-panel-status-text">Заполнен</div>
-
             @boolDecorator(filling.filled)
+            <div class="admin-panel-status-text">Подтвердил</div>
+            @boolDecorator(filling.filledCorrect)
 
             <div class="admin-panel-status-text">Зарегистрирован</div>
             @boolDecorator(filling.registered)
