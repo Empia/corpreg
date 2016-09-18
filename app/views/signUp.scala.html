@@ -11,39 +11,54 @@
     }
        <div class="w-container">
             <div class="application-content">
- 
-<div class="application-body application-body-address">
-    <div class="w-form application-form">
-@helper.form(action = routes.SignUpController.smsSignUp(), 'id -> "email-form") {
-            @helper.CSRF.formField
 
 
-      
-            <div class="w-row appplication-form-row">
-                <div class="w-col w-col-12">
-                        <label for="name-11" class="application-form-label application-form-label-address">Имя</label>
-                        @b3.text(signInForm("firstName"), 'id -> "name-11",'class -> "w-input application-form-field application-form-field-address")
-                </div>
-                <div class="w-col w-col-12">
-                        <label for="name-11" class="application-form-label application-form-label-address">Фамилия</label>
-                        @b3.text(signInForm("lastName"), 'id -> "name-11",'class -> "w-input application-form-field application-form-field-address")
-                </div> 
-              <div class="w-col w-col-12">
-                        <label for="name-11" class="application-form-label application-form-label-address">Номер телефона 79000000000</label>
-                        @b3.text(signInForm("email"), 'id -> "name-11",'class -> "w-input application-form-field application-form-field-address")
-                </div>                
-                <div class="w-col w-col-12">
-                            <label for="name-12" class="application-form-label application-form-label-address">Секретное слово:</label>
-            @b3.password(signInForm("password"), 'id -> "name-12", 'class -> "w-input application-form-field application-form-field-address")
+
+
+<div class="application-content application-login">
+    <div class="application-header-box application-header-box-gett application-header-box-gett-login"></div>
+    <div class="application-body application-body-login">
+        <div class="w-row">
+            <div class="w-col w-col-5 login-column-1">
+                <div class="w-form application-form" style="display:none;">
+                    @helper.form(action = routes.SignUpController.smsSignUp(), 'id -> "email-form") {
+                                @helper.CSRF.formField
+                                <div class="w-row appplication-form-row">
+                                  <label for="name-32" class="gett-login-form-label">Электронная почта</label>
+                                  <input id="name-32" type="text" name="name-32" data-name="Name 32" class="w-input application-form-field">
+                                  <label for="name-11" class="gett-login-form-label">Имя</label>
+                                  @b3.text(signInForm("firstName"), 'id -> "name-11",'class -> "w-input application-form-field")
+                                  <label for="name-11" class="gett-login-form-label">Фамилия</label>
+                                  @b3.text(signInForm("lastName"), 'id -> "name-11",'class -> "w-input application-form-field")
+                                  <label for="name-11" class="gett-login-form-label">Номер телефона 79000000000</label>
+                                  @b3.text(signInForm("email"), 'id -> "name-11",'class -> "w-input application-form-field")
+                                 <label for="name-12" class="gett-login-form-label">Секретное слово:</label>
+                                  @b3.password(signInForm("password"), 'id -> "name-12", 'class -> "w-input application-form-field")
+                                </div>
+                                <button id="submit" type="submit" value="submit"
+                                class="w-button application-next-button application-next-button-gett application-login-button">Начать регистрацию</button>
+                                <div class="logon-page-register-text">Для тех, кто уже зарегистрирован:&nbsp;<a class="login-page-register-link" href="/signIn">войти</a>
+                                </div>
+                            }
+                          </div>
+            </div>
+                                <div class="logon-page-register-text">Для тех, кто уже зарегистрирован:&nbsp;<a class="login-page-register-link" href="/signIn">войти</a>
+
+            <div class="w-col w-col-7 login-column-2" style="display: none;">
+                <div class="faq-main">
+                    <div class="faq-main-label">Куда я попал?</div>
+                    <p class="faq-main-par">Клеркси — это сервис онлайн-регистрации индивидуальных предпринимателей. Для подачи документов в налоговую будет использоваться электронная подпись и документы попадут в регистрирующий орган через интернет.</p>
+                    <div class="faq-main-label">Как это работает?</div>
+                    <p class="faq-main-par">Если коротко, вы загружаете свои документы, мы выпускаем вам электронную подпись и готовим документы для регистрации ИП, вы подписываете их электронной подписью
+                        <br>и отправляете в налоговую. Через 5 дней вы — ИП.</p>
+                   
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
-            <div class="application-footer">
-                <button id="submit" type="submit" value="submit" class="w-button application-next-button ap plication-next-button-gett">Регистрация</button>
 
-        }
-                                            </div>
-                                        </div>
 
             </div>
 

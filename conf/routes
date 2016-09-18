@@ -4,29 +4,88 @@
 
 # Home page
 GET         /                                controllers.UserFillingController.index
+GET         /up                            controllers.LandingController.index
+GET         /duty_check/:phone               controllers.DutyController.check(phone: String)
+GET         /duty_test/:phone                controllers.DutyController.index(phone: String)
+
+GET /test_action controllers.FormGeneratorController.testAction()
+
+GET /up-passport controllers.UserFillingController.passport
+GET /up-address controllers.UserFillingController.fillAddress
+GET /up-nalog   controllers.UserFillingController.fillNalog
+
+GET   /up-documents     controllers.AdminController.writeFillFilesUser()
+POST  /filling/:id/fillFiles     controllers.AdminController.saveFillFiles(id: Long)
 
 
-GET /gett-passport controllers.UserFillingController.passport
-GET /gett-esign controllers.SignController.index
+GET /up-confirmation     controllers.UserFillingController.fillConfirmation
+GET /up-fill-duty        controllers.UserFillingController.fillDuty
+GET /up-fill-userIdent   controllers.UserFillingController.fillUserIdent
+GET /up-fill/userIdentAct controllers.UserFillingController.fillUserIdentReq
+GET /userIdentCf/:id       controllers.UserFillingController.fillUseruserIdentCf(id: Long)
+
+
+GET /up-fill-sign       controllers.UserFillingController.fillSign
+GET /up-fill-send-fns   controllers.UserFillingController.fillSendFns
+
+
+
+
+GET /up-esign controllers.SignController.index
+GET /states controllers.SignController.states
 
 GET /make-sign controllers.SignController.requestSign
 
-GET /gett-lite-send         controllers.SignController.retriveSms
+GET /fns/:global controllers.FNSCodesController.index(global: String)
+GET /oktmo/:global controllers.FNSCodesController.fnsOktmo(global: String)
+
+GET /egrul/ controllers.EgrulController.find()
+
+GET /passport/:num controllers.FNSCodesController.passport(num: String)
+
+
+GET /up-lite-send         controllers.SignController.retriveSms
 GET  /filling/sendDocs      controllers.SignController.sendDocs()
 POST /filling/sendDocs      controllers.SignController.sendSms()
-GET /gett-lite-registration controllers.SignController.finalizing
+GET /up-lite-registration controllers.SignController.finalizing
 
 GET  /admin                 controllers.AdminController.index
 GET  /filling/:id/remove    controllers.AdminController.removeFill(id: Long)
 GET  /filling/:id/close     controllers.AdminController.closeFill(id: Long)
 GET  /filling/:id/signReady controllers.AdminController.signReady(id:Long)
+GET  /filling/:id/fillAreCorrect controllers.AdminController.fillAreCorrect(id:Long)
 
 
 GET  /filling/:id/register  controllers.AdminController.registerFill(id: Long)
 
 
+GET  /form_filling/:id/fill     controllers.FormGeneratorController.writeFill(id: Long)
+POST /form_filling/:id/fill     controllers.FormGeneratorController.saveFill(id: Long)
+
+
+GET /form_gen_test              controllers.FormGeneratorController.putTest()
+
+GET /positions/:page  controllers.FieldPositionsController.showPage(page: String)
+
+GET /positions_values/:page controllers.FieldPositionsController.getPositions(page: String)
+POST /position_value/:page controllers.FieldPositionsController.updatePosition(page: String)
+
 GET  /filling/:id/fill     controllers.AdminController.writeFill(id: Long)
 POST /filling/:id/fill     controllers.AdminController.saveFill(id: Long)
+POST /form_filling/:id/user_fill     controllers.AdminController.saveFillUser(id: Long)
+POST /form_filling/:id/user_address_fill     controllers.AdminController.saveAddressFillUser(id: Long)
+
+
+
+GET   /filling/:id/fillFiles     controllers.AdminController.writeFillFiles(id: Long)
+
+
+POST  /filling/:id/fillFiles     controllers.AdminController.saveFillFiles(id: Long)
+POST  /filling/:id/fillUserFiles     controllers.AdminController.saveFillUserFiles(id: Long)
+
+
+GET   /filling/:id/fillFNS       controllers.AdminController.writeFillFNS(id: Long)
+POST  /filling/:id/fillFNS       controllers.AdminController.saveFillFNS(id: Long)
 
 
 
@@ -39,18 +98,27 @@ GET /balance controllers.ApplicationController.balance
 
 
 GET /wsdltest         controllers.WSDLTestController.index
-GET /wsdltest2        controllers.WSDLTestController.index2
-GET /wsdltest3        controllers.WSDLTestController.index3
+GET /wsdltest2/:guid  controllers.WSDLTestController.index2(guid: String)
+GET /wsdltest3/:guid/:code        controllers.WSDLTestController.index3(guid: String,code:String)
 
 
 
 GET /wsdlsave/:phone controllers.WSDLTestController.saveDoc(phone:String)
 
 
-GET /gett-address controllers.ApplicationController.address
-GET /gett-okved controllers.ApplicationController.okved
-GET /gett-taxes-ip controllers.ApplicationController.taxesIP
-GET /gett-documents-ip controllers.ApplicationController.documentsIP
+GET /wsdlstatus_phone/:phone  controllers.WSDLTestController.checkStatusByPhone(phone: String)
+GET /wsdlstatus/:guid       controllers.WSDLTestController.checkStatus(guid: String)
+
+GET /wsdlsmssendByPhone/:phone       controllers.WSDLTestController.sendSmsByPhone(phone: String)
+
+GET /wsdlsmssend/:guid       controllers.WSDLTestController.index2(guid: String)
+GET /wsdlsmscode/:phone/:code controllers.WSDLTestController.getSmsByPhone(phone: String,code:String)
+GET /wsdlsendfile/:phone      controllers.WSDLTestController.sendFiles(phone: String)
+
+GET /up-address controllers.ApplicationController.address
+GET /up-okved controllers.ApplicationController.okved
+GET /up-taxes-ip controllers.ApplicationController.taxesIP
+GET /up-documents-ip controllers.ApplicationController.documentsIP
 
 POST        /fill1                           controllers.ApplicationController.fillByAnchor()
 GET         /signIn                          controllers.ApplicationController.signIn

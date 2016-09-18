@@ -5,14 +5,160 @@ import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
 import models._
 
+
+case class AllPositions(positions: List[FormPosition]) {
+  def getX(page: String, id: String):Int = positions.find(pos => pos.id == id && pos.page == page).get.pos_x
+  def getY(page: String, id: String):Int = positions.find(pos => pos.id == id && pos.page == page).get .pos_y
+}
+
+case class FormPosition(id: String, pos_x: Int, pos_y:Int, page:String)
+
+
+case class FNSCodeDTO (
+                      id:String,
+                      reg:Option[String],
+                      id2:Option[String],
+                      id3:Option[String],
+                      id4:Option[String],
+                      id5:Option[String],
+                      id6:Option[String],
+                      title:Option[String],
+                      id7:Option[String],
+                      date1:Option[String],
+                      date2:Option[String],
+                      date3:Option[String],
+                      worktime:Option[String],
+                      c:Option[String],
+                      d:Option[String],
+                      e:Option[String],
+                      f:Option[String],
+                      h:Option[String],
+                      t:Option[String],
+                      y:Option[String],
+                      i:Option[String] )
+
+case class FNSCode2DTO (
+                      id:String,
+                      reg:Option[String],
+                      id2:Option[String],
+                      id3:Option[String],
+                      id4:Option[String],
+                      id5:Option[String],
+                      id6:Option[String],
+                      title:Option[String],
+                      id7:Option[String],
+                      date1:Option[String],
+                      date2:Option[String],
+                      date3:Option[String],
+                      worktime:Option[String],
+                      c:Option[String],
+                      d:Option[String],
+                      e:Option[String],
+                      f:Option[String],
+                      h:Option[String],
+                      t:Option[String],
+                      y:Option[String],
+                      i:Option[String] )
+
 trait DBTableDefinitions {
-  
+
   protected val driver: JdbcProfile
   import driver.api._
 
 
+  class FNSCodes2(tag: Tag) extends Table[FNSCode2DTO](tag, "codes6") {
+    def id = column[String]("id")
+    def reg = column[Option[String]]("reg")
+    def id2 = column[Option[String]]("id2")
+    def id3 = column[Option[String]]("id3")
+    def id4 = column[Option[String]]("id4")
+    def id5 = column[Option[String]]("id5")
+    def id6 = column[Option[String]]("id6")
+    def title = column[Option[String]]("title")
+    def id7 = column[Option[String]]("id7")
+    def date1 = column[Option[String]]("date1")
+    def date2 = column[Option[String]]("date2")
+    def date3 = column[Option[String]]("date3")
+    def worktime = column[Option[String]]("worktime")
+    def c = column[Option[String]]("c")
+    def d = column[Option[String]]("d")
+    def e = column[Option[String]]("e")
+    def f = column[Option[String]]("f")
+    def h = column[Option[String]]("h")
+    def t = column[Option[String]]("t")
+    def y = column[Option[String]]("y")
+    def i = column[Option[String]]("i")
 
+    def * = (
+  id,
+  reg,
+  id2,
+  id3,
+  id4,
+  id5,
+  id6,
+  title,
+  id7,
+  date1,
+  date2,
+  date3,
+  worktime,
+  c,
+  d,
+  e,
+  f,
+  h,
+  t,
+  y,
+  i) <> (FNSCode2DTO.tupled, FNSCode2DTO.unapply)
+  }
 
+class FNSCodes(tag: Tag) extends Table[FNSCodeDTO](tag, "codes5") {
+  def id = column[String]("id")
+  def reg = column[Option[String]]("reg")
+  def id2 = column[Option[String]]("id2")
+  def id3 = column[Option[String]]("id3")
+  def id4 = column[Option[String]]("id4")
+  def id5 = column[Option[String]]("id5")
+  def id6 = column[Option[String]]("id6")
+  def title = column[Option[String]]("title")
+  def id7 = column[Option[String]]("id7")
+  def date1 = column[Option[String]]("date1")
+  def date2 = column[Option[String]]("date2")
+  def date3 = column[Option[String]]("date3")
+  def worktime = column[Option[String]]("worktime")
+  def c = column[Option[String]]("c")
+  def d = column[Option[String]]("d")
+  def e = column[Option[String]]("e")
+  def f = column[Option[String]]("f")
+  def h = column[Option[String]]("h")
+  def t = column[Option[String]]("t")
+  def y = column[Option[String]]("y")
+  def i = column[Option[String]]("i")
+
+  def * = (
+id,
+reg,
+id2,
+id3,
+id4,
+id5,
+id6,
+title,
+id7,
+date1,
+date2,
+date3,
+worktime,
+c,
+d,
+e,
+f,
+h,
+t,
+y,
+i) <> (FNSCodeDTO.tupled, FNSCodeDTO.unapply)
+}
 
 
 class FillAttributes(tag: Tag) extends Table[FillAttributeDTO](tag, "fill_attributes") {
@@ -33,13 +179,39 @@ class Fills(tag: Tag) extends Table[FillDTO](tag, "fill") {
     def signMarked = column[Boolean]("signMarked")
     def smsCode = column[String]("smsCode")
     def signCompleted = column[Boolean]("signCompleted")
+
+/*
+alter table fill add column title bool not null default false;
+
+alter table fill add column addressFilled bool not null default false;
+alter table fill add column nalogFilled bool not null default false;
+alter table fill add column userFilesUploaded bool not null default false;
+alter table fill add column signCreationConfirm bool not null default false;
+alter table fill add column identityConfirmRequest bool not null default false;
+alter table fill add column identityConfirmApproved bool not null default false;
+
+*/
+
+    def addressFilled = column[Boolean]("addressfilled")
+    def nalogFilled = column[Boolean]("nalogfilled")
+    def userFilesUploaded = column[Boolean]("userfilesuploaded")
+    def signCreationConfirm = column[Boolean]("signcreationconfirm")
+    def identityConfirmRequest = column[Boolean]("identityconfirmrequest")
+    def identityConfirmApproved = column[Boolean]("identityconfirmapproved")
+
     def * = (id.?, phone, registered,
       filled,
       filledCorrect,
       signRequested,
       signMarked,
       smsCode,
-      signCompleted) <> (FillDTO.tupled, FillDTO.unapply)
+      signCompleted,
+      addressFilled,
+      nalogFilled,
+      userFilesUploaded,
+      signCreationConfirm,
+      identityConfirmRequest,
+      identityConfirmApproved      ) <> (FillDTO.tupled, FillDTO.unapply)
 }
 
 
@@ -142,29 +314,37 @@ class Fills(tag: Tag) extends Table[FillDTO](tag, "fill") {
     def loginInfoId = column[Long]("logininfoid")
     def * = (id.?, accessToken, tokenType, expiresIn, refreshToken, loginInfoId) <> (DBOAuth2Info.tupled, DBOAuth2Info.unapply)
   }
-  
+
   case class DBOpenIDInfo (
     id: String,
     loginInfoId: Long
   )
-  
+
   class OpenIDInfos(tag: Tag) extends Table[DBOpenIDInfo](tag, "openidinfo") {
     def id = column[String]("id", O.PrimaryKey)
     def loginInfoId = column[Long]("logininfoid")
     def * = (id, loginInfoId) <> (DBOpenIDInfo.tupled, DBOpenIDInfo.unapply)
   }
-  
+
   case class DBOpenIDAttribute (
     id: String,
     key: String,
     value: String
   )
-  
+
   class OpenIDAttributes(tag: Tag) extends Table[DBOpenIDAttribute](tag, "openidattributes") {
     def id = column[String]("id")
     def key = column[String]("key")
     def value = column[String]("value")
     def * = (id, key, value) <> (DBOpenIDAttribute.tupled, DBOpenIDAttribute.unapply)
+  }
+
+  class FormPositions(tag: Tag) extends Table[FormPosition](tag, "form_positions") {
+    def id = column[String]("id")
+    def pos_x = column[Int]("pos_x")
+    def pos_y = column[Int]("pos_y")
+    def page = column[String]("page")
+    def * = (id, pos_x,pos_y,page) <> (FormPosition.tupled, FormPosition.unapply)
   }
 
   // table query definitions
@@ -176,14 +356,17 @@ class Fills(tag: Tag) extends Table[FillDTO](tag, "fill") {
   val slickOAuth2Infos = TableQuery[OAuth2Infos]
   val slickOpenIDInfos = TableQuery[OpenIDInfos]
   val slickOpenIDAttributes = TableQuery[OpenIDAttributes]
-  
+  val form_positions = TableQuery[FormPositions]
 
 
   val fills = TableQuery[Fills]
   val fill_attributes = TableQuery[FillAttributes]
 
 
+  val codes5 = TableQuery[FNSCodes]
+  val codes6 = TableQuery[FNSCodes2]
+
   // queries used in multiple places
-  def loginInfoQuery(loginInfo: LoginInfo) = 
+  def loginInfoQuery(loginInfo: LoginInfo) =
     slickLoginInfos.filter(dbLoginInfo => dbLoginInfo.providerID === loginInfo.providerID && dbLoginInfo.providerKey === loginInfo.providerKey)
 }

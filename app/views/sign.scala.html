@@ -24,7 +24,7 @@
         <div class="w-container">
 
 <nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button application-nav-button-active-gett">Личные данные</a>
-    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/gett-esign" class="w-nav-link application-nav-button application-nav-button-active-gett application-nav-button-active">Электронная подпись</a>
+    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/up-esign" class="w-nav-link application-nav-button application-nav-button-active-gett application-nav-button-active">Электронная подпись</a>
     <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Регистрация в ФНС</a>
     <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Открытие счета</a>
 </nav>
@@ -37,18 +37,9 @@
         <div class="w-nav-overlay" data-wf-ignore=""></div>
     </div>
 </div>
-              
+
 <div class="application-body application-body-upper">
     <div class="w-form application-form">
-        <form id="email-form" name="email-form" data-name="Email Form">
-            <input value="Сохранить" data-wait="Please wait..." class="w-button application-submit-button" type="submit">
-        </form>
-        <div class="w-form-done">
-            <p>Thank you! Your submission has been received!</p>
-        </div>
-        <div class="w-form-fail">
-            <p>Oops! Something went wrong while submitting the form</p>
-        </div>
     </div>
     <h3 class="application-subheading application-subheading-gett">Выпуск электронной подписи</h3>
     <p class="application-paragraph application-paragraph-gett-light">Для отправки документов в налоговую на регистрацию необходимо выпустить электронную подпись.
@@ -59,25 +50,28 @@
     <a href="#" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Подпись выпускается</a>
 } else {
         <a href="/make-sign" class="w-button button-pay buttonpay-gett"><span class="lock-icon"></span>Выпустить электронную подпись</a>
-}    
+}
     <div class="signature-done" style="display:none;"><span class="signature-done-check"></span>Электронная подпись готова</div>
-</div>	
+</div>
 
 
 <!--
 <div class="application-footer"><a href="#" class="w-button application-next-button application-next-button-gett">Продолжить</a></div>
 -->
             </div>
-        </div>          
+        </div>
 
 <script>
-    
+
 setTimeout(function(){
-   window.location='/';
+  $.ajax('/states').then(function(data){console.log(data);
+    if (data.signRequested) {
+      window.location='/';
+    }
+    return data})
 }, 10000);
 
 </script>
 
  <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-}         
-
+}

@@ -1,0 +1,114 @@
+@(user: models.User, fillId: Long, attrs: Seq[FillAttributeDTO], phone: String, identityConfirmRequest:Boolean, identityConfirmApproved: Boolean)(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+@getAttr(id:Long,attrName:String) = {
+  @attrs.find(c => c.attribute == attrName).map { at =>
+    @at.value
+  }
+
+}
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.kp-block {
+    margin-left: -29px;
+}
+</style>
+
+<div class="w-container fill-data-form">
+            <div class="application-content">
+
+              <div class="application-header-box application-header-box-gett">
+                  <div class="w-clearfix application-header-icon application-header-icon-gett">
+                      <div class="application-heading-icon"></div>
+                      <h2 class="content-heading content-heading-gett">Формирование заявления</h2>
+                  </div>
+                  <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+                      <div class="w-container">
+<nav role="navigation" class="w-nav-menu application-nav-menu"><a href="#" class="w-nav-link application-nav-button application-nav-button-done" style="max-width: 940px;">Оплата госпошлины</a>
+  <div class="application-nav-arrow application-arrow-done"></div><a href="#" class="w-nav-link application-nav-button application-nav-button-active" style="max-width: 940px;">Идентификация</a>
+  <div class="application-nav-arrow application-nav-arrow-next"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Электронная подпись</a>
+  <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Отправка в ФНС</a>
+</nav>
+                          <div class="w-nav-button">
+                              <div class="w-icon-nav-menu"></div>
+                          </div>
+                      </div>
+                      <div class="w-nav-overlay" data-wf-ignore=""></div>
+                  </div>
+              </div>
+
+
+
+<div class="application-body application-body-menu"></div>
+
+
+
+@if(identityConfirmRequest == false) {
+<div class="application-body application-body-upload">
+    <h3 class="application-subheading">Выбор способа идентификации</h3>
+    <p class="application-paragraph application-paragraph-last">Для того, чтобы выпустить электронную подпись, вам необходимо пройти идентификацию (подписать заявление на выпуск электронной подписи). Выберете подходящий способ подтверждения вашей личности из приведенных ниже.</p>
+    <h4 class="city-name">Подписать в <span class="city-name-link"><span><a class="city-name-link" href="#">Москве</a></span></span></h4>
+    <div class="sign-moscow">
+        <div class="sign-box">
+            <div class="application-okved-subcategory"><a class="app-tax-icon" data-new-link="true" href="#"></a>&nbsp;Партнерский офис (только подписание документов)</div>
+            <div class="partner-office-text partner-office-text-alt">Адрес:&nbsp;метро Авиамоторная, шоссе Энтузиастов, дом 17, офис 426</div><a class="map-link-text" href="#"><span class="map-libk"></span>&nbsp;Посмотреть на карте</a>
+            <div class="partner-office-text">Режим работы: понедельник-пятница, с 9 до 18 часов.
+                <br>Перед тем как подъехать, необходимо позвонить по номеру +7 495-005-51-42 (доб. 3).</div>
+        </div>
+        <div class="sign-box">
+            <div class="application-okved-subcategory"><a class="app-tax-icon" data-new-link="true" href="#"></a>&nbsp;Курьерская доставка документов (400 р.)</div>
+            <div class="w-form">
+                <form data-name="Email Form" id="email-form" name="email-form">
+                    <input class="w-input delivery-address-field" data-name="Name" id="name" maxlength="256" name="name" placeholder="Введите адрес, куда должен подъехать курьер" type="text">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="application-footer"><a class="w-button application-next-button application-next-button-gett" href="/up-fill/userIdentAct">Подтвердить и продолжить</a></div>
+} else {
+<div class="application-body application-body-upload">
+    <h3 class="application-subheading">Подтверждение идентификации</h3>
+    <p class="application-paragraph">Ваши документы направлены на партнерскую точку подписания по адресу: шоссе Энтузиастов, дом 17, офис 426
+        <br>Режим работы: понедельник-пятница, с 9 до 18 часов.
+        <br>Перед тем как подъехать, необходимо позвонить по номеру +7 495-005-51-42 (доб. 3).</p>
+                    <div class="triar-map">
+                        <div class="w-embed w-script">
+                            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=687wrPA-mvwwn_xIyeFMDRMm7YIIVWVd&width=100%&height=400&lang=ru_RU&sourceType=constructor&scroll=true"></script>
+                        </div>
+                    </div>
+    <p class="application-paragraph application-paragraph-alt">Не забудьте взять с собой паспорт и оригиналы свидетельств ИНН и СНИЛС.</p>
+</div>
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+}

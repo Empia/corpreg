@@ -1,0 +1,233 @@
+@(signInForm: Form[forms.SignUpForm.Data])(implicit request: RequestHeader, messages: Messages)
+
+@import b3.inline.fieldConstructor
+
+<!DOCTYPE html>
+
+<html data-wf-site="5637501d17335e240c9c1dd0" data-wf-page="574d849c116766101d3309c9">
+
+<head>
+    <meta charset="utf-8">
+    <title>Клеркси Гетт — онлайн регистрация индивидуальных предпринимателей и юридических лиц (ИП и ООО) Copy</title>
+    <meta property="og:title" content="Клеркси Гетт — онлайн регистрация индивидуальных предпринимателей и юридических лиц (ИП и ООО) Copy">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ["Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic", "Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic", "Roboto:100,300,regular,500,700,900:cyrillic-ext,latin,cyrillic", "Roboto Slab:100,300,regular,700:cyrillic-ext,latin,cyrillic", "Roboto Condensed:300,regular,700:cyrillic-ext,latin,cyrillic", "Neucha:regular:cyrillic,latin", "PT Sans Narrow:regular,700:cyrillic-ext,latin,cyrillic"]
+            }
+        });
+    </script>
+    <script type="text/javascript" src="https://daks2k3a4ib2z.cloudfront.net/0globals/modernizr-2.7.1.js"></script>
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.ico")">
+    <link rel="apple-touch-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/styles/landing.css">
+
+</head>
+<style>.hidden {
+	display: none;}
+	.home-email-form {
+		display: block;
+	}
+	#name-11_field {
+    display: inline-block;
+    margin-right: -5px;
+}
+
+div#phonereg_field {
+    display: inline-block;
+    margin-right: -3px;
+}
+
+	</style>
+
+<body>
+    <div class="w-section home-main-section home-main-section-gett">
+
+        <div class="w-nav home-navbar" data-animation="default" data-collapse="medium" data-contain="1" data-duration="400">
+            <div class="w-container">
+            <a class="w-nav-brand home-brand" href="#"><img src="/assets/images/56bc78d72cc69d4e691b71e2_logo_clerksy.svg" height="14"></a>
+                <nav class="w-nav-menu home-nav-menu" role="navigation"><a class="w-nav-link home-nav-link home-nav-link-gett" href="#">Регистрация ИП</a><a class="w-nav-link home-nav-link home-nav-link-gett" href="#">Открытие расчетного счета</a><a class="w-nav-link home-nav-link home-nav-link-gett" href="#">Ведение бухгалтерии</a><a class="w-nav-link home-enter-link home-enter-link-gett" href="/signIn">Войти</a>
+                </nav>
+                <div class="w-nav-button">
+                    <div class="w-icon-nav-menu"></div>
+                </div>
+            </div>
+        </div>
+        <div class="w-container main-container-gett">
+            <h1 class="home-hero-heading home-hero-heading-gett">Стать партнером Gett и работать без посредников</h1>
+            <p class="home-hero-paragraph home-hero-paragraph-gett">Клеркси — сервис онлайн-регистрации ИП с помощью электронной подписи.
+                <br>Без очередей и бюрократии, без посещения налоговой или нотариуса.</p><img class="home-hero-image" src="/assets/images/574c449ada805a38250bc70f_book01%20(1).png" width="700">
+            <div class="w-form home-email-form">
+                    @helper.form(action = routes.SignUpController.smsSignUp(), 'id -> "email-form", 'class -> "tel-form-block") {
+                                @helper.CSRF.formField
+<div class="w-row appplication-form-row hidden">
+  <label for="name-11" class="gett-login-form-label">Имя</label>
+  @b3.text(signInForm("firstName"), 'id -> "name-11",'class -> "w-input application-form-field")
+  <label for="name-11" class="gett-login-form-label">Фамилия</label>
+  @b3.text(signInForm("lastName"), 'id -> "name-11",'class -> "w-input application-form-field")
+  <label for="name-11" class="gett-login-form-label">Номер телефона 79000000000</label>
+
+ <label for="name-12" class="gett-login-form-label">Секретное слово:</label>
+  @b3.password(signInForm("password"), 'id -> "name-12", 'class -> "w-input application-form-field")
+</div>                                
+                      @b3.text(signInForm("email"), 'id -> "phonereg",'class -> "w-input home-email-field home-email-field-gett", 'placeholder -> "79001234567")                                                
+                        <button type="submit" value="submit" class="w-button home-email-button home-email-button-gett" href="/signUp">Стать ИП</button>
+                            }
+
+            </div>
+            <div class="gett-point gett-point-arrow arrow-2">
+                <div class="gett-point-text gett-point-text-arrow text-arrow-2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="w-section gett-features-section gett-features-section-reg">
+        <div class="w-container tochka-container">
+            <div class="gett-point">
+                <div class="gett-point-text">1</div>
+            </div>
+            <h3 class="home-section-heading home-section-heading-gett">Зарегистрируйтесь в качестве ИП</h3>
+            <p class="home-hero-paragraph home-hero-paragraph-step">Зарегистрируйтесь в качестве индивидуального предпринимателя с помощью Клеркси.</p>
+            <div class="w-row">
+                <div class="w-col w-col-3 step-column">
+                    <div class="step-block"></div>
+                    <div class="steps-text">Укажите личные данные, загрузите сканы или фото паспорта, свидетельств СНИЛС и ИНН</div>
+                    <div class="step-arrow"></div>
+                </div>
+                <div class="w-col w-col-3 step-column">
+                    <div class="step-block"></div>
+                    <div class="steps-text">Оплатите госпошлину за регистрацию ИП с помощью банковской карты или мобильного телефона</div>
+                    <div class="step-arrow"></div>
+                </div>
+                <div class="w-col w-col-3 step-column">
+                    <div class="step-block"></div>
+                    <div class="steps-text">Пройдите процедуру идентификации и выпустите облачную электронную подпись</div>
+                    <div class="step-arrow"></div>
+                </div>
+                <div class="w-col w-col-3 step-column">
+                    <div class="step-block steps-block-fns"></div>
+                    <div class="steps-text">Подпишите документы электронной подписью и отправьте на регистрацию
+                        <br>в ФНС одним кликом</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-section gett-features-section gett-features-section-tochka">
+        <div class="w-container tochka-container tochka-container-tochka">
+            <div class="w-row tochka-row">
+                <div class="w-col w-col-8">
+                    <h3 class="home-section-heading home-section-heading-gett home-section-heading-gett-tochka">Откройте расчетный счет в банке</h3>
+                    <p class="home-hero-paragraph home-hero-paragraph-tochka">Для всех партнеров Gett — специальные тарифы и условия обслуживания
+                        <br>в банке Открытие (расчетный сервис Точка).</p>
+                    <div class="tochka-list">
+                        <div class="tochka-list-item">— Бесплатное открытие расчетного счета без визита в банке, входящем в ТОП-5</div>
+                        <div class="tochka-list-item">— Бесплатный выезд менеджера для открытия счёта</div>
+                        <div class="tochka-list-item">— Денежные средства застрахованы государством на 1 400 000 рублей</div>
+                        <div class="tochka-list-item">— Стоимость обслуживания счета:&nbsp;<strong>900 рублей</strong> в месяц</div>
+                        <div class="tochka-list-item">— Бесплатная MasterCard, привязанная к вашему счету</div>
+                    </div>
+                </div>
+                <div class="w-col w-col-4 logo-column logo-column-tochka"><img src="/assets/images/56c57c9b1457615e44cf7315_tochka_logo.svg" width="200">
+                </div>
+            </div><a class="gett-start-link" href="/assets/Точка и Такси (спец. тариф).pdf">Подробнее о предложении</a>
+            <div class="gett-line gett-line-long"></div>
+            <div class="gett-point gett-point-2">
+                <div class="gett-point-text gett-point-text-tochka">2</div>
+            </div>
+        </div>
+    </div>
+    <div class="w-section gett-features-section gett-features-section-1c">
+        <div class="w-container tochka-container">
+            <div class="w-row">
+                <div class="w-col w-col-8">
+                    <h3 class="home-section-heading home-section-heading-1c">Заключите договор на ведение бухгалтерии</h3>
+                    <p class="home-hero-paragraph home-hero-paragraph-1c">Аутсорсинг бухгалтерии со скидкой 50% для партнеров Gett от сервиса 1C:Бухобслуживание.</p>
+                    <div class="_1c-list">
+                        <div class="_1c-list-item">— Ведение бухгалтерии и сдача отчетности</div>
+                        <div class="_1c-list-item">— Консультирование по бухгалтерскому учету и налогообложению</div>
+                        <div class="_1c-list-item">— Формирование платежных поручений</div>
+                        <div class="_1c-list-item">— Стоимость ведения бухгалтерии:&nbsp;<strong>416 рублей</strong> в месяц (при оплате за 6 месяцев)</div>
+                    </div><a class="gett-start-link" href="http://xn--1-8sbcafteqcz0af1bd1ae3a.xn--p1ai/" target="_blank">Перейти на сайт 1С: Бухобслуживания</a>
+                </div>
+                <div class="w-col w-col-4 logo-column"><img class="_1c-buh-logo" src="/assets/images/574d91fbf4830ad21e5b3d68_logo.png" width="150">
+                    <div class="_1c-praton-name">1С-ПРАТОН</div>
+                    <div class="_1c-praton-description">УЧЕТНО-НАЛОГОВЫЙ ЦЕНТР</div>
+                </div>
+            </div>
+            <div class="w-row buh-row">
+                <div class="w-col w-col-8">
+                    <h3 class="home-section-heading home-section-heading-1c">Или ведите бухгалтерию самостоятельно</h3>
+                    <p class="home-hero-paragraph home-hero-paragraph-1c">Для тех, кто планирует вести бухгалтерский учет самостоятельно — Эльба, удобный сервис ведения бухгалтерии и сдачи отчетности для малого бизнеса.</p>
+                    <div class="_1c-list">
+                        <div class="_1c-list-item">— Автоматическое формирование отчетности</div>
+                        <div class="_1c-list-item">— Напоминание о сроках сдачи отчетности и уплаты налогов и взносов в ПФР</div>
+                        <div class="_1c-list-item">— Обмен данными с банком, автоматическая выгрузка информации о платежах</div>
+                        <div class="_1c-list-item">— Стоимость подписки на сервис: <strong>325 рублей</strong> в месяц (при оплате за год)</div>
+                        <div class="_1c-list-item">— Первые три месяца использования сервиса бесплатно для партнеров Gett</div>
+                    </div><a class="gett-start-link" href="http://www.e-kontur.ru/" target="_blank">Перейти на сайт Контур.Эльбы</a>
+                </div>
+                <div class="w-col w-col-4 logo-column"><img class="elba-logo" src="/assets/images/575163ddfcdc27ff2e4e6acf_ElbaLogo.svg" width="200">
+                </div>
+            </div>
+            <div class="gett-point">
+                <div class="gett-point-text">3</div>
+            </div>
+        </div>
+    </div>
+    <div class="w-section gett-features-section gett-fatures-section-2">
+        <div class="w-container">
+            <div class="w-row">
+                <div class="w-col w-col-3"><img height="250" src="/assets/images/57500423ceeb43cf728704af_dude.svg">
+                </div>
+                <div class="w-col w-col-9">
+                    <h3 class="home-section-heading home-section-heading-gett home-section-heading-gett-alt">Заключите договор с Gett</h3>
+                    <p class="home-hero-paragraph home-hero-paragraph-gett-on">После регистрации в качестве индивидуального предпринимателя и открытия расчетного счета ваши документы будут автоматически направлены в Gett — можно заключать договор!</p>
+                    <p class="home-hero-paragraph home-hero-paragraph-gett-on home-hero-paragraph-gett-2">Есть вопросы по работе с Gett? Пишите на ip@@gett.ru</p>
+                    <div class="gett-links"><a class="gett-link" href="http://www.gettaximan.ru" target="_blank">—&nbsp;Gettaximan</a><a class="gett-link" href="http://gettaximan.ru/pamyatka/">—&nbsp;Памятка партнера</a><a class="gett-link" href="https://n12556.yclients.com/company:31491/idx:0/date?o=m-1" target="_blank">—&nbsp;Запись на заключение договора</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-section footer-section footer-section-gett">
+        <div class="w-container">
+            <div class="w-row">
+                <div class="w-col w-col-4">
+                    <div class="copyright-text">© 2016 Клеркси</div><a class="agreement-link" href="#">Пользовательское соглашение</a><a class="agreement-link" href="#">Политика конфеденциальности</a>
+                </div>
+                <div class="w-col w-col-4"></div>
+                <div class="w-col w-col-4"><a class="social-link social-link-twitter" href="#"></a><a class="social-link social-link-facebook" href="#"></a><a class="social-link social-link-vk" href="#"></a><a class="social-link social-link-instagram" href="#"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<script src="/assets/t.js">
+</script>
+
+<script type="text/javascript" src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
+<script>
+    // $("#phonereg").mask('00000000000', {placeholder: "79001234567"});
+
+$(document).ready(function(){
+     $("#phonereg").mask('70000000000', {placeholder: "79001234567"});
+ });
+</script>
+
+<script>
+window.intercomSettings = {
+app_id: "u4hyhwz8"
+};
+</script>
+<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/u4hyhwz8';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>    
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+
+</body>
+
+</html>
+
+

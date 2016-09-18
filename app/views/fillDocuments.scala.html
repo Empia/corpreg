@@ -1,0 +1,468 @@
+@(user: models.User, fillId: Long, phone: String, fileCn: List[FileValue])(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.application-body.application-body-address {
+    padding-top: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    border-bottom-style: solid;
+    border-bottom-color: #e9e9e9;
+    text-align: left;
+}
+.application-form-field.application-form-field-verybig {
+    display: inline-block;
+    width: 633px;
+    margin: 0px auto 30px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    float: none;
+    border: 2px solid #e7e7e7;
+    background-color: #fff;
+}
+.application-form-field.application-form-field-address.aaplication-form-field-address-amall {
+    width: 100px;
+}
+
+.application-form-field.application-form-field-verybig.application-form-field-verybig-gett {
+  display: block;
+  border-color: #fcb824;
+}
+
+.application-form-field.application-form-field-address {
+  width: 300px;
+  margin-bottom: 15px;
+  border: 1px none #eee;
+  background-color: #f8f8f8;
+}
+
+.application-form-field.application-form-field-address.application-form-short {
+  width: 200px;
+}
+
+.application-form-field.application-form-field-address.aaplication-form-field-address-amall {
+  width: 100px;
+}
+.application-form-field.application-form-field-reg {
+    width: 433px;
+    border-style: none;
+    background-color: #f8f8f8;
+}
+
+.file-upload-button {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px 8px 5px 9px;
+  float: left;
+  clear: left;
+  border: 1px solid #5c92cc;
+  border-radius: 3px;
+  font-family: Roboto, sans-serif;
+  color: #5c92cc;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.file-upload-button.file-upload-button-pressed {
+  border-color: transparent;
+  background-color: #5c92cc;
+  color: #fff;
+}
+
+.next-button-icon {
+  overflow: visible;
+  font-family: 'Fon Aawesome', sans-serif;
+  color: #e9e9e9;
+  font-size: 16px;
+}
+
+.upload-column-one {
+  margin-top: 10px;
+  padding: 30px;
+  border-radius: 3px;
+}
+
+.upload-column-two {
+  margin-top: 10px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+}
+.application-footer {
+    padding: 30px 80px 50px;
+    border-top: 1px none #eee;
+    background-color: white;
+}
+.application-header-box {
+    position: relative;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e9e9e9;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #f8f8f8;
+    box-shadow: none;
+}
+.application-content {
+    margin-top: 30px;
+    border: 1px none #ec675d;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 10px 80px 0 rgba(15, 29, 51, .15);
+}
+
+.upload-filter-link.upload-filter-link-active {
+    border: 2px solid transparent;
+    background-color: #ec675d;
+    color: #fff;
+}
+.upload-filter-link {
+    display: inline-block;
+    width: 50px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    padding: 5px 8px;
+    float: left;
+    border: 2px solid #ec675d;
+    border-radius: 3px;
+    background-color: transparent;
+    font-family: Roboto, sans-serif;
+    color: #db5a50;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+</style>
+
+
+<div class="w-container application-content">
+
+  <div class="application-header-box application-header-box-gett">
+      <div class="w-clearfix application-header-icon application-header-icon-gett">
+          <div class="application-heading-icon"></div>
+          <h2 class="content-heading content-heading-gett">Формирование заявления</h2>
+      </div>
+      <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+          <div class="w-container">
+<nav role="navigation" class="w-nav-menu application-nav-menu">
+<a href="/up-passport" class="w-nav-link application-nav-button" style="max-width: 940px;">Личные данные</a>
+<div class="application-nav-arrow"></div><a href="/up-address" class="w-nav-link application-nav-button" style="max-width: 940px;">Адрес регистрации</a>
+<div class="application-nav-arrow"></div><a href="/up-nalog" class="w-nav-link application-nav-button" style="max-width: 940px;">Налогообложение</a>
+<div class="application-nav-arrow"></div><a href="/up-documents" class="w-nav-link application-nav-button application-nav-button-active w--current" style="max-width: 940px;">Документы</a>
+<div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Подтверждение</a>
+</nav>
+              <div class="w-nav-button">
+                  <div class="w-icon-nav-menu"></div>
+              </div>
+          </div>
+          <div class="w-nav-overlay" data-wf-ignore=""></div>
+      </div>
+  </div>
+
+
+<div class="application-body application-body-upload">
+          <h3 class="application-subheading">Загрузка сканов документов</h3>
+          <p class="application-paragraph">Теперь загрузите сканы ваших документов — для выпуска электронной подписи понадобятся копии паспорта, свидетельства ИНН и СНИЛС.</p>
+          <p class="application-paragraph">Очень важно, чтобы скан или фото паспорта были в хорошем качестве и в хорошо читаемом виде. Копия паспорта предоставляется в регистрирующий орган вместе с заявлением на регистрацию ИП.</p>
+
+
+
+
+@helper.form(action = routes.AdminController.saveFillUserFiles(fillId), 'enctype -> "multipart/form-data") {
+  @helper.CSRF.formField
+
+  <div class="application-body application-body-upload">
+      <div class="w-row">
+          <div class="w-col w-col-8 upload-column-two">
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="PASSPORT" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">Паспорт</div>
+                  </div>
+              </div>
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="PASSPORT2_SCAN" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">Паспорт страница с пропиской</div>
+                  </div>
+              </div>              
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="INN_SCAN" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">Скан ИНН</div>
+                  </div>
+              </div>
+              <div class="w-row upload-row">
+                  <div class="w-col w-col-8">
+                      <div class="w-embed upload-file-field">
+                          <input name="SNILS_SCAN" id="drop-zone" type="file">
+                      </div>
+                  </div>
+                  <div class="w-col w-col-4">
+                      <div class="upload-file-label">Скан СНИЛС</div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+
+
+
+
+                <div class="application-footer">
+                    <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">Загрузить</button>
+                                        <a id="submit" href="/up-confirmation" value="submit" class="w-button application-next-button application-next-button-gett">
+                      Далее</a>
+
+                </div>
+}
+
+<!--
+            <div class="w-col w-col-5 w-clearfix"><img class="passport-image-style" src="/assets/images/Pasport_RF.png" width="303">
+            </div>
+        </div>
+-->
+
+
+</div>
+</div>
+
+
+
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
+
+<style>
+.upload-file-field {
+  background: none;
+}
+#drop-zone {
+    display: inline-block;
+    padding: 10px 15px;
+    float: none;
+    border: 1px solid #e9e9e9;
+    border-radius: 3px;
+    box-shadow: none;
+    font-family: Roboto, sans-serif;
+    color: #555;
+    font-size: 14px;
+    margin-top: -15px;
+    width: 182px;
+}
+.upload-file-label {
+    font-family: Roboto, sans-serif;
+    color: #343434;
+    margin-top: 10px;
+}
+    #drop-zone input {
+        /*Important*/
+        position: absolute;
+        /*Important*/
+        cursor: pointer;
+        left: 0px;
+        top: 0px;
+        /*Important This is only comment out for demonstration purpeses.
+        opacity:0; */
+    }
+
+    /*Important*/
+    #drop-zone.mouse-over {
+        border: 2px dashed rgba(0,0,0,.5);
+        color: rgba(0,0,0,.5);
+    }
+
+
+/*If you dont want the button*/
+#clickHere {
+    position: absolute;
+    cursor: pointer;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: 20px;
+    line-height: 26px;
+    color: white;
+    font-size: 12px;
+    width: 100px;
+    height: 26px;
+    border-radius: 4px;
+    background-color: #3b85c3;
+
+}
+
+    #clickHere:hover {
+        background-color: #4499DD;
+
+    }
+</style>
+<script>
+
+$( document ).ready(function() {
+
+var checkPassportBase = function() {
+
+var data;
+
+if ($('#passport-issued-date').val()) {
+  var date = $('#passport-issued-date').val().split('.')
+  data = {
+'code': $('#kod-podrazdelenia').val(),
+'date': date[0]+"-"+date[1]+"-"+date[2],
+}
+} else {
+
+  data = {
+'code': $('#kod-podrazdelenia').val()
+}
+}
+
+
+  $.ajax({ url: 'https://www.tinkoff.ru/api/v1/get_passport_authority_name/',
+  data: data,
+success: function(d) {
+console.log(d);
+console.log(d.payload[0]);
+  $('#mus1').text(d.payload[0].replace(/"/g,""));
+  $('#mus2').text(d.payload[1]);
+  //$('#passportIssuedBy').val(d.payload[1]);
+}
+});
+
+}
+
+$('a#mus1').on('click', function(ev) {
+  ev.preventDefault;
+
+$('#passportIssuedBy').val($('#mus1').text());
+ ev.preventDefault();
+});
+$('a#mus2').on('click', function(ev) {
+  ev.preventDefault;
+
+$('#passportIssuedBy').val($('#mus2').text());
+ ev.preventDefault();
+});
+
+
+  $('#kod-podrazdelenia').on('input', function() {
+    if ($('#passport-issued-date').val()) {
+    checkPassportBase();
+    }
+});
+$('#passport-issued-date').on('input', function() {
+  checkPassportBase();
+});
+
+
+$('#passport').on('input', function() {
+
+if ($('#passport').val().length == 11) {
+  $.ajax({
+    url: '/passport/'+$('#passport').val(),
+    dataType: 'json',
+     method: 'GET',
+
+    headers: {     },
+    success: function(d) {
+      if (d[0].qc == 0) {
+        $('#badpassport').hide();
+        $('#goodpassport').show();
+      } else {
+        $('#goodpassport').hide();
+       $('#badpassport').show();
+      }
+
+    }
+  });
+}
+
+
+
+});
+
+});
+
+
+$(function () {
+    var dropZoneId = "drop-zone";
+    var buttonId = "clickHere";
+    var mouseOverClass = "mouse-over";
+
+    var dropZone = $("#" + dropZoneId);
+    var ooleft = dropZone.offset().left;
+    var ooright = dropZone.outerWidth() + ooleft;
+    var ootop = dropZone.offset().top;
+    var oobottom = dropZone.outerHeight() + ootop;
+    var inputFile = dropZone.find("input");
+    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.addClass(mouseOverClass);
+        var x = e.pageX;
+        var y = e.pageY;
+
+        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+            inputFile.offset({ top: y - 15, left: x - 100 });
+        } else {
+            inputFile.offset({ top: -400, left: -400 });
+        }
+
+    }, true);
+
+    if (buttonId != "") {
+        var clickZone = $("#" + buttonId);
+
+        var oleft = clickZone.offset().left;
+        var oright = clickZone.outerWidth() + oleft;
+        var otop = clickZone.offset().top;
+        var obottom = clickZone.outerHeight() + otop;
+
+        $("#" + buttonId).mousemove(function (e) {
+            var x = e.pageX;
+            var y = e.pageY;
+            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+                inputFile.offset({ top: y - 15, left: x - 160 });
+            } else {
+                inputFile.offset({ top: -400, left: -400 });
+            }
+        });
+    }
+
+    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+        $("#" + dropZoneId).removeClass(mouseOverClass);
+    }, true);
+
+})
+</script>
+<script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
+
+
+
+
+}

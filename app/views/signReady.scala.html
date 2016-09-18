@@ -1,4 +1,10 @@
-@(user: models.User, smsCodeRequest: Boolean, firstName:String,lastName:String, inn:String,snils:String, smsForm: Form[forms.FillForm.FillData],smsCodeRequestGranted:Boolean=false)(implicit messages: Messages,request: RequestHeader)
+@(user: models.User,
+smsCodeRequest: Boolean, 
+firstName:String,lastName:String,
+inn:String,snils:String,
+smsForm: Form[forms.FillForm.FillData],
+smsCodeRequestGranted:Boolean=false)(implicit messages: Messages,request: RequestHeader)
+
 @import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
 @import b3.inline.fieldConstructor
 @import play.api.Play
@@ -66,8 +72,8 @@
         </div>
         <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
             <div class="w-container">
-<nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/gett-passport" class="w-nav-link application-nav-button application-nav-button-active-gett">Личные данные</a>
-    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/gett-esign" class="w-nav-link application-nav-button application-nav-button-active-gett">Электронная подпись</a>
+<nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/up-passport" class="w-nav-link application-nav-button application-nav-button-active-gett">Личные данные</a>
+    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/up-esign" class="w-nav-link application-nav-button application-nav-button-active-gett">Электронная подпись</a>
     <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button application-nav-button-active-gett application-nav-button-active">Регистрация в ФНС</a>
     <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Открытие счета</a>
 </nav>
@@ -125,9 +131,13 @@
 </div>
 </div>
 <script>
-	        @if(!smsCodeRequest) {
+        @if(!smsCodeRequest) {
 setTimeout(function(){
-   window.location='/';
+  $.ajax('/states').then(function(data){console.log(data);
+    if (data.smsCodeRequest) {
+      window.location='/';
+    }
+    return data})
 }, 10000);
 }
 </script>

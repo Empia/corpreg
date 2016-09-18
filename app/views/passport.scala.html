@@ -12,118 +12,189 @@
     width: 20%;
     margin-right: 10px;
 }
+.kp-block {
+    margin-left: -29px;
+}
 </style>
 
-<div class="w-container">
-            <div class="application-content">
-               <div class="w-clearfix application-header-box application-header-box-gett">
-    <div class="w-clearfix application-header-icon application-header-icon-gett">
-        <div class="application-heading-icon application-heading-icon-gett"></div>
-    </div>
-    <div class="application-header">
-        <h2 class="content-heading content-heading-gett">Подготовка пакета документов</h2>
-    </div>
+<div class="w-container fill-data-form">
     <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
-        <div class="w-container">
+                      <div class="w-container">
+                          <nav role="navigation" class="w-nav-menu application-nav-menu">
+                            <a href="/up-passport" class="w-nav-link application-nav-button application-nav-button-active w--current" style="max-width: 940px;">Личные данные</a>
+                              <div class="application-nav-arrow"></div><a href="/up-address" class="w-nav-link application-nav-button" style="max-width: 940px;">Адрес регистрации</a>
+                              <div class="application-nav-arrow"></div><a href="/up-nalog" class="w-nav-link application-nav-button" style="max-width: 940px;">Налогообложение</a>
+                              <div class="application-nav-arrow"></div><a href="/up-documents" class="w-nav-link application-nav-button" style="max-width: 940px;">Документы</a>
+                              <div class="application-nav-arrow"></div><a href="#" class="w-nav-link application-nav-button" style="max-width: 940px;">Подтверждение</a>
+                          </nav>
+                          <div class="w-nav-button">
+                              <div class="w-icon-nav-menu"></div>
+                          </div>
+                      </div>
+                      <div class="w-nav-overlay" data-wf-ignore=""></div>
+                  </div>
+            <div class="application-content">
 
-<nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/gett-passport" class="w-nav-link application-nav-button application-nav-button-active application-nav-button-active-gett">Личные данные</a>
-    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Электронная подпись</a>
-    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Регистрация в ФНС</a>
-    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="#" class="w-nav-link application-nav-button">Открытие счета</a>
-</nav>
+              <div class="application-header-box application-header-box-gett">
+                  <div class="w-clearfix application-header-icon application-header-icon-gett">
+                      <h2 class="content-heading content-heading-gett">Персональные данные</h2>
+                         <div class="form-heading-text">Для подготовки документов нам потребуются данные вашего паспорта
+                            <br>и номера свидетельств СНИЛС и ИНН</div>
+                  </div>
+                  
+              </div>
 
 
-            <div class="w-nav-button">
-                <div class="w-icon-nav-menu"></div>
-            </div>
-        </div>
-        <div class="w-nav-overlay" data-wf-ignore=""></div>
-    </div>
-</div>
-              
-<div class="application-body application-body-upper">
-    <h3 class="application-subheading application-subheading-gett">Личные данные</h3>
-    <p class="application-paragraph application-paragraph-gett-light">Все ваши данные уже внесены в систему.&nbsp;
-        <br>Проверьте — все ли верно и переходите к следующему шагу. <br> Если в данных ошибка просьба сообщить по номеру +7 926 300-06-03</p>
-</div>
+
+<div class="application-body application-body-menu"></div>
 
 
 
 
 
-@helper.form(action = routes.AdminController.saveFill(fillId)) {
-            @helper.CSRF.formField     
-<div class="application-body">
+
+@helper.form(action = routes.AdminController.saveFillUser(fillId)) {
+  @helper.CSRF.formField
+<div class="application-body application-body-address">
     <div class="w-form application-form">
-        <div id="email-form" name="email-form" data-name="Email Form">
             <div class="w-row">
-                <div class="w-col w-col-6">
-                    <label for="name-4" class="application-form-label">Фамилия:</label>
-    @b3.text(fillForm("lastName"), 'id -> "last-name",'class -> "w-input application-form-field application-form-field-gett")                
-                    <label for="name-5" class="application-form-label">Имя:</label>
-    @b3.text(fillForm("firstname"), 'id -> "first-name",'class -> "w-input application-form-field application-form-field-gett")                
-                    <label for="name-6" class="application-form-label">Отчество:</label>
-    @b3.text(fillForm("middleName"), 'id -> "middle-name",'class -> "w-input application-form-field application-form-field-gett")                
-
+                <div class="w-col w-col-4">
+                    <label for="name-68" class="application-form-label application-form-label-pro">Фамилия:</label>
+                    @helper.inputText(fillForm("lastName"), 'id -> "last-name",'class -> "w-input application-form-field", '_label -> null)
+                    <label for="name-69" class="application-form-label application-form-label-pro">Имя:</label>
+                    @helper.inputText(fillForm("firstname"), 'id -> "first-name",'class -> "w-input application-form-field", '_label -> null)
+                    <label for="name-70" class="application-form-label application-form-label-pro">Отчество:</label>
+                    @helper.inputText(fillForm("middleName"), 'id -> "middle-name",'class -> "w-input application-form-field", '_label -> null)
+                    <div class="w-row">
+                        <div class="w-col w-col-7">
+                            <label for="email-29" class="application-form-label application-form-label-pro">Дата рождения:</label>
+                            @helper.inputText(fillForm("dob"), 'id -> "email-4", '_label -> null, 'placeholder -> "__.__.__" , 'class -> "w-input application-form-field application-form-field-s")
+                        </div>
+                        <div class="w-col w-col-5">
+                            <label for="name-71" class="application-form-label application-form-label-pro">Пол:</label>
+                            @helper.select(field = fillForm("gender"), options = Seq("МУЖ"->"МУЖ.", "ЖЕН"->"ЖЕН."), 'id -> "gender-field", '_label -> null, 'class -> "w-input application-form-field application-form-field-xs")
+                        </div>
+                    </div>
                 </div>
-                <div class="w-col w-col-6">
-                    <label for="email-4" class="application-form-label">Дата рождения:</label>
-    @b3.text(fillForm("dob"), 'id -> "email-4",'class -> "w-input application-form-field application-form-field-gett")                            
-                    <label for="email-5" class="application-form-label">Место рождения:</label>
-    @b3.text(fillForm("placeOfBorn"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")                            
+                <div class="w-col w-col-8">
+                    <label for="email-30" class="application-form-label application-form-label-pro">Место рождения (точно по паспорту):</label>
+                    @helper.inputText(fillForm("placeOfBorn"), 'id -> "email-5", '_label -> null,'class -> "w-input application-form-field application-form-field-450")
+                    <label for="name-72" class="application-form-label application-form-label-pro">Серия и номер паспорта:</label>
+                    @helper.inputText(fillForm("passport"), 'id -> "passport",'_label -> null, 'placeholder -> "__ __ ______" ,'class -> "w-input application-form-field application-form-field-pass")
+
+                    <!--
+                    <div class="w-clearfix passport-status">Паспорт недействителен.
+                        <br>Возможно, истек срок действия.</div>
+                      -->
+                    <div class="w-row">
+                        <div class="w-col w-col-4">
+                            <label for="email-31" class="application-form-label application-form-label-pro">Дата выдачи:</label>
+                          @helper.inputText(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'_label -> null,  'placeholder -> "__.__.__", 'class -> "w-input application-form-field application-form-field-s")
+                                                    </div>
+                        <div class="w-col w-col-8">
+                            <div class="kp-block">
+                                <label for="name-73" class="application-form-label application-form-label-pro">Код подразделения:</label>
+                               @helper.inputText(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'_label -> null,  'placeholder -> "___-___" ,'class -> "w-input application-form-field application-form-field-s")
+                            </div>
+                        </div>
+                    </div>
+                    <label for="email-32" class="application-form-label application-form-label-pro">Кем выдан паспорт:</label>
+                    @helper.inputText(fillForm("passportIssuedBy"), 'id -> "email-5",'_label -> null, 'class -> "w-input application-form-field application-form-field-450")
+                    <!--
+                    <div class="issued-types-block"><a href="#" class="passport-fms-name">ОТДЕЛЕНИЕМ УФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ В КАМЕНСКОМ РАЙОНЕ</a>
+                      <a href="#" class="passport-fms-name">ОУФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ В КАМЕНСКОМ РАЙОНЕ</a><a href="#" class="passport-fms-name">Ввести самостоятельно</a>
+                    </div>-->
                 </div>
             </div>
-        </div>
+            <div class="w-row appplication-form-row application-form-row-alt application-form-pro">
+                <div class="w-col w-col-4 pro-column-inn">
+                    <label for="name-76" class="application-form-label application-form-label-pro">Электронная почта:</label>
+                    @helper.inputText(fillForm("eMail"), 'id -> "emailField",'_label -> null, 'class -> "w-input application-form-field application-form-field-194")
+                </div>
+                <div class="w-col w-col-4 pro-column-snils">
+                    <label for="name-77" class="application-form-label application-form-label-pro">ИНН:</label>
+                    @helper.inputText(fillForm("inn"), 'id -> "inn",'_label -> null, 'class -> "w-input application-form-field application-form-field-194")
+                </div>
+                <div class="w-col w-col-4 pro-column-snils">
+                    <label for="name-78" class="application-form-label application-form-label-pro">СНИЛС:</label>
+                    @helper.inputText(fillForm("snils"), 'id -> "snils",'_label -> null, 'class -> "w-input application-form-field application-form-field-194")
+                </div>
+            </div>
     </div>
 </div>
 
-<div class="application-body">
+
+<div class="application-body application-body-address" style="display: none;">
+    <h3 class="application-subheading">Адрес регистрации</h3>
     <div class="w-form application-form">
-        <div id="email-form" name="email-form" data-name="Email Form">
-
-
-            <div class="w-row">
-                <div class="w-col w-col-6">
-                    <label for="name-7" class="application-form-label">Серия и номер паспорта:</label>
-    @b3.text(fillForm("passport"), 'id -> "passport",'class -> "w-input application-form-field application-form-field-gett")                               
-                    <label for="name-8" class="application-form-label">Дата выдачи паспорта:</label>
-    @b3.text(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'class -> "w-input application-form-field application-form-field-gett")                               
+          @b3.text(fillForm("locationAddress"), 'id -> "address",'class -> "w-input application-form-field application-form-field-verybig")
+            <div class="w-row appplication-form-row">
+                <div class="w-col w-col-2">
+                    <label for="name-38" class="application-form-label application-form-label-address">Индекс</label>
+                    @b3.text(fillForm("postalAddress"), 'id -> "postalcode",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
                 </div>
-                <div class="w-col w-col-6">
-                    <label for="email-11" class="application-form-label">Код подразделения:</label>
-    @b3.text(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'class -> "w-input application-form-field application-form-field-gett")                               
+                <div class="w-col w-col-3">
+                    <label for="subject" class="application-form-label application-form-label-address">Субъект:</label>
+                    @b3.text(fillForm("addressInfo.subject"), 'id -> "subject",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-7">
+                    <label for="area" class="application-form-label application-form-label-address">Район:</label>
+                    @b3.text(fillForm("addressInfo.area"), 'id -> "area",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
                 </div>
             </div>
-            <label for="email-13" class="application-form-label">Кем выдан паспорт:</label>
-    @b3.text(fillForm("passportIssuedBy"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")                       
+            <div class="w-row appplication-form-row">
+                <div class="w-col w-col-5">
+                    <label for="city" class="application-form-label application-form-label-address">Город:</label>
+                    @b3.text(fillForm("addressInfo.city"), 'id -> "city",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-7">
+                    <label for="settlement" class="application-form-label application-form-label-address">Населенный пункт:</label>
+                    @b3.text(fillForm("addressInfo.settlement"), 'id -> "settlement",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+            </div>
+            <div class="w-row">
+                <div class="w-col w-col-5">
+                    <label for="street" class="application-form-label application-form-label-address">Улица:</label>
+                    @b3.text(fillForm("addressInfo.street"), 'id -> "street",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-2">
+                    <label for="house" class="application-form-label application-form-label-address">Дом:</label>
+                    @b3.text(fillForm("addressInfo.house"), 'id -> "house",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-2">
+                    <label for="corpus" class="application-form-label application-form-label-address">Корпус:</label>
+                    @b3.text(fillForm("addressInfo.corpus"), 'id -> "corpus",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="flat" class="application-form-label application-form-label-address">Квартира:</label>
+                    @b3.text(fillForm("addressInfo.flat"), 'id -> "flat",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+            </div>
+    </div>
+    <div class="w-row appplication-form-row application-form-row-alt">
+        <div class="w-col w-col-2">
+            <label for="ifns" class="application-form-label application-form-label-address">Код ИФНС</label>
+            <input id="ifns" name="name-47" data-name="Name 47" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
+        </div>
+        <div class="w-col w-col-2">
+            <label for="fnsreg" class="application-form-label application-form-label-address">Код рег. органа</label>
+            @b3.text(fillForm("fnsreg"), 'id -> "fnsreg",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+
+        </div>
+        <div class="w-col w-col-8">
+            <label for="fnstitle" class="application-form-label application-form-label-address">Наименование регистрирующего органа</label>
+            <input id="fnstitle" name="name-49" data-name="Name 49" class="w-input application-form-field application-form-field-reg" type="text">
+
         </div>
     </div>
 </div>
 
-
-<div class="application-body">
-    <div class="w-form application-form">
-        <div id="email-form" name="email-form" data-name="Email Form">
-            <div class="w-row">
-                <div class="w-col w-col-6">
-                    <label for="name-9" class="application-form-label">ИНН:</label>
-    @b3.text(fillForm("inn"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")                      
-                </div>
-                <div class="w-col w-col-6">
-                    <label for="email-14" class="application-form-label">СНИЛС:</label>
-    @b3.text(fillForm("snils"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")                      
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
                 <div class="application-footer">
-                    <a href="/gett-esign" class="w-button application-next-button application-next-button-gett">Все правильно</a>
-
+                  <button id="submit" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">Все правильно</button>
                 </div>
             </div>
-        </div>          
+        </div>
 
 }
 
@@ -133,5 +204,4 @@
 
 
  <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-}         
-
+}

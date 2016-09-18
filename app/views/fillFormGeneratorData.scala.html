@@ -1,0 +1,440 @@
+@(user: models.User, fillId: Long, fillForm: Form[forms.PrimaryFillForm.PrimaryFillData])(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.application-body.application-body-address {
+    padding-top: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    border-bottom-style: solid;
+    border-bottom-color: #e9e9e9;
+    text-align: left;
+}
+.application-form-field.application-form-field-verybig {
+    display: inline-block;
+    width: 633px;
+    margin: 0px auto 30px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    float: none;
+    border: 2px solid #e7e7e7;
+    background-color: #fff;
+}
+.application-form-field.application-form-field-address.aaplication-form-field-address-amall {
+    width: 100px;
+}
+
+.application-form-field.application-form-field-verybig.application-form-field-verybig-gett {
+  display: block;
+  border-color: #fcb824;
+}
+
+.application-form-field.application-form-field-address {
+  width: 300px;
+  margin-bottom: 15px;
+  border: 1px none #eee;
+  background-color: #f8f8f8;
+}
+
+.application-form-field.application-form-field-address.application-form-short {
+  width: 200px;
+}
+
+.application-form-field.application-form-field-address.aaplication-form-field-address-amall {
+  width: 100px;
+}
+.application-form-field.application-form-field-reg {
+    width: 433px;
+    border-style: none;
+    background-color: #f8f8f8;
+}
+.passport-status {
+    display: inline-block;
+    width: 183px;
+    margin-top: -5px;
+    margin-bottom: 15px;
+    font-family: Roboto, sans-serif;
+    color: #6bbd6e;
+    font-size: 14px;
+}
+
+.passport-status-icon {
+    margin-right: 4px;
+    margin-bottom: 5px;
+    float: left;
+    font-family: 'Fon Aawesome', sans-serif;
+    color: #6bbd6e;
+}
+.passport-status.passport-status-no {
+    width: 187px;
+    color: #ec675d;
+}
+.passport-status-icon.passport-satus-icon-false {
+    margin-bottom: 25px;
+    color: #ec675d;
+}
+.passport-fms-name-div {
+    margin-bottom: 2px;
+}
+.passport-fms-name {
+    display: inline;
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    border-style: none none dashed;
+    border-width: 1px;
+    border-color: #dfdfdf;
+    border-radius: 3px;
+    background-color: transparent;
+    font-family: Roboto, sans-serif;
+    color: #d6d6d6;
+    font-size: 12px;
+    text-decoration: none;
+}
+.form-gender-swithcer {
+    display: inline-block;
+    margin-top: 5px;
+    border: 1px none #c9c9c9;
+    border-radius: 3px;
+    box-shadow: none;
+}
+.gender-button {
+    display: inline-block;
+    width: 35px;
+    height: 29px;
+    margin-top: 0px;
+    padding-top: 6px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border: 1px solid #e6eff8;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: #e6eff8;
+    box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, .1);
+    font-family: Roboto, sans-serif;
+    color: #afc7e0;
+    font-size: 10px;
+    line-height: 15px;
+}
+.gender-button.gender-button-female {
+    width: 34px;
+    border-style: solid solid solid none;
+    border-color: #e9e9e9;
+    border-radius: 0px 3px 3px 0px;
+    background-color: transparent;
+    box-shadow: none;
+    color: #dbd9d8;
+}
+.application-form-field.application-form-field-short {
+    width: 140px;
+    background-image: none;
+    background-size: auto;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+.application-form-label {
+    margin-bottom: 5px;
+    font-family: Roboto, sans-serif;
+    color: #ccc;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+}
+.application-form-field.application-form-field-short {
+    width: 140px;
+    background-image: none;
+    background-size: auto;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+.application-form-field {
+    display: inline-block;
+    width: auto;
+    margin-bottom: 15px;
+    padding-right: 12px;
+    padding-left: 12px;
+    border: 1px solid #e6e6e6;
+    border-radius: 1px;
+    background-color: #fdfdfd;
+    font-family: Roboto, sans-serif;
+    color: black;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+}
+.application-subheading {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-left: 0px;
+    font-family: Roboto, sans-serif;
+    color: #727272;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 400;
+    text-align: left;
+}
+.application-form-field.application-form-field-short {
+    width: 140px;
+    background-image: none;
+    background-size: auto;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+#passport-issued-date, #kod-podrazdelenia {
+    width: 140px;
+}
+#passportIssuedBy {
+  width: 400px;
+  height: 70px;
+}
+</style>
+
+<div class="w-container">
+            <div class="application-content">
+               <div class="w-clearfix application-header-box application-header-box-gett">
+    <div class="w-clearfix application-header-icon application-header-icon-gett">
+        <div class="application-heading-icon application-heading-icon-gett"></div>
+    </div>
+    <div class="application-header">
+        <h2 class="content-heading content-heading-gett">Генерация новых форм</h2>
+    </div>
+    <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+                <div class="w-container">
+                  <nav role="navigation" class="w-nav-menu application-nav-menu"><a style="max-width: 940px;" href="/filling/@fillId/fill" class="w-nav-link application-nav-button application-nav-button-active">Внесение данных</a>
+                    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/filling/@fillId/fillFiles" class="w-nav-link application-nav-button">Загрузка документов</a>
+                    <div class="application-nav-arrow"></div><a style="max-width: 940px;" href="/filling/@fillId/fillFNS" class="w-nav-link application-nav-button">Отправка в налоговую</a>
+                  </nav>
+                  <div class="w-nav-button">
+                    <div class="w-icon-nav-menu"></div>
+                  </div>
+                </div>
+              <div class="w-nav-overlay" data-wf-ignore=""></div></div>
+</div>
+
+
+
+@helper.form(action = routes.FormGeneratorController.saveFill(fillId)) {
+            @helper.CSRF.formField
+
+
+
+
+
+
+<div class="application-body application-body-upper">
+    <h3 class="application-subheading">Личные данные</h3>
+    <div class="w-form application-form">
+            <div class="w-row">
+                <div class="w-col w-col-4">
+                    <label for="name-4" class="application-form-label">Фамилия:</label>
+                    @b3.text(fillForm("lastName"), 'id -> "last-name",'class -> "w-input application-form-field")
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="email-4" class="application-form-label">Дата рождения:</label>
+                    @b3.text(fillForm("dob"), 'id -> "email-4",'class -> "w-input application-form-field application-form-field-short")
+                </div>
+                <div class="w-col w-col-2">
+                    <label for="email-4" class="application-form-label">Пол:</label>
+                    <div class="form-gender-swithcer"><a href="#" class="w-button gender-button">МУЖ</a><a href="#" class="w-button gender-button gender-button-female">ЖЕН</a>
+                    </div>
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="name-9" class="application-form-label">ИНН:</label>
+                    @b3.text(fillForm("inn"), 'id -> "inn",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+            </div>
+            <div class="w-row">
+                <div class="w-col w-col-4">
+                    <label for="name-52" class="application-form-label">Имя:</label>
+                    @b3.text(fillForm("firstname"), 'id -> "first-name",'class -> "w-input application-form-field")
+                </div>
+                <div class="w-col w-col-5">
+                    <label for="email-19" class="application-form-label">Место рождения:</label>
+                    @b3.text(fillForm("placeOfBorn"), 'id -> "email-5",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="email-20" class="application-form-label">СНИЛС:</label>
+                    @b3.text(fillForm("snils"), 'id -> "snils",'class -> "w-input application-form-field application-form-field-gett")
+                </div>
+            </div>
+            <div class="w-row">
+                <div class="w-col w-col-4">
+                    <label for="name-53" class="application-form-label">Отчество:</label>
+                    @b3.text(fillForm("middleName"), 'id -> "middle-name",'class -> "w-input application-form-field")
+                </div>
+                <div class="w-col w-col-5">
+                  <label for="email-19" class="application-form-label">Email:</label>
+                  @b3.text(fillForm("eMail"), 'id -> "email",'class -> "w-input application-form-field application-form-field-gett")
+
+                </div>
+                <div class="w-col w-col-3"></div>
+            </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="application-body">
+  <h3 class="application-subheading">Паспорт</h3>
+  <div class="w-form application-form">
+        <div class="w-row">
+            <div class="w-col w-col-4">
+                <label for="name-7" class="application-form-label">Серия и номер паспорта:</label>
+                @b3.text(fillForm("passport"), 'id -> "passport",'class -> "w-input application-form-field")
+            </div>
+            <div class="w-col w-col-3">
+                <label for="name-58" class="application-form-label">Дата выдачи паспорта:</label>
+                @b3.text(fillForm("passportIssuedDate"), 'id -> "passport-issued-date",'class -> "w-input application-form-field")
+            </div>
+            <div class="w-col w-col-5">
+                <label for="name-56" class="application-form-label">Код подразделения:</label>
+                @b3.text(fillForm("kodPodrazdelenia"), 'id -> "kod-podrazdelenia",'class -> "w-input application-form-field")
+            </div>
+        </div>
+        <div class="w-row">
+          <div class="w-col w-col-4">
+              <div class="w-clearfix passport-status" id="goodpassport" style="display:none;"><span class="passport-status-icon"></span> Паспорт действителен
+                  <br>(проверен по базе ФМС)</div>
+              <div class="w-clearfix passport-status passport-status-no" id="badpassport" style="display:none;"><span class="passport-status-icon passport-satus-icon-false"></span>Паспорт недействителен
+                  <br>(возможно, истек срок действия)</div>
+          </div>
+            <div class="w-col w-col-8">
+                <label for="field-2" class="application-form-label">Кем выдан паспорт:</label>
+                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name" id="mus1"></a>
+                </div>
+                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name" id="mus2"></a>
+                </div>
+                <div class="passport-fms-name-div"><a href="#" class="passport-fms-name">Ввести самостоятельно</a>
+                </div>
+                @b3.textarea(fillForm("passportIssuedBy"), 'id -> "passportIssuedBy",'class -> "w-input application-form-field application-form-field-huge")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="application-body application-body-address">
+    <h3 class="application-subheading">Адрес регистрации</h3>
+    <div class="w-form application-form">
+          @b3.text(fillForm("locationAddress"), 'id -> "address",'class -> "w-input application-form-field application-form-field-verybig")
+            <div class="w-row appplication-form-row">
+                <div class="w-col w-col-2">
+                    <label for="name-38" class="application-form-label application-form-label-address">Индекс</label>
+                    @b3.text(fillForm("postalAddress"), 'id -> "postalcode",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="subject" class="application-form-label application-form-label-address">Субъект:</label>
+                    @b3.text(fillForm("addressInfo.subject"), 'id -> "subject",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-7">
+                    <label for="area" class="application-form-label application-form-label-address">Район:</label>
+                    @b3.text(fillForm("addressInfo.area"), 'id -> "area",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+            </div>
+            <div class="w-row appplication-form-row">
+                <div class="w-col w-col-5">
+                    <label for="city" class="application-form-label application-form-label-address">Город:</label>
+                    @b3.text(fillForm("addressInfo.city"), 'id -> "city",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-7">
+                    <label for="settlement" class="application-form-label application-form-label-address">Населенный пункт:</label>
+                    @b3.text(fillForm("addressInfo.settlement"), 'id -> "settlement",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+            </div>
+            <div class="w-row">
+                <div class="w-col w-col-5">
+                    <label for="street" class="application-form-label application-form-label-address">Улица:</label>
+                    @b3.text(fillForm("addressInfo.street"), 'id -> "street",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-2">
+                    <label for="house" class="application-form-label application-form-label-address">Дом:</label>
+                    @b3.text(fillForm("addressInfo.house"), 'id -> "house",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-2">
+                    <label for="corpus" class="application-form-label application-form-label-address">Корпус:</label>
+                    @b3.text(fillForm("addressInfo.corpus"), 'id -> "corpus",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+                <div class="w-col w-col-3">
+                    <label for="flat" class="application-form-label application-form-label-address">Квартира:</label>
+                    @b3.text(fillForm("addressInfo.flat"), 'id -> "flat",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+                </div>
+            </div>
+    </div>
+
+    
+    <div class="w-row appplication-form-row application-form-row-alt">
+        <div class="w-col w-col-2">
+            <label for="ifns" class="application-form-label application-form-label-address">Код ИФНС</label>
+            <input id="ifns" name="name-47" data-name="Name 47" class="w-input application-form-field application-form-field-address aaplication-form-field-address-amall" type="text">
+        </div>
+        <div class="w-col w-col-2">
+            <label for="fnsreg" class="application-form-label application-form-label-address">Код рег. органа</label>
+            @b3.text(fillForm("fnsreg"), 'id -> "fnsreg",'class -> "w-input application-form-field application-form-field-address aaplication-form-field-address-amall")
+
+        </div>
+        <div class="w-col w-col-8">
+            <label for="fnstitle" class="application-form-label application-form-label-address">Наименование регистрирующего органа</label>
+            <input id="fnstitle" name="name-49" data-name="Name 49" class="w-input application-form-field application-form-field-reg" type="text">
+
+        </div>
+    </div>
+</div>
+
+
+                <div class="application-footer">
+                    <button id="submit" type="submit" value="submit" class="w-button
+                    application-next-button application-next-button-gett">Сгенерировать форму</button>
+
+                </div>
+            </div>
+        </div>
+
+}
+
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="https://suggestions.dadata.ru/suggestions/libs/jquery.suggestions/16.1/js/jquery.suggestions.js"></script>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
+
+
+
+
+}

@@ -7,6 +7,10 @@ import scala.xml.NodeSeq
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 
+import play.api.mvc._
+import play.api.libs.ws._
+
+
 object MD5 {
   def hash(s: String) = {
     val m = java.security.MessageDigest.getInstance("MD5")
@@ -47,6 +51,14 @@ object RegFilling {
 
    object WS12 extends SoapWS12[Param, Result]("http://regservice.keydisk.ru/regservice.asmx")
 }
+
+
+
+
+
+
+
+
 
 object GetPassword {
   case class Param(file: String)
@@ -192,6 +204,8 @@ object GetPassword {
 
 
  object WSDLTest {
+   //val path = play.Play.application().path().getAbsolutePath()
+
 
  val timeOut = 2.minutes
 
@@ -209,24 +223,35 @@ import scala.concurrent.Future
 val officeGuid = "40FA0D16-3B54-4004-B9D3-3997C4C0CC91"
 def uuid() = java.util.UUID.randomUUID.toString
 
-def saveDoc(phone: String,
-abnGuid: String,
-eMail: String,
-inn:String,
-shortName:String,
-postalAddress:String,
-locationAddress:String,
-snils:String,
-firstName:String,
-lastName:String,
-patronymic:String,
-passportType:String,
-passportSerial:String,
-passportNumber:String,
-passportDate:String,
-passportComment:String=""
-):String = {
+def saveDoc(phoneBad: String,
+            abnGuid: String,
+            eMail: String,
+            inn:String,
+            shortName:String,
+            postalAddress:String,
+            locationAddress:String,
+            snils:String,
+            firstName:String,
+            lastName:String,
+            patronymic:String,
+            passportType:String,
+            passportSerial:String,
+            passportNumber:String,
+            passportDate:String,
+            passportIssuedBy: String,
+            region: String="",
+            area: String="",
+            city: String="",
+            nasel: String = "",
+            street: String="",
+            house: String="",
+            corpus: String="",
+            appartment: String="",
 
+            ws: WSClient
+            ):String = {
+
+val phone = {"8"+phoneBad.substring(1, phoneBad.length())}
 val guid = uuid()
 val dateTime = "08.03.2016 11:29:13"
 val packetId = MD5.hash(abnGuid+"1")
@@ -234,6 +259,9 @@ val packetId = MD5.hash(abnGuid+"1")
 val fileId = MD5.hash(abnGuid)
 val document_id = MD5.hash(inn)
 val fileName = s"${fileId}.bin"
+
+//<postalAddress>{postalAddress}</postalAddress>       // index, region, area, g city, n nasel, uls ulitsa, dom, corpus, kv
+//<locationAddress>{locationAddress}</locationAddress> // index, region, area, g city, n nasel, uls ulitsa, dom, corpus, kv
 
   val doc =
     <regRequest version="3.1" dateTime={dateTime} id={packetId}>
@@ -249,9 +277,9 @@ val fileName = s"${fileId}.bin"
 <fullName>{inn}</fullName>
 <phone>{phone}</phone>
 <mobilePhone>{phone}</mobilePhone>
-<shortName>{shortName}</shortName>
-<postalAddress>{postalAddress}</postalAddress>
-<locationAddress>{locationAddress}</locationAddress>
+<shortName>{lastName} {firstName} {patronymic}</shortName>
+<postalAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</postalAddress>
+<locationAddress>{postalAddress},{region},{area},{city},{nasel},{street},{house},{corpus},{appartment}</locationAddress>
 <eMail>{eMail}</eMail>
 <rnsFss></rnsFss>
 <kpFss></kpFss>
@@ -262,11 +290,11 @@ val fileName = s"${fileId}.bin"
 <firstName>{firstName}</firstName>
 <lastName>{lastName}</lastName>
 <patronymic>{patronymic}</patronymic>
-<passportType>{passportType}</passportType>
+<passportType>01</passportType>
 <passportSerial>{passportSerial}</passportSerial>
 <passportNumber>{passportNumber}</passportNumber>
 <passportDate>{passportDate}</passportDate>
-<passportComment>{passportComment}</passportComment>
+<passportComment>{passportIssuedBy}</passportComment>
 <signer>1</signer>
 <encrypt>1</encrypt>
 <certTemplate>3</certTemplate>
@@ -280,13 +308,13 @@ val fileName = s"${fileId}.bin"
 </member>
 </members>
 <plugins>
-<plugin guid={guid}></plugin>
+<plugin guid="46472FBA-069F-4D41-9E49-736DF914CCD1"></plugin>
 </plugins>
 </regRequest>
 
 
 
-    val path = play.Play.application().path().getAbsolutePath()
+  val path = play.Play.application().path().getAbsolutePath()
 
   scala.xml.XML.save(s"${path}/doc_$phone.xml", doc, "UTF-8",xmlDecl = true)
 
@@ -307,43 +335,148 @@ val fileName = s"${fileId}.bin"
 
   Seq(s"mkdir", s"${path}/doc_$phone").lineStream
   Seq(s"mv", s"${path}/doc_$phone.xml", s"${path}/doc_$phone/file").lineStream
-  Seq(s"zip", s"${path}/doc_$phone/${fileId}.bin", s"${path}/doc_$phone/file").lineStream
+  Seq(s"zip", "-j", s"${path}/doc_$phone/${fileId}.bin", s"${path}/doc_$phone/file").lineStream
   Seq(s"rm", s"${path}/doc_$phone/file").lineStream
 
   scala.xml.XML.save(s"${path}/doc_$phone/packetDescription.xml", packet, "UTF-8",xmlDecl = true)
-  val zipout = Seq(s"zip", s"${path}/doc_$phone/test.zip", s"${path}/doc_$phone/packetDescription.xml",
+  val zipout = Seq(s"zip", "-j", s"${path}/doc_$phone/test.zip", s"${path}/doc_$phone/packetDescription.xml",
     s"${path}/doc_$phone/${fileId}.bin").lineStream
   val out = (Seq("cat", s"${path}/doc_$phone/test.zip")  #| Seq("openssl", "base64")  #| Seq("tr", "-d", "'\n")).lineStream
 
-println(zipout)
 
-  doc.toString + "        " + out.head.toString
+  import scala.util.Random
 
+  def uniqueRandomKey(chars: String, length: Int, uniqueFunc: String=>Boolean) : String =
+  {
+   val newKey = (1 to length).map(
+     x =>
+     {
+       val index = Random.nextInt(chars.length)
+       chars(index)
+     }
+    ).mkString("")
+
+   if (uniqueFunc(newKey))
+    newKey
+   else
+    uniqueRandomKey(chars, length, uniqueFunc)
+  }
+
+  /**
+   * implement your own is unique here
+   */
+  def isUnique(s:String):Boolean = true
+
+  val chars = ('a' to 'z') ++ ('A' to 'Z')
+  //val key = uniqueRandomKey(chars.mkString(""), 8, isUnique)
+
+  println(zipout)
+  val packageId =  uniqueRandomKey(chars.mkString(""), 32, isUnique)
+
+
+   // firstRequest(ws, out.head.toString)
+
+  //  packet.toString
+  //doc.toString + "        " + out.headOption.toString + "        " + 
+  //test2(out.head.toString)
+  out.head.toString
+  // ИД Документоборота
+  sendDocRequest(ws, out.head.toString)
+  //firstRequest(ws, out.head.toString)
+
+  packetId
 }
 
-def test2():Future[String] = {
-     import RegFilling._
-     val file:String = "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"
-          def test(ws: WS[Param, Result]):Future[String] = ws.call(Param(file))
-       .map { c =>
-         println(c)
-         println(XML.loadString(c.ConversionRateResult) \\ "errorMessage")
-         (XML.loadString(c.ConversionRateResult) \\ "errorMessage").text
-       }
-          //must greaterThan(10000D).awaitFor(timeOut)
 
-     //test(WS11).map(println)
-     test(WS12)//.map(println)
+// getPassword
+def sendDocRequest(ws: WSClient, packet:String):Future[String] = {
+
+     val data = s"""
+<x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:reg="http://regservice.keydisk.ru/">
+    <x:Header/>
+    <x:Body>
+        <reg:SendPacket>
+            <reg:packet>
+              ${packet}
+            </reg:packet>
+        </reg:SendPacket>
+    </x:Body>
+</x:Envelope>
+"""
+
+     ws.url("http://regservice.keydisk.ru/regservice.asmx").withHeaders("Content-Type" -> "text/xml; charset=utf-8",
+     "SOAPAction"->"http://regservice.keydisk.ru/SendPacket")
+     .post(data).map { r =>
+       println(r)
+       println(r.body)
+       r.body.toString
+     }
+}
+
+// getPassword
+def firstRequest(ws: WSClient, packet:String):Future[String] = {
+
+     val data = s"""
+<x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:reg="http://regservice.keydisk.ru/">
+    <x:Header/>
+    <x:Body>
+        <reg:SendPacket>
+            <reg:packet>$packet</reg:packet>
+        </reg:SendPacket>
+    </x:Body>
+</x:Envelope>
+"""
+
+     ws.url("http://regservice.keydisk.ru/regservice.asmx").withHeaders("Content-Type" -> "text/xml; charset=utf-8",
+     "SOAPAction"->"urn:SendPacket")
+     .post(data).map { r =>
+       println(r)
+       println(r.body)
+       r.body.toString
+     }
+}
+
+
+
+def test2(file: String):Future[String] = {
+     import RegFilling._
+
+    def test(ws: WS[Param, Result]):Future[String] = ws.call(Param(file))
+           .map { c =>
+             println(c)
+             println(XML.loadString(c.ConversionRateResult) \\ "errorMessage")
+             (XML.loadString(c.ConversionRateResult) \\ "errorMessage").text
+           }
+              //must greaterThan(10000D).awaitFor(timeOut)
+
+         //test(WS11).map(println)
+         test(WS12)//.map(println)
 }
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
-import play.api.mvc._
-import play.api.libs.ws._
 
-
-
+// getStatus
+def getStatus(ws: WSClient, guid: String): Future[String] = {
+  val data = s"""
+  <x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:reg="http://regservice.keydisk.ru/">
+    <x:Header/>
+    <x:Body>
+        <reg:ReceivePacket>
+            <reg:packetId>$guid</reg:packetId>
+        </reg:ReceivePacket>
+    </x:Body>
+</x:Envelope>
+"""
+     ws.url("http://regservice.keydisk.ru/regservice.asmx").withHeaders("Content-Type" -> "text/xml; charset=utf-8",
+     "SOAPAction"->"http://regservice.keydisk.ru/ReceivePacket")
+     .post(data).map { r =>
+       println(r)
+       println(r.body)
+       r.body.toString
+     }
+}
 
 // getPassword
 def test3(ws: WSClient, guid:String):Future[String] = {
@@ -387,13 +520,119 @@ def test4(ws: WSClient, guid:String, smsPass:String):Future[String] = {
 }
 
 
+
+def sendFiles(ws: WSClient, sessionKey: String, fullName: String, phone: String): Future[String] = {
+  /*
+                  <nam:RegFile>
+                    <nam:Name>Р21001.tif</nam:Name>
+                    <nam:Content>${file1}</nam:Content>
+                    <nam:Sessionkeys>
+                        <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+                    </nam:Sessionkeys>
+                    <nam:SVDReg>011011</nam:SVDReg>
+                </nam:RegFile>
+                */
+//"openssl base64 -in files/doc_${phone}/P21001/Р21001.tif -out files/doc_${phone}/P21001/Р21001.tif.base64"
+//"openssl base64 -in files/doc_${phone}/PASSPORT/Паспорт.tif -out files/doc_${phone}/PASSPORT/Паспорт.tif.base64"
+//"openssl base64 -in files/doc_${phone}/POSHLINA/Пошлина.tif -out files/doc_${phone}/POSHLINA/Пошлина.tif.base64"
+//"openssl base64 -in files/doc_${phone}/USN/УСН.tif -out files/doc_${phone}/USN/УСН.tif.base64"
+val path = play.Play.application().path().getAbsolutePath()+"/public"
+
+import sys.process._
+val out1 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/P21001/Р21001.tif",
+                                      "-out", s"${path}/files/doc_${phone}/P21001/Р21001.tif.base64")).lineStream
+val out2 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif",
+                                      "-out", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif.base64")).lineStream
+val out3 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/POSHLINA/Пошлина.tif",
+                                      "-out", s"${path}/files/doc_${phone}/POSHLINA/Пошлина.tif.base64")).lineStream
+val out4 = (Seq("openssl", "base64", "-in", s"${path}/files/doc_${phone}/USN/УСН.tif",
+                                      "-out", s"${path}/files/doc_${phone}/USN/УСН.tif.base64")).lineStream
+
+
+val file1_content = (Seq("cat", s"${path}/files/doc_${phone}/P21001/Р21001.tif.base64")).lineStream.head.toString
+val file2_content = (Seq("cat", s"${path}/files/doc_${phone}/PASSPORT/Паспорт.tif.base64")).lineStream.head.toString
+val file3_content = (Seq("cat", s"${path}/files/doc_${phone}/POSHLINA/Пошлина.tif.base64")).lineStream.head.toString
+val file4_content = (Seq("cat", s"${path}/files/doc_${phone}/USN/УСН.tif.base64")).lineStream.head.toString         
+
+  val file1:String = s"""
+<nam:RegFile>
+<nam:Name>Р21001.tif</nam:Name>
+<nam:Content>${file1_content}</nam:Content>
+<nam:Sessionkeys>
+    <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+</nam:Sessionkeys>
+<nam:SVDReg>011011</nam:SVDReg>
+</nam:RegFile>
+  """     
+  val file2:String = s"""
+<nam:RegFile>
+<nam:Name>УСН.tif</nam:Name>
+<nam:Content>${file2_content}</nam:Content>
+<nam:Sessionkeys>
+    <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+</nam:Sessionkeys>
+<nam:SVDReg>020111</nam:SVDReg>
+</nam:RegFile>
+  """     
+  val file3:String = s"""
+<nam:RegFile>
+<nam:Name>Паспорт.tif</nam:Name>
+<nam:Content>${file3_content}</nam:Content>
+<nam:Sessionkeys>
+    <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+</nam:Sessionkeys>
+<nam:SVDReg>022011</nam:SVDReg>
+</nam:RegFile>
+  """     
+  val file4:String = s"""
+<nam:RegFile>
+<nam:Name>Пошлина.tif</nam:Name>
+<nam:Content>${file4_content}</nam:Content>
+<nam:Sessionkeys>
+    <nam:Sessionkey>${sessionKey}</nam:Sessionkey>
+</nam:Sessionkeys>
+<nam:SVDReg>020001</nam:SVDReg>
+</nam:RegFile>
+  """                    
+  val files:String = List(file1,file2,file3,file4).mkString("")
+
+  val data = s"""
+  <x:Envelope xmlns:x="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns" xmlns:nam="https://iotchet.ru/namespases">
+    <x:Header/>
+    <x:Body>
+        <tns:Send>
+            <tns:RegFiles>
+                ${files}
+            </tns:RegFiles>
+            <tns:ReceiverFNS>0000</tns:ReceiverFNS>
+            <tns:SenderType>IP</tns:SenderType>
+            <tns:SignForList>${sessionKey}</tns:SignForList>
+            <tns:PrVisBum>1</tns:PrVisBum>
+            <tns:ULNameFull>ИП ${fullName}</tns:ULNameFull>
+            <tns:Email>gett.mail@ya.ru</tns:Email>
+        </tns:Send>
+    </x:Body>
+</x:Envelope>
+"""
+
+
+     ws.url("http://iotchet.ru/api/gos_reg").withHeaders("Content-Type" -> "text-xml",
+     "SOAPAction"->"GetSessionkeyBySMS")
+     .post(data).map { r =>
+       println(r)
+       println(r.body)
+       r.body.toString
+     }
+}
+
+
 def test() {
      import GetCurrencyByCountry._
      def test(ws: WS[Param, Result]) = ws.call(Param("vietnam"))
        .map(r => scala.xml.XML.loadString(r.GetCurrencyByCountryResult))
        .map(x => Xml.fromXml[String]((x \ "Table").head \ "CurrencyCode")) //must beSome("VND").awaitFor(timeOut)
 
-     test(WS11)//.map(println)
-     test(WS12)//.map(println)
+     // TEMP ATTEMPTS test(WS11)//.map(println)
+     // TEMP ATTEMPTS test(WS12)//.map(println)
    }
  }

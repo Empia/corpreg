@@ -16,228 +16,309 @@ attrsByFillId:Map[Long,Seq[FillAttributeDTO]]=Map())(implicit messages: Messages
 
 
 @main(Messages("home.title"), Some(user)) {
-<style>
-
-.admin-panel-user-block {
-  margin-bottom: 11px;
-  padding-right: 15px;
-  padding-left: 15px;
-  border-style: none;
-  border-width: 1px;
-  border-color: #c9c9c9 #c9c9c9 #d8d8d8;
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0 1px 5px -1px rgba(0, 0, 0, .1);
-}
-
-.admin-panel-username {
-  margin-bottom: 2px;
-  font-family: Roboto, sans-serif;
-  color: #555;
-  font-size: 16px;
-  line-height: 21px;
-}
-
-.admin-panel-user-tel {
-  margin-top: 10px;
-  margin-bottom: 15px;
-  font-family: Roboto, sans-serif;
-  color: #e2e2e2;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 400;
-}
-
-.admin-panel-edit {
-  display: inline-block;
-  margin-right: 10px;
-  margin-bottom: 6px;
-  border-style: none none solid;
-  border-width: 1px;
-  border-color: #ececec #ececec #cbe2fa;
-  box-shadow: none;
-  font-family: Roboto, sans-serif;
-  color: #5c92cc;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: center;
-  text-decoration: none;
-}
-
-.admin-panel-edit.admin-panel-edit-alt {
-  border-bottom-color: #fcd5d2;
-  color: #ec675d;
-}
-
-.admin-panel-status-text {
-  display: inline-block;
-  width: 126px;
-  margin-right: 8px;
-  margin-bottom: 6px;
-  float: left;
-  clear: left;
-  border: 1px none #c2c2c2;
-  border-radius: 3px;
-  font-family: Roboto, sans-serif;
-  color: #555;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: left;
-}
-
-.admin-panel-status-icon {
-  display: inline-block;
-  float: left;
-  clear: none;
-  font-family: 'Fon Aawesome', sans-serif;
-  color: #6bbd6e;
-  line-height: 16px;
-}
-
-.admin-panel-status-icon.admin-panel-staus-icon-alt {
-  padding-top: 1px;
-  color: #ec675d;
-}
-
-.admin-panel-column-last {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 20px;
-  border-left: 1px solid #f7f3f3;
-}
-
-.admin-panel-block-1 {
-  display: inline-block;
-  width: 300px;
-  height: 145px;
-  padding: 20px 30px 20px 15px;
-  float: left;
-  border-right: 1px solid #f1f1f1;
-}
-
-.admin-panel-block-3 {
-  display: inline-block;
-  padding: 20px 15px 15px 30px;
-  float: right;
-  border-left: 1px solid #f1f1f1;
-}
-
-.admin-panel-gett-logo {
-  margin-bottom: 7px;
-}
-
-.admin-panel-block-2 {
-  display: inline-block;
-  width: 418px;
-  height: 145px;
-  padding: 20px 30px;
-  float: left;
-}
-
-.admin-panel-action-icon {
-  display: inline-block;
-  margin-right: 10px;
-  font-family: 'Fon Aawesome', sans-serif;
-  color: #d3d3d3;
-  font-size: 20px;
-}
-
-.admin-panel-edit-icon {
-  font-family: 'Fon Aawesome', sans-serif;
-}
-
-.admin-panel-user-mail {
-  font-family: Roboto, sans-serif;
-  color: #555;
-}
-
-.admin-panel-code-block {
-  display: block;
-  margin-top: 15px;
-  margin-bottom: 0px;
-}
-
-.admin-panel-code-label {
-  display: inline-block;
-  overflow: hidden;
-  font-family: Roboto, sans-serif;
-  color: #555;
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 400;
-}
-
-.admin-panel-code-field {
-  display: inline-block;
-  width: 59px;
-  height: 27px;
-  margin-bottom: 18px;
-  margin-left: 10px;
-  padding: 6px 8px;
-  border: 1px solid #dadcdf;
-  background-color: #fcfcfc;
-  font-family: Roboto, sans-serif;
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.admin-panel-code-copy {
-  display: inline-block;
-  overflow: hidden;
-  margin-bottom: 3px;
-  margin-left: 10px;
-  font-family: 'Fon Aawesome', sans-serif;
-  color: #dfdfdf;
-  text-decoration: none;
-}
-
-.admin-panel-code-copy:hover {
-  color: #555;
-}
-
-.admin-panel-create-user {
-  margin-bottom: 30px;
-}
-
-.admin-panel-create-user-field {
-  display: inline-block;
-  width: 105px;
-  height: 34px;
-  margin-right: 10px;
-  margin-bottom: 0px;
-  border: 1px solid #cacaca;
-  background-color: #fff;
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.admin-panel-create-user-field:focus {
-  border-color: #ec675d;
-}
-
-.admin-panel-create-user-button {
-  padding-right: 12px;
-  padding-left: 12px;
-  border-radius: 3px;
-  background-color: #ec675d;
-  font-family: Roboto, sans-serif;
-  font-size: 12px;
-  line-height: 16px;
-}
-div#user-phone_field {
-    display: inline-block;
-}
-.new-user-icon {
-    margin-right: 7px;
-    font-family: 'Fon Aawesome', sans-serif;
-}
-</style>
 
 
 
 <div class="w-section lc-main">
 
+  <div class="pro-buttons-block">
+      <div class="container-box"></div>
+      <div class="w-container"><a href="#" class="w-button pro-button-new">Зарегистрировать ООО &nbsp;<span class="pro-button-new-icon"></span></a><a href="#" class="w-button pro-button-new">Зарегистрировать ИП&nbsp;&nbsp;<span class="pro-button-new-icon"></span></a>
+          <div class="w-form new-user-field">
+              <form id="email-form-2" name="email-form-2" data-name="Email Form 2">
+                  <input id="node" type="text" placeholder="Поиск по заявкам" data-name="Поиск по заявкам" class="w-input admin-panel-create-user-field">
+              </form>
+          </div>
+      </div>
+  </div>
+
+
     <div class="w-container">
+
+      <div class="upperdiv">
+          <div data-collapse="medium" data-animation="default" data-duration="400" class="w-nav dashboard-inwork-nav">
+              <nav role="navigation" class="w-nav-menu dashboard-nav-menu"><a href="#" class="w-nav-link dashboard-inwork-nav-button dashboard-nav-button-active">В работе</a><a href="#" class="w-nav-link dashboard-inwork-nav-button">Гетт</a><a href="#" class="w-nav-link dashboard-inwork-nav-button">Сайт</a><a href="#" class="w-nav-link dashboard-inwork-nav-button">Оффлайн</a><a href="#" class="w-nav-link dashboard-inwork-nav-button">Точка</a><a href="#" class="w-nav-link dashboard-inwork-nav-button">Архив</a>
+              </nav>
+              <div class="w-nav-overlay" data-wf-ignore=""></div>
+          </div>
+      </div>
+      <div class="w-row admin-panel-user-block admin-panel-headings">
+    <div class="w-col w-col-1 admit-panel-user-column admin-panel-headins-2"></div>
+    <div class="w-col w-col-4 admit-panel-user-column admin-panel-headins-2">
+        <div class="admin-panel-row-labal">Клиент</div>
+    </div>
+    <div class="w-col w-col-2 admit-panel-user-column admin-panel-headins-2">
+        <div class="admin-panel-row-labal">Статус</div>
+    </div>
+    <div class="w-col w-col-2 admit-panel-user-column admin-panel-headins-2">
+        <div class="admin-panel-row-labal">Контакты</div>
+    </div>
+    <div class="w-col w-col-2 admit-panel-user-column admin-panel-headins-2">
+        <div class="admin-panel-row-labal">Управление</div>
+    </div>
+    <div class="w-col w-col-1 admit-panel-user-column admin-panel-headins-2"></div>
+</div>
+
+<div class="admin-panel-users-block">
+
+    <div class="expanded-user-block">
+        <div class="w-row admin-panel-user-block">
+            <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-link-icon"></a>
+                <div class="admin-panel-source">ГЕТТ</div>
+            </div>
+            <div class="w-col w-col-4 admit-panel-user-column">
+                <div class="admin-panel-username admin-panel-username-text">ИП</div>
+                <div class="admin-panel-username">Амонбоев Насимжон Нематуллоевич</div>
+            </div>
+            <div class="w-col w-col-2 admit-panel-user-column">
+                <div class="w-clearfix admin-panel-status admin-panel-status-active"><span class="admin-panel-status-icon"></span>Регистрация</div>
+            </div>
+            <div class="w-col w-col-2 admit-panel-user-column">
+                <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>&nbsp;79264673245</div>
+            </div>
+            <div class="w-col w-col-2 admit-panel-user-column"><a href="#" class="manage-link">Загрузить документы</a>
+            </div>
+            <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-show-more-link admin-panel-show-more-link-hide"></a>
+            </div>
+        </div>
+        <div class="w-row admin-panel-user-info-row">
+            <div class="w-col w-col-1"></div>
+            <div class="w-col w-col-4">
+                <div class="admin-panel-docs-block">
+                    <div class="admin-panel-docs-label">Загружено:</div><a href="#" class="admin-panel-docs-link">Паспорт</a><a href="#" class="admin-panel-docs-link">ИНН</a><a href="#" class="admin-panel-docs-link">СНИЛС</a>
+                </div>
+                <div class="admin-panel-docs-block">
+                    <div class="admin-panel-docs-label">Подготовлено:</div><a href="#" class="admin-panel-docs-link">Р21001</a><a href="#" class="admin-panel-docs-link">УСН</a><a href="#" class="admin-panel-docs-link">Пошлина</a>
+                </div>
+                <div class="admin-panel-docs-block">
+                    <div class="admin-panel-docs-label">Из налоговой:</div><a href="#" class="admin-panel-docs-link">Расписка</a><a href="#" class="admin-panel-docs-link">Документы</a><a href="#" class="admin-panel-docs-link">Отказ</a>
+                </div>
+            </div>
+            <div class="w-col w-col-2 user-info-column">
+                <div class="w-clearfix admin-panel-status admin-panel-status-done admin-panel-status-more"><span class="admin-panel-status-icon"></span>Регистрация</div>
+                <div class="w-clearfix admin-panel-status admin-panel-status-done admin-panel-status-more"><span class="admin-panel-status-icon"></span>Ввод данных</div>
+                <div class="w-clearfix admin-panel-status admin-panel-status-done admin-panel-status-more"><span class="admin-panel-status-icon"></span>Загрузка документов</div>
+                <div class="w-clearfix admin-panel-status admin-panel-status-done admin-panel-status-more"><span class="admin-panel-status-icon"></span>Подписание</div>
+                <div class="w-clearfix admin-panel-status admin-panel-status-done admin-panel-status-more"><span class="admin-panel-status-icon"></span>Выпуск КЭП</div>
+                <div class="w-clearfix admin-panel-status admin-panel-status-gray"><span class="admin-panel-status-icon"></span>Отправка в ФНС</div>
+                <div class="w-clearfix admin-panel-status admin-panel-status-gray"><span class="admin-panel-status-icon"></span>Получение</div>
+            </div>
+            <div class="w-col w-col-2 user-info-column">
+                <div class="admin-panel-user-open-phone"><span class="admin-panel-user-phone-icon"></span>&nbsp;Москва</div>
+                <div class="admin-panel-user-open-phone"><span class="admin-panel-user-phone-icon email-icon"></span>&nbsp;garik31vs@@mail.ru</div>
+                <div class="admin-panel-user-open-phone"><span class="admin-panel-user-phone-icon"></span>&nbsp;79264673245</div>
+            </div>
+            <div class="w-col w-col-2 user-info-column"><a href="#" class="manage-link">Отправить в Точку</a><a href="#" class="manage-link">Отправить в Gett</a><a href="#" class="manage-link">Отправить клиенту</a>
+            </div>
+            <div class="w-col w-col-1"></div>
+        </div>
+    </div>
+
+
+
+
+    @fillings.map { filling =>
+
+
+      <div class="w-row admin-panel-user-block">
+          <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-link-icon"></a>
+              <div class="admin-panel-source">ГЕТТ</div>
+          </div>
+          <div class="w-col w-col-4 admit-panel-user-column">
+              <div class="admin-panel-username admin-panel-username-text">ИП</div>
+              <div class="admin-panel-username">
+                <a href="/filling/@filling.id.getOrElse(0)/fill" class="manage-link">
+                  @getAttr(filling.id.getOrElse(0L),"firstname") @getAttr(filling.id.getOrElse(0L),"lastName") @getAttr(filling.id.getOrElse(0L),"middleName")
+                </a>
+                </div>
+          </div>
+          <div class="w-col w-col-2 admit-panel-user-column">
+              <div class="w-clearfix admin-panel-status admin-panel-status-active"><span class="admin-panel-status-icon"></span>Ввод данных</div>
+          </div>
+          <div class="w-col w-col-2 admit-panel-user-column2">
+              <div class="admin-panel-user-tel">
+                <a href="/filling/@filling.id.getOrElse(0)/fill">
+                  <span class="admin-panel-user-phone-icon"></span>@filling.phone
+                </a>
+              </div>
+              <div class="admin-panel-user-tel">@getAttr(filling.id.getOrElse(0L),"eMail")</div>
+              <div class="admin-panel-user-tel">SMS CODE @filling.smsCode</div>
+              <div class="admin-panel-user-tel">abbn @getAttr(filling.id.getOrElse(0L),"abnGuid")</div>
+              <div class="admin-panel-user-tel">packetID @getAttr(filling.id.getOrElse(0L),"packetId")</div>
+              <div class="admin-panel-user-tel">SESSION KEY @getAttr(filling.id.getOrElse(0L),"sessionKey")</div>
+
+
+          </div>
+          <div class="w-col w-col-2 admit-panel-user-column2">
+
+            <a href="/filling/@filling.id.getOrElse(0)/register" class="manage-link">Выслать пароль</a>
+            <a href="/userIdentCf/@filling.id.getOrElse(0)" class="manage-link">Подтвердить личность</a>
+            <a href="/filling/@filling.id.getOrElse(0)/signReady" class="manage-link">Подпись готова</a>
+            <a href="/filling/@filling.id.getOrElse(0)/close" class="manage-link">Закрыть заявку</a>
+            <a href="/filling/@filling.id.getOrElse(0)/remove" class="manage-link">Удалить заявку</a>
+
+            <a href="#" class="manage-link">Загрузить документы</a>
+          </div>
+          <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-show-more-link"></a>
+          </div>
+      </div>
+
+<!--
+
+
+<div class="w-form admin-panel-code-block">
+  <form id="email-form" name="email-form" data-name="Email Form">
+    <label for="Code" class="admin-panel-code-label">Код из смс:</label>
+    <input type="text" name="smsCode" id="age" value="@filling.smsCode" placeholder="Смс Кодик" class="w-input admin-panel-code-field">
+    <a href="#" class="admin-panel-code-copy"></a>
+  </form>
+</div>
+</div>
+<div class="w-clearfix admin-panel-block-3">
+<div class="admin-panel-status-text">Заполнен</div>
+
+@boolDecorator(filling.filled)
+
+<div class="admin-panel-status-text">Зарегистрирован</div>
+@boolDecorator(filling.registered)
+<div class="admin-panel-status-text">Затребовал подпись</div>
+@boolDecorator(filling.signRequested)
+<div class="admin-panel-status-text">Подпись готова</div>
+@boolDecorator(filling.signMarked)
+<div class="admin-panel-status-text">Заявка закрыта</div>
+@boolDecorator(filling.signCompleted)
+</div>
+-->
+    }
+
+
+<!--
+    <div class="w-row admin-panel-user-block admin-panel-user-block-active">
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-link-icon admin-panel-check-active"></a>
+            <div class="admin-panel-source admin-panel-source-2">САЙТ</div>
+        </div>
+        <div class="w-col w-col-4 admit-panel-user-column">
+            <div class="admin-panel-username admin-panel-username-text">ИП</div>
+            <div class="admin-panel-username">Шевченко Василий Иванович</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="w-clearfix admin-panel-status admin-panel-status-active"><span class="admin-panel-status-icon"></span>Подписание</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>&nbsp;+79264673245</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column"><a href="#" class="manage-link">Загрузить документы</a>
+        </div>
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-show-more-link"></a>
+        </div>
+    </div>
+    <div class="w-row admin-panel-user-block admin-panel-user-block-active">
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-link-icon admin-panel-check-active"></a>
+            <div class="admin-panel-source">ГЕТТ</div>
+        </div>
+        <div class="w-col w-col-4 admit-panel-user-column">
+            <div class="admin-panel-username admin-panel-username-text">ИП</div>
+            <div class="admin-panel-username">Цой Борис Викторович</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="w-clearfix admin-panel-status admin-panel-status-done"><span class="admin-panel-status-icon"></span>Завершен</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>&nbsp;+79264673245</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column"><a href="#" class="manage-link">Загрузить документы</a>
+        </div>
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-show-more-link"></a>
+        </div>
+    </div>
+    <div class="w-row admin-panel-user-block">
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-link-icon"></a>
+            <div class="admin-panel-source admin-panel-source-2">САЙТ</div>
+        </div>
+        <div class="w-col w-col-4 admit-panel-user-column">
+            <div class="admin-panel-username admin-panel-username-text">ООО</div>
+            <div class="admin-panel-username">«Маркс энд Томпсон»</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="w-clearfix admin-panel-status admin-panel-status-done"><span class="admin-panel-status-icon"></span>Завершен</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>&nbsp;+79264673245</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column"><a href="#" class="manage-link">Загрузить документы</a>
+        </div>
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-show-more-link"></a>
+        </div>
+    </div>
+    <div class="w-row admin-panel-user-block">
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-link-icon"></a>
+            <div class="admin-panel-source admin-panel-source-2">САЙТ</div>
+        </div>
+        <div class="w-col w-col-4 admit-panel-user-column">
+            <div class="admin-panel-username admin-panel-username-text">ООО</div>
+            <div class="admin-panel-username">«Клауд Микросистемс»</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="w-clearfix admin-panel-status admin-panel-status-done"><span class="admin-panel-status-icon"></span>Завершен</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>&nbsp;+79264673245</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column"><a href="#" class="manage-link">Загрузить документы</a>
+        </div>
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-show-more-link"></a>
+        </div>
+    </div>
+    <div class="w-row admin-panel-user-block">
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-link-icon"></a>
+            <div class="admin-panel-source admin-panel-source-3">ОФФ</div>
+        </div>
+        <div class="w-col w-col-4 admit-panel-user-column">
+            <div class="admin-panel-username admin-panel-username-text">ООО</div>
+            <div class="admin-panel-username">«Клауд Микросистемс»</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="w-clearfix admin-panel-status admin-panel-status-done"><span class="admin-panel-status-icon"></span>Завершен</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>&nbsp;+79264673245</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column"><a href="#" class="manage-link">Загрузить документы</a>
+        </div>
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-show-more-link"></a>
+        </div>
+    </div>
+    <div class="w-row admin-panel-user-block">
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-link-icon"></a>
+            <div class="admin-panel-source admin-panel-source-4">ТЧК</div>
+        </div>
+        <div class="w-col w-col-4 admit-panel-user-column">
+            <div class="admin-panel-username admin-panel-username-text">ООО</div>
+            <div class="admin-panel-username">«Клауд Микросистемс»</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="w-clearfix admin-panel-status admin-panel-status-done"><span class="admin-panel-status-icon"></span>Завершен</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column">
+            <div class="admin-panel-user-tel"><span class="admin-panel-user-phone-icon"></span>&nbsp;+79264673245</div>
+        </div>
+        <div class="w-col w-col-2 admit-panel-user-column"><a href="#" class="manage-link">Загрузить документы</a>
+        </div>
+        <div class="w-col w-col-1 admit-panel-user-column"><a href="#" class="admin-panel-show-more-link"></a>
+        </div>
+    </div>
+-->
+
+
+</div>
+
+
+
+
+
+
+
+
           <div class="w-container">
                 <div class="w-form admin-panel-create-user">
                   @helper.form(action = routes.AdminController.create_filling(), 'id -> "email-form-2") {
@@ -245,66 +326,10 @@ div#user-phone_field {
                       @b3.text(fillForm("phone"), 'id -> "user-phone",'class -> "w-input admin-panel-create-user-field")
                   <button type="submit" class="w-button admin-panel-create-user-button"><span class="new-user-icon"></span>Новый пользователь</button>
                   }
-
                 </div>
         </div>
 
 
-
-        <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav dashboard-inwork-nav">
-              <div class="w-container">
-                <nav role="navigation" class="w-nav-menu dashboard-nav-menu"><a href="#" class="w-nav-link dashboard-inwork-nav-button dashboard-nav-button-active" style="max-width: 940px;">Все</a><a href="#" class="w-nav-link dashboard-inwork-nav-button" style="max-width: 940px;">В работе</a><a href="#" class="w-nav-link dashboard-inwork-nav-button" style="max-width: 940px;">Законченные</a>
-                </nav>
-                <div class="w-nav-button">
-                  <div class="w-icon-nav-menu"></div>
-                </div>
-              </div>
-            <div class="w-nav-overlay" data-wf-ignore=""></div></div>
-
-
-
-
-@fillings.map { filling =>
-
-<div class="w-clearfix admin-panel-user-block">
-          <div class="admin-panel-block-1">
-            <div class="admin-panel-username">@getAttr(filling.id.getOrElse(0L),"firstname") @getAttr(filling.id.getOrElse(0L),"lastName") @getAttr(filling.id.getOrElse(0L),"middleName")</div>
-            <div class="admin-panel-user-mail">@getAttr(filling.id.getOrElse(0L),"eMail")</div>
-            <div class="admin-panel-user-tel">@filling.phone</div>
-          </div>
-          <div class="admin-panel-block-2">
-            <a href="/filling/@filling.id.getOrElse(0)/fill" class="admin-panel-edit">Внести данные</a>
-            <a href="/filling/@filling.id.getOrElse(0)/register" class="admin-panel-edit">Выслать пароль</a>
-            <a href="/filling/@filling.id.getOrElse(0)/signReady" class="admin-panel-edit">Подпись готова</a>
-            <a href="/filling/@filling.id.getOrElse(0)/close" class="admin-panel-edit">Закрыть заявку</a>
-            <a href="/filling/@filling.id.getOrElse(0)/remove" class="admin-panel-edit admin-panel-edit-alt">Удалить заявку</a>
-
-
-            <div class="w-form admin-panel-code-block">
-              <form id="email-form" name="email-form" data-name="Email Form">
-                <label for="Code" class="admin-panel-code-label">Код из смс:</label>
-                <input type="text" name="smsCode" id="age" value="@filling.smsCode" placeholder="Смс Кодик" class="w-input admin-panel-code-field">
-                <a href="#" class="admin-panel-code-copy"></a>
-              </form>
-            </div>
-          </div>
-          <div class="w-clearfix admin-panel-block-3">
-            <div class="admin-panel-status-text">Заполнен</div>
-            @boolDecorator(filling.filled)
-            <div class="admin-panel-status-text">Подтвердил</div>
-            @boolDecorator(filling.filledCorrect)
-
-            <div class="admin-panel-status-text">Зарегистрирован</div>
-            @boolDecorator(filling.registered)
-            <div class="admin-panel-status-text">Затребовал подпись</div>
-            @boolDecorator(filling.signRequested)
-            <div class="admin-panel-status-text">Подпись готова</div>
-            @boolDecorator(filling.signMarked)
-            <div class="admin-panel-status-text">Заявка закрыта</div>
-            @boolDecorator(filling.signCompleted)
-          </div>
-</div>
-}
 
 </div>
 </div>

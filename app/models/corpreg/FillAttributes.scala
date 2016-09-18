@@ -21,23 +21,65 @@ case class FillAttributeDTO(id: Option[Long],
 	attribute:String,
 	value:String)
 
+
+trait FormPositionsDAO {
+	 def createPosition(position: FormPosition):Future[Boolean]
+	 def getPosition(page: String):Future[Seq[FormPosition]]
+	 def updatePosition(position: FormPosition):Future[Boolean]
+	 def getAll():Future[Seq[FormPosition]]
+}
+class FormPositionsDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProvider)
+  extends FormPositionsDAO
+    with DAOSlick {
+	    import driver.api._
+
+		private def filterQuery(page: String): Query[FormPositions, FormPosition, Seq] =
+			form_positions.filter(_.page === page)
+
+		private def filterQuery2(page: String, id: String):Query[FormPositions, FormPosition, Seq] = {
+			form_positions.filter(c => c.page === page && c.id === id)
+		}
+
+		private def All(): Query[FormPositions, FormPosition, Seq] =
+	    form_positions
+
+ def getPosition(page: String) = {
+	 db.run(filterQuery(page).result)
+}
+
+def createPosition(position: FormPosition):Future[Boolean] = {
+	db.run(form_positions returning form_positions.map(_.id) += position).map { r =>
+		true
+	}
+}
+def getAll():Future[Seq[FormPosition]] = {
+	db.run(All().result)
+}
+def updatePosition(position: FormPosition):Future[Boolean] = {
+	db.run(filterQuery2(position.page, position.id).update(position)).map { r =>
+		true
+	}
+}
+
+}
+
 trait FillAttributesDAO {
 	def findOrCreate(fillId: Long, fillAttr:FillAttributeDTO):Future[Boolean]
 	def findByFill(fillId: Long):Future[Seq[FillAttributeDTO]]
 }
 
-class FillAttributesDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProvider) 
-  extends FillAttributesDAO 
+class FillAttributesDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProvider)
+  extends FillAttributesDAO
     with DAOSlick {
 	    import driver.api._
   private def filterQuery(id: Long): Query[FillAttributes, FillAttributeDTO, Seq] =
-    fill_attributes.filter(_.id === id) 
- 
+    fill_attributes.filter(_.id === id)
+
   private def filterQueryByFillId(id: Long): Query[FillAttributes, FillAttributeDTO, Seq] =
-    fill_attributes.filter(_.fill_id === id) 
+    fill_attributes.filter(_.fill_id === id)
 
   private def filterQueryByFillAndAttribute(fillId: Long, attribute: String): Query[FillAttributes, FillAttributeDTO, Seq] =
-    fill_attributes.filter(at => at.fill_id === fillId && at.attribute === attribute) 
+    fill_attributes.filter(at => at.fill_id === fillId && at.attribute === attribute)
 
   private def All(): Query[FillAttributes, FillAttributeDTO, Seq] =
     fill_attributes
@@ -60,8 +102,8 @@ class FillAttributesDAOImpl @Inject() (protected val dbConfigProvider: DatabaseC
   			}
   		}
   	}
-  }  
+  }
   	// .update(bpToUpdate)
-  }  
+  }
 
 }

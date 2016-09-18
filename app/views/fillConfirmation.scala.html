@@ -1,0 +1,203 @@
+@(user: models.User, fillId: Long, fillForm: Form[forms.PrimaryFillForm.PrimaryFillData], attrs: Seq[FillAttributeDTO], fileCn: List[FileValue], phone: String)(implicit messages: Messages,request: RequestHeader)
+@import com.mohiva.play.silhouette.impl.providers.oauth2.ClefProvider
+@import b3.inline.fieldConstructor
+@import play.api.Play
+@import helper._
+
+@getAttr(id:Long,attrName:String) = {
+  @attrs.find(c => c.attribute == attrName).map { at =>
+    @at.value
+  }
+
+}
+
+@main(Messages("home.title"), Some(user)) {
+<style>
+    .argForm dl {
+    display: inline-block;
+    width: 20%;
+    margin-right: 10px;
+}
+.kp-block {
+    margin-left: -29px;
+}
+</style>
+
+<div class="w-container fill-data-form">
+  <div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav application-nav">
+                      <div class="w-container">
+<nav role="navigation" class="w-nav-menu application-nav-menu">
+  <a href="/up-passport" class="w-nav-link application-nav-button" style="max-width: 940px;">Личные данные</a>
+    <div class="application-nav-arrow"></div><a href="/up-address" class="w-nav-link application-nav-button" style="max-width: 940px;">Адрес регистрации</a>
+    <div class="application-nav-arrow"></div><a href="/up-nalog" class="w-nav-link application-nav-button" style="max-width: 940px;">Налогообложение</a>
+    <div class="application-nav-arrow"></div><a href="/up-documents" class="w-nav-link application-nav-button" style="max-width: 940px;">Документы</a>
+    <div class="application-nav-arrow"></div><a href="/up-confirmation" class="w-nav-link application-nav-button application-nav-button-active w--current" style="max-width: 940px;">Подтверждение</a>
+</nav>
+                          <div class="w-nav-button">
+                              <div class="w-icon-nav-menu"></div>
+                          </div>
+                      </div>
+                      <div class="w-nav-overlay" data-wf-ignore=""></div>
+                  </div>
+            <div class="application-content">
+
+                            <div class="application-header-box application-header-box-gett">
+                  <div class="w-clearfix application-header-icon application-header-icon-gett">
+                      <h2 class="content-heading content-heading-gett">Подтверждение</h2>
+                         <div class="form-heading-text">Внимательно проверьте все свои данные,
+                            <br>внесите исправления в случае обнаружения ошибки</div>
+                  </div>
+                  
+              </div>
+
+
+
+<div class="application-body application-body-menu"></div>
+
+
+
+
+
+  <div class="application-body application-body-upload">
+            
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Личные данные</div><a href="/up-passport" class="confirm-edit-link">Редактировать</a>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Ф.И.О.</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">@getAttr(fillId,"firstname") @getAttr(fillId,"lastName") @getAttr(fillId,"middleName")</div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Дата рождения</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">@getAttr(fillId,"dob")</div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Место рождения</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">@getAttr(fillId,"dob") </div>
+                </div>
+              </div>
+
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Номер паспорта</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">@getAttr(fillId,"dob") @getAttr(fillId,"passport") </div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Дата выдачи</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">@getAttr(fillId,"passportIssuedDate") </div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">Кем выдан</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">@getAttr(fillId,"passportIssuedBy") </div>
+                </div>
+              </div>
+              <div class="w-row confirm-data-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">ИНН</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">@getAttr(fillId,"inn")</div>
+                </div>
+              </div>
+              <div class="w-row">
+                <div class="w-col w-col-2">
+                  <div class="confirm-data confirm-data-label">СНИЛС</div>
+                </div>
+                <div class="w-col w-col-10 w-clearfix">
+                  <div class="confirm-data">@getAttr(fillId,"snils")</div>
+                </div>
+              </div>
+            </div>
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Адрес регистрации</div><a href="/up-address" class="confirm-edit-link">Редактировать</a>
+              </div>
+              <div class="data-confirm-address">
+                @getAttr(fillId,"subject")
+                @getAttr(fillId,"area")
+                @getAttr(fillId,"city")
+                @getAttr(fillId,"settlement")
+                @getAttr(fillId,"street")
+                @getAttr(fillId,"house")
+                @getAttr(fillId,"corpus")
+                @getAttr(fillId,"flat")
+              </div>
+            </div>
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Виды деятельности</div>
+                <!-- <a href="#" class="confirm-edit-link confirm-edit-link-gett">Редактировать</a> -->
+              </div>
+              <div class="confirm-data-okved">60.22 — Деятельность такси</div>
+              <div class="confirm-data-okved confirm-data-okved-main">основной</div>
+              <div class="confirm-data-okved-comment">По условиям акции «Бесплатная регистрация ИП» для партнеров Gett, можно выбрать только один ОКВЭД.
+                <br>Если вам необходимо добавить другие коды, напишите в поддержку сервиса.</div>
+            </div>
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Система налогообложения</div><a href="/up-nalog" class="confirm-edit-link">Редактировать</a>
+              </div>
+              <div class="confirm-data-tax">Упрощенная система налогообложения (6% от доходов)</div>
+            </div>
+            <div class="confirm-data-block">
+              <div class="w-clearfix confirm-heading-box">
+                <div class="confirm-data-heading confirm-data-heading-2">Сканы документов</div><a href="/up-documents" class="confirm-edit-link">Редактировать</a>
+              </div>
+              @fileCn.map { file =>
+                @if(file.filePath != "") {
+                  <div>
+                    <div class="confirm-data-file">
+                      @if(file.fileId == "P21001") {Заявление Р21001}
+                      @if(file.fileId == "USN") {Заявление на УСН}
+                      @if(file.fileId == "PASSPORT") {Паспорт}
+                      @if(file.fileId == "POSHLINA") {Пошлина}
+                    </div>
+
+
+  <a href="/assets/files/doc_@{phone}/@file.fileId/@file.filePath" class="confirm-data-file confirm-data-file-link">
+    посмотреть
+  </a>
+  </div>
+                }
+              }
+
+
+            </div>
+          </div>
+
+                <div class="application-footer">
+                  <a id="submit" href="/up-fill-sign" type="submit" value="submit" class="w-button application-next-button application-next-button-gett">
+                    Подписать документы</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+ <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+}

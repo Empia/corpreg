@@ -31,7 +31,7 @@ case class RowCellView(rowNum: Int, cellNum: Int, data: String)
 
 object Documents {
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet; 
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.ss.usermodel._;
 import java.io.FileInputStream;
 import java.io._;
@@ -45,7 +45,7 @@ import java.util.Iterator;
   var testXlsx = new java.io.File( "." ).getCanonicalPath + "/2100111.xlsx"
 
   var documents = List(impure.load(testXlsx))
-  
+
 def writePdf() = {
   import com.itextpdf.text._;
   import com.itextpdf.text.pdf._;
@@ -54,7 +54,7 @@ def writePdf() = {
                 val my_xls_workbook = new XSSFWorkbook(input_document)
                 val my_worksheet = my_xls_workbook.getSheetAt(0)
                 val rowIterator = my_worksheet.iterator()
-                
+
                 val iText_xls_2_pdf = new Document()
                 PdfWriter.getInstance(iText_xls_2_pdf, new FileOutputStream("PDFOutput.pdf"))
                 iText_xls_2_pdf.open()
@@ -66,18 +66,18 @@ def writePdf() = {
                   while (cellIterator.hasNext) {
                     val cell = cellIterator.next()
                     cell.getCellType match {
-                      case Cell.CELL_TYPE_STRING => 
+                      case Cell.CELL_TYPE_STRING =>
                         table_cell = new PdfPCell(new Phrase(cell.getStringCellValue))
                         my_table.addCell(table_cell)
-                      case _ => 
+                      case _ =>
                         table_cell = new PdfPCell(new Phrase(cell.getStringCellValue))
                         my_table.addCell(table_cell)
                     }
                   }
                 }
                 //Finally add the table to PDF document
-                iText_xls_2_pdf.add(my_table);                       
-                iText_xls_2_pdf.close();                
+                iText_xls_2_pdf.add(my_table);
+                iText_xls_2_pdf.close();
                 //we created our pdf file..
                 input_document.close(); //close xlsx
 
@@ -94,7 +94,7 @@ case class ArgFields(
                     arg6:String = "",
                     arg7:String = "",
                     arg8:String = "",
-                    arg9:String = ""                    
+                    arg9:String = ""
 )
 
 /**
@@ -129,16 +129,16 @@ def balance = Action.async { implicit request =>
 
 }
 
-def address = SecuredAction.async { implicit request => 
+def address = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.address(request.identity )))
 }
-def okved = SecuredAction.async { implicit request => 
+def okved = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.okved(request.identity )))
 }
-def taxesIP = SecuredAction.async { implicit request => 
+def taxesIP = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.taxesIP(request.identity )))
 }
-def documentsIP = SecuredAction.async { implicit request => 
+def documentsIP = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.documentsIP(request.identity )))
 }
 
@@ -150,8 +150,8 @@ def documentsIP = SecuredAction.async { implicit request =>
   def index = SecuredAction.async { implicit request =>
     /*
     val test_result = Documents.documents.head.sheets.find(sheet => sheet.name == "page1").get
-    val rows =  test_result.rows 
-    val cells:List[RowCellView] = rows.toSeq.sortBy(_.index).map(row => 
+    val rows =  test_result.rows
+    val cells:List[RowCellView] = rows.toSeq.sortBy(_.index).map(row =>
 
       row.cells.toSeq.sortBy(_.index).map { cell =>
 
@@ -159,11 +159,11 @@ def documentsIP = SecuredAction.async { implicit request =>
             case cell:StringCell => RowCellView(row.index, cell.index, cell.data)
             case _ => RowCellView(row.index, cell.index, "")
          }
-         
+
       }
       ).flatten.toList
     */
-    //val stringCells:scala.collection.immutable.Set[StringCell] = cells.filter(cell => 
+    //val stringCells:scala.collection.immutable.Set[StringCell] = cells.filter(cell =>
     //                                      cell.isInstanceOf[StringCell]).map(_.asInstanceOf[StringCell])
     //val stringCellContent:List[String] = stringCells.toSeq.sortBy(_.index).map(cell => s"Колонка ${cell.index}: ${cell.data}").toList
 //    val email = request.identity.email.getOrElse("test@empia.io")
@@ -173,31 +173,34 @@ def documentsIP = SecuredAction.async { implicit request =>
 //      ))
 
 //    Future.successful(Ok(views.html.home(request.identity, "", List(),ArgFieldsForm )))
-  Future.successful(Redirect(routes.UserFillingController.passport)) 
+  Future.successful(Redirect(routes.UserFillingController.passport))
 
+}
+import scala.sys.process._
+def testAction() = SecuredAction { implicit request =>
+  val phone = request.identity.email.getOrElse("email")
+  val fields = new com.journaldev.di.test.FormFields()
+
+
+
+  com.journaldev.di.test.MainClass1.main2(Array(
+          "ФАМИЛИЯФАМИЛИЯФАМИЛИЯФАМИЛИЯ",
+          "ИМЯИМЯИМЯИМЯИМЯИМЯ",
+          "ОТЧЕСТВООТЧЕСТВООТЧЕСТВООТЧЕСТВО",
+
+          "ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ","ТЕСТ", "ТЕСТ", phone
+        ),
+        fields
+      )
+
+  Seq("convert", s"public/page*_${phone}.png", s"public/${phone}.tif").!!
+  Seq("convert", s"public/usn_page*_${phone}.png", s"public/${phone}_usn.tif").!!
+
+  Ok("test")
 }
 
   def fillByAnchor() = SecuredAction.async { implicit request =>
-    //val test_result = Documents.documents.head.sheets.head
 
-/*
-<h3>Фамилия</h3>
-@cells.filter(cell => cell.rowNum == 13).map { cell =>  
-        <span>@cell.data</span>    
-} 
-</div>
-<div class="anchor-detail">
-<h3>Имя</h3>
-@cells.filter(cell => cell.rowNum == 15).map { cell =>
-        <span>@cell.data</span>    
-} 
-</div>
-<div class="anchor-detail">
-<h3>Отчество</h3>
-@cells.filter(cell => cell.rowNum == 17).map { cell =>
-        <span>@cell.data</span>    
-} 
-*/
 
   ArgFieldsForm.bindFromRequest.fold(
         formWithErrors => {
@@ -206,6 +209,8 @@ def documentsIP = SecuredAction.async { implicit request =>
 
          },
         entity => {
+          val fields = new com.journaldev.di.test.FormFields()
+
             val email = request.identity.email.getOrElse("test@empia.io")
             com.journaldev.di.test.MainClass1.main2(Array(
                 entity.arg1.toUpperCase(),
@@ -217,7 +222,7 @@ def documentsIP = SecuredAction.async { implicit request =>
                 entity.arg7.toUpperCase(),
                 entity.arg8.toUpperCase(),
                 entity.arg9.toUpperCase(), email
-              ))
+              ),fields)
 
 
             Future.successful(Ok(views.html.home(request.identity, "", List(), ArgFieldsForm.fill(entity) )))

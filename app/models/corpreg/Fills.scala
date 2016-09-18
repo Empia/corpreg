@@ -24,7 +24,13 @@ case class FillDTO(id: Option[Long],
 	signRequested: Boolean = false,
 	signMarked:Boolean = false,
 	smsCode: String = "",
-	signCompleted:Boolean = false)
+	signCompleted:Boolean = false,
+  addressFilled: Boolean = false,
+  nalogFilled: Boolean = false,
+  userFilesUploaded: Boolean = false,
+  signCreationConfirm: Boolean = false,
+  identityConfirmRequest:Boolean = false,
+  identityConfirmApproved:Boolean = false)
 
 trait FillsDAO {
   def create(fill:FillDTO): Future[Long] 
@@ -39,6 +45,14 @@ trait FillsDAO {
   def signMarketByCode(fillId: Long):Future[Boolean] 
   def smsCode(fillId: Long, code: String):Future[Boolean] 
   def signComplete(fillId: Long):Future[Boolean]
+
+
+def setAttraddressFilled(fillId: Long): Future[Boolean]
+def setAttrnalogFilled(fillId: Long): Future[Boolean]
+def setAttruserFilesUploaded(fillId: Long): Future[Boolean]
+def setAttrsignCreationConfirm(fillId: Long): Future[Boolean]
+def setAttridentityConfirmRequest(fillId: Long): Future[Boolean]
+def setAttridentityConfirmApproved(fillId: Long): Future[Boolean]
 
 }
 class FillsDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProvider) extends FillsDAO with DAOSlick {
@@ -173,6 +187,87 @@ def smsCode(fillId: Long, code: String):Future[Boolean] = {
   		}
   	}
   }
-}    	
+}
+
+
+def setAttraddressFilled(fillId: Long): Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+    fillOpt match {
+      case Some(fill) => {
+        db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id,  addressFilled = true))
+          ).map { r =>
+          true
+        }
+      }
+      case _ => Future.successful(false)
+    }
+  }
+}
+def setAttrnalogFilled(fillId: Long): Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+    fillOpt match {
+      case Some(fill) => {
+        db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id,  nalogFilled = true))
+          ).map { r =>
+          true
+        }
+      }
+      case _ => Future.successful(false)
+    }
+  }
+}
+def setAttruserFilesUploaded(fillId: Long): Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+    fillOpt match {
+      case Some(fill) => {
+        db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id,  userFilesUploaded = true))
+          ).map { r =>
+          true
+        }
+      }
+      case _ => Future.successful(false)
+    }
+  }
+}
+def setAttrsignCreationConfirm(fillId: Long): Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+    fillOpt match {
+      case Some(fill) => {
+        db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id,  signCreationConfirm = true))
+          ).map { r =>
+          true
+        }
+      }
+      case _ => Future.successful(false)
+    }
+  }
+}
+def setAttridentityConfirmRequest(fillId: Long): Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+    fillOpt match {
+      case Some(fill) => {
+        db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id, identityConfirmRequest = true ))
+          ).map { r =>
+          true
+        }
+      }
+      case _ => Future.successful(false)
+    }
+  }
+}
+def setAttridentityConfirmApproved(fillId: Long): Future[Boolean] = {
+  db.run(filterQuery(fillId).result.headOption).flatMap { fillOpt =>
+    fillOpt match {
+      case Some(fill) => {
+        db.run(fills.filter(_.id === fill.id.get).update(fill.copy(id = fill.id, identityConfirmApproved = true ))
+          ).map { r =>
+          true
+        }
+      }
+      case _ => Future.successful(false)
+    }
+  }
+}
+
 }
 
