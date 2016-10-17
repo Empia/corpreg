@@ -12726,3 +12726,14 @@ h4 {
   font-weight: 400;
   font-style: normal;
 }
+
+
+
+
+
+
+
+.okved-search-column-1.w-col.w-col-3 {
+    overflow-y: scroll;
+    height: 506px;
+}

@@ -10,6 +10,9 @@ export class App {
   name:string;
   constructor() {
     this.name = 'Angular2'
+    this.selectedOkved = []
+
+    
   }
 }
 
@@ -18,4 +21,6 @@ export class App {
   declarations: [ App ],
   bootstrap: [ App ]
 })
-export class AppModule {}
+export class AppModule {
+	
+}
