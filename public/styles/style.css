@@ -12730,7 +12730,9 @@ h4 {
 
 
 
-
+.okved-podclass-box.hidden {
+    display: none !important;
+}
 
 
 .okved-search-column-1.w-col.w-col-3 {

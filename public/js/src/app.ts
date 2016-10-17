@@ -12,7 +12,16 @@ export class App {
     this.name = 'Angular2'
     this.selectedOkved = []
 
-    
+	 this.class = {hidden: false};   
+
+	 this.class2 = {hidden: true};   
+	 this.class3 = {hidden: true};   
+	 this.class4 = {hidden: true};   
+	 this.class5 = {hidden: true};   
+	 this.class6 = {hidden: true};   
+	 this.class7 = {hidden: true};   
+
+
   }
 }
 

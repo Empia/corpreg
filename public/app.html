@@ -86,12 +86,14 @@
               <h5 class="okved-h">Выбор вида деятельности</h5>
               <div class="okved-box">
                 <div class="okved-class-box">
-                  <a class="okved-podclass-line w-inline-block" href="#">
+                  <a class="okved-podclass-line w-inline-block"
+                  (click)="class.hidden ? class.hidden=false : class.hidden=true; "
+                  >
                     <div class="okved-code okved-code-podclass">01.1</div>
                     <div>Выращивание однолетних культур</div>
                     <div class="okved-show-icon"></div>
                   </a>
-                  <div class="okved-podclass-box">
+                  <div class="okved-podclass-box" [ngClass]="{hidden: class.hidden === true}">
                     <div class="okved-line">
                       <div class="okved-code">01.11</div>
                       <div>Выращивание зерновых (кроме риса), зернобобовых культур и семян масличных культур</div><a class="okved-choose-icon" href="#"></a>
@@ -144,57 +146,549 @@
                       <div class="okved-code">01.12</div>
                       <div>Выращивание риса</div><a class="okved-choose-icon" href="#"></a>
                     </div>
+
                     <div class="okved-line">
                       <div class="okved-code">01.13</div>
                       <div>Выращивание овощей, бахчевых, корнеплодных и клубнеплодных культур, грибов и трюфелей</div><a class="okved-choose-icon" href="#"></a>
                     </div>
+
                     <div class="okved-line">
                       <div class="okved-code">01.14</div>
                       <div>Выращивание сахарного тростника</div><a class="okved-choose-icon" href="#"></a>
                     </div>
+
                     <div class="okved-line">
                       <div class="okved-code">01.15</div>
                       <div>Выращивание табака и махорки</div><a class="okved-choose-icon" href="#"></a>
                     </div>
+
                     <div class="okved-line">
                       <div class="okved-code">01.16</div>
                       <div>Выращивание волокнистых прядильных культур</div><a class="okved-choose-icon" href="#"></a>
                     </div>
+
                     <div class="okved-line">
                       <div class="okved-code">01.19</div>
                       <div>Выращивание прочих однолетних культур</div><a class="okved-choose-icon" href="#"></a>
                     </div>
                   </div>
-                  <a class="okved-podclass-line w-inline-block" href="#">
+
+                  <a class="okved-podclass-line w-inline-block"
+                  (click)="class2.hidden ? class2.hidden=false : class2.hidden=true; "
+                  >
                     <div class="okved-code okved-code-podclass">01.2</div>
                     <div>Выращивание многолетних культур</div>
                     <div class="okved-show-icon"></div>
                   </a>
-                  <a class="okved-podclass-line w-inline-block" href="#">
+                  <div class="okved-podclass-box" [ngClass]="{hidden: class2.hidden === true}">
+                    <div class="okved-line">
+                      <div class="okved-code">01.11</div>
+                      <div>Выращивание зерновых (кроме риса), зернобобовых культур и семян масличных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                    <div class="okved-group-box">
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.1</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                      <div class="okved-podgroup-box">
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.11</div>
+                          <div>Выращивание пшеницы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.12</div>
+                          <div>Выращивание ячменя</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.13</div>
+                          <div>Выращивание ржи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.14</div>
+                          <div>Выращивание кукурузы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.15</div>
+                          <div>Выращивание овса</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.16</div>
+                          <div>Выращивание гречихи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.19</div>
+                          <div>Выращивание прочих зерновых культур</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                      </div>
+                      <div class="okved-line okved-podgroup-line">
+                        <div class="okved-code">01.11.2</div>
+                        <div>Выращивание зернобобовых культур</div><a class="okved-choose-icon" href="#"></a>
+                      </div>
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.3</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                    </div>
+                    <div class="okved-line">
+                      <div class="okved-code">01.12</div>
+                      <div>Выращивание риса</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.13</div>
+                      <div>Выращивание овощей, бахчевых, корнеплодных и клубнеплодных культур, грибов и трюфелей</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.14</div>
+                      <div>Выращивание сахарного тростника</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.15</div>
+                      <div>Выращивание табака и махорки</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.16</div>
+                      <div>Выращивание волокнистых прядильных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.19</div>
+                      <div>Выращивание прочих однолетних культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                  </div>
+                  <a class="okved-podclass-line w-inline-block"
+                  (click)="class3.hidden ? class3.hidden=false : class3.hidden=true; "
+                  >
                     <div class="okved-code okved-code-podclass">01.3</div>
                     <div>Выращивание рассады</div>
                     <div class="okved-show-icon"></div>
                   </a>
-                  <a class="okved-podclass-line w-inline-block" href="#">
+                  <div class="okved-podclass-box" [ngClass]="{hidden: class3.hidden === true}">
+                    <div class="okved-line">
+                      <div class="okved-code">01.11</div>
+                      <div>Выращивание зерновых (кроме риса), зернобобовых культур и семян масличных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                    <div class="okved-group-box">
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.1</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                      <div class="okved-podgroup-box">
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.11</div>
+                          <div>Выращивание пшеницы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.12</div>
+                          <div>Выращивание ячменя</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.13</div>
+                          <div>Выращивание ржи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.14</div>
+                          <div>Выращивание кукурузы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.15</div>
+                          <div>Выращивание овса</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.16</div>
+                          <div>Выращивание гречихи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.19</div>
+                          <div>Выращивание прочих зерновых культур</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                      </div>
+                      <div class="okved-line okved-podgroup-line">
+                        <div class="okved-code">01.11.2</div>
+                        <div>Выращивание зернобобовых культур</div><a class="okved-choose-icon" href="#"></a>
+                      </div>
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.3</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                    </div>
+                    <div class="okved-line">
+                      <div class="okved-code">01.12</div>
+                      <div>Выращивание риса</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.13</div>
+                      <div>Выращивание овощей, бахчевых, корнеплодных и клубнеплодных культур, грибов и трюфелей</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.14</div>
+                      <div>Выращивание сахарного тростника</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.15</div>
+                      <div>Выращивание табака и махорки</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.16</div>
+                      <div>Выращивание волокнистых прядильных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.19</div>
+                      <div>Выращивание прочих однолетних культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                  </div>
+                  <a class="okved-podclass-line w-inline-block"
+                  (click)="class4.hidden ? class4.hidden=false : class4.hidden=true; "
+                  >
                     <div class="okved-code okved-code-podclass">01.4</div>
                     <div>Животноводство</div>
                     <div class="okved-show-icon"></div>
                   </a>
-                  <a class="okved-podclass-line w-inline-block" href="#">
+                  <div class="okved-podclass-box" [ngClass]="{hidden: class4.hidden === true}">
+                    <div class="okved-line">
+                      <div class="okved-code">01.11</div>
+                      <div>Выращивание зерновых (кроме риса), зернобобовых культур и семян масличных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                    <div class="okved-group-box">
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.1</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                      <div class="okved-podgroup-box">
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.11</div>
+                          <div>Выращивание пшеницы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.12</div>
+                          <div>Выращивание ячменя</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.13</div>
+                          <div>Выращивание ржи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.14</div>
+                          <div>Выращивание кукурузы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.15</div>
+                          <div>Выращивание овса</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.16</div>
+                          <div>Выращивание гречихи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.19</div>
+                          <div>Выращивание прочих зерновых культур</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                      </div>
+                      <div class="okved-line okved-podgroup-line">
+                        <div class="okved-code">01.11.2</div>
+                        <div>Выращивание зернобобовых культур</div><a class="okved-choose-icon" href="#"></a>
+                      </div>
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.3</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                    </div>
+                    <div class="okved-line">
+                      <div class="okved-code">01.12</div>
+                      <div>Выращивание риса</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.13</div>
+                      <div>Выращивание овощей, бахчевых, корнеплодных и клубнеплодных культур, грибов и трюфелей</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.14</div>
+                      <div>Выращивание сахарного тростника</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.15</div>
+                      <div>Выращивание табака и махорки</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.16</div>
+                      <div>Выращивание волокнистых прядильных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.19</div>
+                      <div>Выращивание прочих однолетних культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                  </div>
+                  <a class="okved-podclass-line w-inline-block"
+                  (click)="class5.hidden ? class5.hidden=false : class5.hidden=true; "
+                  >
                     <div class="okved-code okved-code-podclass">01.5</div>
                     <div>Смешанное сельское хозяйство</div>
                     <div class="okved-show-icon"></div>
                   </a>
-                  <a class="okved-podclass-line w-inline-block" href="#">
+                  <div class="okved-podclass-box" [ngClass]="{hidden: class5.hidden === true}">
+                    <div class="okved-line">
+                      <div class="okved-code">01.11</div>
+                      <div>Выращивание зерновых (кроме риса), зернобобовых культур и семян масличных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                    <div class="okved-group-box">
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.1</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                      <div class="okved-podgroup-box">
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.11</div>
+                          <div>Выращивание пшеницы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.12</div>
+                          <div>Выращивание ячменя</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.13</div>
+                          <div>Выращивание ржи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.14</div>
+                          <div>Выращивание кукурузы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.15</div>
+                          <div>Выращивание овса</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.16</div>
+                          <div>Выращивание гречихи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.19</div>
+                          <div>Выращивание прочих зерновых культур</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                      </div>
+                      <div class="okved-line okved-podgroup-line">
+                        <div class="okved-code">01.11.2</div>
+                        <div>Выращивание зернобобовых культур</div><a class="okved-choose-icon" href="#"></a>
+                      </div>
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.3</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                    </div>
+                    <div class="okved-line">
+                      <div class="okved-code">01.12</div>
+                      <div>Выращивание риса</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.13</div>
+                      <div>Выращивание овощей, бахчевых, корнеплодных и клубнеплодных культур, грибов и трюфелей</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.14</div>
+                      <div>Выращивание сахарного тростника</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.15</div>
+                      <div>Выращивание табака и махорки</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.16</div>
+                      <div>Выращивание волокнистых прядильных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.19</div>
+                      <div>Выращивание прочих однолетних культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                  </div>
+                  <a class="okved-podclass-line w-inline-block"
+                  (click)="class6.hidden ? class6.hidden=false : class6.hidden=true; "
+                  >
                     <div class="okved-code okved-code-podclass">01.6</div>
                     <div>Деятельность вспомогательная в области производства сельскохозяйственных культур и послеуборочной обработки сельхозпродукции</div>
                     <div class="okved-show-icon"></div>
                   </a>
-                  <a class="okved-podclass-line w-inline-block" href="#">
+                  <div class="okved-podclass-box" [ngClass]="{hidden: class6.hidden === true}">
+                    <div class="okved-line">
+                      <div class="okved-code">01.11</div>
+                      <div>Выращивание зерновых (кроме риса), зернобобовых культур и семян масличных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                    <div class="okved-group-box">
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.1</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                      <div class="okved-podgroup-box">
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.11</div>
+                          <div>Выращивание пшеницы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.12</div>
+                          <div>Выращивание ячменя</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.13</div>
+                          <div>Выращивание ржи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.14</div>
+                          <div>Выращивание кукурузы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.15</div>
+                          <div>Выращивание овса</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.16</div>
+                          <div>Выращивание гречихи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.19</div>
+                          <div>Выращивание прочих зерновых культур</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                      </div>
+                      <div class="okved-line okved-podgroup-line">
+                        <div class="okved-code">01.11.2</div>
+                        <div>Выращивание зернобобовых культур</div><a class="okved-choose-icon" href="#"></a>
+                      </div>
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.3</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                    </div>
+                    <div class="okved-line">
+                      <div class="okved-code">01.12</div>
+                      <div>Выращивание риса</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.13</div>
+                      <div>Выращивание овощей, бахчевых, корнеплодных и клубнеплодных культур, грибов и трюфелей</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.14</div>
+                      <div>Выращивание сахарного тростника</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.15</div>
+                      <div>Выращивание табака и махорки</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.16</div>
+                      <div>Выращивание волокнистых прядильных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.19</div>
+                      <div>Выращивание прочих однолетних культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                  </div>
+                  <a class="okved-podclass-line w-inline-block"
+                  (click)="class7.hidden ? class7.hidden=false : class7.hidden=true; "
+                  >
                     <div class="okved-code okved-code-podclass">01.7</div>
                     <div>Охота, отлов и отстрел диких животных, включая предоставление услуг в этих областях</div>
                     <div class="okved-show-icon"></div>
                   </a>
+                  <div class="okved-podclass-box" [ngClass]="{hidden: class7.hidden === true}">
+                    <div class="okved-line">
+                      <div class="okved-code">01.11</div>
+                      <div>Выращивание зерновых (кроме риса), зернобобовых культур и семян масличных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                    <div class="okved-group-box">
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.1</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                      <div class="okved-podgroup-box">
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.11</div>
+                          <div>Выращивание пшеницы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.12</div>
+                          <div>Выращивание ячменя</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.13</div>
+                          <div>Выращивание ржи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.14</div>
+                          <div>Выращивание кукурузы</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.15</div>
+                          <div>Выращивание овса</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.16</div>
+                          <div>Выращивание гречихи</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                        <div class="okved-line okved-vid-line">
+                          <div class="okved-code">01.11.19</div>
+                          <div>Выращивание прочих зерновых культур</div><a class="okved-choose-icon" href="#"></a>
+                        </div>
+                      </div>
+                      <div class="okved-line okved-podgroup-line">
+                        <div class="okved-code">01.11.2</div>
+                        <div>Выращивание зернобобовых культур</div><a class="okved-choose-icon" href="#"></a>
+                      </div>
+                      <div class="okved-line okved-line-chosen okved-podgroup-line">
+                        <div class="okved-code">01.11.3</div>
+                        <div>Выращивание зерновых культур</div><a class="okved-choose-icon okved-choose-icon-active" href="#"></a>
+                      </div>
+                    </div>
+                    <div class="okved-line">
+                      <div class="okved-code">01.12</div>
+                      <div>Выращивание риса</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.13</div>
+                      <div>Выращивание овощей, бахчевых, корнеплодных и клубнеплодных культур, грибов и трюфелей</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.14</div>
+                      <div>Выращивание сахарного тростника</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.15</div>
+                      <div>Выращивание табака и махорки</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.16</div>
+                      <div>Выращивание волокнистых прядильных культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+
+                    <div class="okved-line">
+                      <div class="okved-code">01.19</div>
+                      <div>Выращивание прочих однолетних культур</div><a class="okved-choose-icon" href="#"></a>
+                    </div>
+                  </div>                  
                 </div>
               </div>
             </div>
