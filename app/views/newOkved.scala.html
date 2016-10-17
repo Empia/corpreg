@@ -1,0 +1,204 @@
+@(user: models.User)(implicit messages: Messages,request: RequestHeader)
+@import play.api.Play
+@import helper._
+
+@main(Messages("home.title"), Some(user)) {
+
+<head >
+  <meta charset="utf-8">
+  <title >Gett — Подготовка документов — ОКВЭД</title>
+  <meta content="Gett — Подготовка документов — ОКВЭД" property="og:title">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link rel="stylesheet" href="/assets/styles/style.css"/>
+<base href="." />
+<title>Compass prototype OKVED</title>
+    <script src="https://unpkg.com/zone.js/dist/zone.js"></script>
+    <script src="https://unpkg.com/zone.js/dist/long-stack-trace-zone.js"></script>
+    <script src="https://unpkg.com/reflect-metadata@@0.1.3/Reflect.js"></script>
+    <script src="https://unpkg.com/systemjs@@0.19.31/dist/system.js"></script>
+    <script src="/assets/js/config.js"></script>
+    <script>
+    System.import('app')
+      .catch(console.error.bind(console));
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic","Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic","Roboto:100,300,regular,500,700,900:cyrillic-ext,latin,cyrillic","Roboto Slab:100,300,regular,700:cyrillic-ext,latin,cyrillic","Roboto Condensed:300,regular,700:cyrillic-ext,latin,cyrillic","Neucha:regular:cyrillic,latin","PT Sans Narrow:regular,700:cyrillic-ext,latin,cyrillic"]
+      }
+    });
+  </script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+</head>
+<body >
+  <div class="navbar navbar-main w-nav" data-animation="default" data-collapse="tiny" data-contain="1" data-duration="400">
+    <div class="w-container">
+      <nav class="navmenu w-nav-menu" role="navigation"><a class="nav-link-gett navlink w-nav-link" href="http://gettaximan.ru" target="_blank">Сервисы</a><a class="nav-link-gett navlink w-nav-link" href="http://gettaximan.ru" target="_blank">Бибилотека</a><a class="nav-link-gett navlink w-nav-link" href="http://gettaximan.ru" target="_blank">Контрагент</a><a class="nav-link-gett navlink w-nav-link" href="http://gettaximan.ru" target="_blank">Блог</a>
+      </nav>
+      <div class="menu-button w-nav-button">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+      <a class="brand w-nav-brand" href="#"><img height="13" src="../images/kompas_small.svg">
+      </a>
+    </div>
+  </div>
+  <div class="user-nav-bar w-nav" data-animation="default" data-collapse="medium" data-contain="1" data-duration="400">
+    <div class="user-nav-container w-container"><a class="user-info-left-link user-info-link-new w-nav-link" href="#">Выйти</a><a class="user-info-left-link user-info-link-left w-nav-link" href="#">Евгений Тимофеев</a><a class="user-info-left-link w-nav-link" href="#">Мой профиль</a><a class="user-info-left-link w-nav-link" href="#">Все заявки</a><a class="user-info-left-link w-nav-link" href="#">Отслеживание</a>
+      <div class="w-nav-button">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+  <a class="up-link w-inline-block" href="#">
+    <div class="up-link-text-box">
+      <div class="up-link-up-icon"></div>
+    </div>
+  </a>
+  
+  
+  
+    <my-app>
+    loading...
+  </my-app>
+  
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script >
+    function sliceSize(dataNum, dataTotal) {
+      return (dataNum / dataTotal) * 360;
+    }
+    function addSlice(sliceSize, pieElement, offset, sliceID, color) {
+      $(pieElement).append("<div class='slice "+sliceID+"'><span></span></div>");
+      var offset = offset - 1;
+      var sizeRotation = -179 + sliceSize;
+      $("."+sliceID).css({
+        "transform": "rotate("+offset+"deg) translate3d(0,0,0)"
+      });
+      $("."+sliceID+" span").css({
+        "transform"       : "rotate("+sizeRotation+"deg) translate3d(0,0,0)",
+        "background-color": color
+      });
+    }
+    function iterateSlices(sliceSize, pieElement, offset, dataCount, sliceCount, color) {
+      var sliceID = "s"+dataCount+"-"+sliceCount;
+      var maxSize = 179;
+      if(sliceSize<=maxSize) {
+        addSlice(sliceSize, pieElement, offset, sliceID, color);
+      } else {
+        addSlice(maxSize, pieElement, offset, sliceID, color);
+        iterateSlices(sliceSize-maxSize, pieElement, offset+maxSize, dataCount, sliceCount+1, color);
+      }
+    }
+    function createPie(dataElement, pieElement) {
+      var listData = [];
+      $(dataElement+" span").each(function() {
+        listData.push(Number($(this).html()));
+      });
+      var listTotal = 0;
+      for(var i=0; i<listData.length; i++) {
+        listTotal += listData[i];
+      }
+      var offset = 0;
+      var color = [
+        "#6bbd6e", 
+        "#3f86d3", 
+        "#ee5347", 
+        "tomato", 
+        "crimson", 
+        "purple", 
+        "turquoise", 
+        "forestgreen", 
+        "navy", 
+        "gray"
+      ];
+      for(var i=0; i<listData.length; i++) {
+        var size = sliceSize(listData[i], listTotal);
+        iterateSlices(size, pieElement, offset, i, 0, color[i]);
+        $(dataElement+" li:nth-child("+(i+1)+")").css("border-color", color[i]);
+        offset += size;
+      }
+    }
+    createPie(".pieID.legend", ".pieID.pie");
+  </script>
+  <style >
+    @@keyframes bake-pie {
+      from {
+        transform: rotate(0deg) translate3d(0,0,0);
+      }
+    }
+    body {
+      font-family: "Roboto", Arial;
+      background: #ffffff;
+    }
+    .pieID {
+      display: inline-block;
+      vertical-align: top;
+    }
+    .pie {
+      height: 150px;
+      width: 150px;
+      position: relative;
+      margin: 0 20px 20px 0;
+    }
+    .pie::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: 1;
+      width: 110px;
+      height: 110px;
+      background: #fff;
+      border-radius: 50%;
+      top: 20px;
+      left: 20px;
+    }
+    .slice {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      clip: rect(0px, 150px, 150px, 75px);
+      animation: bake-pie 1s;
+    }
+    .slice span {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: black;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      clip: rect(0px, 150px, 150px, 75px);
+    }
+    .legend {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      background: #FFF;
+      font-size: 13px;
+    }
+    .legend li {
+      height: 1.25em;
+      margin-bottom: 0.7em;
+      padding-left: 0.5em;
+      border-left: 1.25em solid black;
+    }
+    .legend em {
+      font-style: normal;
+    }
+    .legend span {
+      float: right;
+    }
+    .okved-box::-webkit-scrollbar { 
+        display: none; 
+    }
+  </style>
+
+
+}

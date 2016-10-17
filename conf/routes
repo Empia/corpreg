@@ -117,6 +117,7 @@ GET /wsdlsendfile/:phone      controllers.WSDLTestController.sendFiles(phone: St
 
 GET /up-address controllers.ApplicationController.address
 GET /up-okved controllers.ApplicationController.okved
+GET /new-okved controllers.ApplicationController.newOkved
 GET /up-taxes-ip controllers.ApplicationController.taxesIP
 GET /up-documents-ip controllers.ApplicationController.documentsIP
 

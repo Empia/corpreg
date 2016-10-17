@@ -135,6 +135,12 @@ def address = SecuredAction.async { implicit request =>
 def okved = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.okved(request.identity )))
 }
+
+def newOkved = SecuredAction.async { implicit request =>
+  Future.successful(Ok(views.html.newOkved(request.identity )))
+}
+
+
 def taxesIP = SecuredAction.async { implicit request =>
   Future.successful(Ok(views.html.taxesIP(request.identity )))
 }
