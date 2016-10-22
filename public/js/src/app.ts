@@ -63,6 +63,25 @@ this.isOkvedSelected = function(okved) {
 	}).length > 0
 }
 
+this.primaryOkved = null;
+
+this.isPrimaryOkved = function(okved) {
+	if (this.primaryOkved !== null && this.primaryOkved.code == okved.code) {
+	 return true;
+	} else {
+	  return false;
+	}
+}
+
+this.asPrimaryOkved = function(okved) {
+	if (this.primaryOkved == null || this.primaryOkved.code !== okved.code) {
+	  this.primaryOkved = okved;
+	} else {
+	  this.primaryOkved = null;
+	}
+	console.log('primaryOkved',this.primaryOkved)
+}
+
 this.removeFromSelected = function(okved) {
 	this.selectedOkved = this.selectedOkved.filter(function(el) {
 	    return el.code !== okved.code;

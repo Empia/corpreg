@@ -12743,3 +12743,7 @@ h4 {
     overflow-y: scroll;
     height: 400px;
 }
+
+.okved-fav-icon-active.okved-fav-icon-active {
+    color: gold;
+}

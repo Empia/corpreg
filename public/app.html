@@ -664,7 +664,14 @@
 
             <div class="okved-line okved-line-chosen" *ngFor="let okved of selectedOkved; let okvedproc = index;">
               <div class="okved-black-number-fav okved-code">{{okved.code }}</div>
-              <div>{{okved.title}}</div><a class="okved-fav-icon" href="#"></a><a class="okved-remove-icon" (click)="removeFromSelected(okved)"></a>
+              <div>{{okved.title}}</div>
+
+              <a [ngClass]="{hidden: okved.hidden === true}"
+              [ngClass]="{'okved-fav-icon-active': isPrimaryOkved(okved) === true}" 
+                 (click)="asPrimaryOkved(okved)"
+                 class="okved-fav-icon"></a>
+
+              <a class="okved-remove-icon" (click)="removeFromSelected(okved)"></a>
             </div>
 
 
