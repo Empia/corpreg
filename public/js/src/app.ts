@@ -54,10 +54,14 @@ this.addToSelected = function(okved) {
 
 
 this.addChildToSelected = function(okvedParent) {
-	this.selectedOkved.push(okvedParent.okveds[0]);
+	this.selectedOkved.push(okvedParent);
 }
 
-
+this.isOkvedSelected = function(okved) {
+	return this.selectedOkved.filter(function(el) {
+	  return el.code == okved.code;
+	}).length > 0
+}
 
 this.removeFromSelected = function(okved) {
 	this.selectedOkved = this.selectedOkved.filter(function(el) {

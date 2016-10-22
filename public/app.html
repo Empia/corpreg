@@ -101,12 +101,17 @@
                   <div class="okved-subroot" *ngFor="let subokved of okved.childs; let okvedproc2 = index">
                       <div class="okved-line">
                         <div class="okved-code">{{subokved.code}}</div>
-                        <div>{{subokved.title}}</div><a class="okved-choose-icon" on-mouseover='over()' (click)="addChildToSelected(okved);"></a>
+                        <div>{{subokved.title}}</div><a class="okved-choose-icon" 
+                        onn-mouseover="over()"
+                        (click)="addChildToSelected(subokved);"
+                        [ngClass]="{'okved-choose-icon-active': isOkvedSelected(subokved) === true}"></a>
                       </div>
                       <div class="okved-group-box" *ngFor="let subokved2 of subokved.childs; let okvedproc3 = index">
                         <div class="okved-line okved-line-chosen okved-podgroup-line">
                           <div class="okved-code">{{subokved2.code}}</div>
-                          <div>{{subokved2.title}}</div><a class="okved-choose-icon" (click)="addChildToSelected(okved);"></a>
+                          <div>{{subokved2.title}}</div><a class="okved-choose-icon" 
+                          (click)="addChildToSelected(subokved);"
+                          [ngClass]="{'okved-choose-icon-active': isOkvedSelected(subokved) === true}"></a>
                         </div>
 
                       </div>
