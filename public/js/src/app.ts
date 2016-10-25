@@ -17,28 +17,40 @@ export class App {
 
 
 this.allOkveds = [
-{okveds: [{code: "01.1", title:"Выращивание однолетних культур" }], 
-childs: [{code: "01.11", title: "01.11 код", childs: [{code: "01.11.11", title: "01.11.11"}], }], 
+{
+	okveds: [{code: "01.1", title:"Выращивание однолетних культур" }], 
+    childs: [
+       {parent: "01.1", code: "01.11", title: "01.11 код", 
+         childs: [{parent: "01.11", code: "01.11.1", title: "01.11.1", 
+            childs: [     {parent: "01.11.1", code: "01.11.11", title: "01.11.11"}      ] }], }], 
 hidden: false},
-{okveds:[{code: "01.2", title: "Выращивание многолетних культур"}],
-childs: [{code: "01.21", title: "01.11 код", childs: [{code: "01.11.11", title: "01.11.11"}], }], 
-hidden: true},
-{okveds:[{code: "01.3", title: "Выращивание рассады"}],
-childs: [{code: "01.31", title: "01.11 код", childs: [{code: "01.11.11", title: "01.11.11"}], }], 
-hidden: true},
-{okveds:[{code: "01.4", title: "Животноводство"}],
-childs: [{code: "01.41", title: "01.11 код", childs: [{code: "01.11.11", title: "01.11.11"}], }], 
-hidden: true},
-{okveds:[{code: "01.5", title: "Смешанное сельское хозяйство"}],
-childs: [{code: "01.51", title: "01.11 код", childs: [{code: "01.11.11", title: "01.11.11"}], }], 
-hidden: true},
-{okveds:[{code: "01.6", title: "Деятельность вспомогательная в области производства сельскохозяйственных культур и послеуборочной обработки сельхозпродукции"}],
-childs: [{code: "01.61", title: "01.11 код", childs: [{code: "01.11.11", title: "01.11.11"}], }], 
-hidden: true},
-{okveds:[{code: "01.7", title: "Охота, отлов и отстрел диких животных, включая предоставление услуг в этих областях"
-}],
-childs: [{code: "01.11", title: "01.11 код", childs: [{code: "01.11.11", title: "n nn n01.11.11"}], }], 
-hidden: true}
+
+{
+	okveds: [{code: "01.2", title:"Выращивание однолетних культур" }], 
+    childs: [
+       {parent: "01.2", code: "01.21", title: "01.21 код", 
+         childs: [{parent: "01.21", code: "01.21.1", title: "01.21.1", 
+            childs: [     {parent: "01.21.1", code: "01.21.11", title: "01.21.11"}      ] }], }], 
+hidden: false},
+
+{
+	okveds: [{code: "01.3", title:"Выращивание однолетних культур" }], 
+    childs: [
+       {parent: "01.3", code: "01.31", title: "01.31 код", 
+         childs: [{parent: "01.31", code: "01.31.1", title: "01.31.1", 
+            childs: [     {parent: "01.31.1", code: "01.31.11", title: "01.31.11"}      ] }], }], 
+hidden: false},
+
+{
+	okveds: [{code: "01.4", title:"Выращивание однолетних культур" }], 
+    childs: [
+       {parent: "01.4", code: "01.41", title: "01.41 код", 
+         childs: [{parent: "01.41", code: "01.41.1", title: "01.41.1", 
+            childs: [     {parent: "01.41.1", code: "01.41.11", title: "01.41.11"}      ] }], }], 
+hidden: false},
+
+
+
 ];
 
 	 this.class2 = {okveds: [{code: "01.2", title:"Тестовый оквэд 01.2" }], hidden: true};   
@@ -51,6 +63,16 @@ hidden: true}
 this.isExistedCode = function(code) {
 	return (this.selectedOkved.find(function(d){return d.code === code}) !== undefined)
 }
+this.isNotExistedParent = function(code) {
+	return (this.selectedOkved.find(function(d){return d.parent === code}) == undefined)
+}
+
+
+// код отсутствует для этого 
+
+this.isParent = function(code, parent) {
+	return (this.selectedOkved.find(function(d){return d.code === code && d.parent !== parent }) !== undefined)
+}
 
 this.addToSelected = function(okved) {
 	console.log('this.addToSelected = function(okved) {', okved);
@@ -59,11 +81,27 @@ this.addToSelected = function(okved) {
 	}
 }
 
+// 11.1
 
-this.addChildToSelected = function(okvedParent) {
-	console.log('this.addChildToSelected = function(okvedParent) {', okvedParent);
-	if (!this.isExistedCode(okvedParent.code) ) {
-		this.selectedOkved.push(okvedParent);
+// 11.11 *
+// 11.22  isParent
+
+this.addChildToSelected = function(okvedParent, okved) {
+	console.log('this.addChildToSelected = function(okvedParent) {', okved);
+	//var parentNotExist = this.isParent(okved.parent, okved.code)
+	var existedParent, currentParent;
+    if (okved.parent !== undefined) {
+       existedParent = this.isNotExistedParent(okved.code)
+       currentParent = !this.isExistedCode(okved.parent)
+    } else {
+       existedParent = true
+    }
+   
+   
+console.log('existedParent', existedParent, !currentParent)
+
+	if (!this.isExistedCode(okved.code) && existedParent && currentParent ) {
+		this.selectedOkved.push(okved);
 	}
 }
 
