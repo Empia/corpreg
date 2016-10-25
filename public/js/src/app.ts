@@ -48,13 +48,23 @@ hidden: true}
 	 this.class6 = {okveds: [{code: "01.6", title:"Тестовый оквэд 01.6" }], hidden: true};   
 	 this.class7 = {okveds: [{code: "01.7", title:"Тестовый оквэд 01.7" }], hidden: true};   
 
+this.isExistedCode = function(code) {
+	return (this.selectedOkved.find(function(d){return d.code === code}) !== undefined)
+}
+
 this.addToSelected = function(okved) {
-	this.selectedOkved.push(okved);
+	console.log('this.addToSelected = function(okved) {', okved);
+	if (!this.isExistedCode(okved.code) ) {
+		this.selectedOkved.push(okved);
+	}
 }
 
 
 this.addChildToSelected = function(okvedParent) {
-	this.selectedOkved.push(okvedParent);
+	console.log('this.addChildToSelected = function(okvedParent) {', okvedParent);
+	if (!this.isExistedCode(okvedParent.code) ) {
+		this.selectedOkved.push(okvedParent);
+	}
 }
 
 this.isOkvedSelected = function(okved) {
