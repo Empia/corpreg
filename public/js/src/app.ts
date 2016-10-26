@@ -25,53 +25,81 @@ this.allOkveds = [
          child_ids: ["01.11.1","01.11.11"],
 
          childs: [{parent: "01.11", code: "01.11.1", title: "01.11.1", 
-            childs: [     {parent: "01.11.1", code: "01.11.11", title: "01.11.11"}      ] },
+             }, { parent: "01.11", code: "01.11.11", title: "01.11.11"}  
 
             ], },
 
 
-       {parent: "01.1", code: "01.12", title: "01.12 код", 
-         child_ids: ["01.12.1","01.12.11"],
 
-         childs: [{parent: "01.12", code: "01.12.1", title: "01.12.1", 
-            childs: [     {parent: "01.12.1", code: "01.12.11", title: "01.12.11"}      ] },
-
-            ], },
 
 
 
             ], 
 hidden: false},
 
+
+
+
+
 {
 	okveds: [{code: "01.2", title:"Выращивание однолетних культур" }], 
     childs: [
        {parent: "01.2", code: "01.21", title: "01.21 код", 
-                child_ids: ["01.21.1","01.21.11"],
+         child_ids: ["01.21.1","01.21.11"],
 
          childs: [{parent: "01.21", code: "01.21.1", title: "01.21.1", 
-            childs: [     {parent: "01.21.1", code: "01.21.11", title: "01.21.11"}      ] }], }], 
+             }, { parent: "01.21", code: "01.21.11", title: "01.21.11"}  
+
+            ], },
+
+
+
+
+
+
+            ], 
 hidden: false},
+
 
 {
 	okveds: [{code: "01.3", title:"Выращивание однолетних культур" }], 
     childs: [
        {parent: "01.3", code: "01.31", title: "01.31 код", 
-                child_ids: ["01.31.1","01.31.11"],
+         child_ids: ["01.31.1","01.31.11"],
 
          childs: [{parent: "01.31", code: "01.31.1", title: "01.31.1", 
-            childs: [     {parent: "01.31.1", code: "01.31.11", title: "01.31.11"}      ] }], }], 
+             }, { parent: "01.31", code: "01.31.11", title: "01.31.11"}  
+
+            ], },
+
+
+
+
+
+
+            ], 
 hidden: false},
+
 
 {
 	okveds: [{code: "01.4", title:"Выращивание однолетних культур" }], 
     childs: [
-       {parent: "01.4", code: "01.31", title: "01.41 код", 
-                child_ids: ["01.41.1","01.41.11"],
+       {parent: "01.4", code: "01.41", title: "01.41 код", 
+         child_ids: ["01.41.1","01.11.11"],
 
          childs: [{parent: "01.41", code: "01.41.1", title: "01.41.1", 
-            childs: [     {parent: "01.41.1", code: "01.41.11", title: "01.41.11"}      ] }], }], 
+             }, { parent: "01.41", code: "01.41.11", title: "01.41.11"}  
+
+            ], },
+
+
+
+
+
+
+            ], 
 hidden: false},
+
 
 ];
 
