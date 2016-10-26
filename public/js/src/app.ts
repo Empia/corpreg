@@ -11,6 +11,7 @@ export class App {
   constructor() {
     this.name = 'Angular2'
     this.selectedOkved = [];
+    this.selectedParent = [];
 
 
 	 this.class = {okveds: [{code: "01.1", title:"Выращивание однолетних культур" }], hidden: false};   
@@ -21,14 +22,33 @@ this.allOkveds = [
 	okveds: [{code: "01.1", title:"Выращивание однолетних культур" }], 
     childs: [
        {parent: "01.1", code: "01.11", title: "01.11 код", 
+         child_ids: ["01.11.1","01.11.11"],
+
          childs: [{parent: "01.11", code: "01.11.1", title: "01.11.1", 
-            childs: [     {parent: "01.11.1", code: "01.11.11", title: "01.11.11"}      ] }], }], 
+            childs: [     {parent: "01.11.1", code: "01.11.11", title: "01.11.11"}      ] },
+
+            ], },
+
+
+       {parent: "01.1", code: "01.12", title: "01.12 код", 
+         child_ids: ["01.12.1","01.12.11"],
+
+         childs: [{parent: "01.12", code: "01.12.1", title: "01.12.1", 
+            childs: [     {parent: "01.12.1", code: "01.12.11", title: "01.12.11"}      ] },
+
+            ], },
+
+
+
+            ], 
 hidden: false},
 
 {
 	okveds: [{code: "01.2", title:"Выращивание однолетних культур" }], 
     childs: [
        {parent: "01.2", code: "01.21", title: "01.21 код", 
+                child_ids: ["01.21.1","01.21.11"],
+
          childs: [{parent: "01.21", code: "01.21.1", title: "01.21.1", 
             childs: [     {parent: "01.21.1", code: "01.21.11", title: "01.21.11"}      ] }], }], 
 hidden: false},
@@ -37,6 +57,8 @@ hidden: false},
 	okveds: [{code: "01.3", title:"Выращивание однолетних культур" }], 
     childs: [
        {parent: "01.3", code: "01.31", title: "01.31 код", 
+                child_ids: ["01.31.1","01.31.11"],
+
          childs: [{parent: "01.31", code: "01.31.1", title: "01.31.1", 
             childs: [     {parent: "01.31.1", code: "01.31.11", title: "01.31.11"}      ] }], }], 
 hidden: false},
@@ -44,14 +66,19 @@ hidden: false},
 {
 	okveds: [{code: "01.4", title:"Выращивание однолетних культур" }], 
     childs: [
-       {parent: "01.4", code: "01.41", title: "01.41 код", 
+       {parent: "01.4", code: "01.31", title: "01.41 код", 
+                child_ids: ["01.41.1","01.41.11"],
+
          childs: [{parent: "01.41", code: "01.41.1", title: "01.41.1", 
             childs: [     {parent: "01.41.1", code: "01.41.11", title: "01.41.11"}      ] }], }], 
 hidden: false},
 
-
-
 ];
+
+
+this.isRootNode = function(code) {
+  return this.allOkveds.find(function(c) { c.okveds[0].code === code }) !== undefined
+}
 
 	 this.class2 = {okveds: [{code: "01.2", title:"Тестовый оквэд 01.2" }], hidden: true};   
 	 this.class3 = {okveds: [{code: "01.3", title:"Тестовый оквэд 01.3" }], hidden: true};   
@@ -59,6 +86,9 @@ hidden: false},
 	 this.class5 = {okveds: [{code: "01.5", title:"Тестовый оквэд 01.5" }], hidden: true};   
 	 this.class6 = {okveds: [{code: "01.6", title:"Тестовый оквэд 01.6" }], hidden: true};   
 	 this.class7 = {okveds: [{code: "01.7", title:"Тестовый оквэд 01.7" }], hidden: true};   
+
+
+
 
 this.isExistedCode = function(code) {
 	return (this.selectedOkved.find(function(d){return d.code === code}) !== undefined)
@@ -73,6 +103,10 @@ this.isNotExistedParent = function(code) {
 this.isParent = function(code, parent) {
 	return (this.selectedOkved.find(function(d){return d.code === code && d.parent !== parent }) !== undefined)
 }
+this.getParentObject = function(code) {
+	return (this.selectedOkved.find(function(d){return d.code === code }) !== undefined)
+}
+
 
 this.addToSelected = function(okved) {
 	console.log('this.addToSelected = function(okved) {', okved);
@@ -85,6 +119,22 @@ this.addToSelected = function(okved) {
 
 // 11.11 *
 // 11.22  isParent
+/*
+
+
+     var findGrandFather = selectedOkved.find(function(d){
+		var l = selectedOkved.find(function(a){return a.code !== okved.parent});
+		var lo;
+		if (l !== undefined) {
+			return true;			
+		} else {
+			return false;
+		}
+     }) !== undefined
+
+*/
+
+
 
 this.addChildToSelected = function(okvedParent, okved) {
 	console.log('this.addChildToSelected = function(okvedParent) {', okved);
@@ -96,14 +146,40 @@ this.addChildToSelected = function(okvedParent, okved) {
     } else {
        existedParent = true
     }
-   
-   
-console.log('existedParent', existedParent, !currentParent)
+    var selectedOkved = this.selectedOkved
 
-	if (!this.isExistedCode(okved.code) && existedParent && currentParent ) {
+
+    var hasChilds;
+    if (okved.child_ids !== undefined && okved.child_ids.length > 0) {
+    	hasChilds = okved.child_ids.map(c => this.isExistedCode(c) ).reduce(function(c,a) { return c || a });
+    } else {
+    	hasChilds = false;
+    }
+    
+    /*
+      a]  --------
+        b]
+          c] *
+
+
+      a]  *
+        b]
+          c] -----------
+    */
+
+	console.log('existedParent', existedParent, !currentParent, hasChilds)
+
+
+
+
+
+	if (!this.isExistedCode(okved.code) && existedParent && currentParent && !hasChilds ) {
 		this.selectedOkved.push(okved);
 	}
 }
+
+
+
 
 this.isOkvedSelected = function(okved) {
 	return this.selectedOkved.filter(function(el) {
@@ -130,7 +206,15 @@ this.asPrimaryOkved = function(okved) {
 	console.log('primaryOkved',this.primaryOkved)
 }
 
+
+
+
+
+
+
+
 this.removeFromSelected = function(okved) {
+	var getParentObject = this.getParentObject;
 	this.selectedOkved = this.selectedOkved.filter(function(el) {
 	    return el.code !== okved.code;
 	});
