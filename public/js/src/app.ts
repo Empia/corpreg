@@ -176,7 +176,14 @@ this.addChildToSelected = function(okvedParent, okved) {
 
 
 	if (!this.isExistedCode(okved.code) && existedParent && currentParent && !hasChilds ) {
-		this.selectedOkved.push(okved);
+
+        if (okved.code.length == 8) {
+        	var ccode = okved.code.split(".");
+	 		!this.isExistedCode(ccode[0]+"."+ccode[1]) ? this.selectedOkved.push(okved) : false;
+
+        } else {
+			this.selectedOkved.push(okved);
+        }
 	}
 }
 
