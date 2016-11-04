@@ -13,22 +13,26 @@ var st = function() {
 	   	var rootSection =  d["oos:code"]; // 01.1
 	  	return {
 	  		okveds: [{ code: d["oos:code"], title: d["oos:name"]  }],
-	  		childs: file.map(function(dd) { 
-	  			if (dd["oos:parentCode"] === d["oos:code"] && dd["oos:code"].length > 5) {
+	  		childs: file.map(function(dd) { // 01.11
+	  			if (dd["oos:parentCode"] === d["oos:code"] && dd["oos:code"].length > 4) {
 
-	  			var dd_childs = file.filter(c => c["oos:code"].length > 5 && c["oos:parentCode"] == dd["oos:code"]);
+	  			var dd_childs = file.filter(c => (c["oos:parentCode"] == dd["oos:code"] && c["oos:code"] !== dd["oos:code"] ) );
 	  			return {
-	  				    code: dd["oos:code"], title: dd["oos:name"],
+	  				    code: dd["oos:code"], 
+	  				    title: dd["oos:name"],
 	  				    parent: d["oos:code"], 
 	  				    childs_ids: [dd["oos:code"]].concat(dd_childs.map(z => z["oos:code"])),
-	  				    childs: [{
-	  				    	code: dd["oos:code"],
-	  				    	title: dd["oos:name"],
-	  				    	childs: dd_childs.map(function(ddd) {
+	  				    childs: dd_childs.filter(c => c["oos:code"].length > 5).map(function(ddd) {
 	  				    		return {
 	  				    		parent: ddd["oos:parentCode"], code: ddd["oos:code"], title: ddd["oos:name"] } })
+	  				    //[{
+	  				    	//code: dd["oos:code"],
+	  				    	//title: dd["oos:name"],
+//	  				    	childs: dd_childs.filter(c => c["oos:code"].length > 5).map(function(ddd) {
+//	  				    		return {
+//	  				    		parent: ddd["oos:parentCode"], code: ddd["oos:code"], title: ddd["oos:name"] } })
 
-	  				    }]
+//	  				    }]
 	  		           }; 
 	  			}
 	  		}).filter(c => c !== undefined),
@@ -37,7 +41,7 @@ var st = function() {
   	}
 
   }).filter(a => a !== undefined && a !== null );
-  console.log(a.filter(c => { return c != undefined }).forEach(c => console.log(c.childs[0] )) );
+  //console.log(a.filter(c => { return c != undefined }).forEach(c => console.log(c.childs[0] )) );
 
   return a;
 }
