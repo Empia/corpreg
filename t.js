@@ -6,6 +6,31 @@ var file = JSON.parse(fs.readFileSync("./data.json", "utf8"));
 var st = function() {
   //var s = file.filter(function(c){ return c["oos:code"].slice(0,2) ===  });
   //fs.writeFileSync('./code.json', JSON.stringify(s) , 'utf-8');
+function flatten(array, mutable) {
+    var toString = Object.prototype.toString;
+    var arrayTypeStr = '[object Array]';
+
+    var result = [];
+    var nodes = (mutable && array) || array.slice();
+    var node;
+
+    if (!array.length) {
+        return result;
+    }
+
+    node = nodes.pop();
+
+    do {
+        if (toString.call(node) === arrayTypeStr) {
+            nodes.push.apply(nodes, node);
+        } else {
+            result.push(node);
+        }
+    } while (nodes.length && (node = nodes.pop()) !== undefined);
+
+    result.reverse(); // we reverse result to restore the original order
+    return result;
+}
 
 
   var a = file.map(function(d) {
@@ -17,14 +42,25 @@ var st = function() {
 	  			if (dd["oos:parentCode"] === d["oos:code"] && dd["oos:code"].length > 4) {
 
 	  			var dd_childs = file.filter(c => (c["oos:parentCode"] == dd["oos:code"] && c["oos:code"] !== dd["oos:code"] ) );
+	  			var dd_childs2 = dd_childs.filter(c => c["oos:code"].length > 5).map(function(ddd) { 
+	  				return file.filter(c => (c["oos:parentCode"] == ddd["oos:code"] && c["oos:code"] !== ddd["oos:code"] ) ).map(function(q) {
+	  					return q["oos:code"];
+				})
+	  			})
+
 	  			return {
 	  				    code: dd["oos:code"], 
 	  				    title: dd["oos:name"],
-	  				    parent: d["oos:code"], 
-	  				    childs_ids: [dd["oos:code"]].concat(dd_childs.map(z => z["oos:code"])),
+	  				    parent: dd["oos:parentCode"], 
+	  				    childs_ids: [dd["oos:code"]].concat(dd_childs.map(z => z["oos:code"])).concat(flatten(dd_childs2)).filter(c => c.length > 5),
 	  				    childs: dd_childs.filter(c => c["oos:code"].length > 5).map(function(ddd) {
 	  				    		return {
-	  				    		parent: ddd["oos:parentCode"], code: ddd["oos:code"], title: ddd["oos:name"] } })
+	  				    		parent: ddd["oos:parentCode"], code: ddd["oos:code"], title: ddd["oos:name"],
+	  				    		childs:  file.filter(c => (c["oos:parentCode"] == ddd["oos:code"] && c["oos:code"] !== ddd["oos:code"] ) ).map(function(q) {
+	  				    			return {code: q["oos:code"],
+	  				    			parent: q["oos:parentCode"],
+	  				    			title: q["oos:name"]}
+	  				    		})  } })
 	  				    //[{
 	  				    	//code: dd["oos:code"],
 	  				    	//title: dd["oos:name"],
@@ -77,5 +113,7 @@ fs.writeFileSync('./code.json', JSON.stringify(st().filter(c => c !== null)) , '
 
             ], 
 hidden: false}
+]
+
 
 */

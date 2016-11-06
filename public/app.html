@@ -21,7 +21,7 @@
         <div class="application-body application-body-okved-searchbox">
           <div class="application-form application-form-okved w-form">
             <form data-name="Email Form" id="email-form" name="email-form">
-              <input class="application-form-field application-form-field-okved application-form-field-verybig w-input" data-name="Email 24" id="email-24" maxlength="256" name="email-24" required="required" type="email">
+              <input class="application-form-field application-form-field-okved application-form-field-verybig w-input" data-name="Email 24" id="email-24" maxlength="256" name="email-24" required="required" type="email" #listFilter (keyup)="0">
               <div class="okved-sort-box"><a class="okved-sort-link" href="#">Дизайн</a>
               <a class="okved-sort-link okved-sort-link-pressed" href="#">Разработка ПО</a>
               <a class="okved-sort-link" href="#">Интернет-торговля</a>
@@ -44,51 +44,51 @@
             <div class="okved-search-column-1 w-col w-col-3">
               <h5 class="okved-h okved-h-10">Выбор раздела</h5>
               <div class="okved-box okved-box-class">
-                <a class="okved-class-line okved-class-line-active w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('01')==true}" (click)="showOkved('01')">
                   <div class="okved-blue-number">01</div>
                   <div>Растениеводство
                     <br>и животноводство, охота и предоставление соответствующих услуг в этих областях</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('02')==true}" (click)="showOkved('02')">
                   <div class="okved-blue-number">02</div>
                   <div>Лесоводство
                     <br>и лесозаготовки</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('03')==true}" (click)="showOkved('03')">
                   <div class="okved-blue-number">03</div>
                   <div>Рыболовство
                     <br>и рыбоводство</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('05')==true}" (click)="showOkved('05')">
                   <div class="okved-blue-number">05</div>
                   <div>Добыча
                     <br>угля</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('06')==true}" (click)="showOkved('06')">
                   <div class="okved-blue-number">06</div>
                   <div>Добыча сырой нефти и природного газа</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('07')==true}" (click)="showOkved('07')">
                   <div class="okved-blue-number">07</div>
                   <div>Добыча металлических руд</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('08')==true}" (click)="showOkved('08')">
                   <div class="okved-blue-number">08</div>
                   <div>Добыча прочих полезных ископаемых</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('09')==true}" (click)="showOkved('09')">
                   <div class="okved-blue-number">09</div>
                   <div>Предоставление услуг в области добычи полезных ископаемых</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('10')==true}" (click)="showOkved('10')">
                   <div class="okved-blue-number">10</div>
                   <div>Производство пищевых продуктов</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('11')==true}" (click)="showOkved('11')">
                   <div class="okved-blue-number">11</div>
                   <div>Производство напитков</div>
                 </a>
-                <a class="okved-class-line w-inline-block" href="#">
+                <a class="okved-class-line w-inline-block" [ngClass]="{'okved-class-line-active': isActiveSection('12')==true}" (click)="showOkved('12')">
                   <div class="okved-blue-number">12</div>
                   <div>Производство табачных изделий</div>
                 </a>
@@ -110,7 +110,7 @@
                   </a>
                   <div class="okved-podclass-box" [ngClass]="{hidden: okved.hidden === true}">
 
-                  <div class="okved-subroot" *ngFor="let subokved of okved.childs; let okvedproc2 = index">
+                  <div class="okved-subroot" *ngFor="let subokved of okved.childs | movieFilter:listFilter.value">
                       <div class="okved-line">
                         <div class="okved-code">{{subokved.code}}</div>
                         <div>{{subokved.title}}</div><a class="okved-choose-icon" 
