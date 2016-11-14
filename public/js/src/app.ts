@@ -19,7 +19,7 @@ export class MovieFilterPipe implements PipeTransform {
        }
        else
        {
-       	return value;
+       	return false;
        }
     }
 }
@@ -68,7 +68,14 @@ this.shit2 = [
 hidden: false}
 ]
 
-this.shit2.push(this.shit[0])
+this.flatOkveds = _.concat(_.flatten(this.shit.map(c => { return _.flatten(c.childs.map(d => { return _.flatten(d.childs.map(f => { 
+  return f;
+})) }))  }) ), _.flatten(this.shit.map(c => { return _.flatten(c.childs.map(d => { return _.flatten(d.childs.map(f => { 
+  return _.flatten(f.childs.map(l => { return l}));
+})) }))  }) ));
+
+
+this.shit2.push(this.shit[0]);
 
 this.allOkveds = this.shit//this.shit2
 

@@ -13,6 +13,24 @@
         <div class="application-header-box application-header-box-gett">
           <div class="application-header-icon application-header-icon-gett">
           <pre>{{ selectedOkved }}</pre>
+
+<div class="okved-klass-root">
+                 <div class="okved-podclass-box">
+                  <div class="okved-subroot" *ngFor="let subokved of flatOkveds | movieFilter:listFilter.value">
+                      <div class="okved-line">
+                        <div class="okved-code">{{subokved.code}}</div>
+                        <div>{{subokved.title}}</div><a class="okved-choose-icon" 
+                        onn-mouseover="over()"
+                        (click)="addChildToSelected(subokved, subokved);"
+                        [ngClass]="{'okved-choose-icon-active': isOkvedSelected(subokved) === true}"></a>
+                      </div>
+
+                      
+                      </div>
+                      </div>
+
+</div>
+
             <h2 class="content-heading content-heading-gett">Выбор видов деятельности (ОКВЭД)</h2>
             <div class="form-heading-text">Для подготовки документов нам потребуются данные вашего паспорта
               <br>и номера свидетельств СНИЛС и ИНН</div>
@@ -94,6 +112,9 @@
                 </a>
               </div>
             </div>
+
+
+
             <div class="okved-search-column-2 w-col w-col-9">
               <h5 class="okved-h">Выбор вида деятельности</h5>
               <div class="okved-box">
@@ -110,7 +131,7 @@
                   </a>
                   <div class="okved-podclass-box">
 
-                  <div class="okved-subroot" *ngFor="let subokved of okved.childs | movieFilter:listFilter.value">
+                  <div class="okved-subroot" *ngFor="let subokved of okved.childs">
                       <div class="okved-line">
                         <div class="okved-code">{{subokved.code}}</div>
                         <div>{{subokved.title}}</div><a class="okved-choose-icon" 
