@@ -120,16 +120,16 @@
               <div class="okved-box">
                 <div class="okved-class-box">
 
-<div class="okved-klass-root" *ngFor="let okved of allOkveds; let okvedproc = index;" [ngClass]="{hidden: okved.hidden === true}">
+<div class="okved-klass-root" *ngFor="let okved of allOkveds; let okvedproc = index;" [ngClass]="{hidden: okved.hiddenSection === true}">
 
                   <a class="okved-podclass-line w-inline-block"
-                  (click)="okved.hidden ? okved.hidden=false : okved.hidden=true; "
+                  (click)="okved.hidden ? okved.hidden=false : okved.hidden=true; "                  
                   >
                     <div class="okved-code okved-code-podclass">{{ okved.okveds[0].code }}</div>
                     <div>{{ okved.okveds[0].title }}</div>
                     <div class="okved-show-icon"></div>
                   </a>
-                  <div class="okved-podclass-box">
+                  <div class="okved-podclass-box" [ngClass]="{hidden: okved.hidden === true}">
 
                   <div class="okved-subroot" *ngFor="let subokved of okved.childs">
                       <div class="okved-line">

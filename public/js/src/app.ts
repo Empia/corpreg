@@ -83,7 +83,7 @@ this.hideOkveds = function() {
 	this.activeOkved = undefined;
 
 	this.allOkveds = this.allOkveds.map(c => {
-		c.hidden = true;
+		c.hiddenSection = true;
 		return c
 	})
 }
@@ -94,7 +94,7 @@ this.showOkved = function(code) {
 	this.hideOkveds();
 	this.allOkveds = this.allOkveds.map(c => {
 		if (code == c.okveds[0].code.split('.')[0]) {
-		  c.hidden = false;
+		  c.hiddenSection = false;
 		  this.activeOkved = c.okveds[0].code.split('.')[0];
 		}
 		return c
