@@ -14,22 +14,7 @@
           <div class="application-header-icon application-header-icon-gett">
           <pre>{{ selectedOkved }}</pre>
 
-<div class="okved-klass-root">
-                 <div class="okved-podclass-box">
-                  <div class="okved-subroot" *ngFor="let subokved of flatOkveds | movieFilter:listFilter.value">
-                      <div class="okved-line">
-                        <div class="okved-code">{{subokved.code}}</div>
-                        <div>{{subokved.title}}</div><a class="okved-choose-icon" 
-                        onn-mouseover="over()"
-                        (click)="addChildToSelected(subokved, subokved);"
-                        [ngClass]="{'okved-choose-icon-active': isOkvedSelected(subokved) === true}"></a>
-                      </div>
 
-                      
-                      </div>
-                      </div>
-
-</div>
 
             <h2 class="content-heading content-heading-gett">Выбор видов деятельности (ОКВЭД)</h2>
             <div class="form-heading-text">Для подготовки документов нам потребуются данные вашего паспорта
@@ -38,23 +23,34 @@
         </div>
         <div class="application-body application-body-okved-searchbox">
           <div class="application-form application-form-okved w-form">
-            <form data-name="Email Form" id="email-form" name="email-form">
-              <input class="application-form-field application-form-field-okved application-form-field-verybig w-input" data-name="Email 24" id="email-24" maxlength="256" name="email-24" required="required" type="email" #listFilter (keyup)="0">
-              <div class="okved-sort-box"><a class="okved-sort-link" href="#">Дизайн</a>
-              <a class="okved-sort-link okved-sort-link-pressed" href="#">Разработка ПО</a>
-              <a class="okved-sort-link" href="#">Интернет-торговля</a>
-              <a class="okved-sort-link" href="#">Юридические услуги</a>
-              <a class="okved-sort-link okved-sort-link-pressed" href="#">Консалтинг</a>
-              <a class="okved-sort-link" href="#">Розничная торговля</a>
-              <a class="okved-sort-link" href="#">Оптовая торговля</a>
-              <a class="okved-sort-link" href="#">Инфобизнес</a>
-              <a class="okved-sort-link okved-sort-link-pressed" href="#">Реклама</a>
-              <a class="okved-sort-link" href="#">Маркетинг</a>
-              <a class="okved-sort-link" href="#">Образовательные курсы</a>
-              <a class="okved-sort-link" href="#">Такси</a>
-              <a class="okved-sort-link" href="#">Клининг</a>
-              </div>
-            </form>
+
+
+<form data-name="Email Form" id="email-form" name="email-form">
+     <input class="application-form-field application-form-field-okved application-form-field-verybig w-input" data-name="Email 24" id="email-24" maxlength="256" name="email-24" required="required" type="email" #listFilter (keyup)="0">
+
+
+
+<div class="drop-down-okved-box">
+                <div class="okved-line okved-line-drop-down" *ngFor="let subokved of flatOkveds | movieFilter:listFilter.value">
+                  <div class="okved-code">{{subokved.code}}</div>
+                  <div>{{subokved.title}}</div><a class="okved-choose-icon okved-choose-icon-active" onn-mouseover="over()"
+                        (click)="addChildToSelected(subokved, subokved);"
+                        [ngClass]="{'okved-choose-icon-active': isOkvedSelected(subokved) === true}"></a>
+                </div>
+</div>
+
+
+
+
+
+<div class="okved-sort-box"><a class="okved-sort-link" href="#">Веб-дизайн</a><a class="okved-sort-link" href="#">разработка по</a><a class="okved-sort-link" href="#">Консалтинг</a><a class="okved-sort-link okved-sort-link-pressed" href="#">Юридические услуги</a><a class="okved-sort-link okved-sort-link-pressed" href="#">Образовательные курсы</a><a class="okved-sort-link" href="#">Маркетинг</a><a class="okved-sort-link" href="#">реклама</a><a class="okved-sort-link okved-sort-link-pressed" href="#">Такси</a><a class="okved-sort-link" href="#">торговля продуктами</a><a class="okved-sort-link" href="#">строительство</a><a class="okved-sort-link" href="#">бухгалтерия</a><a class="okved-sort-link" href="#">Инфобизнес</a><a class="okved-sort-link" href="#">курьерские услуги</a><a class="okved-sort-link" href="#">автосервис</a><a class="okved-sort-link" href="#">салон красоты</a><a class="okved-sort-link" href="#">Клининг</a><a class="okved-sort-link" href="#">Инфобизнес</a><a class="okved-sort-link" href="#">Инфобизнес</a>
+</div>
+
+</form>
+
+
+
+
           </div>
         </div>
         <div class="application-body application-body-okved-searchbox application-body-okved-select">
