@@ -102,6 +102,13 @@ this.showOkved = function(code) {
 
 }
 
+
+this.spravochnik = true;
+this.toggleSpravochnik = function() {
+  this.spravochnik ? this.spravochnik=false : this.spravochnik=true
+}
+
+
 this.isActiveSection = function(code) {
 	return this.activeOkved == code;
 }

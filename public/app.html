@@ -12,7 +12,6 @@
       <div class="application-content">
         <div class="application-header-box application-header-box-gett">
           <div class="application-header-icon application-header-icon-gett">
-          <pre>{{ selectedOkved }}</pre>
 
 
 
@@ -52,9 +51,21 @@
 
 
           </div>
+
+
+
+<a class="open-classifier-box w-inline-block" (click)="toggleSpravochnik()">
+            <div>Открыть справочник ОКВЭД</div>
+            <div class="open-classifier-arrow"></div>
+</a>
+
+
+
+
+
         </div>
         <div class="application-body application-body-okved-searchbox application-body-okved-select">
-          <div class="okved-row w-row">
+          <div class="okved-row w-row" [ngClass]="{'hidden': spravochnik}">
             <div class="okved-search-column-1 w-col w-col-3">
               <h5 class="okved-h okved-h-10">Выбор раздела</h5>
               <div class="okved-box okved-box-class">
@@ -174,19 +185,20 @@
 
         <div class="application-body application-body-upload">
           <h5 class="okved-h">Выбор основнго вида деятельности</h5>
-          <div class="okved-choseb-box">
+  
 
-            <div class="okved-line okved-line-chosen" *ngFor="let okved of selectedOkved; let okvedproc = index;">
-              <div class="okved-black-number-fav okved-code">{{okved.code }}</div>
-              <div>{{okved.title}}</div>
 
+<div class="okved-line okved-line-chosen" *ngFor="let okved of selectedOkved; let okvedproc = index;">
+              <div class="okved-black-number-fav okved-code">{{okved.code }} </div>
+              <div> {{okved.title}}</div>
               <a [ngClass]="{hidden: okved.hidden === true}"
               [ngClass]="{'okved-fav-icon-active': isPrimaryOkved(okved) === true}" 
                  (click)="asPrimaryOkved(okved)"
                  class="okved-fav-icon"></a>
 
               <a class="okved-remove-icon" (click)="removeFromSelected(okved)"></a>
-            </div>
+
+</div>
 
 
           </div>

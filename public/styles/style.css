@@ -12913,3 +12913,179 @@ h4 {
 .drop-down-okved-box.hidden {
   display: none;
 }
+
+
+
+.okved-sort-box {
+    background-image: none;
+    background-size: auto;
+    background-repeat: repeat;
+}
+
+.okved-sort-link {
+    display: inline-block;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    padding: 3px 8px;
+    border-style: none;
+    border-width: 1px;
+    border-color: rgba(50, 70, 92, .1);
+    border-radius: 20px;
+    background-color: rgba(95, 148, 206, .07);
+    font-family: Roboto, sans-serif;
+    color: rgba(53, 119, 190, .44);
+    font-size: 9px;
+    line-height: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+.okved-sort-link {
+    display: inline-block;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    padding: 3px 8px;
+    border-style: none;
+    border-width: 1px;
+    border-color: rgba(50, 70, 92, .1);
+    border-radius: 20px;
+    background-color: rgba(95, 148, 206, .07);
+    font-family: Roboto, sans-serif;
+    color: rgba(53, 119, 190, .44);
+    font-size: 9px;
+    line-height: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.okved-sort-link.okved-sort-link-pressed {
+    border-style: none;
+    border-color: #dcf1dc;
+    background-color: rgba(220, 241, 220, .66);
+    color: rgba(107, 189, 110, .78);
+}
+
+
+.open-classifier-box {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 26px;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-style: none;
+    border-width: 1px;
+    border-color: rgba(63, 134, 211, .23);
+    border-radius: 4px;
+    background-color: rgba(57, 138, 226, .74);
+    box-shadow: 0 1px 2px 0 rgba(53, 73, 95, .12);
+    font-family: Roboto, sans-serif;
+    color: #fff;
+    font-size: 11px;
+    line-height: 18px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.open-classifier-box {
+    font-family: Roboto, sans-serif;
+    color: #fff;
+    font-size: 11px;
+    line-height: 18px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+
+.application-body.application-body-okved-searchbox.application-body-okved-select .okved-row.hidden {
+  display: none;
+}
+
+
+
+.okved-line.okved-line-chosen {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    min-height: 50px;
+    margin-bottom: 10px;
+    padding: 12px 69px 12px 12px;
+    float: none;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    border-style: none;
+    border-width: 1px;
+    border-color: #f5f5f5 #f5f5f5 #f7f7f7;
+    border-radius: 4px;
+    background-color: #f7f7f7;
+    box-shadow: none;
+    font-family: Roboto, sans-serif;
+    color: rgba(53, 73, 95, .66);
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 400;
+    text-transform: none;
+}
+
+.okved-code.okved-black-number-fav {
+    display: inline-block;
+    width: 60px;
+    margin-right: 12px;
+    margin-bottom: 8px;
+    padding: 4px 6px;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    border: 1px none #e7e7e7;
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: none;
+    color: #888;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+}
+
