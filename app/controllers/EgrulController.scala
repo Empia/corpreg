@@ -72,7 +72,7 @@ def find() = Action.async { implicit request =>
   } 
   }
   if (paramType._1 == "null") {
-    Future.successful(Ok(Json.toJson("status" -> "error", "info" -> "?ogrn=NUM OR ?inn=NUM must be present in URL")))
+    Future.successful(Ok(Json.toJson(Map("status" -> "error", "info" -> "?ogrn=NUM OR ?inn=NUM must be present in URL"))))
   } else {
   println("paramType: "+paramType)
 //интеграция/компании/?огрн=1117746123456
@@ -92,7 +92,7 @@ ws.url(
       //println(response.json)
 
       if (!response.json.as[JsArray].headOption.isDefined) {
-        Future.successful(Ok(Json.toJson("status" -> "error", "info" -> "?ogrn=NUM OR ?inn=NUM must be correct in URL")))
+        Future.successful(Ok(Json.toJson(Map("status" -> "error", "info" -> "?ogrn=NUM OR ?inn=NUM must be correct in URL"))))
       } else {
 
       // Введи нормально номер 
