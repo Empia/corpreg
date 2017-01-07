@@ -90,7 +90,23 @@ ws.url(
       //val obj = Json.prettyPrint(response.json.as[JsObject] - "url" )
       //val z = obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "")
       println(response.json)
+
+
+      // Введи нормально номер 
+
       println((response.json.as[JsArray].head.as[JsObject] \ "id").get)
+
+
+
+
+
+
+
+
+
+
+
+
 
       val name: JsLookupResult = (response.json.as[JsArray].head.as[JsObject] \ "id")
       val internalId = name.get
