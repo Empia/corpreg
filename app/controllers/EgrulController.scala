@@ -146,7 +146,7 @@ part = owner.share.portion
   println("response3: "+response3.json)
   println("response4: "+response4.json)
     name match {
-      case JsDefined(v) => Ok( obj ) 
+      case JsDefined(v) => Ok( obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "\"checksum\": \"1\"") ) 
       case undefined: JsUndefined => Ok("z")
     }
 }
