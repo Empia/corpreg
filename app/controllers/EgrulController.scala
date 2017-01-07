@@ -59,26 +59,101 @@ class EgrulController @Inject() (
 def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, Duration.Inf)
 
 
-
+val url = "https://ru.rus.company"
 
 def find() = Action.async { implicit request =>
   import play.api.libs.json.{JsNull,Json,JsString,JsValue}
 
+  val paramType = request.queryString.get("inn") match {
+    case Some(v) => ("инн", v.head)
+    case _ => request.queryString.get("ogrn") match { 
+      case Some(vv) => ("огрн", vv.head)
+      case _ => ("огрн", "")
+  } 
+  }
+  println("paramType: "+paramType)
+//интеграция/компании/?огрн=1117746123456
+//интеграция/компании/?инн=7701123456
+
 ws.url(
-  "https://ru.rus.company/%D0%B8%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D1%8F/%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8/7030/")
-.get().map { response =>
-      println(response.body)
+  s"${url}/интеграция/компании/?${paramType._1}=${paramType._2}")
+.get().flatMap { response =>
+//      println(response.body)
       //address region url
       //address street url
       //mainOkved1 url
       //okved1.map[url]
       //mainOkved2 url
-      val obj = Json.prettyPrint(response.json.as[JsObject] - "url" )
-      val z = obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "")
+      //val obj = Json.prettyPrint(response.json.as[JsObject] - "url" )
+      //val z = obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "")
+      println(response.json)
+      println((response.json.as[JsArray].head.as[JsObject] \ "id").get)
+
+      val name: JsLookupResult = (response.json.as[JsArray].head.as[JsObject] \ "id")
+      val internalId = name.get
+
+val secondReq:String = s"${url}/интеграция/компании/${internalId}/"
+println("|secondReq|: "+secondReq)
+
+ws.url(secondReq)
+.get().flatMap { response2 =>
+  /*
+  name = name.full_opf
+  shortName = name.short_opf
+  inn = inn
+  kpp = kpp
+  ogrn = ogrn
+  ogrnDate = ogrn_date
+  authorizedCapital.value = capital.value 
+  authorizedCapital.type.name = capital.type
+  */
+  // берем только одну строчку
+  val objFullAdr = Json.obj( "full" -> ((response2.json.as[JsObject] - "url") \ "address" \ "fullHouseAddress").get) 
 
 
-      Ok( z ) 
+ws.url(s"${url}/интеграция/компании/${internalId}/сотрудники/")
+.get().flatMap { response3 =>
+/*
+person.fullName = ceo.name.full_name 
+person.firstName = ceo.name.first_name
+person.middleName = ceo.name.middle_name
+person.surName = ceo.name.last_name
+person.inn = ceo.inn
+postName = ceo.position
+*/
+
+
+
+ws.url(s"${url}/интеграция/компании/${internalId}/учредители/")
+.get().map { response4 =>
+//  https://ru.rus.company/интеграция/компании/123456/учредители/
+/*
+personOwner.fullName = owner.name.full_name 
+personOwner.firstName = owner.name.first_name
+personOwner.middleName = owner.name.middle_name
+personOwner.surName = owner.name.last_name
+personOwner.inn = owner.inn
+price = owner.share.value
+part = owner.share.portion
+*/
+
+  val personsObj = Json.toJson(response3.json.as[Seq[JsObject]].map(c => c - "url")) 
+  val ownersObj = Json.toJson(response4.json.as[Seq[JsObject]].map(c => c - "url"))
+
+  val obj = Json.prettyPrint(((response2.json.as[JsObject] - "url") - "id" - "lastUpdateDate" - "address") + 
+    ("address" -> objFullAdr) + ("persons" -> personsObj) + ("owners" -> ownersObj) )
+
+  println("response3: "+response3.json)
+  println("response4: "+response4.json)
+    name match {
+      case JsDefined(v) => Ok( obj ) 
+      case undefined: JsUndefined => Ok("z")
     }
+}
+
+  }
+  }
+  }
 }
 
 private def withoutValue(v: JsValue) = v match {
