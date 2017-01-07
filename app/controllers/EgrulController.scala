@@ -68,9 +68,12 @@ def find() = Action.async { implicit request =>
     case Some(v) => ("инн", v.head)
     case _ => request.queryString.get("ogrn") match { 
       case Some(vv) => ("огрн", vv.head)
-      case _ => ("огрн", "")
+      case _ => ("null", "")
   } 
   }
+  if (paramType._1 == "null") {
+    Future.successful(Ok("error"))
+  } else {
   println("paramType: "+paramType)
 //интеграция/компании/?огрн=1117746123456
 //интеграция/компании/?инн=7701123456
@@ -150,7 +153,7 @@ part = owner.share.portion
       case undefined: JsUndefined => Ok("z")
     }
 }
-
+}
   }
   }
   }
