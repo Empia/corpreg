@@ -72,7 +72,7 @@ def find() = Action.async { implicit request =>
   } 
   }
   if (paramType._1 == "null") {
-    Future.successful(Ok("error"))
+    Future.successful(Ok(Json.toJson("status" -> "error", "info" -> "?ogrn=NUM OR ?inn=NUM must be present in URL")))
   } else {
   println("paramType: "+paramType)
 //интеграция/компании/?огрн=1117746123456
@@ -89,8 +89,11 @@ ws.url(
       //mainOkved2 url
       //val obj = Json.prettyPrint(response.json.as[JsObject] - "url" )
       //val z = obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "")
-      println(response.json)
+      //println(response.json)
 
+      if (!response.json.as[JsArray].headOption.isDefined) {
+        Future.successful(Ok(Json.toJson("status" -> "error", "info" -> "?ogrn=NUM OR ?inn=NUM must be correct in URL")))
+      } else {
 
       // Введи нормально номер 
 
@@ -168,6 +171,7 @@ part = owner.share.portion
       case JsDefined(v) => Ok( obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "\"checksum\": \"1\"") ) 
       case undefined: JsUndefined => Ok("z")
     }
+}
 }
 }
   }
