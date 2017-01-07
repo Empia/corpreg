@@ -91,7 +91,7 @@ ws.url(
       //val z = obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "")
       //println(response.json)
 
-      if (!(response.json.as[JsArray].asOpt[Seq[JsObject]].isDefined || response.json.as[JsArray].head.as[JsObject].isDefined) ) {
+      if (!(response.json.as[JsArray].asOpt[Seq[JsObject]].isDefined || response.json.as[JsArray].head.asOpt[JsObject].isDefined) ) {
         Future.successful(Ok(Json.toJson(Map("status" -> "error", "info" -> "?ogrn=NUM OR ?inn=NUM must be correct in URL"))))
       } else {
 
