@@ -61,6 +61,44 @@ def await[T](a: Awaitable[T])(implicit ec: ExecutionContext) = Await.result(a, D
 
 val url = "https://ru.rus.company"
 
+
+implicit val NameObjectFormat = Json.format[NameObject]
+implicit val NameObjectWrites = Json.writes[NameObject]
+implicit val ShareObjectFormat = Json.format[ShareObject]
+implicit val ShareObjectWrites = Json.writes[ShareObject]
+implicit val EgrulObjectNameFormat = Json.format[EgrulObjectName]
+implicit val EgrulObjectNameWrites = Json.writes[EgrulObjectName]
+
+implicit val FundPFTObjectFormat = Json.format[FundPFTObject]
+implicit val FundPFTObjectWrites = Json.writes[FundPFTObject]
+implicit val FundFSSObjectFormat = Json.format[FundFSSObject]
+implicit val FundFSSObjectWrites = Json.writes[FundFSSObject]
+
+implicit val CapitalObjectFormat = Json.format[CapitalObject]
+implicit val CapitalObjectWrites = Json.writes[CapitalObject]
+implicit val CEOObjectFormat = Json.format[CEOObject]
+implicit val CEOObjectWrites = Json.writes[CEOObject]
+implicit val OwnerObjectFormat = Json.format[OwnerObject]
+implicit val OwnerObjectWrites = Json.writes[OwnerObject]
+
+implicit val OwnerCompanyFormat = Json.format[OwnerCompany]
+implicit val OwnerCompanyWrites = Json.writes[OwnerCompany]
+implicit val OkvedMainObjectFormat = Json.format[OkvedMainObject]
+implicit val OkvedMainObjectWrites = Json.writes[OkvedMainObject]
+implicit val OkvedObjectFormat = Json.format[OkvedObject]
+implicit val OkvedObjectWrites = Json.writes[OkvedObject]
+implicit val AddressObjectFormat = Json.format[AddressObject]
+implicit val AddressObjectWrites = Json.writes[AddressObject]
+implicit val FundObjectFormat = Json.format[FundObject]
+implicit val FundObjectWrites = Json.writes[FundObject]
+
+
+implicit val EgrulObjectFormat = Json.format[EgrulObject]
+implicit val EgrulObjectWrites = Json.writes[EgrulObject]
+
+implicit val EgrulContainerFormat = Json.format[EgrulContainer]
+implicit val EgrulContainerWrites = Json.writes[EgrulContainer]
+
 def find() = Action.async { implicit request =>
   import play.api.libs.json.{JsNull,Json,JsString,JsValue}
 
@@ -110,7 +148,6 @@ ws.url(
 
 
 
-
       val name: JsLookupResult = (response.json.as[JsArray].head.as[JsObject] \ "id")
       val internalId = name.get
 
@@ -128,6 +165,19 @@ ws.url(secondReq)
   ogrnDate = ogrn_date
   authorizedCapital.value = capital.value 
   authorizedCapital.type.name = capital.type
+
+mainOkved2.code = okved_main.code
+mainOkved2.name. = okved_main.name
+okved2.code = okved.code
+okved2.name = okved.name
+address.fullHouseAddress = address.full
+pfrRegistration.number = pfr.reg_number
+pfrRegistration.pfr.name = pfr.name
+pfrRegistration.pfr.code = pfr.code
+fssRegistration.number = fss.reg_number
+fssRegistration.fss.name = fss.name
+fssRegistration.fss.code = fss.code
+
   */
   // берем только одну строчку
   val objFullAdr = Json.obj( "full" -> ((response2.json.as[JsObject] - "url") \ "address" \ "fullHouseAddress").get) 
@@ -167,10 +217,17 @@ part = owner.share.portion
 
   println("response3: "+response3.json)
   println("response4: "+response4.json)
+   /*
     name match {
       case JsDefined(v) => Ok( obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "\"checksum\": \"1\"") ) 
       case undefined: JsUndefined => Ok("z")
     }
+  */
+  Ok(Json.toJson(
+    EgrulContainer(EgrulObject()
+  )))
+
+
 }
 }
 }
@@ -188,3 +245,75 @@ private def withoutValue(v: JsValue) = v match {
 
 }
 
+
+
+case class EgrulContainer(egrul: EgrulObject)
+case class EgrulObject(
+name: EgrulObjectName=EgrulObjectName(), 
+inn:String="",
+kpp:String="",
+ogrn:String="",
+ogrn_date : String="",//"2002-11-12T00:00:00.000", - надо отрезать время, а то палево
+//okpo: null, - будем брать из статитсики потом, пока не используем
+capital: CapitalObject=CapitalObject(),
+ceo:CEOObject=CEOObject(),
+owner:OwnerObject=OwnerObject(),
+okved_main: OkvedMainObject=OkvedMainObject(),
+okved: OkvedObject=OkvedObject(),
+address: AddressObject=AddressObject(),
+fund: FundObject=FundObject()
+)
+case class CapitalObject(
+value: String="",
+typeVal: String=""
+)
+
+case class CEOObject(
+name: NameObject=NameObject(),
+inn:String="",
+position: String=""
+)
+
+case class NameObject(
+full_name:String = "",
+first_name:String = "",
+middle_name:String = "",
+last_name:String = ""
+)
+case class OwnerObject(
+name: NameObject=NameObject(),
+inn:String="",
+share:ShareObject=ShareObject()
+) 
+case class ShareObject(
+value:String="",
+portion:String=""
+)
+case class OwnerCompany(
+name: EgrulObjectName = EgrulObjectName(),
+inn: String="",
+share: ShareObject=ShareObject()
+)
+case class OkvedMainObject(
+code:String="",
+name:String=""
+)
+case class OkvedObject(
+code:String="",
+name:String="")
+case class AddressObject(full: String="")
+case class FundObject(pfr: FundPFTObject=FundPFTObject(), fss: FundFSSObject=FundFSSObject()) 
+case class FundPFTObject( 
+reg_number:String="",
+name:String="",
+code:String=""
+)
+case class FundFSSObject(
+reg_number:String="",
+name:String="",
+code:String=""
+)
+case class EgrulObjectName(
+full_opf: String="",
+short_opf: String=""
+)
