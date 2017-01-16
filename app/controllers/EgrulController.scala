@@ -148,8 +148,8 @@ ws.url(
 
 
 
-      val name: JsLookupResult = (response.json.as[JsArray].head.as[JsObject] \ "id")
-      val internalId = name.get
+      val nameVV: JsLookupResult = (response.json.as[JsArray].head.as[JsObject] \ "id")
+      val internalId = nameVV.get
 
 val secondReq:String = s"${url}/интеграция/компании/${internalId}/"
 println("|secondReq|: "+secondReq)
@@ -215,18 +215,137 @@ part = owner.share.portion
   val obj = Json.prettyPrint(((response2.json.as[JsObject] - "url") - "id" - "lastUpdateDate" - "address") + 
     ("address" -> objFullAdr) + ("persons" -> personsObj) + ("owners" -> ownersObj) )
 
-  println("response3: "+response3.json)
-  println("response4: "+response4.json)
+  println("response 2"+Json.prettyPrint(response2.json))
+  println("response3: "+Json.prettyPrint(response3.json))
+  println("response4: "+Json.prettyPrint(response4.json))
+
+
+      val innF: JsLookupResult = (response2.json.as[JsObject] \ "inn")
+      val innV = innF.get.as[String]
+      val kppF: JsLookupResult = (response2.json.as[JsObject] \ "kpp")
+      val kpp = kppF.get.as[String]
+      val orgnF: JsLookupResult = (response2.json.as[JsObject] \ "ogrn")
+      val orgnV = orgnF.get.asOpt[String].getOrElse("")    
+      val orgnDateF: JsLookupResult = (response2.json.as[JsObject] \ "ogrnDate")
+      val orgnDate = orgnDateF.get.as[String]
+
+      val nameF =  (response2.json.as[JsObject] \ "name")
+      val nameV = nameF.get.as[String]
+      val shortNameF = (response2.json.as[JsObject] \ "shortName")
+      val shortNameV = shortNameF.get.as[String]
+
+      val capValF = (response2.json.as[JsObject] \ "authorizedCapital" \ "type" \ "name")
+      val capTypeNameF = capValF.get.as[String]
+      val capValV = (response2.json.as[JsObject] \ "authorizedCapital" \ "value")
+      val capTypeValV = capValV.get.as[Long].toString
+    
+      val personsValF = response3.json//(response3.json.as[JsObject] \ "persons")
+      val personValF = personsValF.as[JsArray].head.as[JsObject] \ "person"
+      val personValV = personValF.get
+      val personValVfull_name = personValF \ "fullName"
+      val personValVfirst_name = personValF \ "firstName"
+      val personValVmiddle_name = personValF \ "middleName"
+      val personValVlast_name = personValF \ "surName"
+      val personValVinn = personValF \ "inn"
+      val personPositionF = personsValF.as[JsArray].head.as[JsObject] \ "postName"
+
+      val adressValF = (response2.json.as[JsObject] \ "address" \ "fullHouseAddress")
+      val adressVal = adressValF.get.as[String]
+
+      val ownersValF = response4.json//(response4.json.as[JsObject] \ "owners")
+      val ownerValF = ownersValF.as[JsArray].head.as[JsObject] \ "companyOwner"
+      //println("ownerValF"+Json.prettyPrint(ownersValF.as[JsArray].head.as[JsObject]))
+      val ownerNameValF = (ownerValF.get.as[JsObject] \ "name")
+      val ownershortNameValF = (ownerValF.get.as[JsObject] \ "shortName")
+      val ownerInnValF = (ownerValF.get.as[JsObject] \ "inn")
+      val priceValF = ownersValF.as[JsArray].head.as[JsObject] \ "price"
+
+      val okvedMainValF =  (response2.json.as[JsObject] \ "mainOkved2")
+      val okvedMainCodeValF = okvedMainValF.get \ "code"
+      val okvedMainNameValF = okvedMainValF \ "name"
+      val okvedValF = (response2.json.as[JsObject] \ "mainOkved2")
+      val okvedCodeValF = okvedValF.get \ "code"
+      val okvedNameValF = okvedValF \ "name"
+   
+
+    val pfrRegistrationValF = (response2.json.as[JsObject] \ "pfrRegistration")
+    val pfrRegistrationRegNumberF = pfrRegistrationValF.get \ "number"
+    val pfrRegistrationNameF = pfrRegistrationValF.get \ "pfr" \ "name"
+    val pfrRegistrationCodeF = pfrRegistrationValF.get \ "pfr" \ "code"
+    val fssRegistrationValF = (response2.json.as[JsObject] \ "fssRegistration")
+    val fssRegistrationRegNumberF = fssRegistrationValF.get \ "number"
+    val fssRegistrationNameF = fssRegistrationValF.get \ "fss" \ "name"
+    val fssRegistrationCodeF = fssRegistrationValF.get \ "fss" \ "code"
+
+    val pfrRegistrationRegNumber = pfrRegistrationRegNumberF.get.as[String]
+    val pfrRegistrationName = pfrRegistrationNameF.get.as[String]
+    val pfrRegistrationCode = pfrRegistrationCodeF.get.as[String]    
+    val fssRegistrationRegNumber = fssRegistrationRegNumberF.get.as[String]
+    val fssRegistrationName = fssRegistrationNameF.get.as[String]
+    val fssRegistrationCode = fssRegistrationCodeF.get.as[String]
+
    /*
-    name match {
+    Ok()
+  */
+  val json = Json.toJson(
+      EgrulContainer(EgrulObject(
+          name = EgrulObjectName( full_opf = nameV, short_opf = shortNameV ),
+          inn=innV,
+          kpp=kpp,
+          ogrn=orgnV, 
+          ogrn_date=orgnDate,
+          capital = CapitalObject(
+            capTypeNameF, capTypeValV
+          ),
+          ceo = CEOObject(
+                          name= NameObject(full_name = personValVfull_name.get.as[String],
+                                            first_name = personValVfirst_name.get.as[String],
+                                            middle_name = personValVmiddle_name.get.as[String],
+                                            last_name = personValVlast_name.get.as[String]),
+                          inn=personValVinn.get.as[String],
+                          position= personPositionF.get.as[String]
+          ),
+          owner = OwnerObject(
+            name= NameObject(full_name = ownerNameValF.get.as[String], 
+                                  first_name = ownershortNameValF.get.as[String]),
+            inn=ownerInnValF.get.as[String],
+            share=ShareObject(value=priceValF.get.as[Long].toString,
+                              portion="")
+          ),
+          okved_main = OkvedMainObject(
+code=okvedMainCodeValF.get.as[String],
+name=okvedMainNameValF.get.as[String]
+          ),
+          okved = OkvedObject(
+  okvedCodeValF.get.as[String],
+  okvedNameValF.get.as[String]),
+
+          address = AddressObject(
+            full = adressVal
+          ),
+          fund = FundObject(
+                            FundPFTObject( 
+                            reg_number=pfrRegistrationRegNumber,
+                            name=pfrRegistrationName,
+                            code=pfrRegistrationCode
+                            ),
+                            FundFSSObject(
+                            reg_number=fssRegistrationRegNumber,
+                            name=fssRegistrationName,
+                            code=fssRegistrationCode
+                            )
+          )
+    )
+    ))
+  println(Json.prettyPrint(json))
+
+/*
+    nameVV match {
       case JsDefined(v) => Ok( obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "\"checksum\": \"1\"") ) 
       case undefined: JsUndefined => Ok("z")
     }
-  */
-  Ok(Json.toJson(
-    EgrulContainer(EgrulObject()
-  )))
-
+*/
+Ok(Json.prettyPrint(json))
 
 }
 }
