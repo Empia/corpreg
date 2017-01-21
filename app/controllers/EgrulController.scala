@@ -221,15 +221,15 @@ person.inn = ceo.inn
 postName = ceo.position
 */
 
-     def getLookup(l: JsLookupResult):Option[JsObject] = {
+     def getLookup(l: JsLookupResult):Option[JsValue] = {
         l match {
-          case JsDefined(v) => v.asOpt[JsObject]
+          case JsDefined(v) => v.asOpt[JsValue]
           case undefined: JsUndefined => None
         }
       }
-      def getLookupString(o: Option[JsObject]):String = {
+      def getLookupString(o: Option[JsValue]):String = {
         o match {
-          case Some(os) => os.as[String]
+          case Some(os) => os.toString
           case _ => ""
         }
       }
@@ -305,26 +305,26 @@ part = owner.share.portion
       ////////////////////////////////////////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////////////////////////////////////////
  
-      val ownerValF:Option[JsObject] = ownersValF.as[Seq[JsObject]].headOption match {
+      val ownerValF:Option[JsValue] = ownersValF.as[Seq[JsObject]].headOption match {
         case Some(x) => getLookup(x \ "companyOwner")
         case _ => None
       }
 
 
       //println("ownerValF"+Json.prettyPrint(ownersValF.as[JsArray].head.as[JsObject]))
-      val ownerNameValF:Option[JsObject] = ownerValF match {
+      val ownerNameValF:Option[JsValue] = ownerValF match {
         case Some(x) => getLookup(x.as[JsObject] \ "name")
         case _ => None
         }
-      val ownershortNameValF:Option[JsObject] = ownerValF match {
+      val ownershortNameValF:Option[JsValue] = ownerValF match {
         case Some(x) =>  getLookup(x.as[JsObject] \ "shortName")
         case _ => None
       }
-      val ownerInnValF:Option[JsObject] = ownerValF match {
+      val ownerInnValF:Option[JsValue] = ownerValF match {
         case Some(x) => getLookup(x.as[JsObject] \ "inn")
         case _ => None
         }
-      val priceValF:Option[JsObject] = ownersValF.as[Seq[JsObject]].headOption match {
+      val priceValF:Option[JsValue] = ownersValF.as[Seq[JsObject]].headOption match {
         case Some(x) => getLookup(x \ "price")
         case _ => None
       }      
@@ -334,8 +334,8 @@ part = owner.share.portion
         case "ип" => response2.json.as[Seq[JsObject]].head
       }
 
-      val okvedMainValF:Option[JsObject] =  getLookup(primaryResponse \ "mainOkved2")
-      val okvedMainCodeValF:Option[JsObject] = okvedMainValF match {
+      val okvedMainValF:Option[JsValue] =  getLookup(primaryResponse \ "mainOkved2")
+      val okvedMainCodeValF:Option[JsValue] = okvedMainValF match {
         case Some(x) => getLookup(x.as[JsObject] \ "code")
         case _ => None
       }
@@ -344,11 +344,11 @@ part = owner.share.portion
         case _ => None
       }
       val okvedValF = getLookup(primaryResponse \ "mainOkved2")
-      val okvedCodeValF:Option[JsObject] = okvedValF match {
+      val okvedCodeValF:Option[JsValue] = okvedValF match {
         case Some(x) => getLookup(x.as[JsObject] \ "code")
         case _ => None
       }
-      val okvedNameValF:Option[JsObject] = okvedValF match {
+      val okvedNameValF:Option[JsValue] = okvedValF match {
         case Some(x) => getLookup(x \ "name")
         case _ => None
       }
