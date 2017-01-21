@@ -118,8 +118,13 @@ def find() = Action.async { implicit request =>
 
 ws.url(
   s"${url}/интеграция/компании/?${paramType._1}=${paramType._2}")
-.get().flatMap { response =>
-//      println(response.body)
+.get().flatMap { responseComp =>
+
+ws.url(
+  s"${url}/интеграция/ип/?${paramType._1}=${paramType._2}")
+.get().flatMap { responseIp =>
+
+      //println(response.body)
       //address region url
       //address street url
       //mainOkved1 url
@@ -129,13 +134,23 @@ ws.url(
       //val z = obj.toString replaceAll (""""(url)" : "((\\"|[^"])*)"""", "")
       //println(response.json)
 
-      if (!(response.json.as[JsArray].asOpt[Seq[JsObject]].isDefined || response.json.as[JsArray].head.asOpt[JsObject].isDefined) ) {
+val initialResponseComp = responseComp.json.as[Seq[JsObject]]
+val initialResponseIp = responseIp.json.as[Seq[JsObject]]
+val initialOrgType = initialResponseComp.length match {
+  case x  if x > 0 => "компании"
+  case _ => "ип"  
+}
+println(initialResponseComp)
+println(initialResponseComp.length > 0)
+println(initialResponseIp)
+
+      if (!(initialResponseComp.length > 0 || initialResponseIp.length > 0)) {
         Future.successful(Ok(Json.toJson(Map("status" -> "error", "info" -> "?ogrn=NUM OR ?inn=NUM must be correct in URL"))))
       } else {
 
       // Введи нормально номер 
 
-      println((response.json.as[JsArray].head.as[JsObject] \ "id").get)
+      println((responseComp.json.as[JsArray].head.as[JsObject] \ "id").get)
 
 
 
@@ -148,10 +163,10 @@ ws.url(
 
 
 
-      val nameVV: JsLookupResult = (response.json.as[JsArray].head.as[JsObject] \ "id")
+      val nameVV: JsLookupResult = (responseComp.json.as[JsArray].head.as[JsObject] \ "id")
       val internalId = nameVV.get
 
-val secondReq:String = s"${url}/интеграция/компании/${internalId}/"
+val secondReq:String = s"${url}/интеграция/${initialOrgType}/${internalId}/"
 println("|secondReq|: "+secondReq)
 
 ws.url(secondReq)
@@ -183,7 +198,7 @@ fssRegistration.fss.code = fss.code
   val objFullAdr = Json.obj( "full" -> ((response2.json.as[JsObject] - "url") \ "address" \ "fullHouseAddress").get) 
 
 
-ws.url(s"${url}/интеграция/компании/${internalId}/сотрудники/")
+ws.url(s"${url}/интеграция/${initialOrgType}/${internalId}/сотрудники/")
 .get().flatMap { response3 =>
 /*
 person.fullName = ceo.name.full_name 
@@ -196,7 +211,7 @@ postName = ceo.position
 
 
 
-ws.url(s"${url}/интеграция/компании/${internalId}/учредители/")
+ws.url(s"${url}/интеграция/${initialOrgType}/${internalId}/учредители/")
 .get().map { response4 =>
 //  https://ru.rus.company/интеграция/компании/123456/учредители/
 /*
@@ -253,19 +268,64 @@ part = owner.share.portion
       val adressVal = adressValF.get.as[String]
 
       val ownersValF = response4.json//(response4.json.as[JsObject] \ "owners")
-      val ownerValF = ownersValF.as[JsArray].head.as[JsObject] \ "companyOwner"
-      //println("ownerValF"+Json.prettyPrint(ownersValF.as[JsArray].head.as[JsObject]))
-      val ownerNameValF = (ownerValF.get.as[JsObject] \ "name")
-      val ownershortNameValF = (ownerValF.get.as[JsObject] \ "shortName")
-      val ownerInnValF = (ownerValF.get.as[JsObject] \ "inn")
-      val priceValF = ownersValF.as[JsArray].head.as[JsObject] \ "price"
+      ////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////
+      def getLookup(l: JsLookupResult):Option[JsObject] = {
+        l match {
+          case JsDefined(v) => v.asOpt[JsObject]
+          case undefined: JsUndefined => None
+        }
+      }
+      def getLookupString(o: Option[JsObject]):String = {
+        o match {
+          case Some(os) => os.as[String]
+          case _ => ""
+        }
+      }
+      val ownerValF:Option[JsObject] = ownersValF.as[Seq[JsObject]].headOption match {
+        case Some(x) => getLookup(x \ "companyOwner")
+        case _ => None
+      }
 
-      val okvedMainValF =  (response2.json.as[JsObject] \ "mainOkved2")
-      val okvedMainCodeValF = okvedMainValF.get \ "code"
-      val okvedMainNameValF = okvedMainValF \ "name"
-      val okvedValF = (response2.json.as[JsObject] \ "mainOkved2")
-      val okvedCodeValF = okvedValF.get \ "code"
-      val okvedNameValF = okvedValF \ "name"
+
+      //println("ownerValF"+Json.prettyPrint(ownersValF.as[JsArray].head.as[JsObject]))
+      val ownerNameValF:Option[JsObject] = ownerValF match {
+        case Some(x) => getLookup(x.as[JsObject] \ "name")
+        case _ => None
+        }
+      val ownershortNameValF:Option[JsObject] = ownerValF match {
+        case Some(x) =>  getLookup(x.as[JsObject] \ "shortName")
+        case _ => None
+      }
+      val ownerInnValF:Option[JsObject] = ownerValF match {
+        case Some(x) => getLookup(x.as[JsObject] \ "inn")
+        case _ => None
+        }
+      val priceValF:Option[JsObject] = ownersValF.as[Seq[JsObject]].headOption match {
+        case Some(x) => getLookup(x \ "price")
+        case _ => None
+      }      
+      ////////////////////////////////////////////////////////////////////////////////////////////
+
+      val okvedMainValF:Option[JsObject] =  getLookup(response2.json.as[JsObject] \ "mainOkved2")
+      val okvedMainCodeValF:Option[JsObject] = okvedMainValF match {
+        case Some(x) => getLookup(x.as[JsObject] \ "code")
+        case _ => None
+      }
+      val okvedMainNameValF = okvedMainValF match {
+        case Some(x) => getLookup(x.as[JsObject] \ "name")
+        case _ => None
+      }
+      val okvedValF = getLookup(response2.json.as[JsObject] \ "mainOkved2")
+      val okvedCodeValF:Option[JsObject] = okvedValF match {
+        case Some(x) => getLookup(x.as[JsObject] \ "code")
+        case _ => None
+      }
+      val okvedNameValF:Option[JsObject] = okvedValF match {
+        case Some(x) => getLookup(x \ "name")
+        case _ => None
+      }
    
 
     val pfrRegistrationValF = (response2.json.as[JsObject] \ "pfrRegistration")
@@ -306,19 +366,19 @@ part = owner.share.portion
                           position= personPositionF.get.as[String]
           ),
           owner = OwnerObject(
-            name= NameObject(full_name = ownerNameValF.get.as[String], 
-                                  first_name = ownershortNameValF.get.as[String]),
-            inn=ownerInnValF.get.as[String],
-            share=ShareObject(value=priceValF.get.as[Long].toString,
+            name= NameObject(full_name = getLookupString(ownerNameValF), 
+                                  first_name = getLookupString(ownershortNameValF)),
+            inn=getLookupString(ownerInnValF),
+            share=ShareObject(value=getLookupString(priceValF),
                               portion="")
           ),
           okved_main = OkvedMainObject(
-code=okvedMainCodeValF.get.as[String],
-name=okvedMainNameValF.get.as[String]
+code=getLookupString(okvedMainCodeValF),
+name=getLookupString(okvedMainNameValF)
           ),
           okved = OkvedObject(
-  okvedCodeValF.get.as[String],
-  okvedNameValF.get.as[String]),
+  getLookupString(okvedCodeValF),
+  getLookupString(okvedNameValF)),
 
           address = AddressObject(
             full = adressVal
@@ -347,6 +407,7 @@ name=okvedMainNameValF.get.as[String]
 */
 Ok(Json.prettyPrint(json))
 
+}
 }
 }
 }
