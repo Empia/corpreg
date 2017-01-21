@@ -150,7 +150,6 @@ println(initialResponseIp)
 
       // Введи нормально номер 
 
-      println((responseComp.json.as[JsArray].head.as[JsObject] \ "id").get)
 
 
 
@@ -162,11 +161,16 @@ println(initialResponseIp)
 
 
 
-
-      val nameVV: JsLookupResult = (responseComp.json.as[JsArray].head.as[JsObject] \ "id")
+      val nameVV: JsLookupResult = initialOrgType match {
+        case "компании" => (responseComp.json.as[JsArray].head.as[JsObject] \ "id")
+        case "ип" => (responseIp.json.as[JsArray].head.as[JsObject] \ "id")
+      }
       val internalId = nameVV.get
 
-val secondReq:String = s"${url}/интеграция/${initialOrgType}/${internalId}/"
+val secondReq:String = initialOrgType match {
+        case "компании" => s"${url}/интеграция/${initialOrgType}/${internalId}/"
+        case "ип" => s"${url}/интеграция/ип/?${paramType._1}=${paramType._2}"
+      }
 println("|secondReq|: "+secondReq)
 
 ws.url(secondReq)
@@ -195,10 +199,18 @@ fssRegistration.fss.code = fss.code
 
   */
   // берем только одну строчку
-  val objFullAdr = Json.obj( "full" -> ((response2.json.as[JsObject] - "url") \ "address" \ "fullHouseAddress").get) 
+  val objFullAdr = initialOrgType match {
+    case "ип" => Json.obj("full" -> "")
+    case _ => Json.obj( "full" -> ((response2.json.as[JsObject] - "url") \ "address" \ "fullHouseAddress").get) 
+  }
 
 
-ws.url(s"${url}/интеграция/${initialOrgType}/${internalId}/сотрудники/")
+val thirdReq:String = initialOrgType match {
+        case "компании" => s"${url}/интеграция/${initialOrgType}/${internalId}/сотрудники/"
+        case "ип" => s"${url}/интеграция/ип/?${paramType._1}=${paramType._2}"
+}
+
+ws.url(thirdReq)
 .get().flatMap { response3 =>
 /*
 person.fullName = ceo.name.full_name 
@@ -209,9 +221,24 @@ person.inn = ceo.inn
 postName = ceo.position
 */
 
+     def getLookup(l: JsLookupResult):Option[JsObject] = {
+        l match {
+          case JsDefined(v) => v.asOpt[JsObject]
+          case undefined: JsUndefined => None
+        }
+      }
+      def getLookupString(o: Option[JsObject]):String = {
+        o match {
+          case Some(os) => os.as[String]
+          case _ => ""
+        }
+      }
 
-
-ws.url(s"${url}/интеграция/${initialOrgType}/${internalId}/учредители/")
+val fourthReq:String = initialOrgType match {
+        case "компании" => s"${url}/интеграция/${initialOrgType}/${internalId}/учредители/"
+        case "ип" => s"${url}/интеграция/ип/?${paramType._1}=${paramType._2}"
+}
+ws.url(fourthReq)
 .get().map { response4 =>
 //  https://ru.rus.company/интеграция/компании/123456/учредители/
 /*
@@ -227,33 +254,36 @@ part = owner.share.portion
   val personsObj = Json.toJson(response3.json.as[Seq[JsObject]].map(c => c - "url")) 
   val ownersObj = Json.toJson(response4.json.as[Seq[JsObject]].map(c => c - "url"))
 
-  val obj = Json.prettyPrint(((response2.json.as[JsObject] - "url") - "id" - "lastUpdateDate" - "address") + 
-    ("address" -> objFullAdr) + ("persons" -> personsObj) + ("owners" -> ownersObj) )
+  //val obj = Json.prettyPrint(((response2.json.as[JsObject] - "url") - "id" - "lastUpdateDate" - "address") + 
+  //  ("address" -> objFullAdr) + ("persons" -> personsObj) + ("owners" -> ownersObj) )
 
   println("response 2"+Json.prettyPrint(response2.json))
   println("response3: "+Json.prettyPrint(response3.json))
   println("response4: "+Json.prettyPrint(response4.json))
+      val personResp = initialOrgType match {
+        case "компании" => response2.json.as[JsObject]
+        case "ип" => getLookup(response2.json.as[Seq[JsObject]].head \ "person").get
+      }
 
-
-      val innF: JsLookupResult = (response2.json.as[JsObject] \ "inn")
+      val innF: JsLookupResult = (personResp \ "inn")
       val innV = innF.get.as[String]
-      val kppF: JsLookupResult = (response2.json.as[JsObject] \ "kpp")
-      val kpp = kppF.get.as[String]
-      val orgnF: JsLookupResult = (response2.json.as[JsObject] \ "ogrn")
-      val orgnV = orgnF.get.asOpt[String].getOrElse("")    
-      val orgnDateF: JsLookupResult = (response2.json.as[JsObject] \ "ogrnDate")
-      val orgnDate = orgnDateF.get.as[String]
+      val kppF: JsLookupResult = (personResp \ "kpp")
+      val kpp = getLookupString(getLookup(kppF))
+      val orgnF: JsLookupResult = (personResp \ "ogrn")
+      val orgnV = getLookupString(getLookup(orgnF))    
+      val orgnDateF: JsLookupResult = (personResp \ "ogrnDate")
+      val orgnDate = getLookupString(getLookup(orgnDateF))
 
-      val nameF =  (response2.json.as[JsObject] \ "name")
-      val nameV = nameF.get.as[String]
-      val shortNameF = (response2.json.as[JsObject] \ "shortName")
-      val shortNameV = shortNameF.get.as[String]
+      val nameF =  (personResp \ "name")
+      val nameV = getLookupString(getLookup(nameF))
+      val shortNameF = (personResp \ "shortName")
+      val shortNameV = getLookupString(getLookup(shortNameF))
 
-      val capValF = (response2.json.as[JsObject] \ "authorizedCapital" \ "type" \ "name")
-      val capTypeNameF = capValF.get.as[String]
-      val capValV = (response2.json.as[JsObject] \ "authorizedCapital" \ "value")
-      val capTypeValV = capValV.get.as[Long].toString
-    
+      val capValF = (personResp \ "authorizedCapital" \ "type" \ "name")
+      val capTypeNameF = getLookupString(getLookup(capValF))    
+      val capValV = (personResp \ "authorizedCapital" \ "value")
+      val capTypeValV = getLookupString(getLookup(capValV)) 
+
       val personsValF = response3.json//(response3.json.as[JsObject] \ "persons")
       val personValF = personsValF.as[JsArray].head.as[JsObject] \ "person"
       val personValV = personValF.get
@@ -264,25 +294,17 @@ part = owner.share.portion
       val personValVinn = personValF \ "inn"
       val personPositionF = personsValF.as[JsArray].head.as[JsObject] \ "postName"
 
-      val adressValF = (response2.json.as[JsObject] \ "address" \ "fullHouseAddress")
-      val adressVal = adressValF.get.as[String]
+      val adressValF = initialOrgType match {
+        case "компании" => (response2.json.as[JsObject] \ "address" \ "fullHouseAddress")
+        case "ип" => (response2.json.as[Seq[JsObject]].head \ "address" \ "fullHouseAddress")
+      }
+      val adressVal = getLookupString(getLookup(adressValF))
 
       val ownersValF = response4.json//(response4.json.as[JsObject] \ "owners")
       ////////////////////////////////////////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////////////////////////////////////////
-      def getLookup(l: JsLookupResult):Option[JsObject] = {
-        l match {
-          case JsDefined(v) => v.asOpt[JsObject]
-          case undefined: JsUndefined => None
-        }
-      }
-      def getLookupString(o: Option[JsObject]):String = {
-        o match {
-          case Some(os) => os.as[String]
-          case _ => ""
-        }
-      }
+ 
       val ownerValF:Option[JsObject] = ownersValF.as[Seq[JsObject]].headOption match {
         case Some(x) => getLookup(x \ "companyOwner")
         case _ => None
@@ -307,8 +329,12 @@ part = owner.share.portion
         case _ => None
       }      
       ////////////////////////////////////////////////////////////////////////////////////////////
+      val primaryResponse = initialOrgType match {
+        case "компании" => response2.json.as[JsObject]
+        case "ип" => response2.json.as[Seq[JsObject]].head
+      }
 
-      val okvedMainValF:Option[JsObject] =  getLookup(response2.json.as[JsObject] \ "mainOkved2")
+      val okvedMainValF:Option[JsObject] =  getLookup(primaryResponse \ "mainOkved2")
       val okvedMainCodeValF:Option[JsObject] = okvedMainValF match {
         case Some(x) => getLookup(x.as[JsObject] \ "code")
         case _ => None
@@ -317,7 +343,7 @@ part = owner.share.portion
         case Some(x) => getLookup(x.as[JsObject] \ "name")
         case _ => None
       }
-      val okvedValF = getLookup(response2.json.as[JsObject] \ "mainOkved2")
+      val okvedValF = getLookup(primaryResponse \ "mainOkved2")
       val okvedCodeValF:Option[JsObject] = okvedValF match {
         case Some(x) => getLookup(x.as[JsObject] \ "code")
         case _ => None
@@ -328,21 +354,27 @@ part = owner.share.portion
       }
    
 
-    val pfrRegistrationValF = (response2.json.as[JsObject] \ "pfrRegistration")
-    val pfrRegistrationRegNumberF = pfrRegistrationValF.get \ "number"
-    val pfrRegistrationNameF = pfrRegistrationValF.get \ "pfr" \ "name"
-    val pfrRegistrationCodeF = pfrRegistrationValF.get \ "pfr" \ "code"
-    val fssRegistrationValF = (response2.json.as[JsObject] \ "fssRegistration")
-    val fssRegistrationRegNumberF = fssRegistrationValF.get \ "number"
-    val fssRegistrationNameF = fssRegistrationValF.get \ "fss" \ "name"
-    val fssRegistrationCodeF = fssRegistrationValF.get \ "fss" \ "code"
+    val pfrRegistrationValF = getLookup(primaryResponse \ "pfrRegistration") match {
+      case Some(o) => o
+      case _ => Json.obj("c" -> "c")
+    }
+    val pfrRegistrationRegNumberF = getLookup(pfrRegistrationValF \ "number")
+    val pfrRegistrationNameF = getLookup(pfrRegistrationValF \ "pfr" \ "name")
+    val pfrRegistrationCodeF = getLookup(pfrRegistrationValF \ "pfr" \ "code")
+    val fssRegistrationValF = getLookup(primaryResponse \ "fssRegistration") match {
+      case Some(o) => o
+      case _ => Json.obj("c" -> "c")
+    }
+    val fssRegistrationRegNumberF = getLookup(fssRegistrationValF \ "number")
+    val fssRegistrationNameF = getLookup(fssRegistrationValF \ "fss" \ "name")
+    val fssRegistrationCodeF = getLookup(fssRegistrationValF \ "fss" \ "code")
 
-    val pfrRegistrationRegNumber = pfrRegistrationRegNumberF.get.as[String]
-    val pfrRegistrationName = pfrRegistrationNameF.get.as[String]
-    val pfrRegistrationCode = pfrRegistrationCodeF.get.as[String]    
-    val fssRegistrationRegNumber = fssRegistrationRegNumberF.get.as[String]
-    val fssRegistrationName = fssRegistrationNameF.get.as[String]
-    val fssRegistrationCode = fssRegistrationCodeF.get.as[String]
+    val pfrRegistrationRegNumber = getLookupString(pfrRegistrationRegNumberF)
+    val pfrRegistrationName = getLookupString(pfrRegistrationNameF)
+    val pfrRegistrationCode = getLookupString(pfrRegistrationCodeF)    
+    val fssRegistrationRegNumber = getLookupString(fssRegistrationRegNumberF)
+    val fssRegistrationName = getLookupString(fssRegistrationNameF)
+    val fssRegistrationCode = getLookupString(fssRegistrationCodeF)
 
    /*
     Ok()
@@ -360,10 +392,10 @@ part = owner.share.portion
           ceo = CEOObject(
                           name= NameObject(full_name = personValVfull_name.get.as[String],
                                             first_name = personValVfirst_name.get.as[String],
-                                            middle_name = personValVmiddle_name.get.as[String],
+                                            middle_name = getLookupString(getLookup(personValVmiddle_name)),
                                             last_name = personValVlast_name.get.as[String]),
                           inn=personValVinn.get.as[String],
-                          position= personPositionF.get.as[String]
+                          position= getLookupString(getLookup(personPositionF))
           ),
           owner = OwnerObject(
             name= NameObject(full_name = getLookupString(ownerNameValF), 
